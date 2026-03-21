@@ -1,2 +1,21 @@
-name: Anurag Sharma
+title: "Anurag Sharma"
+description: "AI Product & Delivery Leader. Building products that replace complexity with conversation."
+url: "https://arcanag.github.io"
+baseurl: ""
 markdown: kramdown
+permalink: pretty
+
+collections:
+  case-studies:
+    output: true
+    permalink: /case-studies/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "case-studies"
+    values:
+      layout: "case-study"
+
+plugins:
+  - jekyll-seo-tag

@@ -1,29 +1,13 @@
 <!DOCTYPE html>
-	<html>
-		<head>
-			<title>{{ page.title }}</title>
-			<!-- link to main stylesheet -->
-			<link rel="stylesheet" type="text/css" href="/css/main.css">
-		</head>
-		<body>
-			<nav>
-	    		<ul>
-	        		<li><a href="/">Home</a></li>
-		        	<li><a href="/about">About</a></li>
-<!-- 	        		<li><a href="/cv">CV</a></li> -->
-	        		<li><a href="/blog">Blog</a></li>
-	    		</ul>
-			</nav>
-			<div class="container">
-			
-			{{ content }}
-			
-			</div><!-- /.container -->
-			<footer>
-	    		<ul>
-	        		<li><a href="mailto:anurag95sharma@gmail.com">email</a></li>
-	        		<li><a href="https://github.com/Arcanag">github.com/Arcanag</a></li>
-				</ul>
-			</footer>
-		</body>
-	</html>
+<html lang="en">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include grain.html %}
+  {% include nav.html %}
+  <main id="main-content">{{ content }}</main>
+  {% include footer.html %}
+  <script src="{{ '/js/main.js' | relative_url }}"></script>
+</body>
+</html>

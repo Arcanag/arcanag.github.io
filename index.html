@@ -1,9 +1,53 @@
 ---
 layout: default
-title: Anurag Sharma
+title: Home
 ---
-    		<div class="blurb">
-        		<h1>Hi, I am Anurag Sharma.</h1>
-				<p>I am a freelance Web and Software Developer. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		
+
+<section class="hero">
+  <div class="container">
+    <p class="hero__label reveal" data-delay="1">AI Product &amp; Delivery Leader</p>
+    <h1 class="hero__title reveal" data-delay="2">I build AI products<br>that replace complexity<br>with conversation.</h1>
+    <p class="hero__subtitle reveal" data-delay="3">4+ years shipping conversational AI for enterprise. From voicebot platforms serving millions of calls to agent architectures that automate delivery workflows.</p>
+    <a href="{{ '/case-studies/' | relative_url }}" class="hero__scroll" aria-label="Scroll to work">Scroll</a>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="container">
+    <h2 class="reveal">Selected Work</h2>
+    <div class="work-grid">
+
+      <a href="{{ '/case-studies/banking-voicebot/' | relative_url }}" class="work-card reveal" data-delay="1">
+        <span class="work-card__label">B2B AI Product</span>
+        <h3 class="work-card__title">Banking Voicebot: Containment from 52% to 78%</h3>
+        <p class="work-card__description">Led a cross-functional initiative to improve voicebot containment rate across 16 enterprise clients, protecting $2.1M in annual revenue.</p>
+        <span class="work-card__metric">52% &rarr; 78%</span>
+        <span class="work-card__metric-label">Containment Rate</span>
+        <span class="work-card__arrow">Read case study</span>
+      </a>
+
+      <div class="work-card reveal" data-delay="2" style="opacity: 0.5; pointer-events: none;">
+        <span class="work-card__label">Product Teardown</span>
+        <h3 class="work-card__title">AI Voice Platform Teardown</h3>
+        <p class="work-card__description">Five-layer analysis of a voice AI platform: value proposition, onboarding, core loop, monetization, and differentiation.</p>
+        <span class="work-card__arrow">Coming soon</span>
+      </div>
+
+      <div class="work-card reveal" data-delay="3" style="opacity: 0.5; pointer-events: none;">
+        <span class="work-card__label">AI Evaluation Framework</span>
+        <h3 class="work-card__title">Measuring What Matters in Voice AI</h3>
+        <p class="work-card__description">A 4-layer evaluation framework for voice AI systems: task success, quality/safety, performance/cost, and user experience.</p>
+        <span class="work-card__arrow">Coming soon</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width: var(--content-width);">
+    <h2 class="reveal">About</h2>
+    <p class="reveal" data-delay="1">I specialize in conversational AI products at the intersection of NLP, voice technology, and enterprise SaaS. My work spans voicebot platform delivery, integration architecture, and sprint operations for high-stakes B2B environments.</p>
+    <p class="reveal" data-delay="2" style="margin-top: var(--space-sm);"><a href="{{ '/about/' | relative_url }}">More about me &rarr;</a></p>
+  </div>
+</section>

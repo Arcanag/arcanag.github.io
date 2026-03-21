@@ -1,0 +1,26 @@
+---
+layout: page
+title: Work
+---
+
+<div class="work-grid">
+  {% for study in site.case-studies %}
+  <a href="{{ study.url }}" class="work-card reveal">
+    {% if study.category %}
+    <span class="work-card__label">{{ study.category }}</span>
+    {% endif %}
+    <h3 class="work-card__title">{{ study.title }}</h3>
+    {% if study.description %}
+    <p class="work-card__description">{{ study.description }}</p>
+    {% endif %}
+    {% if study.key_metric %}
+    <span class="work-card__metric">{{ study.key_metric }}</span>
+    {% endif %}
+    <span class="work-card__arrow">Read case study</span>
+  </a>
+  {% endfor %}
+</div>
+
+{% if site.case-studies.size == 0 %}
+<p class="text-muted reveal">Case studies coming soon.</p>
+{% endif %}
