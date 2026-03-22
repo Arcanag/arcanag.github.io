@@ -5,6 +5,7 @@ description: "The recursive meta-narrative of using Claude Code to build Career 
 category: "Building with AI"
 read_time: "10 min read"
 date: 2026-03-22
+published: false
 tags: ["meta-narrative", "ai-product-management", "claude-code", "career"]
 toc:
   - title: "Three Layers Deep"
