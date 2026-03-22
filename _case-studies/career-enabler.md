@@ -6,7 +6,7 @@ category: "AI Product — 0 to 1"
 key_metric: "16 features shipped in 1 day"
 read_time: "10 min read"
 date: 2026-03-22
-hidden: true
+hidden: false
 toc:
   - title: "The Problem"
     anchor: "the-problem"
@@ -25,11 +25,11 @@ toc:
 ## The Problem
 {: #the-problem}
 
-I was preparing for AI PM interviews while working full-time. Every resume tailoring session meant 30-40 minutes of manual work: reading the JD, identifying keywords, rewriting bullets, checking ATS compatibility, then doing it again for the next application. Multiply that by 5-8 applications per week, and the job search itself becomes a part-time job.
+Career transitions are one of the most time-intensive workflows professionals face. Every resume tailoring session means 30-40 minutes of manual work: reading the JD, identifying keywords, rewriting bullets, checking ATS compatibility, then doing it again for the next application. Multiply that by 5-8 applications per week, and the career transition itself becomes a part-time job.
 
-Existing tools fell into two camps. Generic resume builders that slapped keywords onto templates with no intelligence. Or expensive SaaS platforms charging $30-50/month that still required significant manual editing.
+The problem goes beyond resume mechanics. Professionals switching roles lack structured guidance on how to reposition their experience, identify transferable skills, and prepare for interviews in a new domain. Existing tools fall into two camps: generic resume builders that slap keywords onto templates with no intelligence, or expensive SaaS platforms charging $30-50/month that still require significant manual editing.
 
-I wanted something different: a tool that understood the *delta* between my resume and a target JD, made surgical edits instead of rewriting everything, scored ATS compatibility without burning LLM tokens, and let me bring my own API keys so I controlled costs.
+I saw an opportunity for something different: a tool that understood the *delta* between a resume and a target JD, made surgical edits instead of rewriting everything, scored ATS compatibility without burning LLM tokens, and let users bring their own API keys to control costs.
 
 So I built it.
 
@@ -51,7 +51,7 @@ So I built it.
 ## Product Vision
 {: #product-vision}
 
-Career Enabler is an AI-powered resume intelligence platform that helps job seekers tailor resumes, prepare for interviews, and discover best-fit roles — all from a single workspace.
+Career Enabler is an AI-powered resume intelligence platform that helps professionals navigating career transitions tailor resumes, prepare for interviews, and discover best-fit roles — all from a single workspace.
 
 The core product thesis: **most resume work is mechanical, not creative.** Keyword matching, formatting checks, readability scoring — these should be automated with rule-based systems. LLMs should only activate for the genuinely creative work: rewriting bullets, generating interview answers, and analyzing career fit.
 
@@ -107,7 +107,7 @@ Users bring their own API keys for Claude, GPT-4o, or Gemini. This was a deliber
 ## Building at Speed
 {: #building-at-speed}
 
-All 16 features were built on March 22, 2026, using Claude Code as an AI pair programmer. The day was one day. The product judgment that made it possible was years of shipping AI products in production. The workflow was disciplined:
+All 16 features were built in a single day, using Claude Code as an AI pair programmer. The speed was one day. The product judgment that made it possible was years of shipping AI products in production. The workflow was disciplined:
 
 1. Write a Jira ticket with acceptance criteria
 2. Create a feature branch
@@ -163,7 +163,7 @@ This product has real gaps. I built it in a day and some things show.
 - Implement rate limiting and abuse prevention for the BYOK key system.
 
 <div class="callout">
-<strong>Why include this section?</strong> Because product judgment means knowing what you shipped, what you cut, and what you would do differently. A PM who only talks about wins is either inexperienced or dishonest.
+<strong>Why include this section?</strong> Because product judgment means knowing what you shipped, what you cut, and what you would do differently. Honest assessment of gaps is what separates a demo from a product.
 </div>
 
 ## What I Learned
@@ -183,7 +183,7 @@ Bring-your-own-key is not just cost optimization. It is a trust signal, a flexib
 
 ### 4. Shipping Beats Planning
 
-I could have spent a week writing a PRD. Instead, I shipped 16 features in a day. Some are rough. Some will need rework. But I have a working product, real code to reference in interviews, and concrete evidence that I can go from zero to one.
+I could have spent a week writing a PRD. Instead, I shipped 16 features in a day. Some are rough. Some will need rework. But the product works, the code is real, and the architecture decisions are documented.
 
 ### 5. The Jira Discipline Matters Even When You Are Solo
 

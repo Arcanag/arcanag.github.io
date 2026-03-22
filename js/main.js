@@ -29,20 +29,21 @@
 
   // Mobile nav toggle
   var hamburger = document.querySelector('.nav__hamburger');
-  if (hamburger) {
+  var navEl = document.querySelector('.nav');
+  if (hamburger && navEl) {
     hamburger.addEventListener('click', function () {
-      var open = document.body.classList.toggle('nav--open');
+      var open = navEl.classList.toggle('nav--open');
       hamburger.setAttribute('aria-expanded', open);
     });
     document.querySelectorAll('.nav__link').forEach(function (link) {
       link.addEventListener('click', function () {
-        document.body.classList.remove('nav--open');
+        navEl.classList.remove('nav--open');
         hamburger.setAttribute('aria-expanded', 'false');
       });
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && document.body.classList.contains('nav--open')) {
-        document.body.classList.remove('nav--open');
+      if (e.key === 'Escape' && navEl.classList.contains('nav--open')) {
+        navEl.classList.remove('nav--open');
         hamburger.setAttribute('aria-expanded', 'false');
         hamburger.focus();
       }

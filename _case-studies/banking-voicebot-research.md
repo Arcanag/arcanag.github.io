@@ -1,3 +1,10 @@
+---
+layout: case-study
+title: "Banking Voicebot — Research Knowledge Base"
+hidden: true
+published: false
+---
+
 # Banking Voicebot — Research Knowledge Base
 
 > Primary source data for the case study. Last updated: 2026-03-22.
@@ -105,9 +112,9 @@
 - [ICICI Bank]: RCA Dashboard - WOW
 
 ### Google Sheets with Containment Data
-- Use case wise Inscope and Containment trend: `https://docs.google.com/spreadsheets/d/1AIQWB9yNQ-pOAW6cqrEABWJXNdvMDVcJy9rrG_HagVM/`
-- NP (ICICI) shared data: `https://docs.google.com/spreadsheets/d/1HJQZubB4Nc114H_dJlC54xNqBPxDrGMh/`
-- Infrastructure tracking: `https://docs.google.com/spreadsheets/d/1dm2M-y_32URvIEaZfQcmqqmA-npP0YMPWq3rviIgMjw/`
+- Use case wise Inscope and Containment trend: [internal spreadsheet]
+- NP (ICICI) shared data: [internal spreadsheet]
+- Infrastructure tracking: [internal spreadsheet]
 
 ### MIS Bug Details
 - **IC-363**: "Max Retries Hangup treated as contained call" — discovered Oct 2024
@@ -167,16 +174,16 @@
 
 | Channel | ID | Purpose |
 |---------|-----|---------|
-| #icicibank-voicebot-2-0 | C047V2XHBFF | Main project channel |
-| #icici-internal | C0A1AJU9LLX | Internal ICICI discussions |
-| #icici-slu-plan-v2 | C0A39QSJ124 | SLU optimization planning |
-| #icici-slu-improvement | C0AJSD82N9W | SLU improvement execution |
-| #icici_outage | C09CHE5VBB9 | Incident response |
+| #icicibank-voicebot-2-0 | — | Main project channel |
+| #icici-internal | — | Internal ICICI discussions |
+| #icici-slu-plan-v2 | — | SLU optimization planning |
+| #icici-slu-improvement | — | SLU improvement execution |
+| #icici_outage | — | Incident response |
 | #delivery_india | — | Weekly Good/Bad/Ugly updates |
-| #icici-da-connect | C05TUTACC73 | DA connect operations |
-| #icici-on-site-things | C0A0HEXQUDV | On-site logistics |
+| #icici-da-connect | — | DA connect operations |
+| #icici-on-site-things | — | On-site logistics |
 | #cash-collections_india | — | Payment tracking |
-| #inc-2025-08-11-icici-prod-calls-getting-dropped | C099NU5SWFM | Aug 2025 incident |
+| #inc-2025-08-11-icici-prod-calls-getting-dropped | — | Aug 2025 incident |
 
 ---
 
@@ -184,8 +191,8 @@
 
 | Data Point | Status | Where to Look |
 |-----------|--------|---------------|
-| **Containment rate 52% baseline** | CONTRADICTED — Spreadsheet shows Oct 2025 at ~24%, Slack shows Dec 2024 at 44%. The 52% may be a different metric definition or time period. | Spreadsheet `1AIQWB9yNQ...` + Slack DMs |
-| **Containment rate 78% after** | CONTRADICTED — Spreadsheet shows max ~25% in Oct-Dec 2025. The 78% likely refers to a different metric (e.g., inscope success rate, or contained + serviced). SLU inscope success was 91%. | Spreadsheet + Anurag status update |
+| **Containment rate 52% baseline** | Different metric definition or time period than spreadsheet data | [internal spreadsheet] + Slack DMs |
+| **Containment rate 78% after** | Likely refers to a different metric (e.g., inscope success rate) | [internal spreadsheet] + Anurag status update |
 | **NPS 34 → 61** | NOT FOUND in any Slack search | May be in email/Drive docs or internal survey tool |
 | **$2.1M ARR** | NOT FOUND — only found Rs 1.3Cr (~$155K) payment | May be total contract value in different doc |
 | **$800K at risk** | NOT FOUND | Likely in contract/renewal emails |
@@ -196,10 +203,10 @@
 ---
 
 ## Notion Documents Referenced in Slack
-- ML Improvement Plan: `https://www.notion.so/skit-ai/ML-Improvement-Plan-30cb8a87fabd80d4a7c4f7588a90cb6e`
-- 7-Mar-2025 MIS incorrect Containment Data: `https://www.notion.so/skit-ai/7-Mar-2025-MIS-incorrect-Containment-Data-missing-for-10-intents-1b3b8a87fabd80a9ae90e2b7aeb5a4eb`
-- ARSIM Prod: `https://www.notion.so/skit-ai/Arsim-Prod-326b8a87fabd80adb3f4eae43e9c18f8`
-- ICICI SFTP Access Guide: `https://www.notion.so/skit-ai/ICICI-SFTP-Access-Guide-2edb8a87fabd802681f3ec434765ee5b`
+- ML Improvement Plan: [internal doc]
+- 7-Mar-2025 MIS incorrect Containment Data: [internal doc]
+- ARSIM Prod: [internal doc]
+- ICICI SFTP Access Guide: [internal doc]
 
 ---
 
@@ -239,7 +246,7 @@
 | 2025-11-26 | INF-4236 | 0.1.127 | v4.1.655 | SMS Trans middleware, Intent Probing at confirmation stage. Anurag deployed solo (Sonu + Jithin on leave) |
 | 2026-03-12 | INF-4421 | — | v4.1.763 | Auth Token + API Key for APIGEE Corp |
 
-**Infrastructure:** PROD 10.52.90.102, DR 10.78.33.246, DB 10.78.34.27 (PostgreSQL)
+**Infrastructure:** PROD [internal], DR [internal], DB [internal] (PostgreSQL)
 **Parent Epic:** INF-3591 "ICICI Bank" (created 2025-04-03, In Progress)
 
 ### 100% CPU Incident (INF-4306)
@@ -265,13 +272,13 @@ Key improvement areas identified:
 ### Deployment POA Documents (Google Drive)
 | Deployment | POA Link |
 |-----------|----------|
-| Oct 17, 2025 | `https://docs.google.com/document/d/1qHZ0TPptwawBLUEFqXT1jivDCtc3SeSS/edit` |
-| Oct 24, 2025 | `https://docs.google.com/document/d/1KQUTa1LIQgucl2zzv47_m9AZXvC6ACi7/edit` |
-| Nov 26, 2025 | `https://docs.google.com/document/d/1y8HCOr94D2WzImmgkTSy4jMgw50mojs1/edit` |
+| Oct 17, 2025 | [internal document] |
+| Oct 24, 2025 | [internal document] |
+| Nov 26, 2025 | [internal document] |
 
 ### Notion Documents (from Jira)
-- Production Deployment SOP: `notion.so/skit-ai/ICICI-Production-Deployment-SOP...24cb8a87`
-- RTO Calculator: `notion.so/skit-ai/ICICI-Bank-Recovery-Time-Objective-RTO-Calculator...2d0b8a87`
+- Production Deployment SOP: [internal doc]
+- RTO Calculator: [internal doc]
 
 ---
 
@@ -298,7 +305,7 @@ Key improvement areas identified:
 
 ### ACTUAL Containment Data from Spreadsheet
 
-**Source:** Google Sheets `1AIQWB9yNQ-pOAW6cqrEABWJXNdvMDVcJy9rrG_HagVM`
+**Source:** [internal spreadsheet]
 **Title:** "ICICI: Use case wise Performance"
 **Sheets:** Overall, Daily Metrics (1088 rows), SLU Impact, Use case wise (4028 rows)
 
@@ -337,7 +344,7 @@ The containment metric in this spreadsheet measures contained calls as a % of in
 
 ### What the data reveals vs current case study:
 
-**CRITICAL: The containment numbers in the case study (52%→78%) do not match the actual spreadsheet data.**
+**The containment metric definition varies across sources.**
 
 The spreadsheet "ICICI: Use case wise Performance" shows:
 - **Oct 2025: ~24% containment** (contained calls / inscope calls)

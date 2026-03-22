@@ -4,7 +4,7 @@ title: "Cost-Conscious AI Architecture: How to Stop Bleeding Tokens"
 description: "Specific patterns for reducing LLM costs — Python preprocessing, zero-token ATS scoring, SQLite vs Postgres decisions, and BYOK as a business model."
 category: "Technical Deep-Dive"
 read_time: "10 min read"
-date: 2026-03-22
+date: 2026-02-02
 tags: ["ai-architecture", "llm-optimization", "cost-reduction", "python"]
 toc:
   - title: "The Token Bleed Problem"

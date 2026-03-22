@@ -4,9 +4,12 @@
   {% include head.html %}
 </head>
 <body>
+  <script>document.documentElement.classList.add('js');</script>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   {% include grain.html %}
   {% include nav.html %}
   <main id="main-content">{{ content }}</main>
+  {% include cta.html %}
   {% include footer.html %}
   <script src="{{ '/js/main.js' | relative_url }}"></script>
 </body>

@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "How I Used AI to Build an AI Career Tool (and What Each Layer Taught Me)"
-description: "The recursive meta-narrative of using Claude Code to build Career Enabler to land an AI PM role — with honest self-critique of both products."
+description: "The recursive meta-narrative of using Claude Code to build Career Enabler — three layers of AI, and what each layer taught me about building AI products."
 category: "Building with AI"
 read_time: "10 min read"
 date: 2026-03-22
-published: false
-tags: ["meta-narrative", "ai-product-management", "claude-code", "career"]
+published: true
+tags: ["meta-narrative", "ai-product-management", "claude-code", "building"]
 toc:
   - title: "Three Layers Deep"
     anchor: "three-layers-deep"
@@ -29,9 +29,9 @@ There's a recursive quality to what I built on March 22, 2026, and I think the r
 
 **Layer 1**: I used an AI tool (Claude Code) to write software.
 **Layer 2**: The software I built (Career Enabler) uses AI to tailor resumes and prep for interviews.
-**Layer 3**: The resumes it tailors are meant to help me land an AI Product Management role.
+**Layer 3**: The resumes it tailors help professionals navigating career transitions present their experience effectively.
 
-AI building AI for an AI career. Each layer reveals something different about how AI actually works in practice — not in theory, not in demos, but in the messy reality of shipping a product.
+AI building AI to solve a real workflow problem. Each layer reveals something different about how AI actually works in practice — not in theory, not in demos, but in the messy reality of shipping a product.
 
 <div class="metric-box"><span class="metric-box__label">Layers of AI</span><span class="metric-box__number">3</span></div>
 
@@ -115,7 +115,7 @@ Shipping fast means making tradeoffs, and I want to be specific about what's str
 ## What Building Taught That Studying Couldn't
 {: #what-building-taught}
 
-I've read PM books, taken courses, done mock interviews. Building two products taught me things none of that did:
+I've read PM books, taken courses, studied frameworks. Building two products taught me things none of that did:
 
 **Prioritization under real pressure.** When you have 24 hours and a product vision, every feature competes for time. Interview prep almost got cut from Career Enabler. I kept it because it completes the user journey — tailor, match, AND prep.
 
@@ -125,9 +125,9 @@ I've read PM books, taken courses, done mock interviews. Building two products t
 
 **The gap between "works" and "done."** Every feature had a moment where it worked in manual testing but wasn't done — missing error handling, no loading states, no edge cases. The discipline to write tests and handle errors separates a demo from a product.
 
-Here's what I believe about PM career transitions: you don't need permission to build. You don't need a PM title to make product decisions. You don't need a company's blessing to ship software. The compound effect of shipping real software, with real tradeoffs, teaches more than any course or certification.
+Here's what I believe about building: you don't need permission to ship. You don't need a title to make product decisions. You don't need a company's blessing to build software that solves real problems. The compound effect of shipping real software, with real tradeoffs, teaches more than any course or certification.
 
-The portfolio is the proof. The GitHub history is the interview prep. The architecture decisions are the case study.
+The portfolio is the proof. The GitHub history is the track record. The architecture decisions are the case study.
 
 ---
 

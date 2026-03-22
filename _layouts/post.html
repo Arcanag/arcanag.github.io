@@ -2,7 +2,7 @@
 layout: default
 ---
 <article class="case-study">
-  <section class="case-study-hero">
+  <header class="case-study-hero">
     <div class="container">
       {% if page.category %}
       <p class="case-study-hero__label reveal">{{ page.category }}</p>
@@ -24,7 +24,7 @@ layout: default
       </div>
       {% endif %}
     </div>
-  </section>
+  </header>
 
   <div class="case-study-body container">
     {% if page.toc %}
@@ -43,6 +43,11 @@ layout: default
     <div class="case-study-content">
       {{ content }}
     </div>
+  </div>
+
+  <div class="case-study-cta container">
+    <p class="case-study-cta__text">Interested in discussing this kind of work?</p>
+    <a href="mailto:anurag95sharma@gmail.com" class="cta-section__button">Get in Touch</a>
   </div>
 
   <div class="case-study-back container">

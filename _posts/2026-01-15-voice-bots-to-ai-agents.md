@@ -4,7 +4,7 @@ title: "From Voice Bots to AI Agents: What Conversational AI Already Learned"
 description: "Four years of building production voice AI taught lessons that the agentic AI wave is relearning the hard way — confidence thresholds, graceful degradation, and escape hatches."
 category: "AI Product Thinking"
 read_time: "8 min read"
-date: 2026-03-22
+date: 2026-01-15
 tags: ["conversational-ai", "agentic-systems", "voice-ai", "thought-leadership"]
 toc:
   - title: "Voice Bots Were the First Agents"

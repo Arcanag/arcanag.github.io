@@ -4,7 +4,7 @@ title: "Two AI Products in One Day: 63 PRs, 67 Jira Tickets, and Zero Chaos"
 description: "How engineering discipline made AI-assisted development faster, not slower — building Career Enabler and Agentic PM in a single day."
 category: "Building with AI"
 read_time: "8 min read"
-date: 2026-03-22
+date: 2026-03-08
 tags: ["ai-development", "claude-code", "product-building", "engineering-discipline"]
 toc:
   - title: "The Headline Numbers"

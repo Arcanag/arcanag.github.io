@@ -4,7 +4,7 @@ title: "Testing Non-Deterministic AI Products: A Practical Playbook"
 description: "100+ tests across two AI products — how to build a testing pyramid when your core feature returns different output every time."
 category: "Technical Deep-Dive"
 read_time: "8 min read"
-date: 2026-03-22
+date: 2026-02-18
 tags: ["testing", "ai-products", "pytest", "playwright"]
 toc:
   - title: "The Problem"
