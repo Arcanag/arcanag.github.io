@@ -90,8 +90,6 @@ The Prisma schema supports full multi-tenancy with organization-based data isola
 <strong>Why this schema matters:</strong> The data model IS the product. A multi-agent PM tool without proper dependency tracking, RACI support, and audit trails is a toy. The schema was designed before the first agent was built.
 </div>
 
-**[View on GitHub](https://github.com/Arcanag/agentic-pm)**
-
 ## The 6 Agents
 {: #the-6-agents}
 
@@ -223,4 +221,3 @@ Career Enabler and Agentic PM were both built on the same day — a compressed t
 
 ---
 
-*Agentic PM is open source. [View the code on GitHub.](https://github.com/Arcanag/agentic-pm)*
