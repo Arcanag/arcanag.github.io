@@ -6,6 +6,7 @@ category: "AI Product — 0 to 1"
 key_metric: "16 features shipped in 1 day"
 read_time: "10 min read"
 date: 2026-03-22
+hidden: true
 toc:
   - title: "The Problem"
     anchor: "the-problem"

@@ -5,6 +5,7 @@ title: Work
 
 <div class="work-grid">
   {% for study in site.case-studies %}
+  {% if study.hidden %}{% continue %}{% endif %}
   <a href="{{ study.url }}" class="work-card reveal">
     {% if study.category %}
     <span class="work-card__label">{{ study.category }}</span>
