@@ -16,6 +16,10 @@ defaults:
       type: "case-studies"
     values:
       layout: "case-study"
+  - scope:
+      path: "_posts"
+    values:
+      layout: "post"
 
 plugins:
   - jekyll-seo-tag

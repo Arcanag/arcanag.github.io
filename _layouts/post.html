@@ -1,0 +1,51 @@
+---
+layout: default
+---
+<article class="case-study">
+  <section class="case-study-hero">
+    <div class="container">
+      {% if page.category %}
+      <p class="case-study-hero__label reveal">{{ page.category }}</p>
+      {% endif %}
+      <h1 class="case-study-hero__title reveal">{{ page.title }}</h1>
+      {% if page.description %}
+      <p class="case-study-hero__description reveal">{{ page.description }}</p>
+      {% endif %}
+      <p class="case-study-hero__meta reveal">
+        {% if page.read_time %}{{ page.read_time }}{% endif %}
+        {% if page.read_time and page.date %} &middot; {% endif %}
+        {% if page.date %}{{ page.date | date: "%B %d, %Y" }}{% endif %}
+      </p>
+      {% if page.tags %}
+      <div class="post-tags reveal">
+        {% for tag in page.tags %}
+        <span class="post-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="case-study-body container">
+    {% if page.toc %}
+    <aside class="case-study-toc" aria-label="Table of contents">
+      <p class="case-study-toc__label">Contents</p>
+      <nav>
+        <ul class="case-study-toc__list" role="list">
+          {% for item in page.toc %}
+          <li><a href="#{{ item.anchor }}" class="case-study-toc__link">{{ item.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </aside>
+    {% endif %}
+
+    <div class="case-study-content">
+      {{ content }}
+    </div>
+  </div>
+
+  <div class="case-study-back container">
+    <a href="{{ '/blog/' | relative_url }}" class="case-study-back__link">&larr; Back to Blog</a>
+  </div>
+</article>

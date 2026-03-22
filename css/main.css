@@ -529,6 +529,24 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   background: var(--color-border-mid);
 }
 
+/* --- j-1) Blog Post Tags --- */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+.post-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  padding: 0.15em 0.6em;
+}
+
 /* --- j) About / Page --- */
 .page { padding-bottom: var(--space-3xl); }
 .page__header {
