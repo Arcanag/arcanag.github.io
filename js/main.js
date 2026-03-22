@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  // Scroll reveal
+  // Scroll reveal — content is visible by default.
+  // Only add hide-then-animate behavior if IntersectionObserver is available.
   var reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && reveals.length) {
     var observer = new IntersectionObserver(function (entries) {
@@ -13,13 +14,15 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(function (el) { observer.observe(el); });
-    // Safety net: force all reveals visible after 1.5s in case observer doesn't fire
-    setTimeout(function () {
-      reveals.forEach(function (el) { el.classList.add('reveal--visible'); });
-    }, 1500);
-  } else {
-    reveals.forEach(function (el) { el.classList.add('reveal--visible'); });
+    // NOW activate the hide — observer is ready and will immediately reveal visible elements
+    document.documentElement.classList.add('reveal-ready');
   }
+  // If no IntersectionObserver: content stays visible, no animation. That's fine.
+
+  // Safety net: force all reveals visible after 2s regardless
+  setTimeout(function () {
+    reveals.forEach(function (el) { el.classList.add('reveal--visible'); });
+  }, 2000);
 
   // Nav scroll state
   var nav = document.querySelector('.nav');
