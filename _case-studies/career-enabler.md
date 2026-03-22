@@ -60,6 +60,27 @@ This led to a two-tier intelligence architecture:
 - **Tier 1 (Zero LLM cost):** ATS scoring across 4 dimensions (parsability, keyword match, formatting, structure), readability analysis (Flesch-Kincaid, passive voice detection, weak verb flagging), and skill gap extraction using spaCy NER + TF-IDF.
 - **Tier 2 (LLM-powered):** Resume tailoring with delta-only prompts, conversational editing, interview prep, STAR answer coaching, and career discovery.
 
+<figure class="viz" role="img" aria-label="Two-tier intelligence architecture: Tier 1 zero-cost NLP vs Tier 2 LLM-powered">
+<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="10" width="310" height="140" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">TIER 1 — Zero LLM Cost</text>
+  <line x1="36" y1="46" x2="314" y2="46" stroke="#222" stroke-width="1"/>
+  <text x="175" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">ATS Scoring (4 dimensions)</text>
+  <text x="175" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Readability Analysis</text>
+  <text x="175" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Skill Gap Extraction</text>
+  <text x="175" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">spaCy + TF-IDF + textstat</text>
+  <line x1="350" y1="20" x2="350" y2="140" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+  <rect x="370" y="10" width="310" height="140" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">TIER 2 — LLM-Powered</text>
+  <line x1="386" y1="46" x2="664" y2="46" stroke="#222" stroke-width="1"/>
+  <text x="525" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Resume Tailoring</text>
+  <text x="525" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Interview Prep & STAR Coaching</text>
+  <text x="525" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Career Discovery</text>
+  <text x="525" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Claude / GPT-4o / Gemini (BYOK)</text>
+</svg>
+<figcaption>Two-tier architecture: deterministic NLP at zero cost for scoring/extraction; LLMs reserved for reasoning-heavy tasks.</figcaption>
+</figure>
+
 The business model is freemium: 3 free generations to prove value, then $9/month for unlimited access via Stripe.
 
 **[View on GitHub](https://github.com/Arcanag/career-enabler)**
@@ -95,6 +116,32 @@ This was the architectural decision I'm most proud of. Before any text hits an L
 Only then does the LLM receive a focused prompt: "Here are the 7 missing keywords, here are 3 bullets with passive voice, here is the readability score. Rewrite only the sections that need improvement."
 
 This delta-only approach cuts token usage by an estimated 40-60% compared to sending the full resume for rewrite every time.
+
+<figure class="viz" role="img" aria-label="Token preprocessing pipeline reducing 2000 tokens to 300 through NER, TF-IDF, and textstat">
+<svg viewBox="0 0 700 100" xmlns="http://www.w3.org/2000/svg">
+  <rect x="8" y="22" width="108" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="62" y="38" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">Resume + JD</text>
+  <text x="62" y="52" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">(2000 tokens)</text>
+  <line x1="116" y1="42" x2="136" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="136,38 144,42 136,46" fill="#444"/>
+  <rect x="144" y="27" width="72" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">spaCy NER</text>
+  <line x1="216" y1="42" x2="236" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="236,38 244,42 236,46" fill="#444"/>
+  <rect x="244" y="27" width="72" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="280" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">TF-IDF</text>
+  <line x1="316" y1="42" x2="336" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="336,38 344,42 336,46" fill="#444"/>
+  <rect x="344" y="27" width="72" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="380" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">textstat</text>
+  <line x1="416" y1="42" x2="436" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="436,38 444,42 436,46" fill="#444"/>
+  <rect x="444" y="22" width="108" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="498" y="38" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">Delta Prompt</text>
+  <text x="498" y="52" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">(300 tokens)</text>
+  <line x1="552" y1="42" x2="572" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="572,38 580,42 572,46" fill="#444"/>
+  <rect x="580" y="27" width="70" height="30" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="615" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0ebe0">LLM</text>
+  <text x="350" y="85" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">40-60% token reduction</text>
+</svg>
+<figcaption>Preprocessing pipeline: raw input compressed through NER, TF-IDF, and readability analysis before reaching the LLM.</figcaption>
+</figure>
 
 <div class="callout">
 <strong>Design Principle:</strong> Use rule-based systems for everything deterministic. Reserve LLM calls for tasks that genuinely require reasoning. This is not just a cost optimization — it makes the product faster and more predictable.

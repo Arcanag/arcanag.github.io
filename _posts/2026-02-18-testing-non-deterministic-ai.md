@@ -138,6 +138,22 @@ Here's the testing pyramid for AI products:
 
 <div class="metric-box"><span class="metric-box__label">Automated Test Layers</span><span class="metric-box__number">3</span></div>
 
+<figure class="viz" role="img" aria-label="AI testing pyramid: unit tests 60%, integration 20%, E2E 15%, manual eval 5%">
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="350,15 580,175 120,175" fill="none" stroke="#222" stroke-width="1"/>
+  <rect x="150" y="140" width="400" height="32" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="350" y="161" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Unit Tests — Mocked LLM + Preprocessing (60%)</text>
+  <rect x="200" y="105" width="300" height="30" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="350" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Integration Tests (20%)</text>
+  <rect x="250" y="72" width="200" height="28" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="350" y="91" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">E2E — Playwright (15%)</text>
+  <rect x="300" y="40" width="100" height="26" rx="2" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="350" y="58" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Manual (5%)</text>
+  <text x="350" y="192" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">100+ tests across two AI products</text>
+</svg>
+<figcaption>AI testing pyramid: most coverage from fast mocked unit tests; manual evaluation reserved for qualitative review.</figcaption>
+</figure>
+
 ## What Not to Test
 {: #what-not-to-test}
 

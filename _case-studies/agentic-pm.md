@@ -54,6 +54,34 @@ The architecture reflects a core belief: **multi-agent systems should be compose
 
 Each agent has a single responsibility, a well-defined input/output contract, and can be tested independently. The agents compose into a pipeline, but they are not tightly coupled — you can use the Requirement Parser without the Decomposition Agent, or the Communication Agent without the Timeline Agent.
 
+<figure class="viz" role="img" aria-label="6-agent pipeline: Requirement Parser to Decomposition to Routing, branching to Communication, Chat, and Timeline">
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="70" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Requirement</text>
+  <text x="70" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Parser</text>
+  <line x1="130" y1="100" x2="160" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="160,96 168,100 160,104" fill="#444"/>
+  <rect x="168" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="228" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Decomposition</text>
+  <text x="228" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Agent</text>
+  <line x1="288" y1="100" x2="318" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="318,96 326,100 318,104" fill="#444"/>
+  <rect x="326" y="80" width="100" height="40" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="376" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0ebe0">Routing</text>
+  <line x1="426" y1="100" x2="456" y2="100" stroke="#444" stroke-width="1.5"/>
+  <line x1="456" y1="100" x2="456" y2="35" stroke="#444" stroke-width="1.5"/>
+  <line x1="456" y1="35" x2="486" y2="35" stroke="#444" stroke-width="1.5"/><polygon points="486,31 494,35 486,39" fill="#444"/>
+  <line x1="456" y1="100" x2="486" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="486,96 494,100 486,104" fill="#444"/>
+  <line x1="456" y1="100" x2="456" y2="165" stroke="#444" stroke-width="1.5"/>
+  <line x1="456" y1="165" x2="486" y2="165" stroke="#444" stroke-width="1.5"/><polygon points="486,161 494,165 486,169" fill="#444"/>
+  <rect x="494" y="15" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="554" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Communication</text>
+  <rect x="494" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="554" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Chat Agent</text>
+  <rect x="494" y="145" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="554" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Timeline Agent</text>
+</svg>
+<figcaption>6-agent pipeline: requirements flow through parsing, decomposition, and routing before dispatch to specialist agents.</figcaption>
+</figure>
+
 ### Stack
 
 - **Frontend:** Next.js 15 (App Router, TypeScript)
@@ -146,6 +174,23 @@ Instead of producing a single delivery date (which is always wrong), the Timelin
 - **P75:** 75% chance (realistic)
 - **P90:** 90% chance (conservative)
 
+<figure class="viz" role="img" aria-label="Monte Carlo distribution with P50, P75, and P90 confidence intervals">
+<svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 60,145 C 110,140 170,118 230,60 C 275,28 300,22 340,22 C 380,28 405,60 445,90 C 490,118 520,140 560,145" fill="#141414" stroke="#f0ebe0" stroke-width="1.5"/>
+  <line x1="50" y1="145" x2="570" y2="145" stroke="#333" stroke-width="1"/>
+  <line x1="340" y1="20" x2="340" y2="145" stroke="#ff2d00" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="420" y1="65" x2="420" y2="145" stroke="#f0ebe0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="490" y1="118" x2="490" y2="145" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="340" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ff2d00">P50</text>
+  <text x="340" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#ff2d00">Aggressive</text>
+  <text x="420" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0ebe0">P75</text>
+  <text x="420" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">Realistic</text>
+  <text x="490" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#888">P90</text>
+  <text x="490" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Conservative</text>
+</svg>
+<figcaption>Monte Carlo simulation: 1,000 iterations produce a probability distribution. P50/P75/P90 mark delivery confidence levels.</figcaption>
+</figure>
+
 <div class="callout">
 <strong>Product insight:</strong> Shipping dates are not single points — they are probability distributions. Any PM tool that gives you one date is lying to you. Monte Carlo forecasting makes uncertainty explicit, which is what stakeholders actually need for planning.
 </div>
@@ -171,6 +216,25 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
   <span class="metric-box__label">Intake Channels</span>
   <span class="metric-box__number">4</span>
 </div>
+
+<figure class="viz" role="img" aria-label="Multi-channel intake: Gmail, Slack, and Jira converge into the Requirement Parser">
+<svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg">
+  <rect x="30" y="10" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="75" y="31" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Gmail</text>
+  <rect x="30" y="54" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="75" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Slack</text>
+  <rect x="30" y="98" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="75" y="119" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Jira</text>
+  <line x1="120" y1="26" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
+  <line x1="120" y1="70" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
+  <line x1="120" y1="114" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
+  <polygon points="310,66 318,70 310,74" fill="#444"/>
+  <rect x="318" y="48" width="160" height="44" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="398" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Requirement</text>
+  <text x="398" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Parser</text>
+</svg>
+<figcaption>Three intake channels converge into the Requirement Parser for unified processing.</figcaption>
+</figure>
 
 ## Honest Assessment
 {: #honest-assessment}

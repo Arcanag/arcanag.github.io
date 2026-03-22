@@ -57,6 +57,18 @@ We rebuilt the entire reporting stack: **12+ automated dashboards** covering dai
   <span class="metric-box__number">50+</span>
 </div>
 
+<figure class="viz" role="img" aria-label="Containment metric timeline showing the crisis from December 2024 to June 2025">
+<svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg">
+  <line x1="60" y1="70" x2="640" y2="70" stroke="#444" stroke-width="2"/>
+  <circle cx="120" cy="70" r="6" fill="#f0ebe0"/><text x="120" y="45" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f0ebe0">44%</text><text x="120" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Dec 2024</text>
+  <circle cx="280" cy="70" r="6" fill="#ff2d00"/><text x="280" y="45" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ff2d00">14.9%</text><text x="280" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Jan 2025</text>
+  <circle cx="440" cy="70" r="6" fill="#f0ebe0"/><text x="440" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f0ebe0">MIS Fix</text><text x="440" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Apr 2025</text>
+  <circle cx="580" cy="70" r="6" fill="#f0ebe0"/><text x="580" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f0ebe0">Honest Baseline</text><text x="580" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Jun 2025</text>
+  <text x="200" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Measurement problem, not performance</text>
+</svg>
+<figcaption>Containment metric timeline: the 44% → 14.9% drop was a measurement crisis, not a performance one.</figcaption>
+</figure>
+
 ## Three Problems, One Sprint
 {: #three-problems-one-sprint}
 
@@ -74,10 +86,43 @@ What we explicitly said no to: full platform re-architecture, building custom AS
 
 I organized the work into **three squads**: Squad 1 (maintenance and bug fixes), Squad 2 (new use cases and intent expansion), Squad 3 (security, compliance, and infrastructure). Each squad had clear ownership, and the bank's stakeholders knew exactly who to contact for what.
 
+<figure class="viz" role="img" aria-label="Three squads organizational structure">
+<svg viewBox="0 0 700 100" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="216" height="80" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="118" y="38" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Squad 1</text>
+  <text x="118" y="58" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Maintenance</text>
+  <text x="118" y="74" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">& Bug Fixes</text>
+  <rect x="242" y="10" width="216" height="80" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="350" y="38" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Squad 2</text>
+  <text x="350" y="58" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">New Use Cases</text>
+  <text x="350" y="74" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">& SLU Expansion</text>
+  <rect x="474" y="10" width="216" height="80" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="582" y="38" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Squad 3</text>
+  <text x="582" y="58" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Security, Compliance</text>
+  <text x="582" y="74" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">& Infrastructure</text>
+</svg>
+<figcaption>Three squads with clear ownership: maintenance, expansion, and security delivered in parallel.</figcaption>
+</figure>
+
 <div class="metric-box">
   <span class="metric-box__label">OTP Failure Rate</span>
   <span class="metric-box__number">47%</span>
 </div>
+
+<figure class="viz" role="img" aria-label="Authentication failure funnel showing 47% drop at OTP stage">
+<svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+  <rect x="40" y="10" width="560" height="32" rx="3" fill="#222"/>
+  <text x="50" y="31" font-family="sans-serif" font-size="12" fill="#f0ebe0">Total Calls</text><text x="590" y="31" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">100%</text>
+  <rect x="70" y="52" width="468" height="32" rx="3" fill="#222"/>
+  <text x="80" y="73" font-family="sans-serif" font-size="12" fill="#f0ebe0">SLU Classified</text><text x="528" y="73" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">83.6%</text>
+  <rect x="100" y="94" width="380" height="32" rx="3" fill="#222"/>
+  <text x="110" y="115" font-family="sans-serif" font-size="12" fill="#f0ebe0">OTP Reached</text><text x="470" y="115" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">~65%</text>
+  <rect x="130" y="136" width="200" height="32" rx="3" fill="#ff2d00" opacity="0.8"/>
+  <text x="140" y="157" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Authenticated</text><text x="320" y="157" text-anchor="end" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">53%</text>
+  <text x="400" y="157" font-family="sans-serif" font-size="11" fill="#ff2d00">47% failed at OTP</text>
+</svg>
+<figcaption>Authentication funnel: 47% of callers failed at the OTP stage — the single biggest containment blocker.</figcaption>
+</figure>
 
 ## What Went Wrong
 {: #what-went-wrong}
@@ -107,6 +152,20 @@ Despite the setbacks, the project delivered meaningful improvement across multip
   <span class="metric-box__label">SLU Inscope Accuracy</span>
   <span class="metric-box__number">91%</span>
 </div>
+
+<figure class="viz" role="img" aria-label="SLU accuracy improvement: error rate 16.4% before, inscope accuracy 91% after">
+<svg viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg">
+  <text x="30" y="35" font-family="sans-serif" font-size="11" fill="#888">Before</text>
+  <rect x="130" y="20" width="93" height="28" rx="3" fill="#ff2d00" opacity="0.7"/>
+  <text x="235" y="39" font-family="sans-serif" font-size="12" fill="#ff2d00">16.4% error rate</text>
+  <text x="30" y="80" font-family="sans-serif" font-size="11" fill="#888">After</text>
+  <rect x="130" y="65" width="516" height="28" rx="3" fill="#f0ebe0" opacity="0.9"/>
+  <text x="658" y="84" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">91% inscope</text>
+  <rect x="130" y="100" width="465" height="6" rx="2" fill="#888" opacity="0.3"/>
+  <text x="607" y="110" font-family="sans-serif" font-size="10" fill="#888">82% OOS</text>
+</svg>
+<figcaption>SLU accuracy transformation: from 16.4% error rate to 91% inscope and 82% out-of-scope success.</figcaption>
+</figure>
 
 **Authentication improvement.** The 47% OTP failure rate was addressed through a redesigned authentication journey, DTMF patience features (3-second wait per digit), and multiple CUG testing rounds before production rollout.
 

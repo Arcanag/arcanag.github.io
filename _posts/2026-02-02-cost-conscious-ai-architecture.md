@@ -57,6 +57,19 @@ Task: Rewrite only the following 3 bullets to incorporate
 missing keywords and improve readability.
 ```
 
+<figure class="viz" role="img" aria-label="Token cost reduction: 2000 tokens naively vs 300 tokens with preprocessing">
+<svg viewBox="0 0 700 110" xmlns="http://www.w3.org/2000/svg">
+  <text x="30" y="32" font-family="sans-serif" font-size="11" fill="#888">Naive</text>
+  <rect x="110" y="15" width="540" height="28" rx="3" fill="#444"/>
+  <text x="660" y="34" font-family="sans-serif" font-size="12" fill="#888">2000 tokens</text>
+  <text x="30" y="74" font-family="sans-serif" font-size="11" fill="#888">Delta</text>
+  <rect x="110" y="57" width="81" height="28" rx="3" fill="#ff2d00" opacity="0.8"/>
+  <text x="660" y="76" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">~300 tokens</text>
+  <text x="350" y="102" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#ff2d00">~85% token reduction via preprocessing</text>
+</svg>
+<figcaption>Preprocessing eliminates ~85% of tokens before the LLM sees them — better output at a fraction of the cost.</figcaption>
+</figure>
+
 The LLM receives maybe 300 tokens of structured context instead of 2000 tokens of raw text. It generates better output because the problem is pre-digested, and it costs a fraction of the naive approach.
 
 <div class="callout"><p>The principle: every token you send to an LLM should be a token that ONLY an LLM can process. If Python can handle it — keyword matching, readability scoring, entity extraction — Python should handle it.</p></div>
@@ -81,6 +94,28 @@ I built two products on the same day and chose different databases for each. Tha
 **Career Enabler uses SQLite** because it's a single-user tool, write concurrency is minimal, query patterns are simple CRUD, and there's zero operational overhead — no database server to manage, backup is a file copy.
 
 **[Agentic PM](https://github.com/Arcanag/agentic-pm) uses Postgres** because multiple AI agents write concurrently, multi-tenant data isolation requires row-level security, complex queries join across agents/tasks/sprints, and the Monte Carlo simulation generates thousands of records.
+
+<figure class="viz" role="img" aria-label="SQLite vs Postgres decision matrix based on concurrency and query complexity">
+<svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+  <text x="350" y="16" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Query Complexity →</text>
+  <text x="16" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888" transform="rotate(-90 16 100)">Concurrency →</text>
+  <rect x="80" y="30" width="270" height="65" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="215" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Low Concurrency + Simple</text>
+  <text x="215" y="73" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ff2d00">SQLite</text>
+  <text x="215" y="87" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Career Enabler</text>
+  <rect x="370" y="30" width="270" height="65" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="505" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Low Concurrency + Complex</text>
+  <text x="505" y="73" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888">Either</text>
+  <rect x="80" y="105" width="270" height="65" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="215" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">High Concurrency + Simple</text>
+  <text x="215" y="148" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888">Postgres</text>
+  <rect x="370" y="105" width="270" height="65" rx="4" fill="#141414" stroke="#f0ebe0" stroke-width="1.5"/>
+  <text x="505" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">High Concurrency + Complex</text>
+  <text x="505" y="148" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Postgres</text>
+  <text x="505" y="162" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Agentic PM</text>
+</svg>
+<figcaption>Database decision framework: concurrency and query complexity determine the right choice.</figcaption>
+</figure>
 
 <div class="callout"><p>The framework: assess four dimensions. (1) User concurrency — how many simultaneous writers? (2) Write patterns — simple CRUD or complex transactions? (3) Query complexity — single-table lookups or multi-join analytics? (4) Ops budget — can you afford a database server? If all four answer "simple," SQLite is the right choice.</p></div>
 
@@ -112,6 +147,21 @@ The full cost architecture:
 - **LLM costs**: Borne by the user via BYOK. Product cost is $0 per LLM call.
 - **Preprocessing**: All Python libraries. No API costs.
 - **Storage**: SQLite file + uploaded PDFs. Megabytes, not gigabytes.
+
+<figure class="viz" role="img" aria-label="Cost architecture stack totaling approximately 5 dollars per month">
+<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+  <rect x="40" y="10" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="50" y="29" font-family="sans-serif" font-size="11" fill="#f0ebe0">Compute: single container</text><text x="430" y="29" font-family="sans-serif" font-size="11" fill="#ff2d00">~$5/mo</text>
+  <rect x="40" y="44" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="50" y="63" font-family="sans-serif" font-size="11" fill="#f0ebe0">Database: SQLite</text><text x="430" y="63" font-family="sans-serif" font-size="11" fill="#888">$0</text>
+  <rect x="40" y="78" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="50" y="97" font-family="sans-serif" font-size="11" fill="#f0ebe0">LLM: BYOK (user pays)</text><text x="430" y="97" font-family="sans-serif" font-size="11" fill="#888">$0</text>
+  <rect x="40" y="112" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="50" y="131" font-family="sans-serif" font-size="11" fill="#f0ebe0">Preprocessing: Python libraries</text><text x="430" y="131" font-family="sans-serif" font-size="11" fill="#888">$0</text>
+  <text x="240" y="155" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ff2d00">Total: ~$5/month</text>
+</svg>
+<figcaption>Full cost stack: lean architecture eliminates every cost that doesn't directly improve user outcomes.</figcaption>
+</figure>
 
 Compare this to the naive architecture: managed Postgres ($20-50/mo), Redis ($15/mo), LLM API costs absorbed by the platform, plus the engineering overhead of managing all those services.
 

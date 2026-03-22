@@ -31,6 +31,23 @@ There's a recursive quality to what I built on March 22, 2026, and I think the r
 **Layer 2**: The software I built (Career Enabler) uses AI to tailor resumes and prep for interviews.
 **Layer 3**: The resumes it tailors help professionals navigating career transitions present their experience effectively.
 
+<figure class="viz" role="img" aria-label="Three layers of AI: Claude Code as tool, Career Enabler as product, user outcomes">
+<svg viewBox="0 0 700 185" xmlns="http://www.w3.org/2000/svg">
+  <rect x="100" y="5" width="500" height="48" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="350" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Layer 1: Claude Code</text>
+  <text x="350" y="42" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">AI Development Tool</text>
+  <line x1="350" y1="53" x2="350" y2="65" stroke="#444" stroke-width="1.5"/><polygon points="346,65 350,73 354,65" fill="#444"/>
+  <rect x="100" y="70" width="500" height="48" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="350" y="89" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Layer 2: Career Enabler</text>
+  <text x="350" y="107" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">AI Inside the Product</text>
+  <line x1="350" y1="118" x2="350" y2="130" stroke="#444" stroke-width="1.5"/><polygon points="346,130 350,138 354,130" fill="#444"/>
+  <rect x="100" y="135" width="500" height="48" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="350" y="154" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">Layer 3: User Outcomes</text>
+  <text x="350" y="172" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Professionals in Career Transition</text>
+</svg>
+<figcaption>Three layers of AI: the tool that builds the product, the AI inside the product, and the human outcome.</figcaption>
+</figure>
+
 AI building AI to solve a real workflow problem. Each layer reveals something different about how AI actually works in practice — not in theory, not in demos, but in the messy reality of shipping a product.
 
 <div class="metric-box"><span class="metric-box__label">Layers of AI</span><span class="metric-box__number">3</span></div>
@@ -73,6 +90,27 @@ I have Claude Code configured with 17 agents and 106 skills. It's not a chatbot 
 - **Readability metrics**: Flesch-Kincaid, sentence length, passive voice — established algorithms that don't hallucinate.
 - **Keyword extraction**: TF-IDF beats an LLM for extracting important terms. Mathematically grounded and doesn't hallucinate keywords.
 - **Job matching**: Cosine similarity between skill vectors is fast, explainable, and deterministic.
+
+<figure class="viz" role="img" aria-label="LLM vs traditional code decision boundary: what needs reasoning vs what needs algorithms">
+<svg viewBox="0 0 700 170" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="10" width="310" height="150" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">LLMs Excel</text>
+  <line x1="36" y1="46" x2="314" y2="46" stroke="#222" stroke-width="1"/>
+  <text x="175" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Resume generation</text>
+  <text x="175" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Interview question creation</text>
+  <text x="175" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Skill gap narrative</text>
+  <text x="175" y="142" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Generation + Interpretation</text>
+  <line x1="350" y1="20" x2="350" y2="150" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+  <rect x="370" y="10" width="310" height="150" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">Traditional Code Wins</text>
+  <line x1="386" y1="46" x2="664" y2="46" stroke="#222" stroke-width="1"/>
+  <text x="525" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">ATS scoring</text>
+  <text x="525" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Readability metrics</text>
+  <text x="525" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Keyword extraction + Job matching</text>
+  <text x="525" y="142" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Measurement + Matching</text>
+</svg>
+<figcaption>Decision boundary: use LLMs for generation/interpretation, use code for measurement/matching.</figcaption>
+</figure>
 
 The pattern: use AI for generation and interpretation. Use code for measurement and matching. If you can write a deterministic algorithm that gives a correct answer, don't use an LLM.
 

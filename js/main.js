@@ -13,6 +13,10 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(function (el) { observer.observe(el); });
+    // Safety net: force all reveals visible after 1.5s in case observer doesn't fire
+    setTimeout(function () {
+      reveals.forEach(function (el) { el.classList.add('reveal--visible'); });
+    }, 1500);
   } else {
     reveals.forEach(function (el) { el.classList.add('reveal--visible'); });
   }

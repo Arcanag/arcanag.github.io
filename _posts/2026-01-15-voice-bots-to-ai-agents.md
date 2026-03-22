@@ -45,6 +45,32 @@ The most important lessons from voice AI aren't about what works. They're about 
 - Medium confidence (0.5-0.85): Confirm before acting. "It sounds like you want to make a payment. Is that right?"
 - Low confidence (< 0.5): Don't guess. "I didn't quite catch that. Could you tell me what you'd like to do?"
 
+<figure class="viz" role="img" aria-label="Confidence threshold decision tree: high confidence act, medium confirm, low escalate">
+<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+  <rect x="260" y="5" width="180" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="350" y="26" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Intent Detected</text>
+  <line x1="280" y1="37" x2="130" y2="70" stroke="#444" stroke-width="1.5"/>
+  <line x1="350" y1="37" x2="350" y2="70" stroke="#444" stroke-width="1.5"/>
+  <line x1="420" y1="37" x2="570" y2="70" stroke="#444" stroke-width="1.5"/>
+  <rect x="55" y="55" width="50" height="24" rx="3" fill="none" stroke="#f0ebe0" stroke-width="1"/>
+  <text x="80" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">&gt;0.85</text>
+  <rect x="325" y="55" width="55" height="24" rx="3" fill="none" stroke="#888" stroke-width="1"/>
+  <text x="352" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">0.5–0.85</text>
+  <rect x="550" y="55" width="50" height="24" rx="3" fill="none" stroke="#ff2d00" stroke-width="1"/>
+  <text x="575" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">&lt;0.5</text>
+  <rect x="40" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#f0ebe0" stroke-width="1.5"/>
+  <text x="90" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Act</text>
+  <rect x="300" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#888" stroke-width="1.5"/>
+  <text x="350" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#888">Confirm</text>
+  <rect x="525" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="575" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">Escalate</text>
+  <line x1="90" y1="79" x2="90" y2="95" stroke="#444" stroke-width="1.5"/>
+  <line x1="350" y1="79" x2="350" y2="95" stroke="#444" stroke-width="1.5"/>
+  <line x1="575" y1="79" x2="575" y2="95" stroke="#444" stroke-width="1.5"/>
+</svg>
+<figcaption>Confidence threshold decision tree: thresholds are proportional to the consequence of error.</figcaption>
+</figure>
+
 This three-tier pattern took years to tune. The thresholds aren't universal — they depend on the cost of getting it wrong. For a payment of $500, you confirm at 0.9. For looking up a balance, 0.7 is fine. The principle: confidence thresholds should be proportional to the consequence of error.
 
 **Graceful Degradation.** Voice bots can't crash. There's a human on the other end. So every voice bot has a degradation ladder:
@@ -52,6 +78,20 @@ This three-tier pattern took years to tune. The thresholds aren't universal — 
 1. Rephrase and retry: "Could you say that differently?"
 2. Offer options: "I can help with payments, balance inquiries, or account updates."
 3. Transfer to human: "Let me connect you with someone who can help."
+
+<figure class="viz" role="img" aria-label="Graceful degradation ladder: rephrase, offer options, transfer to human">
+<svg viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="40" y="10" width="200" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="140" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">1. Rephrase &amp; Retry</text>
+  <rect x="140" y="50" width="220" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
+  <text x="250" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">2. Offer Options</text>
+  <rect x="260" y="90" width="240" height="30" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="380" y="110" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ff2d00">3. Transfer to Human</text>
+  <line x1="240" y1="40" x2="250" y2="50" stroke="#444" stroke-width="1"/>
+  <line x1="360" y1="80" x2="380" y2="90" stroke="#444" stroke-width="1"/>
+</svg>
+<figcaption>Degradation ladder: each step preserves user trust while narrowing toward human handoff.</figcaption>
+</figure>
 
 The key insight: the fallback ladder isn't a failure mode. It IS the product. A voice bot that handles 80% perfectly but crashes on 20% is worse than one that handles 70% perfectly and gracefully escalates the other 30%.
 
