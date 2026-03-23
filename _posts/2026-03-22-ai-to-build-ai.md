@@ -22,14 +22,16 @@ toc:
     anchor: "what-building-taught"
 ---
 
-## Three Layers Deep
+## Three Layers Deep: The Meta-Narrative
 {: #three-layers-deep}
 
-There's a recursive quality to what I built on March 22, 2026, and I think the recursion is the most interesting part.
+I built **16 features, closed 44 pull requests, and launched a full AI product in a single day.** But the speed isn't the most interesting part. 
 
-**Layer 1**: I used an AI tool (Claude Code) to write software.
-**Layer 2**: The software I built (Career Enabler) uses AI to tailor resumes and prep for interviews.
-**Layer 3**: The resumes it tailors help professionals navigating career transitions present their experience effectively.
+There's a recursive quality to what I built on March 22, 2026.
+
+- **Layer 1: The Tool** — I used an AI agent (Claude Code) to write software.
+- **Layer 2: The Product** — The software I built ([Career Enabler](https://github.com/Arcanag/career-enabler)) uses AI to tailor resumes and prep for interviews.
+- **Layer 3: The Outcome** — The tailored resumes help professionals navigate career transitions effectively.
 
 <figure class="viz" role="img" aria-label="Three layers of AI: Claude Code as tool, Career Enabler as product, user outcomes">
 <svg viewBox="0 0 700 185" xmlns="http://www.w3.org/2000/svg">

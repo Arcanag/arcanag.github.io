@@ -19,7 +19,7 @@
   --text-h1: clamp(2.5rem, 8vw, 6rem);
   --text-h2: clamp(1.5rem, 4vw, 2.5rem);
   --text-h3: 1.25rem;
-  --text-body: 1.1rem;
+  --text-body: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
   --text-small: 0.875rem;
   --text-xs: 0.75rem;
   --space-xs: 0.5rem;
@@ -73,7 +73,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-heading);
   font-size: var(--text-body);
-  line-height: 1.7;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -112,7 +112,7 @@ h3 {
 p {
   font-family: var(--font-heading);
   font-size: var(--text-body);
-  line-height: 1.7;
+  line-height: 1.5;
   color: var(--color-text);
 }
 a {
@@ -123,7 +123,7 @@ a {
   transition: color var(--transition-base), text-decoration-color var(--transition-base);
 }
 a:hover { color: var(--color-accent); text-decoration-color: var(--color-accent); }
-a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+a:focus-visible, button:focus-visible, .work-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
 strong { font-weight: 600; color: var(--color-text); }
 em { font-style: italic; color: var(--color-text-muted); }
 code {
@@ -351,6 +351,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   border-color: var(--color-accent);
   text-decoration: none;
 }
+.work-card:active { transform: scale(0.98); }
 .work-card__label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -717,6 +718,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   transition: opacity var(--transition-base);
 }
 .cta-section__button:hover { opacity: 0.85; color: var(--color-bg); text-decoration: none; }
+.cta-section__button:active { transform: scale(0.98); }
 
 /* --- k) Footer --- */
 .footer {
@@ -759,6 +761,15 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
 /* The .reveal class is kept in HTML but has no visual effect. */
 
 /* --- m) Responsive --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .case-study-body { gap: var(--space-xl); }

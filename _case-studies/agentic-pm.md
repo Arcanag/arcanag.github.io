@@ -21,16 +21,18 @@ toc:
     anchor: "what-i-learned"
 ---
 
-## The Problem
+## The Problem: PM Overhead Scaling
 {: #the-problem}
 
-After years of managing delivery for AI products, I had seen a pattern repeat across every project: the operational overhead of project management scales linearly with team size, but it should not. Requirements come in through email, Slack, and meetings in unstructured formats. Breaking them into actionable tasks is mechanical work. Assigning tasks to the right people based on skills and capacity is a lookup problem. Status reports are just aggregation.
+After years of managing delivery for AI products, I had seen a painful pattern repeat across every project: **the operational overhead of project management scales linearly with team size, but it shouldn't.** 
 
-None of this requires human judgment. Yet PMs spend 40-60% of their time on exactly these tasks.
+Requirements come through email, Slack, and meetings in messy, unstructured formats. Breaking them into actionable tasks is mechanical. Assigning those tasks based on skills and capacity is a simple lookup problem. Status reports? Pure aggregation.
 
-I wanted to build what I kept wishing existed: an AI system that handles the operational layer of project management, freeing PMs to focus on strategy, stakeholder alignment, and product decisions — the work that actually requires human thinking.
+None of this requires human judgment. **Yet PMs spend 40-60% of their time trapped in these tasks.** Without a system to handle the operational layer, product managers become glorified task routers, losing the bandwidth needed for strategy, stakeholder alignment, and actual product decisions.
 
-Agentic PM is that system: 6 specialized AI agents that automate the PM operational workflow from requirement intake to timeline forecasting.
+**The Solution:** I built what I kept wishing existed — an AI system that entirely automates the operational layer of project management.
+
+Agentic PM is that system: 6 specialized AI agents that automate the PM workflow from requirement intake to timeline forecasting. But here's what nobody expected when building this architecture...
 
 <div class="metric-box">
   <span class="metric-box__label">AI Agents</span>
@@ -52,7 +54,11 @@ Agentic PM is that system: 6 specialized AI agents that automate the PM operatio
 
 The architecture reflects a core belief: **multi-agent systems should be composed of specialists, not one general-purpose agent trying to do everything.**
 
-Each agent has a single responsibility, a well-defined input/output contract, and can be tested independently. The agents compose into a pipeline, but they are not tightly coupled — you can use the Requirement Parser without the Decomposition Agent, or the Communication Agent without the Timeline Agent.
+Each agent has a **single responsibility**, a well-defined **input/output contract**, and can be **tested independently**.
+
+The agents compose into a pipeline, but they are not tightly coupled:
+- You can use the **Requirement Parser** without the Decomposition Agent.
+- You can use the **Communication Agent** without the Timeline Agent.
 
 <figure class="viz" role="img" aria-label="6-agent pipeline: Requirement Parser to Decomposition to Routing, branching to Communication, Chat, and Timeline">
 <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
