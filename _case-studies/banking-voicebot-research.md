@@ -1,6 +1,7 @@
 ---
 layout: case-study
 title: "Banking Voicebot — Research Knowledge Base"
+theme_color: "#047857"
 hidden: true
 published: false
 ---

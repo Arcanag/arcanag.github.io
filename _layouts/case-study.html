@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="case-study">
+<article class="case-study" {% if page.theme_color %}style="--color-accent: {{ page.theme_color }};"{% endif %}>
   <header class="case-study-hero">
     <div class="container">
       {% if page.category %}

@@ -2,6 +2,7 @@
 layout: case-study
 title: "Designing an AI Project Management OS with 6 Specialized Agents"
 description: "A product case study on architecting a multi-agent system that automates PM operational work — requirement parsing, task decomposition, team routing, timeline forecasting, and client communication."
+theme_color: "#6b21a8"
 category: "AI Product — Multi-Agent System Design"
 key_metric: "6 AI agents, 81+ tests"
 read_time: "11 min read"

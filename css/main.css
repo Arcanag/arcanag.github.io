@@ -348,10 +348,29 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
 }
 .work-card:hover {
   transform: translateY(-4px);
-  border-color: var(--color-accent);
+  border-color: var(--card-accent, var(--color-accent));
   text-decoration: none;
 }
 .work-card:active { transform: scale(0.98); }
+
+/* --- Carousel Grid --- */
+.carousel-grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-xl);
+  margin-top: var(--space-xl);
+  scrollbar-width: none;
+}
+.carousel-grid::-webkit-scrollbar { display: none; }
+.carousel-grid .work-card {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+@media (min-width: 768px) {
+  .carousel-grid .work-card { flex: 0 0 50%; max-width: 500px; }
+}
 .work-card__label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -757,8 +776,39 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
 }
 
 /* --- l) Scroll Reveal --- */
-/* Reveal animations removed — they caused persistent visibility failures on GitHub Pages. */
-/* The .reveal class is kept in HTML but has no visual effect. */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- n) Custom Cursor --- */
+@media (pointer: fine) {
+  body, a, button, .work-card, .case-study-toc__link { cursor: none; }
+  .custom-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 24px; height: 24px;
+    background: var(--color-text);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s;
+    will-change: transform;
+  }
+  .custom-cursor.is-hovering {
+    width: 64px; height: 64px;
+    background: var(--color-accent);
+    mix-blend-mode: normal;
+    opacity: 0.8;
+  }
+}
 
 /* --- m) Responsive --- */
 @media (prefers-reduced-motion: reduce) {

@@ -2,6 +2,7 @@
 layout: case-study
 title: "Rebuilding Trust in a 100K-Call-Per-Day Banking Voicebot"
 description: "A project management case study on inheriting a voicebot with broken metrics, rebuilding measurement from scratch, and driving SLU accuracy to 91% — all in an air-gapped enterprise environment."
+theme_color: "#1e40af"
 category: "Enterprise AI — Project Management"
 key_metric: "50+ metric bugs → trusted MIS"
 read_time: "12 min read"

@@ -2,6 +2,7 @@
 layout: case-study
 title: "Building a Resume Intelligence Platform in One Day with AI Pair Programming"
 description: "A product case study on designing and shipping a full-stack AI career platform — 16 features, 44 PRs, and a freemium business model — in a single day using Claude Code."
+theme_color: "#166534"
 category: "AI Product — 0 to 1"
 key_metric: "16 features shipped in 1 day"
 read_time: "10 min read"
