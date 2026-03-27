@@ -68,7 +68,7 @@ Personal portfolio site for Anurag Sharma — Project Manager at Skit.ai special
 ### Blog Posts (`_posts/`)
 - Frontmatter: `layout`, `title`, `description`, `category`, `read_time`, `date`, `tags`, `toc`, `published`
 - Dates in filenames must match `date` in frontmatter
-- Categories: "AI Product Thinking", "Technical Deep-Dive", "Building with AI"
+- Categories: "AI Product Thinking", "Technical Deep-Dive", "Building with AI", "Philosophy"
 
 ## Commands
 
