@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 60" fill="none">
+  <!-- Marigold toran garland — horizontal divider -->
+  <!-- Garland string -->
+  <path d="M0 15 Q50 5 100 15 Q150 25 200 15 Q250 5 300 15 Q350 25 400 15"
+        stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.4"/>
+
+  <!-- Marigold flowers along the garland -->
+  <!-- Flower 1 -->
+  <circle cx="50" cy="10" r="8" fill="#F2C4A0" opacity="0.6"/>
+  <circle cx="50" cy="10" r="4" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Flower 2 -->
+  <circle cx="100" cy="15" r="9" fill="#F5D6A8" opacity="0.6"/>
+  <circle cx="100" cy="15" r="4.5" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Flower 3 -->
+  <circle cx="150" cy="22" r="8" fill="#F2C4A0" opacity="0.6"/>
+  <circle cx="150" cy="22" r="4" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Flower 4 -->
+  <circle cx="200" cy="15" r="10" fill="#F5D6A8" opacity="0.7"/>
+  <circle cx="200" cy="15" r="5" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Flower 5 -->
+  <circle cx="250" cy="8" r="8" fill="#F2C4A0" opacity="0.6"/>
+  <circle cx="250" cy="8" r="4" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Flower 6 -->
+  <circle cx="300" cy="15" r="9" fill="#F5D6A8" opacity="0.6"/>
+  <circle cx="300" cy="15" r="4.5" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Flower 7 -->
+  <circle cx="350" cy="22" r="8" fill="#F2C4A0" opacity="0.6"/>
+  <circle cx="350" cy="22" r="4" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- Small leaves -->
+  <path d="M75 12 Q80 8 85 12 Q80 14 75 12" fill="#A3B18A" opacity="0.4"/>
+  <path d="M125 20 Q130 16 135 20 Q130 22 125 20" fill="#A3B18A" opacity="0.4"/>
+  <path d="M175 18 Q180 14 185 18 Q180 20 175 18" fill="#A3B18A" opacity="0.4"/>
+  <path d="M225 10 Q230 6 235 10 Q230 12 225 10" fill="#A3B18A" opacity="0.4"/>
+  <path d="M275 14 Q280 10 285 14 Q280 16 275 14" fill="#A3B18A" opacity="0.4"/>
+  <path d="M325 20 Q330 16 335 20 Q330 22 325 20" fill="#A3B18A" opacity="0.4"/>
+
+  <!-- Hanging tassels -->
+  <line x1="100" y1="24" x2="100" y2="40" stroke="#D4AF37" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="100" cy="42" r="3" fill="#D4AF37" opacity="0.3"/>
+
+  <line x1="200" y1="25" x2="200" y2="45" stroke="#D4AF37" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="200" cy="47" r="4" fill="#D4AF37" opacity="0.3"/>
+
+  <line x1="300" y1="24" x2="300" y2="40" stroke="#D4AF37" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="300" cy="42" r="3" fill="#D4AF37" opacity="0.3"/>
+</svg>

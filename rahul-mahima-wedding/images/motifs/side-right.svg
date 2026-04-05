@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 900" fill="none">
+  <!-- Right side — Mirrored Udaipur architecture, peacock, plants, flowers -->
+
+  <!-- Haveli/Palace Architecture (right-aligned) -->
+  <g opacity="0.6">
+    <!-- Main haveli structure -->
+    <rect x="120" y="200" width="180" height="700" fill="#E8DFD4"/>
+    <rect x="120" y="200" width="180" height="700" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.3"/>
+
+    <!-- Chhatri (domed pavilion) at top -->
+    <rect x="180" y="180" width="80" height="30" fill="#E8DFD4"/>
+    <path d="M175 180 Q220 140 265 180" fill="#E8DFD4" stroke="#D4AF37" stroke-width="0.8" opacity="0.4"/>
+    <rect x="210" y="145" width="20" height="38" fill="#E8DFD4"/>
+    <path d="M205 145 Q220 125 235 145" fill="#E8DFD4" stroke="#D4AF37" stroke-width="0.8" opacity="0.4"/>
+    <!-- Finial -->
+    <line x1="220" y1="125" x2="220" y2="115" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+    <circle cx="220" cy="112" r="3" fill="#D4AF37" opacity="0.4"/>
+
+    <!-- Jharokha windows (3 levels) -->
+    <!-- Level 1 -->
+    <path d="M170 280 Q190 260 210 280 L210 320 L170 320 Z" fill="#FAF6F0" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+    <path d="M230 280 Q250 260 270 280 L270 320 L230 320 Z" fill="#FAF6F0" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+
+    <!-- Level 2 -->
+    <path d="M160 380 Q185 358 210 380 L210 430 L160 430 Z" fill="#FAF6F0" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+    <path d="M230 380 Q255 358 280 380 L280 430 L230 430 Z" fill="#FAF6F0" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+
+    <!-- Level 3 - larger arch -->
+    <path d="M155 500 Q220 460 285 500 L285 580 L155 580 Z" fill="#FAF6F0" stroke="#D4AF37" stroke-width="0.8" opacity="0.4"/>
+
+    <!-- Balcony railing -->
+    <line x1="145" y1="580" x2="290" y2="580" stroke="#D4AF37" stroke-width="0.8" opacity="0.3"/>
+    <line x1="170" y1="580" x2="170" y2="595" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+    <line x1="195" y1="580" x2="195" y2="595" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+    <line x1="220" y1="580" x2="220" y2="595" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+    <line x1="245" y1="580" x2="245" y2="595" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+    <line x1="270" y1="580" x2="270" y2="595" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+    <line x1="145" y1="595" x2="290" y2="595" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <!-- Peacock (mirrored, facing left) -->
+  <g transform="translate(130, 230) scale(-1,1) translate(-60,0)" opacity="0.55">
+    <!-- Body -->
+    <ellipse cx="30" cy="30" rx="18" ry="14" fill="#A3B18A"/>
+    <!-- Neck -->
+    <path d="M40 25 Q50 5 45 -10" stroke="#A3B18A" stroke-width="4" fill="none"/>
+    <!-- Head -->
+    <circle cx="45" cy="-12" r="5" fill="#A3B18A"/>
+    <!-- Beak -->
+    <path d="M49 -14 L55 -12 L49 -10" fill="#D4AF37" opacity="0.6"/>
+    <!-- Crown -->
+    <line x1="43" y1="-17" x2="42" y2="-25" stroke="#A3B18A" stroke-width="1"/>
+    <line x1="45" y1="-17" x2="45" y2="-27" stroke="#A3B18A" stroke-width="1"/>
+    <line x1="47" y1="-17" x2="48" y2="-25" stroke="#A3B18A" stroke-width="1"/>
+    <circle cx="42" cy="-26" r="1.5" fill="#C3A6D4" opacity="0.6"/>
+    <circle cx="45" cy="-28" r="1.5" fill="#C3A6D4" opacity="0.6"/>
+    <circle cx="48" cy="-26" r="1.5" fill="#C3A6D4" opacity="0.6"/>
+    <!-- Eye -->
+    <circle cx="47" cy="-13" r="1" fill="#3D3533"/>
+    <!-- Tail feathers -->
+    <path d="M15 35 Q-20 80 -10 130" stroke="#A3B18A" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M12 35 Q-30 90 -5 140" stroke="#A3B18A" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M18 38 Q-10 70 0 120" stroke="#A3B18A" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <!-- Tail eye spots -->
+    <circle cx="-8" cy="100" r="5" fill="#C3A6D4" opacity="0.3"/>
+    <circle cx="-8" cy="100" r="2.5" fill="#A3B18A" opacity="0.4"/>
+    <circle cx="2" cy="90" r="4" fill="#C3A6D4" opacity="0.25"/>
+    <circle cx="2" cy="90" r="2" fill="#A3B18A" opacity="0.35"/>
+    <circle cx="-15" cy="120" r="4.5" fill="#C3A6D4" opacity="0.25"/>
+    <circle cx="-15" cy="120" r="2" fill="#A3B18A" opacity="0.35"/>
+  </g>
+
+  <!-- Plants and Flowers (bottom section, mirrored) -->
+  <g opacity="0.5">
+    <!-- Large tropical leaves -->
+    <path d="M280 900 Q270 800 240 750 Q260 780 275 850 Q278 870 280 900" fill="#A3B18A" opacity="0.5"/>
+    <path d="M300 900 Q280 820 250 770 Q270 810 290 870 Q295 885 300 900" fill="#A3B18A" opacity="0.4"/>
+    <path d="M250 900 Q230 830 200 790 Q220 820 240 880" fill="#A3B18A" opacity="0.45"/>
+
+    <!-- Marigold flowers -->
+    <circle cx="230" cy="760" r="10" fill="#F2C4A0" opacity="0.5"/>
+    <circle cx="230" cy="760" r="5" fill="#F5D6A8" opacity="0.6"/>
+    <circle cx="260" cy="800" r="8" fill="#F2C4A0" opacity="0.4"/>
+    <circle cx="260" cy="800" r="4" fill="#F5D6A8" opacity="0.5"/>
+    <circle cx="210" cy="820" r="7" fill="#F2C4A0" opacity="0.35"/>
+    <circle cx="210" cy="820" r="3.5" fill="#F5D6A8" opacity="0.45"/>
+
+    <!-- Small flower clusters -->
+    <circle cx="180" cy="700" r="4" fill="#C4918A" opacity="0.3"/>
+    <circle cx="175" cy="695" r="3" fill="#C4918A" opacity="0.25"/>
+    <circle cx="185" cy="698" r="3.5" fill="#C4918A" opacity="0.28"/>
+
+    <!-- Vine/creeper -->
+    <path d="M140 400 Q130 450 145 500 Q135 540 150 600 Q140 650 155 700" stroke="#A3B18A" stroke-width="1.5" fill="none" opacity="0.3"/>
+    <ellipse cx="142" cy="430" rx="6" ry="3" fill="#A3B18A" opacity="0.25" transform="rotate(20, 142, 430)"/>
+    <ellipse cx="147" cy="480" rx="5" ry="2.5" fill="#A3B18A" opacity="0.25" transform="rotate(-15, 147, 480)"/>
+    <ellipse cx="138" cy="530" rx="6" ry="3" fill="#A3B18A" opacity="0.2" transform="rotate(25, 138, 530)"/>
+    <ellipse cx="152" cy="580" rx="5" ry="2.5" fill="#A3B18A" opacity="0.25" transform="rotate(-20, 152, 580)"/>
+    <ellipse cx="143" cy="640" rx="6" ry="3" fill="#A3B18A" opacity="0.2" transform="rotate(15, 143, 640)"/>
+  </g>
+
+  <!-- Lotus at bottom -->
+  <g opacity="0.35" transform="translate(220, 860)">
+    <path d="M0 20 Q-5 10 -10 18 Q0 12 0 18 Q0 12 10 18 Q5 10 0 20" fill="#C4918A"/>
+    <ellipse cx="0" cy="25" rx="15" ry="4" fill="#A3B18A" opacity="0.3"/>
+  </g>
+</svg>

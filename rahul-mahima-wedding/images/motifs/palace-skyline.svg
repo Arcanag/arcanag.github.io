@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" fill="none">
+  <!-- Udaipur Palace Skyline Silhouette -->
+  <!-- Aravalli Hills (background) -->
+  <path d="M0 250 Q100 180 200 220 Q300 160 400 200 Q500 140 600 190 Q700 150 800 200 Q900 170 1000 210 Q1100 180 1200 240 L1200 300 L0 300 Z"
+        fill="#E2DDD8" opacity="0.3"/>
+
+  <!-- City Palace main structure -->
+  <g opacity="0.4" fill="#C4918A">
+    <!-- Central palace body -->
+    <rect x="450" y="140" width="300" height="110" rx="2"/>
+    <!-- Palace towers -->
+    <rect x="460" y="100" width="40" height="150" rx="2"/>
+    <rect x="700" y="100" width="40" height="150" rx="2"/>
+    <!-- Central dome -->
+    <path d="M560 140 Q600 80 640 140"/>
+    <!-- Chhatri pavilions -->
+    <rect x="470" y="90" width="20" height="15"/>
+    <path d="M465 90 Q480 70 495 90"/>
+    <rect x="710" y="90" width="20" height="15"/>
+    <path d="M705 90 Q720 70 735 90"/>
+    <!-- Windows (jharokhas) -->
+    <path d="M510 160 Q520 150 530 160 L530 180 L510 180 Z" fill="#FAF6F0"/>
+    <path d="M560 160 Q570 150 580 160 L580 180 L560 180 Z" fill="#FAF6F0"/>
+    <path d="M610 160 Q620 150 630 160 L630 180 L610 180 Z" fill="#FAF6F0"/>
+    <path d="M660 160 Q670 150 680 160 L680 180 L660 180 Z" fill="#FAF6F0"/>
+  </g>
+
+  <!-- Taj Lake Palace (small, on water) -->
+  <g opacity="0.3" fill="#C4918A">
+    <rect x="200" y="210" width="100" height="40" rx="2"/>
+    <path d="M220 210 Q250 185 280 210"/>
+    <rect x="240" y="195" width="20" height="20"/>
+    <path d="M235 195 Q250 178 265 195"/>
+  </g>
+
+  <!-- Jagmandir (right side) -->
+  <g opacity="0.3" fill="#C4918A">
+    <rect x="900" y="200" width="80" height="50" rx="2"/>
+    <path d="M915 200 Q940 175 965 200"/>
+    <rect x="930" y="185" width="20" height="20"/>
+    <path d="M925 185 Q940 168 955 185"/>
+  </g>
+
+  <!-- Water line -->
+  <path d="M0 250 L1200 250" stroke="#A3B18A" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Water ripples -->
+  <path d="M0 260 Q50 255 100 260 Q150 265 200 260 Q250 255 300 260 Q350 265 400 260 Q450 255 500 260 Q550 265 600 260 Q650 255 700 260 Q750 265 800 260 Q850 255 900 260 Q950 265 1000 260 Q1050 255 1100 260 Q1150 265 1200 260"
+        fill="none" stroke="#A3B18A" stroke-width="0.5" opacity="0.2"/>
+  <path d="M0 275 Q75 270 150 275 Q225 280 300 275 Q375 270 450 275 Q525 280 600 275 Q675 270 750 275 Q825 280 900 275 Q975 270 1050 275 Q1125 280 1200 275"
+        fill="none" stroke="#A3B18A" stroke-width="0.5" opacity="0.15"/>
+</svg>

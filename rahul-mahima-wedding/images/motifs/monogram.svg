@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- R & M Monogram with Gota Patti border -->
+
+  <!-- Outer decorative border (gota patti inspired) -->
+  <circle cx="100" cy="100" r="90" stroke="#D4AF37" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="100" cy="100" r="85" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Scalloped border points -->
+  <g opacity="0.3" fill="#D4AF37">
+    <circle cx="100" cy="10" r="3"/>
+    <circle cx="100" cy="190" r="3"/>
+    <circle cx="10" cy="100" r="3"/>
+    <circle cx="190" cy="100" r="3"/>
+    <circle cx="36" cy="36" r="2.5"/>
+    <circle cx="164" cy="36" r="2.5"/>
+    <circle cx="36" cy="164" r="2.5"/>
+    <circle cx="164" cy="164" r="2.5"/>
+  </g>
+
+  <!-- Inner circle -->
+  <circle cx="100" cy="100" r="70" stroke="#D4AF37" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- R letter -->
+  <text x="68" y="120" font-family="Cormorant Garamond, serif" font-size="60" font-weight="600" fill="#D4AF37" opacity="0.7">R</text>
+
+  <!-- Ampersand -->
+  <text x="105" y="108" font-family="Great Vibes, cursive" font-size="24" fill="#C4918A" opacity="0.6">&amp;</text>
+
+  <!-- M letter -->
+  <text x="112" y="120" font-family="Cormorant Garamond, serif" font-size="60" font-weight="600" fill="#D4AF37" opacity="0.7">M</text>
+
+  <!-- Small lotus at bottom -->
+  <path d="M100 150 Q95 140 90 148 Q100 142 100 148 Q100 142 110 148 Q105 140 100 150" fill="#C4918A" opacity="0.4"/>
+</svg>

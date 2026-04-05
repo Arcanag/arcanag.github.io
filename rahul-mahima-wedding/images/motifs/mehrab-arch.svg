@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none">
+  <!-- Mehrab (cusped arch) — section divider -->
+  <!-- Outer arch -->
+  <path d="M50 200 L50 80 Q50 10 200 10 Q350 10 350 80 L350 200"
+        stroke="#D4AF37" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <!-- Inner cusped arch -->
+  <path d="M70 200 L70 90 Q70 50 120 35 Q140 30 160 35 Q180 25 200 22 Q220 25 240 35 Q260 30 280 35 Q330 50 330 90 L330 200"
+        stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.3"/>
+  <!-- Keystone ornament -->
+  <circle cx="200" cy="18" r="5" fill="#D4AF37" opacity="0.3"/>
+  <!-- Side scallops -->
+  <path d="M70 120 Q90 115 70 110" stroke="#D4AF37" stroke-width="0.5" fill="none" opacity="0.3"/>
+  <path d="M330 120 Q310 115 330 110" stroke="#D4AF37" stroke-width="0.5" fill="none" opacity="0.3"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 380" fill="none">
+  <!-- Wedding Envelope — Closed State -->
+  <!-- Envelope body -->
+  <rect x="20" y="80" width="460" height="280" rx="6" fill="#FAF6F0" stroke="#D4AF37" stroke-width="1.5"/>
+
+  <!-- Inner liner visible at top -->
+  <rect x="25" y="85" width="450" height="270" rx="4" fill="none" stroke="#E2DDD8" stroke-width="0.5"/>
+
+  <!-- Decorative border pattern (gota patti style) -->
+  <rect x="35" y="95" width="430" height="250" rx="3" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3" stroke-dasharray="8 4"/>
+
+  <!-- Bottom flap (behind body) -->
+  <path d="M20 360 L250 220 L480 360" fill="#F5F0E8" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Side flaps hint -->
+  <path d="M20 80 L20 360" stroke="#D4AF37" stroke-width="0.3" opacity="0.2"/>
+  <path d="M480 80 L480 360" stroke="#D4AF37" stroke-width="0.3" opacity="0.2"/>
+
+  <!-- Top flap (the one that opens) -->
+  <path id="envelope-flap" d="M20 80 L250 240 L480 80 Z" fill="#FDF0E8" stroke="#D4AF37" stroke-width="1.5"/>
+
+  <!-- Flap inner detail -->
+  <path d="M50 95 L250 225 L450 95" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Small corner ornaments on flap -->
+  <circle cx="50" cy="95" r="2" fill="#D4AF37" opacity="0.3"/>
+  <circle cx="450" cy="95" r="2" fill="#D4AF37" opacity="0.3"/>
+  <circle cx="250" cy="225" r="2" fill="#D4AF37" opacity="0.4"/>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Wax Seal with R&M monogram -->
+  <!-- Seal outer ring (irregular wax edges) -->
+  <path d="M60 5 Q72 3 80 10 Q90 8 95 18 Q103 22 105 32 Q112 38 110 50 Q115 58 110 68 Q112 78 105 85 Q103 95 95 100 Q90 108 80 110 Q72 115 60 112 Q48 115 40 110 Q30 108 25 100 Q17 95 15 85 Q8 78 10 68 Q5 58 10 50 Q8 38 15 32 Q17 22 25 18 Q30 8 40 10 Q48 3 60 5 Z"
+        fill="#D4AF37"/>
+
+  <!-- Seal surface (slightly darker) -->
+  <path d="M60 12 Q70 10 77 16 Q85 14 89 22 Q96 26 97 35 Q103 40 101 48 Q105 55 101 63 Q103 72 97 78 Q96 86 89 90 Q85 97 77 98 Q70 102 60 100 Q50 102 43 98 Q35 97 31 90 Q24 86 23 78 Q17 72 19 63 Q15 55 19 48 Q17 40 23 35 Q24 26 31 22 Q35 14 43 16 Q50 10 60 12 Z"
+        fill="#C5972A"/>
+
+  <!-- Inner circle -->
+  <circle cx="60" cy="58" r="32" fill="none" stroke="#FAF6F0" stroke-width="1" opacity="0.4"/>
+  <circle cx="60" cy="58" r="28" fill="none" stroke="#FAF6F0" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- R letter -->
+  <text x="38" y="68" font-family="Georgia, 'Cormorant Garamond', serif" font-size="28" font-weight="700" fill="#FAF6F0" opacity="0.9">R</text>
+
+  <!-- & -->
+  <text x="56" y="62" font-family="Georgia, serif" font-size="12" fill="#FAF6F0" opacity="0.6">&amp;</text>
+
+  <!-- M letter -->
+  <text x="63" y="68" font-family="Georgia, 'Cormorant Garamond', serif" font-size="28" font-weight="700" fill="#FAF6F0" opacity="0.9">M</text>
+
+  <!-- Decorative dots around inner circle -->
+  <circle cx="60" cy="26" r="1.5" fill="#FAF6F0" opacity="0.3"/>
+  <circle cx="60" cy="90" r="1.5" fill="#FAF6F0" opacity="0.3"/>
+  <circle cx="28" cy="58" r="1.5" fill="#FAF6F0" opacity="0.3"/>
+  <circle cx="92" cy="58" r="1.5" fill="#FAF6F0" opacity="0.3"/>
+  <circle cx="38" cy="35" r="1.2" fill="#FAF6F0" opacity="0.25"/>
+  <circle cx="82" cy="35" r="1.2" fill="#FAF6F0" opacity="0.25"/>
+  <circle cx="38" cy="81" r="1.2" fill="#FAF6F0" opacity="0.25"/>
+  <circle cx="82" cy="81" r="1.2" fill="#FAF6F0" opacity="0.25"/>
+
+  <!-- Shine effect -->
+  <ellipse cx="48" cy="42" rx="8" ry="4" fill="#FAF6F0" opacity="0.12" transform="rotate(-30, 48, 42)"/>
+</svg>

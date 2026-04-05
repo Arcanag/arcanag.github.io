@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" fill="none">
+  <!-- Pichwai-style lotus flower -->
+  <!-- Center petal -->
+  <path d="M60 10 Q55 35 45 50 Q60 45 60 50 Q60 45 75 50 Q65 35 60 10"
+        fill="#C4918A" opacity="0.6"/>
+  <!-- Left petals -->
+  <path d="M40 55 Q30 35 25 20 Q20 40 30 55 Q35 58 40 55"
+        fill="#C4918A" opacity="0.4"/>
+  <path d="M30 60 Q15 45 10 30 Q8 50 20 62 Q25 63 30 60"
+        fill="#C4918A" opacity="0.3"/>
+  <!-- Right petals -->
+  <path d="M80 55 Q90 35 95 20 Q100 40 90 55 Q85 58 80 55"
+        fill="#C4918A" opacity="0.4"/>
+  <path d="M90 60 Q105 45 110 30 Q112 50 100 62 Q95 63 90 60"
+        fill="#C4918A" opacity="0.3"/>
+  <!-- Inner detail petals -->
+  <path d="M50 50 Q48 38 42 28 Q45 42 50 50" fill="#D4AF37" opacity="0.5"/>
+  <path d="M70 50 Q72 38 78 28 Q75 42 70 50" fill="#D4AF37" opacity="0.5"/>
+  <!-- Base/water pad hint -->
+  <ellipse cx="60" cy="68" rx="35" ry="8" fill="#A3B18A" opacity="0.2"/>
+  <!-- Center dot -->
+  <circle cx="60" cy="48" r="3" fill="#D4AF37" opacity="0.6"/>
+</svg>
