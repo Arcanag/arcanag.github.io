@@ -21,9 +21,6 @@ defaults:
     values:
       layout: "post"
 
-include:
-  - rahul-mahima-wedding/_astro
-
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
