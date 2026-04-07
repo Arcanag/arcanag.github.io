@@ -31,6 +31,7 @@ Designed and shipped a full-stack AI career platform in one day — 16 features,
 {: #the-problem}
 
 Career transitions are one of the most time-intensive workflows professionals face. Every resume tailoring session means 30-40 minutes of manual work: reading the JD, identifying keywords, rewriting bullets, checking ATS compatibility, then doing it again for the next application. Multiply that by 5-8 applications per week, and the career transition itself becomes a part-time job.
+{: .cs2-lead}
 
 The problem goes beyond resume mechanics. Professionals switching roles lack structured guidance on how to reposition their experience, identify transferable skills, and prepare for interviews in a new domain. Existing tools fall into two camps: generic resume builders that slap keywords onto templates with no intelligence, or expensive SaaS platforms charging $30-50/month that still require significant manual editing.
 
@@ -57,6 +58,7 @@ So I built it.
 {: #product-vision}
 
 Career Enabler is an AI-powered resume intelligence platform that helps professionals navigating career transitions tailor resumes, prepare for interviews, and discover best-fit roles — all from a single workspace.
+{: .cs2-lead}
 
 <p class="statement">Most resume work is mechanical, not creative.</p>
 
@@ -107,6 +109,7 @@ The business model is freemium: 3 free generations to prove value, then $9/month
 {: #architecture--technical-decisions}
 
 Every architecture decision was driven by a single principle: **lean stack, maximum intelligence.**
+{: .cs2-lead}
 
 ### Stack
 
@@ -178,6 +181,7 @@ Users bring their own API keys for Claude, GPT-4o, or Gemini. This was a deliber
 {: #building-at-speed}
 
 All 16 features were built in a single day, using Claude Code as an AI pair programmer. The speed was one day. The product judgment that made it possible was years of shipping AI products in production. The workflow was disciplined:
+{: .cs2-lead}
 
 1. Write a Jira ticket with acceptance criteria
 2. Create a feature branch
@@ -216,6 +220,7 @@ All 16 features were built in a single day, using Claude Code as an AI pair prog
 {: #honest-assessment}
 
 This product has real gaps. I built it in a day and some things show.
+{: .cs2-lead}
 
 **What is weak:**
 

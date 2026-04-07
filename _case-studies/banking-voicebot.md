@@ -90,6 +90,7 @@ The bank's leadership was heavily focused on ROI. Our contractual commitment was
 {: #parallel-development}
 
 While the team was fighting fires on the live system — fixing metrics, stabilizing infrastructure, and absorbing security mandates — we were simultaneously building the next generation of the product.
+{: .cs2-lead}
 
 Phase 2 encompassed **30 new use cases** across five banking skill groups. Crucially, this phase introduced three completely new product categories: **NRI Account, Current Account, and Loan**. These categories were entirely absent from the existing model, API landscape, and flow design — each brought its own complex NLU requirements and compliance gates.
 
@@ -131,6 +132,7 @@ Four subsequent batches were in various stages of development, with UAT targets 
 {: #the-broken-metric}
 
 **Containment rate** — the percentage of calls fully resolved by the AI without human handoff — was our primary business metric. Transitioning into January, internal reports showed a severe, unexplained plunge. The most alarming part wasn't the decline itself — it was the lack of clarity behind it.
+{: .cs2-lead}
 
 A colleague frankly admitted: nobody understood the cause of the crash, and worse, there was zero confidence that our tracking calculations were even correct.
 
@@ -200,6 +202,7 @@ The most critical structural change was eliminating the confusion between a "con
 {: #divide-and-conquer-triaging-system-failures}
 
 With accurate data in hand, three failure patterns emerged — each requiring a different team and approach:
+{: .cs2-lead}
 
 - **Intent classification gaps.** The SLU model was inherited from Voicebot 1.0, which was originally just a simple call-steering bot with 20 intents. Over time, new intents had been bolted on without proper cleanup, and the architecture was never restructured to handle the bank's massive scope of **300+ use cases**. While SLU performance sat at around **70%** for the intents it was explicitly trained for, the model consistently failed on complex utterances like indirect requests or multi-intents. Anything outside this fragile intent universe was immediately escalated to a human agent.
 - **Authentication failures.** This was the finding that changed priorities. A staggering **47% of callers failed after entering their OTP.** Digging into the data, we discovered this was driven by critical DTMF input bugs, specifically failures to capture the first digit or timing out during inter-digit inputs. Surfaced directly in a joint meeting with the bank's team, this meant that even perfectly classified intents were losing customers downstream before they could complete their requests.
@@ -254,6 +257,7 @@ I organized the work into **three squads**: Squad 1 (maintenance and bug fixes),
 {: #what-went-wrong}
 
 This section exists because I believe case studies that only show wins aren't useful. Here's what didn't go as planned:
+{: .cs2-lead}
 
 ### Architectural Mismatch
 
@@ -290,6 +294,7 @@ Absorbing these mandates without stalling our containment initiatives required r
 {: #what-we-built}
 
 Despite the setbacks, the project delivered meaningful improvement across multiple dimensions:
+{: .cs2-lead}
 
 **Measurement integrity.** We fixed **50+ containment bugs** that were skewing the data. We overhauled the underlying analytics pipeline and debugged the existing dashboards to ensure complete data accuracy.
 

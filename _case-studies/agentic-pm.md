@@ -29,7 +29,8 @@ Built a 6-agent AI system that automates 40-60% of PM operational overhead — r
 ## The Problem: PM Overhead Scaling
 {: #the-problem}
 
-After years of managing delivery for AI products, I had seen a painful pattern repeat across every project: **the operational overhead of project management scales linearly with team size, but it shouldn't.** 
+After years of managing delivery for AI products, I had seen a painful pattern repeat across every project: **the operational overhead of project management scales linearly with team size, but it shouldn't.**
+{: .cs2-lead}
 
 Requirements come through email, Slack, and meetings in messy, unstructured formats. Breaking them into actionable tasks is mechanical. Assigning those tasks based on skills and capacity is a simple lookup problem. Status reports? Pure aggregation.
 
@@ -145,6 +146,7 @@ The schema also covers full task hierarchy with dependency tracking, client requ
 {: #the-6-agents}
 
 Each agent is designed around a specific PM operational task. Here is what they do and the product thinking behind each one.
+{: .cs2-lead}
 
 ### 1. Requirement Parser
 
@@ -222,6 +224,7 @@ Instead of producing a single delivery date (which is always wrong), the Timelin
 {: #multi-channel-intelligence}
 
 Requirements do not arrive in neat forms. They come through email threads, Slack messages, and Jira tickets. Agentic PM meets requirements where they live.
+{: .cs2-lead}
 
 ### Gmail Integration (PRs AP-11, AP-12)
 
@@ -263,6 +266,7 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
 {: #honest-assessment}
 
 Here is where the system falls short.
+{: .cs2-lead}
 
 **What is weak:**
 
