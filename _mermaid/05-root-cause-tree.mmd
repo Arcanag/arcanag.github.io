@@ -1,0 +1,32 @@
+graph TD
+    ROOT["Broken Containment Rate<br/><i>20K actual vs 8L target</i>"]
+
+    ROOT --> CAUSE1["Compromised<br/>Analytics Pipeline"]
+    ROOT --> CAUSE2["Metric<br/>Misalignment"]
+    ROOT --> CAUSE3["Rushed Product<br/>Design"]
+
+    CAUSE1 --> D1["50+ containment bugs<br/>in tracking code"]
+    CAUSE1 --> D2["Max-retry hangups<br/>counted as contained"]
+    CAUSE1 --> D3["Missing data for<br/>10+ intents"]
+
+    CAUSE2 --> D4["No shared definition<br/>of success"]
+    CAUSE2 --> D5["Containment confused<br/>with Resolution"]
+    CAUSE2 --> D6["Team and client<br/>measuring differently"]
+
+    CAUSE3 --> D7["No graceful<br/>fallbacks"]
+    CAUSE3 --> D8["3-attempt hangups<br/>counted as contained"]
+    CAUSE3 --> D9["Incomplete<br/>conversational flows"]
+
+    style ROOT fill:#ff2d00,stroke:#ff2d00,color:#fff
+    style CAUSE1 fill:#1a1a1a,stroke:#ff2d00,color:#f0ebe0
+    style CAUSE2 fill:#1a1a1a,stroke:#ff2d00,color:#f0ebe0
+    style CAUSE3 fill:#1a1a1a,stroke:#ff2d00,color:#f0ebe0
+    style D1 fill:#141414,stroke:#333,color:#888
+    style D2 fill:#141414,stroke:#333,color:#888
+    style D3 fill:#141414,stroke:#333,color:#888
+    style D4 fill:#141414,stroke:#333,color:#888
+    style D5 fill:#141414,stroke:#333,color:#888
+    style D6 fill:#141414,stroke:#333,color:#888
+    style D7 fill:#141414,stroke:#333,color:#888
+    style D8 fill:#141414,stroke:#333,color:#888
+    style D9 fill:#141414,stroke:#333,color:#888

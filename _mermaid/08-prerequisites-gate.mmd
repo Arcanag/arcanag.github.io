@@ -1,0 +1,19 @@
+graph TD
+    BANK["Bank-Side Prerequisites<br/><i>7 gates per use case</i>"]
+
+    BANK --> G1["Requirement<br/>Documents"] & G2["API<br/>Documentation"] & G3["Parameter<br/>Definitions"] & G4["Routing<br/>Details"] & G5["SMS<br/>Content"] & G6["Production<br/>Recordings"] & G7["Test<br/>Data"]
+
+    G1 & G2 & G3 & G4 & G5 & G6 & G7 --> READY["Ready for<br/>20-Step Execution"]
+
+    READY --> EXEC["Skit.ai<br/>Development Pipeline"]
+
+    style BANK fill:#1a1a1a,stroke:#888,color:#f0ebe0
+    style READY fill:#ff2d00,stroke:#ff2d00,color:#fff
+    style EXEC fill:#1a1a1a,stroke:#ff2d00,color:#f0ebe0
+    style G1 fill:#141414,stroke:#555,color:#f0ebe0
+    style G2 fill:#141414,stroke:#555,color:#f0ebe0
+    style G3 fill:#141414,stroke:#555,color:#f0ebe0
+    style G4 fill:#141414,stroke:#555,color:#f0ebe0
+    style G5 fill:#141414,stroke:#555,color:#f0ebe0
+    style G6 fill:#141414,stroke:#555,color:#f0ebe0
+    style G7 fill:#141414,stroke:#555,color:#f0ebe0

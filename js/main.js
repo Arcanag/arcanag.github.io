@@ -121,6 +121,46 @@
     }, { passive: true });
   }
 
+  // Mermaid diagram lightbox zoom
+  var lightbox = null;
+
+  function openLightbox(img) {
+    var figure = img.closest('.mermaid-diagram');
+    var caption = figure ? figure.querySelector('figcaption') : null;
+
+    lightbox = document.createElement('div');
+    lightbox.className = 'diagram-lightbox';
+    lightbox.innerHTML =
+      '<img src="' + img.src + '" alt="' + (img.alt || '') + '" />' +
+      '<span class="diagram-lightbox__hint">ESC or click to close</span>' +
+      (caption ? '<span class="diagram-lightbox__caption">' + caption.textContent + '</span>' : '');
+
+    document.body.appendChild(lightbox);
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () { lightbox.classList.add('is-visible'); });
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('is-visible');
+    setTimeout(function () {
+      if (lightbox && lightbox.parentNode) lightbox.parentNode.removeChild(lightbox);
+      lightbox = null;
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (lightbox) { closeLightbox(); return; }
+    if (e.target.tagName !== 'IMG') return;
+    if (!e.target.closest('.mermaid-diagram')) return;
+    openLightbox(e.target);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox) closeLightbox();
+  });
+
   // Back to top
   var backToTop = document.querySelector('.back-to-top');
   if (backToTop) {

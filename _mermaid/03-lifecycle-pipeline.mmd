@@ -1,0 +1,60 @@
+---
+title: 27-Step Use Case Development Lifecycle
+---
+graph TD
+    subgraph Phase1["Requirements"]
+        A1["Requirement Intake"] --> A2["BRD Review"]
+        A2 --> A3["Parameter Definition"]
+        A3 --> A4["Routing Details"]
+    end
+
+    subgraph Phase2["Bank Prerequisites"]
+        B1["API Documentation"] --> B2["SMS Content"]
+        B2 --> B3["Production Recordings"]
+        B3 --> B4["Test Data"]
+    end
+
+    subgraph Phase3["Design & Build"]
+        C1["Flow Design"] --> C2["Prompt Alignment"]
+        C2 --> C3["NLU Intent Training"]
+        C3 --> C4["Entity Mapping"]
+        C4 --> C5["API Integration"]
+    end
+
+    subgraph Phase4["Integration"]
+        D1["End-to-End Wiring"] --> D2["Error Handling"]
+        D2 --> D3["Fallback Flows"]
+        D3 --> D4["DTMF Config"]
+    end
+
+    subgraph Phase5["Testing"]
+        E1["Internal QA"] --> E2["Bug Fixes"]
+        E2 --> E3["CUG Testing"]
+        E3 --> E4["Client Validation"]
+    end
+
+    subgraph Phase6["Deployment"]
+        F1["POA Document"] --> F2["Email Approval"]
+        F2 --> F3["DR Deploy"]
+        F3 --> F4["Prod Deploy"]
+    end
+
+    subgraph Phase7["Sign-off"]
+        G1["Production Monitoring"] --> G2["Metric Validation"]
+        G2 --> G3["Client Sign-off"]
+    end
+
+    Phase1 --> Phase2
+    Phase2 --> Phase3
+    Phase3 --> Phase4
+    Phase4 --> Phase5
+    Phase5 --> Phase6
+    Phase6 --> Phase7
+
+    style Phase1 fill:#141414,stroke:#333,color:#f0ebe0
+    style Phase2 fill:#141414,stroke:#333,color:#f0ebe0
+    style Phase3 fill:#141414,stroke:#ff2d00,color:#f0ebe0
+    style Phase4 fill:#141414,stroke:#333,color:#f0ebe0
+    style Phase5 fill:#141414,stroke:#333,color:#f0ebe0
+    style Phase6 fill:#141414,stroke:#333,color:#f0ebe0
+    style Phase7 fill:#141414,stroke:#ff2d00,color:#f0ebe0

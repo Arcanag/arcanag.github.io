@@ -1,0 +1,20 @@
+gantt
+    title Security Scope Injected Mid-Sprint
+    dateFormat YYYY-MM
+    axisFormat %b %Y
+    todayMarker off
+
+    section Original Sprint Scope
+    Containment Improvements      :done, c1, 2025-07, 2025-10
+    Use Case Development          :done, c2, 2025-07, 2025-12
+    SLU Model Expansion           :done, c3, 2025-06, 2025-12
+
+    section Injected Security (RBI Mandated)
+    LDAP + MFA Authentication     :crit, s1, 2025-08, 2025-11
+    Database Encryption           :crit, s2, 2025-09, 2025-12
+    HTTPS Migration               :crit, s3, 2025-09, 2025-11
+    SRTP Compliance               :crit, s4, 2025-10, 2025-12
+    APIGEE API Key + OAuth        :crit, s5, 2025-11, 2026-03
+
+    section Impact
+    Squad 3 at 90% Security       :milestone, m1, 2025-10, 0d

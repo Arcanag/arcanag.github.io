@@ -1,0 +1,28 @@
+graph TD
+    ROOT["Phase 2 ML<br/>Model Expansion"]
+
+    ROOT --> CAT1["Full Retraining"]
+    ROOT --> CAT2["Entity Additions"]
+    ROOT --> CAT3["Edge-Case Testing"]
+
+    CAT1 --> C1A["New intents for<br/>NRI, Current Account, Loan"]
+    CAT1 --> C1B["Fresh model architecture<br/>for multi-product routing"]
+
+    CAT2 --> C2A["New slot types for<br/>existing intents"]
+    CAT2 --> C2B["Multi-product entity<br/>disambiguation"]
+
+    CAT3 --> C3A["Ambiguous UPI queries"]
+    CAT3 --> C3B["Grid value activation<br/>conflicts"]
+    CAT3 --> C3C["Sequential card type<br/>probing"]
+
+    style ROOT fill:#1a1a1a,stroke:#ff2d00,color:#f0ebe0
+    style CAT1 fill:#ff2d00,stroke:#ff2d00,color:#fff
+    style CAT2 fill:#ff2d00,stroke:#ff2d00,color:#fff
+    style CAT3 fill:#ff2d00,stroke:#ff2d00,color:#fff
+    style C1A fill:#141414,stroke:#333,color:#888
+    style C1B fill:#141414,stroke:#333,color:#888
+    style C2A fill:#141414,stroke:#333,color:#888
+    style C2B fill:#141414,stroke:#333,color:#888
+    style C3A fill:#141414,stroke:#333,color:#888
+    style C3B fill:#141414,stroke:#333,color:#888
+    style C3C fill:#141414,stroke:#333,color:#888

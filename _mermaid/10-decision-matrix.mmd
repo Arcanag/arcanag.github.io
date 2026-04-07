@@ -1,0 +1,33 @@
+graph TD
+    DECISION["Approach Options"]
+
+    DECISION --> OPT1["Full SLU Retrain"]
+    DECISION --> OPT2["Flow Redesign Only"]
+    DECISION --> OPT3["Hybrid Approach"]
+
+    OPT1 --> T1["Timeline: 6+ months"]
+    OPT1 --> R1["Risk: High — air-gapped<br/>research constraints"]
+    OPT1 --> I1["Impact: Comprehensive<br/>but delayed"]
+
+    OPT2 --> T2["Timeline: 2-3 months"]
+    OPT2 --> R2["Risk: Low"]
+    OPT2 --> I2["Impact: Quick wins only,<br/>no lasting SLU fix"]
+
+    OPT3 --> T3["Timeline: Immediate<br/>+ ongoing"]
+    OPT3 --> R3["Risk: Medium — parallel<br/>execution required"]
+    OPT3 --> I3["Impact: Quick wins NOW<br/>+ sustained improvement"]
+
+    style DECISION fill:#1a1a1a,stroke:#333,color:#f0ebe0
+    style OPT1 fill:#141414,stroke:#333,color:#888
+    style OPT2 fill:#141414,stroke:#333,color:#888
+    style OPT3 fill:#ff2d00,stroke:#ff2d00,color:#fff
+
+    style T1 fill:#0a0a0a,stroke:#222,color:#555
+    style R1 fill:#0a0a0a,stroke:#222,color:#555
+    style I1 fill:#0a0a0a,stroke:#222,color:#555
+    style T2 fill:#0a0a0a,stroke:#222,color:#555
+    style R2 fill:#0a0a0a,stroke:#222,color:#555
+    style I2 fill:#0a0a0a,stroke:#222,color:#555
+    style T3 fill:#0a0a0a,stroke:#ff2d00,color:#f0ebe0
+    style R3 fill:#0a0a0a,stroke:#ff2d00,color:#f0ebe0
+    style I3 fill:#0a0a0a,stroke:#ff2d00,color:#f0ebe0

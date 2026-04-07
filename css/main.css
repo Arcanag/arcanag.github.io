@@ -688,7 +688,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   padding: var(--space-lg) var(--space-xl);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
   margin: var(--space-xl) 0;
@@ -711,6 +711,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   letter-spacing: -0.03em;
   line-height: 1;
   color: var(--color-text-on-light);
+  text-align: right;
 }
 /* Callout */
 .callout {
@@ -725,6 +726,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
 }
 .callout p:last-child { margin-bottom: 0; }
 .callout p { color: var(--color-text-muted-on-light); }
+.callout--tldr p { margin-bottom: 0.25em; }
 .callout strong { color: var(--color-text-on-light); background: none; }
 /* Callout variants */
 .callout--takeaway {
@@ -934,6 +936,507 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   max-width: 640px;
   margin: 0 auto;
   color: var(--color-text-muted);
+}
+
+/* --- i-3) Case Study Visual Enhancement Components --- */
+
+/* Mermaid diagram figures */
+.case-study-content figure.mermaid-diagram {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  background: #0a0a0a;
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+.case-study-content figure.mermaid-diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  cursor: zoom-in;
+}
+.case-study-content figure.mermaid-diagram--wide img {
+  min-height: 300px;
+  object-fit: contain;
+}
+
+/* Lightbox overlay for zoomed diagrams */
+.diagram-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.diagram-lightbox.is-visible {
+  opacity: 1;
+}
+.diagram-lightbox img {
+  max-width: 95vw;
+  max-height: 90vh;
+  object-fit: contain;
+  pointer-events: none;
+}
+.diagram-lightbox__caption {
+  position: absolute;
+  bottom: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+  text-align: center;
+  max-width: 600px;
+}
+.diagram-lightbox__hint {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+.case-study-content figure.mermaid-diagram figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  letter-spacing: 0.02em;
+}
+
+/* Pipeline grid — lifecycle phases */
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+  margin: var(--space-xl) 0;
+}
+.pipeline__phase {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.pipeline__phase--accent {
+  border-color: var(--color-accent);
+}
+.pipeline__phase-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-xs);
+}
+.pipeline__step {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  padding: 0.25em 0;
+  line-height: 1.4;
+}
+.pipeline__step::before {
+  content: '\2192';
+  color: var(--color-border-mid);
+  margin-right: var(--space-xs);
+  font-size: 0.75rem;
+}
+
+/* Tree diagram — centered parent-child layout */
+.tree {
+  margin: var(--space-xl) 0;
+  text-align: center;
+}
+.tree__root {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-xs);
+}
+.tree__root--muted {
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-mid);
+}
+.tree__connector {
+  width: 1px;
+  height: 20px;
+  background: var(--color-border-mid);
+  margin: 0 auto;
+}
+.tree__branches {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  position: relative;
+  padding-top: var(--space-sm);
+}
+.tree__branches::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: var(--color-border-mid);
+}
+.tree__branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 140px;
+  max-width: 220px;
+}
+.tree__branch-connector {
+  width: 1px;
+  height: 16px;
+  background: var(--color-border-mid);
+}
+.tree__node {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  width: 100%;
+}
+.tree__node--highlight {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+.tree__node--dim {
+  border-color: var(--color-border-mid);
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+.tree__leaves {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+  width: 100%;
+}
+.tree__leaf {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.35em var(--space-sm);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.tree__caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  letter-spacing: 0.02em;
+}
+
+/* Decision cards — side-by-side comparison */
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+}
+.decision-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+}
+.decision-card--chosen {
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+.decision-card__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+.decision-card--chosen .decision-card__title {
+  color: var(--color-text);
+}
+.decision-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.3em 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.82rem;
+}
+.decision-card__row:last-child { border-bottom: none; }
+.decision-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.decision-card__value {
+  color: var(--color-text);
+  text-align: right;
+}
+.decision-card--chosen .decision-card__value {
+  color: var(--color-text);
+}
+.decision-card__badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: 0.2em 0.6em;
+  margin-top: var(--space-sm);
+}
+
+/* Conversation mismatch — compact */
+.mismatch {
+  margin: var(--space-xl) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+}
+.mismatch__utterance {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-text);
+  max-width: 480px;
+}
+.mismatch__arrow {
+  width: 1px;
+  height: 20px;
+  background: var(--color-border-mid);
+}
+.mismatch__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: var(--space-xs) 0;
+}
+.mismatch__intents {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+.mismatch__intent {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-text);
+}
+.mismatch__collision {
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+}
+.mismatch__result {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+}
+.mismatch__needed {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mismatch__needed-item {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-md);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+.mismatch__caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+}
+
+/* Scorecard — project health at-a-glance */
+.scorecard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0;
+}
+.scorecard__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+.scorecard__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.scorecard__indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.scorecard__indicator--red { background: #ff2d00; }
+.scorecard__indicator--amber { background: #f59e0b; }
+.scorecard__indicator--green { background: #22c55e; }
+.scorecard__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.scorecard__value {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+/* Outcome cards — achievement summary */
+.outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+}
+.outcome-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  border-left: 3px solid var(--color-accent);
+}
+.outcome-card__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+.outcome-card__metric {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: var(--space-xs);
+}
+.outcome-card__desc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* Lesson cards — reflections */
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+}
+.lesson-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  position: relative;
+}
+.lesson-card__number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--color-accent);
+  opacity: 0.2;
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-md);
+  line-height: 1;
+}
+.lesson-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+.lesson-card__body {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+.lesson-card__quote {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  border-left: 2px solid var(--color-accent);
+  padding-left: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
 /* --- j-1) Blog Post Tags --- */
@@ -1259,6 +1762,16 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   .page__header { padding-top: calc(var(--nav-height) + var(--space-xl)); }
   .metric-box { flex-direction: column; gap: var(--space-xs); }
   .testimonial { padding: var(--space-md) var(--space-lg); }
+  .pipeline { grid-template-columns: repeat(2, 1fr); }
+  .decision-grid { grid-template-columns: 1fr; }
+  .tree__branches { gap: var(--space-xs); }
+  .tree__branch { min-width: 100px; }
+  .mismatch__intents { flex-direction: column; align-items: center; }
+  .mismatch__needed { flex-direction: column; align-items: center; }
+  .scorecard { grid-template-columns: 1fr; }
+  .outcome-grid { grid-template-columns: 1fr; }
+  .lesson-grid { grid-template-columns: 1fr; }
+  .case-study-content figure.mermaid-diagram { padding: var(--space-sm); }
   .nav__hamburger { display: flex; }
   .nav__links {
     position: fixed;

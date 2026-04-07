@@ -1,0 +1,35 @@
+graph TD
+    USER["Customer Utterance:<br/><i>'I am at an airport lounge and trying<br/>to make a payment but the transaction<br/>is not working'</i>"]
+
+    USER --> SLU["SLU Model<br/><i>Solution-oriented architecture</i>"]
+
+    SLU --> INT1["airport-lounge"]
+    SLU --> INT2["transaction-issue"]
+    SLU --> INT3["transaction-status"]
+
+    INT1 --> CONFLICT["Intent Collision<br/><i>No disambiguation layer</i>"]
+    INT2 --> CONFLICT
+    INT3 --> CONFLICT
+
+    CONFLICT --> FAIL["Misfire or<br/>Wrong Flow"]
+
+    subgraph NEEDED["What Was Needed"]
+        direction TB
+        H1["Hierarchical root intent"]
+        H2["Multi-intent handling"]
+        H3["Problem-to-solution<br/>disambiguation"]
+    end
+
+    FAIL -.-> NEEDED
+
+    style USER fill:#1a1a1a,stroke:#333,color:#f0ebe0
+    style SLU fill:#141414,stroke:#888,color:#f0ebe0
+    style INT1 fill:#141414,stroke:#ff2d00,color:#ff2d00
+    style INT2 fill:#141414,stroke:#ff2d00,color:#ff2d00
+    style INT3 fill:#141414,stroke:#ff2d00,color:#ff2d00
+    style CONFLICT fill:#ff2d00,stroke:#ff2d00,color:#fff
+    style FAIL fill:#2a0a00,stroke:#ff2d00,color:#ff2d00
+    style NEEDED fill:#0a0a0a,stroke:#333,color:#f0ebe0
+    style H1 fill:#141414,stroke:#333,color:#888
+    style H2 fill:#141414,stroke:#333,color:#888
+    style H3 fill:#141414,stroke:#333,color:#888
