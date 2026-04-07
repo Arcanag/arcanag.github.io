@@ -18,9 +18,13 @@ toc:
     anchor: "multi-channel-intelligence"
   - title: "Honest Assessment"
     anchor: "honest-assessment"
-  - title: "What I Learned"
-    anchor: "what-i-learned"
+  - title: "Things I'd Do Differently"
+    anchor: "things-id-do-differently"
 ---
+
+<div class="callout callout--tldr">
+Built a 6-agent AI system that automates 40-60% of PM operational overhead — requirement parsing, task decomposition, team routing, timeline forecasting, and client communication. Shipped with 81+ tests, 19 PRs, and a multi-tenant data model across a Turborepo monorepo.
+</div>
 
 ## The Problem: PM Overhead Scaling
 {: #the-problem}
@@ -32,6 +36,8 @@ Requirements come through email, Slack, and meetings in messy, unstructured form
 None of this requires human judgment. **Yet PMs spend 40-60% of their time trapped in these tasks.** Without a system to handle the operational layer, product managers become glorified task routers, losing the bandwidth needed for strategy, stakeholder alignment, and actual product decisions.
 
 **The Solution:** I built what I kept wishing existed — an AI system that entirely automates the operational layer of project management.
+
+<p class="statement">The constraint was clear: automate the mechanical, preserve the judgment. Every agent boundary was drawn at the line where human product thinking begins.</p>
 
 Agentic PM is that system: 6 specialized AI agents that automate the PM workflow from requirement intake to timeline forecasting. But here's what nobody expected when building this architecture...
 
@@ -91,6 +97,12 @@ The agents compose into a pipeline, but they are not tightly coupled:
 <figcaption>6-agent pipeline: requirements flow through parsing, decomposition, and routing before dispatch to specialist agents.</figcaption>
 </figure>
 
+<div class="testimonial">
+  <p class="testimonial__sentiment">ARCHITECTURE INSIGHT</p>
+  <p class="testimonial__quote">"The hardest decisions in multi-agent design aren't technical — they're about where one agent's responsibility ends and another's begins. Get the boundaries wrong and you build a monolith wearing a microservices costume."</p>
+  <p class="testimonial__attribution">— Reflection from building the 6-agent pipeline</p>
+</div>
+
 ### Stack
 
 - **Frontend:** Next.js 15 (App Router, TypeScript)
@@ -121,7 +133,9 @@ The Next.js app acts as a Backend-for-Frontend proxy to the FastAPI service. API
 
 ### Multi-Tenant Data Model
 
-The Prisma schema supports full multi-tenancy with organization-based data isolation. The schema includes auth models, organization membership with role-based access, teams with skills and availability metadata, full task hierarchy with dependency tracking, client requirements with clarification threads, work assignments with RACI matrix support, milestones with confidence intervals, agent runs with audit trails, and integration configs for Jira, GitHub, Slack, and Google.
+The Prisma schema supports full multi-tenancy with organization-based data isolation. It includes auth models, organization membership with role-based access, and teams with skills and availability metadata.
+
+The schema also covers full task hierarchy with dependency tracking, client requirements with clarification threads, work assignments with RACI matrix support, milestones with confidence intervals, agent runs with audit trails, and integration configs for Jira, GitHub, Slack, and Google.
 
 <div class="callout">
 <strong>Why this schema matters:</strong> The data model IS the product. A multi-agent PM tool without proper dependency tracking, RACI support, and audit trails is a toy. The schema was designed before the first agent was built.
@@ -260,17 +274,17 @@ Here is where the system falls short.
 
 **What I would do differently with more time:**
 
-- The 6-agent architecture is more complex than a v1 needs. A 3-agent system (Decomposition, Routing, Timeline) would have delivered 80% of the value. I built the other three because I could, not because users needed them yet.
-- Build an event-driven orchestration layer — the current linear pipeline means a timeline change doesn't cascade to routing or communication.
-- Deploy to a real team for 2 sprints and measure time saved, decomposition accuracy, and forecast calibration before adding more agents.
-- Add a feedback loop where PMs can rate agent outputs, creating training data for prompt improvement.
+- **Over-engineered v1** — The 6-agent architecture is more complex than a v1 needs. A 3-agent system (Decomposition, Routing, Timeline) would have delivered 80% of the value.
+- **Missing event-driven orchestration** — The current linear pipeline means a timeline change doesn't cascade to routing or communication. An event bus would close this loop.
+- **No real-world validation** — Deploy to a real team for 2 sprints and measure time saved, decomposition accuracy, and forecast calibration before adding more agents.
+- **No feedback loop** — PMs should be able to rate agent outputs, creating training data for prompt improvement over time.
 
 <div class="callout">
 <strong>The gap that matters most:</strong> Without validation against real project data, this is a well-architected demo. The path from demo to product requires deploying with a real team, measuring outcomes, and iterating on agent prompts based on actual PM feedback.
 </div>
 
-## What I Learned
-{: #what-i-learned}
+## Things I'd Do Differently
+{: #things-id-do-differently}
 
 ### 1. Multi-Agent Design Is a Product Problem, Not an Engineering Problem
 

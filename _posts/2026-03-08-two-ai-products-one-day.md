@@ -20,10 +20,14 @@ toc:
     anchor: "what-this-means"
 ---
 
+<div class="callout callout--tldr">
+63 PRs merged, 67 Jira tickets closed, 100+ tests written — two complete AI products shipped in a single day. The speed came not from vibe coding, but from engineering discipline: Jira-first workflow, branch-per-feature, and years of product judgment.
+</div>
+
 ## The Headline Numbers
 {: #the-headline-numbers}
 
-On March 22, 2026, I shipped two AI-powered products from scratch — products with authentication, payments, tests, and CI-ready codebases. The day was one day. The judgment that made it possible was years of shipping AI products in production.
+On March 22, 2026, I shipped two AI-powered products from scratch — products with authentication, payments, tests, and CI-ready codebases. The speed was one day. The judgment that made it possible was years of shipping AI products in production.
 
 <div class="metric-box"><span class="metric-box__label">Pull Requests Merged</span><span class="metric-box__number">63</span></div>
 
@@ -38,9 +42,9 @@ But the headline isn't really about speed. It's about what made the speed possib
 ## What Got Built
 {: #what-got-built}
 
-**Career Enabler** is a full-stack application with 16 features across 44 PRs. It takes a resume and a job description, runs ATS scoring with zero LLM tokens (pure Python text analysis), then generates a tailored resume using Claude. It includes interview prep, job matching across 3 boards, skill gap analysis, conversational editing with diff view, a Stripe-integrated freemium system, and BYOK multi-provider LLM support.
+**Career Enabler** is a full-stack application with **16 features** across **44 PRs**. It takes a resume and a job description, runs ATS scoring with zero LLM tokens (pure Python text analysis), then generates a tailored resume using Claude. It includes interview prep, job matching across 3 boards, skill gap analysis, conversational editing with diff view, a Stripe-integrated freemium system, and BYOK multi-provider LLM support.
 
-**Agentic PM** is a monorepo application with 6 AI agents across 19 PRs. It decomposes requirements into epics/stories/tasks with INVEST validation, routes work based on team skills and capacity with RACI matrices, forecasts timelines using Monte Carlo simulation, and generates client status reports. It ingests requirements from Gmail, Slack, and Jira automatically.
+**Agentic PM** is a monorepo application with **6 AI agents** across **19 PRs**. It decomposes requirements into epics/stories/tasks with INVEST validation, routes work based on team skills and capacity with RACI matrices, and forecasts timelines using Monte Carlo simulation. It ingests requirements from Gmail, Slack, and Jira automatically.
 
 Both products have comprehensive test suites, proper authentication, database migrations, and clean git histories.
 
@@ -107,7 +111,9 @@ Every single one of the 63 PRs followed this pattern. No exceptions. No "I'll cl
 
 This seems counterintuitive. Adding process should slow you down, right? Especially when you're moving fast with an AI coding assistant that can generate hundreds of lines per minute.
 
-Here's what actually happens without discipline: AI generates code fast, you commit it fast, and by feature number 8, you're debugging interactions between features that were never isolated. You can't roll back feature 12 without breaking feature 9. Your git history is a single thread of "wip" and "fix" commits. You've built a house of cards at 10x speed.
+Here's what actually happens without discipline: AI generates code fast, you commit it fast, and by feature number 8, you're debugging interactions between features that were never isolated. You can't roll back feature 12 without breaking feature 9.
+
+Your git history is a single thread of "wip" and "fix" commits. You've built a house of cards at 10x speed.
 
 With the Jira-first, branch-per-feature workflow, each PR is:
 
@@ -122,7 +128,12 @@ The overhead of creating a Jira ticket and cutting a branch is maybe 2 minutes. 
 
 There's a popular approach right now that I'll call "vibe coding" — you sit down with an AI assistant, describe what you want in broad strokes, and let it generate an entire application in one session. The results look impressive in a demo. The codebase is usually unmaintainable within a week.
 
-The 63-PR approach isn't slower. It's faster at scale because each PR is small enough for meaningful review, tests catch regressions before they compound, the AI assistant gets clean focused context, and you can parallelize across products.
+The 63-PR approach isn't slower. It's faster at scale because:
+
+- **Small PRs enable review** — Each PR is small enough for meaningful review
+- **Tests catch regressions early** — Before they compound across features
+- **Clean AI context** — The AI assistant gets focused context every time
+- **Parallelizable** — You can parallelize across products without interference
 
 ## What This Means for PMs Who Want to Build
 {: #what-this-means}

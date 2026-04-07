@@ -19,9 +19,13 @@ toc:
     anchor: "building-at-speed"
   - title: "Honest Assessment"
     anchor: "honest-assessment"
-  - title: "What I Learned"
-    anchor: "what-i-learned"
+  - title: "Things I'd Do Differently"
+    anchor: "things-id-do-differently"
 ---
+
+<div class="callout callout--tldr">
+Designed and shipped a full-stack AI career platform in one day — 16 features, 44 PRs, freemium billing via Stripe. Two-tier architecture: rule-based NLP for zero-cost scoring, LLMs reserved for reasoning-heavy tasks. Token usage cut by 40-60% through delta-only prompting.
+</div>
 
 ## The Problem
 {: #the-problem}
@@ -83,6 +87,8 @@ This led to a two-tier intelligence architecture:
 </svg>
 <figcaption>Two-tier architecture: deterministic NLP at zero cost for scoring/extraction; LLMs reserved for reasoning-heavy tasks.</figcaption>
 </figure>
+
+<p class="statement">The constraint shaped the product: reserve intelligence for what genuinely requires it. Everything deterministic runs at zero cost.</p>
 
 The business model is freemium: 3 free generations to prove value, then $9/month for unlimited access via Stripe.
 
@@ -213,25 +219,25 @@ This product has real gaps. I built it in a day and some things show.
 
 **What is weak:**
 
-- **Test coverage is thin.** 20+ tests and Playwright E2E cover the happy paths, but edge cases — malformed PDFs, API key rotation mid-session, Stripe webhook retries — are not well-tested. For a production product, I would want 3-4x this coverage.
-- **No user research.** I built this for my own pain point. I have not validated whether other job seekers share the same workflow or would pay $9/month.
-- **Single-day UX.** The interface works, but it has not been through any usability testing. The conversational editor in particular has interaction patterns that might confuse first-time users.
-- **SQLite scaling ceiling.** Fine for early users, but concurrent writes from multiple users would hit SQLite's write lock. The migration path to Postgres is clean, but it is still a migration.
-- **No analytics.** No event tracking, no funnel metrics, no way to measure feature adoption.
+- **Thin test coverage** — 20+ tests and Playwright E2E cover happy paths, but edge cases (malformed PDFs, API key rotation, Stripe webhook retries) are untested. Production would need 3-4x this coverage.
+- **No user research** — Built for my own pain point. Haven't validated whether other job seekers share this workflow or would pay $9/month.
+- **Single-day UX** — Interface works but hasn't been through usability testing. The conversational editor has interaction patterns that might confuse first-time users.
+- **SQLite scaling ceiling** — Fine for early users, but concurrent writes would hit SQLite's write lock. Migration path to Postgres is clean but still a migration.
+- **No analytics** — No event tracking, no funnel metrics, no way to measure feature adoption.
 
 **What I would do differently with more time:**
 
-- I over-engineered the authentication system for a v1. Auth0 would have saved hours I should have spent on the resume comparison UX.
-- Run 5-10 user interviews before building the job matching feature — it may not be the highest-value feature for the target user.
-- Add PostHog or a lightweight event tracker from day one — without analytics, I cannot measure whether the ATS scorer or the tailoring engine drives more engagement.
-- Implement rate limiting and abuse prevention for the BYOK key system.
+- **Over-engineered auth** — Auth0 would have saved hours I spent on the authentication system. Those hours should have gone to the resume comparison UX.
+- **Skipped user interviews** — Should have run 5-10 interviews before building job matching. It may not be the highest-value feature for the target user.
+- **No analytics from day one** — PostHog or a lightweight event tracker would tell me whether the ATS scorer or the tailoring engine drives more engagement.
+- **Missing abuse prevention** — Rate limiting and validation for the BYOK key system is essential before real users.
 
 <div class="callout">
 <strong>Why include this section?</strong> Because product judgment means knowing what you shipped, what you cut, and what you would do differently. Honest assessment of gaps is what separates a demo from a product.
 </div>
 
-## What I Learned
-{: #what-i-learned}
+## Things I'd Do Differently
+{: #things-id-do-differently}
 
 ### 1. AI Pair Programming Changes the Shipping Equation
 

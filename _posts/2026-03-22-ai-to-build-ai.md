@@ -22,6 +22,10 @@ toc:
     anchor: "what-building-taught"
 ---
 
+<div class="callout callout--tldr">
+I used an AI agent (Claude Code) to build an AI career tool (Career Enabler) that helps professionals navigate career transitions. Three layers of AI, each revealing something different about where AI amplifies human judgment and where it falls short.
+</div>
+
 ## Three Layers Deep: The Meta-Narrative
 {: #three-layers-deep}
 
@@ -135,20 +139,20 @@ Shipping fast means making tradeoffs, and I want to be specific about what's str
 **Career Enabler Strengths:** Lean architecture, cost-efficient AI pipeline, comprehensive feature set (16 features), BYOK model that scales without absorbing LLM costs.
 
 **Career Enabler Gaps:**
-- No collaborative features — can't share a draft with a mentor
-- Limited job board integration — 3 boards, no LinkedIn/Indeed
-- No resume analytics — no way to track which versions get callbacks
-- SQLite limits scale to single-user
-- No A/B testing of AI outputs
+- **No collaboration** — Can't share a draft with a mentor for review
+- **Limited job boards** — 3 boards integrated, no LinkedIn/Indeed
+- **No resume analytics** — No way to track which versions get callbacks
+- **SQLite scaling ceiling** — Limits to single-user concurrency
+- **No A/B testing** — Can't compare AI output quality across prompts
 
 **[Agentic PM](https://github.com/Arcanag/agentic-pm) Strengths:** Clean agent separation, comprehensive database schema, multi-channel intake, Monte Carlo simulation for forecasting.
 
 **Agentic PM Gaps:**
-- Cold start problem — no historical data to calibrate estimation
-- No agent memory or learning — agents don't improve from past decisions
-- Enterprise auth gaps — no SSO, basic RBAC
-- Linear agent orchestration — no event-driven cascading updates
-- Multi-channel intake signal-to-noise filtering is basic
+- **Cold start problem** — No historical data to calibrate estimation accuracy
+- **No agent memory** — Agents don't improve from past decisions
+- **Enterprise auth gaps** — No SSO, basic RBAC only
+- **Linear orchestration** — No event-driven cascading updates
+- **Basic intake filtering** — Multi-channel signal-to-noise ratio is low
 
 <div class="callout"><p>Listing what's wrong with your own product isn't self-deprecation. It's the most PM thing you can do. It shows you understand scope, tradeoffs, and what a V2 roadmap looks like.</p></div>
 

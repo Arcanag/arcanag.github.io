@@ -21,10 +21,14 @@ toc:
     anchor: "putting-it-together"
 ---
 
+<div class="callout callout--tldr">
+Most AI products bleed tokens by sending raw text to LLMs. This post details specific patterns — Python preprocessing, zero-token ATS scoring, SQLite vs Postgres decisions, and BYOK as a business model — that cut infrastructure costs to ~$5/month.
+</div>
+
 ## The Token Bleed Problem
 {: #the-token-bleed-problem}
 
-Most AI products have a dirty secret: they send way too much text to the LLM. A typical resume is 800-1200 words. A job description is 500-1000 words. If your "AI resume tailor" concatenates both and sends them to Claude with "make this resume match this JD," you're burning 2000+ input tokens per request before the model even starts generating.
+Most AI products have a dirty secret: they send way too much text to the LLM. A typical resume is **800-1200 words**. A job description is **500-1000 words**. Concatenate both and send them to Claude with "make this resume match this JD" — you're burning **2000+ input tokens** per request before the model starts generating.
 
 Multiply that by thousands of users, and your API bill becomes your biggest cost center.
 
@@ -126,13 +130,10 @@ I built two products on the same day and chose different databases for each. Tha
 
 Career Enabler uses a Bring Your Own Key model for LLM access. This isn't just a pricing decision — it's an architecture decision:
 
-**Cost elimination**: The product doesn't absorb LLM costs. No margin calculation on token usage, no throttling heavy users, no surprise bills.
-
-**Trust simplification**: Users control their own data flow. Their resume text goes from their browser to their API key to the LLM provider.
-
-**Pricing clarity**: The product charges for the platform ($9/month). LLM costs are transparent and separate.
-
-**Scaling decoupled from costs**: If the product gets 10,000 users tomorrow, server costs scale with compute (cheap) — not with LLM consumption (expensive and unpredictable).
+- **Cost elimination** — The product doesn't absorb LLM costs. No margin calculation on token usage, no throttling heavy users, no surprise bills.
+- **Trust simplification** — Users control their own data flow. Their resume text goes from their browser to their API key to the LLM provider.
+- **Pricing clarity** — The product charges for the platform ($9/month). LLM costs are transparent and separate.
+- **Scaling decoupled from costs** — If the product gets 10,000 users tomorrow, server costs scale with compute (cheap) — not with LLM consumption (expensive and unpredictable).
 
 The tradeoff is onboarding friction. But for the target audience (technical professionals transitioning roles), getting an API key is a 2-minute task.
 

@@ -23,6 +23,10 @@ toc:
     anchor: "what-not-to-test"
 ---
 
+<div class="callout callout--tldr">
+100+ tests across two AI products — here's the practical playbook for building a testing pyramid when your core feature returns different output every time. Mock the LLM, test the preprocessing, validate the schema, and reserve manual evaluation for qualitative review.
+</div>
+
 ## The Problem
 {: #the-problem}
 

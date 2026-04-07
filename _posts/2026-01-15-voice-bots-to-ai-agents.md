@@ -19,10 +19,16 @@ toc:
     anchor: "what-the-agent-community-hasnt-learned"
 ---
 
+<div class="callout callout--tldr">
+Four years of building production voice AI taught patterns that the agentic AI wave is relearning — confidence thresholds, graceful degradation, escape hatches, and containment rate as a universal metric. If you're building agents, study voice bots first.
+</div>
+
 ## Voice Bots Were the First Agents
 {: #voice-bots-were-the-first-agents}
 
-Before "agentic AI" became a buzzword in 2025, voice bots were doing agent-like work in production. I spent four years building and scaling voice AI systems that handled millions of real phone calls for enterprise clients — banks, telecoms, insurance companies. These weren't simple IVR trees. They were multi-turn dialog systems that:
+Before "agentic AI" became a buzzword in 2025, voice bots were doing agent-like work in production. I spent four years building and scaling voice AI systems that handled millions of real phone calls for enterprise clients — banks, telecoms, insurance companies.
+
+These weren't simple IVR trees. They were multi-turn dialog systems that:
 
 - **Recognized intent** from noisy, accented, interrupted speech
 - **Extracted entities** in real-time (account numbers, dates, amounts) from natural conversation
@@ -132,13 +138,10 @@ But containment rate also taught a subtle lesson: higher isn't always better. If
 
 I follow the agentic AI space closely — AutoGPT, CrewAI, LangGraph, the whole ecosystem. And I keep seeing mistakes that voice AI made and fixed years ago:
 
-**No escape hatches.** Most agent demos run autonomously until they succeed or fail. There's no mid-task "I'm stuck, can a human help?" path. Voice AI learned that escape hatches aren't weakness — they're the feature that makes users trust the system enough to let it run autonomously in the first place.
-
-**No error recovery.** When a voice bot misunderstands turn 3, it doesn't start over. It says "Sorry, let me back up." Agents today tend to either barrel forward with bad context or fail entirely. There's no graceful backtracking.
-
-**No transparency about capability boundaries.** Voice bots tell you what they can do: "I can help with payments, balance inquiries, or account updates." This sets expectations. Most agent systems don't declare their capabilities upfront, so users discover limitations through failure.
-
-**Latency tolerance mismatched to task.** Voice AI operates under hard 300ms response time constraints. Agent systems sometimes take 30 seconds to make a decision a human could make in 2 seconds. Perceived intelligence is a function of speed AND accuracy.
+- **No escape hatches** — Most agent demos run autonomously until they succeed or fail. There's no mid-task "I'm stuck, can a human help?" path. Voice AI learned that escape hatches aren't weakness — they're the feature that makes users trust the system.
+- **No error recovery** — When a voice bot misunderstands turn 3, it doesn't start over. It says "Sorry, let me back up." Agents today barrel forward with bad context or fail entirely. No graceful backtracking.
+- **No transparency about capability boundaries** — Voice bots tell you what they can do: "I can help with payments, balance inquiries, or account updates." Most agent systems don't declare capabilities upfront, so users discover limitations through failure.
+- **Latency tolerance mismatched to task** — Voice AI operates under hard **300ms** response time constraints. Agent systems sometimes take 30 seconds to make a decision a human could make in 2. Perceived intelligence is a function of speed AND accuracy.
 
 <div class="callout"><p>The agentic AI wave is exciting, but it's repeating solved problems. If you're building agent systems, study voice AI architecture. The patterns for confidence, fallback, escalation, and containment are battle-tested across millions of production interactions.</p></div>
 
