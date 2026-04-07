@@ -72,7 +72,9 @@ missing keywords and improve readability.
 
 The LLM receives maybe 300 tokens of structured context instead of 2000 tokens of raw text. It generates better output because the problem is pre-digested, and it costs a fraction of the naive approach.
 
-<div class="callout"><p>The principle: every token you send to an LLM should be a token that ONLY an LLM can process. If Python can handle it — keyword matching, readability scoring, entity extraction — Python should handle it.</p></div>
+<p class="statement">Every token you send to an LLM should be a token that ONLY an LLM can process.</p>
+
+<div class="callout"><p>If Python can handle it — keyword matching, readability scoring, entity extraction — Python should handle it.</p></div>
 
 ## Zero-Token ATS Scoring
 {: #zero-token-ats-scoring}
@@ -100,7 +102,7 @@ I built two products on the same day and chose different databases for each. Tha
   <text x="350" y="16" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Query Complexity →</text>
   <text x="16" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888" transform="rotate(-90 16 100)">Concurrency →</text>
   <rect x="80" y="30" width="270" height="65" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="215" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Low Concurrency + Simple</text>
+  <text x="215" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Low Concurrency + Simple</text>
   <text x="215" y="73" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ff2d00">SQLite</text>
   <text x="215" y="87" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Career Enabler</text>
   <rect x="370" y="30" width="270" height="65" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
@@ -109,9 +111,9 @@ I built two products on the same day and chose different databases for each. Tha
   <rect x="80" y="105" width="270" height="65" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
   <text x="215" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">High Concurrency + Simple</text>
   <text x="215" y="148" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888">Postgres</text>
-  <rect x="370" y="105" width="270" height="65" rx="4" fill="#141414" stroke="#f0ebe0" stroke-width="1.5"/>
-  <text x="505" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">High Concurrency + Complex</text>
-  <text x="505" y="148" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Postgres</text>
+  <rect x="370" y="105" width="270" height="65" rx="4" fill="#141414" stroke="#FFFFFF" stroke-width="1.5"/>
+  <text x="505" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">High Concurrency + Complex</text>
+  <text x="505" y="148" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Postgres</text>
   <text x="505" y="162" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Agentic PM</text>
 </svg>
 <figcaption>Database decision framework: concurrency and query complexity determine the right choice.</figcaption>
@@ -151,13 +153,13 @@ The full cost architecture:
 <figure class="viz" role="img" aria-label="Cost architecture stack totaling approximately 5 dollars per month">
 <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
   <rect x="40" y="10" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="50" y="29" font-family="sans-serif" font-size="11" fill="#f0ebe0">Compute: single container</text><text x="430" y="29" font-family="sans-serif" font-size="11" fill="#ff2d00">~$5/mo</text>
+  <text x="50" y="29" font-family="sans-serif" font-size="11" fill="#FFFFFF">Compute: single container</text><text x="430" y="29" font-family="sans-serif" font-size="11" fill="#ff2d00">~$5/mo</text>
   <rect x="40" y="44" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="50" y="63" font-family="sans-serif" font-size="11" fill="#f0ebe0">Database: SQLite</text><text x="430" y="63" font-family="sans-serif" font-size="11" fill="#888">$0</text>
+  <text x="50" y="63" font-family="sans-serif" font-size="11" fill="#FFFFFF">Database: SQLite</text><text x="430" y="63" font-family="sans-serif" font-size="11" fill="#888">$0</text>
   <rect x="40" y="78" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="50" y="97" font-family="sans-serif" font-size="11" fill="#f0ebe0">LLM: BYOK (user pays)</text><text x="430" y="97" font-family="sans-serif" font-size="11" fill="#888">$0</text>
+  <text x="50" y="97" font-family="sans-serif" font-size="11" fill="#FFFFFF">LLM: BYOK (user pays)</text><text x="430" y="97" font-family="sans-serif" font-size="11" fill="#888">$0</text>
   <rect x="40" y="112" width="400" height="28" rx="3" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="50" y="131" font-family="sans-serif" font-size="11" fill="#f0ebe0">Preprocessing: Python libraries</text><text x="430" y="131" font-family="sans-serif" font-size="11" fill="#888">$0</text>
+  <text x="50" y="131" font-family="sans-serif" font-size="11" fill="#FFFFFF">Preprocessing: Python libraries</text><text x="430" y="131" font-family="sans-serif" font-size="11" fill="#888">$0</text>
   <text x="240" y="155" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ff2d00">Total: ~$5/month</text>
 </svg>
 <figcaption>Full cost stack: lean architecture eliminates every cost that doesn't directly improve user outcomes.</figcaption>
@@ -169,7 +171,7 @@ Compare this to the naive architecture: managed Postgres ($20-50/mo), Redis ($15
 
 The same preprocessing-before-LLM principle applied to [Agentic PM](https://github.com/Arcanag/agentic-pm) — the decomposition agent doesn't send raw epic descriptions to Claude. It parses structure, identifies dependencies, and estimates complexity heuristically, only sending the ambiguous parts to the LLM.
 
-Token consciousness isn't premature optimization. It's product architecture.
+<p class="statement">Token consciousness isn't premature optimization. It's product architecture.</p>
 
 ---
 

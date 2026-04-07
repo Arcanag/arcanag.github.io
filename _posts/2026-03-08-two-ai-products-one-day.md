@@ -5,6 +5,7 @@ description: "How engineering discipline made AI-assisted development faster, no
 category: "Building with AI"
 read_time: "8 min read"
 date: 2026-03-08
+published: false
 tags: ["ai-development", "claude-code", "product-building", "engineering-discipline"]
 toc:
   - title: "The Headline Numbers"
@@ -46,13 +47,13 @@ Both products have comprehensive test suites, proper authentication, database mi
 <figure class="viz" role="img" aria-label="Two products side by side: Career Enabler with 16 features vs Agentic PM with 6 agents">
 <svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="10" width="310" height="120" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Career Enabler</text>
+  <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Career Enabler</text>
   <line x1="36" y1="44" x2="314" y2="44" stroke="#222" stroke-width="1"/>
   <text x="175" y="66" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="#ff2d00">16 Features</text>
   <text x="175" y="86" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">44 PRs merged</text>
   <text x="175" y="106" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Next.js + FastAPI + SQLite</text>
   <rect x="370" y="10" width="310" height="120" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0ebe0">Agentic PM</text>
+  <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Agentic PM</text>
   <line x1="386" y1="44" x2="664" y2="44" stroke="#222" stroke-width="1"/>
   <text x="525" y="66" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="#ff2d00">6 Agents</text>
   <text x="525" y="86" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">19 PRs merged</text>
@@ -76,22 +77,22 @@ Here's what every feature looked like, without exception:
 <figure class="viz" role="img" aria-label="Development workflow cycle: Jira ticket to feature branch to implementation to tests to PR to merge">
 <svg viewBox="0 0 700 80" xmlns="http://www.w3.org/2000/svg">
   <rect x="5" y="20" width="90" height="36" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="50" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Jira Ticket</text>
+  <text x="50" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Jira Ticket</text>
   <line x1="95" y1="38" x2="113" y2="38" stroke="#444" stroke-width="1.5"/><polygon points="113,34 121,38 113,42" fill="#444"/>
   <rect x="121" y="20" width="90" height="36" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="166" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Branch</text>
+  <text x="166" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Branch</text>
   <line x1="211" y1="38" x2="229" y2="38" stroke="#444" stroke-width="1.5"/><polygon points="229,34 237,38 229,42" fill="#444"/>
   <rect x="237" y="20" width="100" height="36" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="287" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Implement</text>
+  <text x="287" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Implement</text>
   <line x1="337" y1="38" x2="355" y2="38" stroke="#444" stroke-width="1.5"/><polygon points="355,34 363,38 355,42" fill="#444"/>
   <rect x="363" y="20" width="90" height="36" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="408" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Tests</text>
+  <text x="408" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Tests</text>
   <line x1="453" y1="38" x2="471" y2="38" stroke="#444" stroke-width="1.5"/><polygon points="471,34 479,38 471,42" fill="#444"/>
   <rect x="479" y="20" width="90" height="36" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="524" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">PR</text>
+  <text x="524" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">PR</text>
   <line x1="569" y1="38" x2="587" y2="38" stroke="#444" stroke-width="1.5"/><polygon points="587,34 595,38 587,42" fill="#444"/>
   <rect x="595" y="20" width="90" height="36" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="640" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Merge</text>
+  <text x="640" y="43" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Merge</text>
   <text x="350" y="73" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">× 63 PRs — zero exceptions</text>
 </svg>
 <figcaption>Every feature followed the same 6-step workflow. 63 PRs, no exceptions.</figcaption>

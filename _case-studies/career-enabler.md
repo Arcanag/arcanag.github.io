@@ -7,7 +7,7 @@ category: "AI Product — 0 to 1"
 key_metric: "16 features shipped in 1 day"
 read_time: "10 min read"
 date: 2026-03-22
-hidden: false
+hidden: true
 toc:
   - title: "The Problem"
     anchor: "the-problem"
@@ -54,7 +54,9 @@ So I built it.
 
 Career Enabler is an AI-powered resume intelligence platform that helps professionals navigating career transitions tailor resumes, prepare for interviews, and discover best-fit roles — all from a single workspace.
 
-The core product thesis: **most resume work is mechanical, not creative.** Keyword matching, formatting checks, readability scoring — these should be automated with rule-based systems. LLMs should only activate for the genuinely creative work: rewriting bullets, generating interview answers, and analyzing career fit.
+<p class="statement">Most resume work is mechanical, not creative.</p>
+
+The core product thesis: keyword matching, formatting checks, readability scoring — these should be automated with rule-based systems. LLMs should only activate for the genuinely creative work: rewriting bullets, generating interview answers, and analyzing career fit.
 
 This led to a two-tier intelligence architecture:
 
@@ -66,23 +68,32 @@ This led to a two-tier intelligence architecture:
   <rect x="20" y="10" width="310" height="140" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
   <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">TIER 1 — Zero LLM Cost</text>
   <line x1="36" y1="46" x2="314" y2="46" stroke="#222" stroke-width="1"/>
-  <text x="175" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">ATS Scoring (4 dimensions)</text>
-  <text x="175" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Readability Analysis</text>
-  <text x="175" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Skill Gap Extraction</text>
+  <text x="175" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">ATS Scoring (4 dimensions)</text>
+  <text x="175" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Readability Analysis</text>
+  <text x="175" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Skill Gap Extraction</text>
   <text x="175" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">spaCy + TF-IDF + textstat</text>
   <line x1="350" y1="20" x2="350" y2="140" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
   <rect x="370" y="10" width="310" height="140" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">TIER 2 — LLM-Powered</text>
+  <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">TIER 2 — LLM-Powered</text>
   <line x1="386" y1="46" x2="664" y2="46" stroke="#222" stroke-width="1"/>
-  <text x="525" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Resume Tailoring</text>
-  <text x="525" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Interview Prep & STAR Coaching</text>
-  <text x="525" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Career Discovery</text>
+  <text x="525" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Resume Tailoring</text>
+  <text x="525" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Interview Prep & STAR Coaching</text>
+  <text x="525" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Career Discovery</text>
   <text x="525" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">Claude / GPT-4o / Gemini (BYOK)</text>
 </svg>
 <figcaption>Two-tier architecture: deterministic NLP at zero cost for scoring/extraction; LLMs reserved for reasoning-heavy tasks.</figcaption>
 </figure>
 
 The business model is freemium: 3 free generations to prove value, then $9/month for unlimited access via Stripe.
+
+<div class="metric-box">
+  <span class="metric-box__label">Free Tier</span>
+  <span class="metric-box__number">3 generations</span>
+</div>
+<div class="metric-box">
+  <span class="metric-box__label">Pro Plan</span>
+  <span class="metric-box__number">$9/month</span>
+</div>
 
 **[View on GitHub](https://github.com/Arcanag/career-enabler)**
 
@@ -118,27 +129,32 @@ Only then does the LLM receive a focused prompt: "Here are the 7 missing keyword
 
 This delta-only approach cuts token usage by an estimated 40-60% compared to sending the full resume for rewrite every time.
 
+<div class="metric-box">
+  <span class="metric-box__label">Token Reduction</span>
+  <span class="metric-box__number">40-60%</span>
+</div>
+
 <figure class="viz" role="img" aria-label="Token preprocessing pipeline reducing 2000 tokens to 300 through NER, TF-IDF, and textstat">
 <svg viewBox="0 0 700 100" xmlns="http://www.w3.org/2000/svg">
   <rect x="8" y="22" width="108" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="62" y="38" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">Resume + JD</text>
+  <text x="62" y="38" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">Resume + JD</text>
   <text x="62" y="52" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">(2000 tokens)</text>
   <line x1="116" y1="42" x2="136" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="136,38 144,42 136,46" fill="#444"/>
   <rect x="144" y="27" width="72" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="180" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">spaCy NER</text>
+  <text x="180" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">spaCy NER</text>
   <line x1="216" y1="42" x2="236" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="236,38 244,42 236,46" fill="#444"/>
   <rect x="244" y="27" width="72" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="280" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">TF-IDF</text>
+  <text x="280" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">TF-IDF</text>
   <line x1="316" y1="42" x2="336" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="336,38 344,42 336,46" fill="#444"/>
   <rect x="344" y="27" width="72" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="380" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">textstat</text>
+  <text x="380" y="46" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">textstat</text>
   <line x1="416" y1="42" x2="436" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="436,38 444,42 436,46" fill="#444"/>
   <rect x="444" y="22" width="108" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="498" y="38" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">Delta Prompt</text>
+  <text x="498" y="38" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">Delta Prompt</text>
   <text x="498" y="52" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">(300 tokens)</text>
   <line x1="552" y1="42" x2="572" y2="42" stroke="#444" stroke-width="1.5"/><polygon points="572,38 580,42 572,46" fill="#444"/>
   <rect x="580" y="27" width="70" height="30" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="615" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0ebe0">LLM</text>
+  <text x="615" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">LLM</text>
   <text x="350" y="85" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">40-60% token reduction</text>
 </svg>
 <figcaption>Preprocessing pipeline: raw input compressed through NER, TF-IDF, and readability analysis before reaching the LLM.</figcaption>
@@ -231,7 +247,9 @@ Bring-your-own-key is not just cost optimization. It is a trust signal, a flexib
 
 ### 4. Shipping Beats Planning
 
-I could have spent a week writing a PRD. Instead, I shipped 16 features in a day. Some are rough. Some will need rework. But the product works, the code is real, and the architecture decisions are documented.
+<p class="statement">I could have spent a week writing a PRD. Instead, I shipped 16 features in a day.</p>
+
+Some are rough. Some will need rework. But the product works, the code is real, and the architecture decisions are documented.
 
 ### 5. The Jira Discipline Matters Even When You Are Solo
 

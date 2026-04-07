@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voicebot Call Resolution Funnel — Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg: #060606;
+    --color-bg-elevated: #141414;
+    --color-bg-panel: #0e0e0e;
+    --color-text: #FFFFFF;
+    --color-text-muted: #888;
+    --color-accent: #ff2d00;
+    --color-border: #222;
+    --color-border-mid: #444;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-heading: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    --font-mono: 'Space Mono', 'Courier New', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-weight: 400;
+    min-height: 100vh;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ---- Header ---- */
+  .header {
+    max-width: 960px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+  .header__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .header__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 2px;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+  .header__subtitle {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.5;
+  }
+  .header__hint {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-border-mid);
+    letter-spacing: 0.5px;
+  }
+  .header__hint span {
+    display: inline-block;
+    border: 1px solid var(--color-border-mid);
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin: 0 2px;
+    font-size: 9px;
+  }
+
+  /* ---- Nav tabs ---- */
+  .nav-tabs {
+    max-width: 960px;
+    margin: 0 auto 36px;
+    display: flex;
+    gap: 2px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0;
+  }
+  .nav-tab {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .nav-tab:hover { color: var(--color-text); }
+  .nav-tab.active {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  /* ---- Tab content ---- */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ---- Funnel ---- */
+  .funnel {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .funnel::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--color-accent) 0%, var(--color-border-mid) 30%, var(--color-border) 100%);
+  }
+
+  /* Section labels */
+  .section-label {
+    position: relative;
+    margin: 36px 0 12px;
+    padding-left: 46px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .section-label__dot {
+    position: absolute;
+    left: 19px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    border: 2px solid var(--color-accent);
+    z-index: 2;
+  }
+  .section-label__text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .section-label__line {
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  /* Conversion rate badges between sections */
+  .conversion-rate {
+    position: relative;
+    margin: 8px 0;
+    padding-left: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .conversion-rate__badge {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: var(--color-accent);
+    background: rgba(255, 45, 0, 0.08);
+    border: 1px solid rgba(255, 45, 0, 0.2);
+    border-radius: 3px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+  .conversion-rate__label {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .conversion-rate__owner {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-border-mid);
+    letter-spacing: 0.5px;
+  }
+
+  /* Node rows */
+  .node {
+    margin-bottom: 3px;
+    padding-left: 40px;
+    position: relative;
+  }
+  .node__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--color-text);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-border-mid);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+  }
+  .node__bar:hover {
+    background: #1a1a1a;
+    border-color: var(--color-border-mid);
+  }
+  .node.expanded .node__bar {
+    border-color: var(--color-border-mid);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .node__text { flex: 1; }
+  .node__detail {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    display: block;
+    margin-top: 2px;
+  }
+  .node__expand-icon {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-border-mid);
+    transition: transform 0.2s ease, color 0.15s;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+  }
+  .node.expanded .node__expand-icon {
+    transform: rotate(90deg);
+    color: var(--color-accent);
+  }
+
+  /* Depth indentation */
+  .d0 .node__bar, .d0 .node__panel { margin-left: 0; }
+  .d1 .node__bar, .d1 .node__panel { margin-left: 28px; }
+  .d2 .node__bar, .d2 .node__panel { margin-left: 56px; }
+  .d3 .node__bar, .d3 .node__panel { margin-left: 84px; }
+  .d4 .node__bar, .d4 .node__panel { margin-left: 112px; }
+  .d5 .node__bar, .d5 .node__panel { margin-left: 140px; }
+  .d6 .node__bar, .d6 .node__panel { margin-left: 168px; }
+
+  /* Category border colors */
+  .c-entry .node__bar { border-left-color: var(--color-accent); }
+  .c-filter .node__bar { border-left-color: #555; color: var(--color-text-muted); }
+  .c-bot .node__bar { border-left-color: #6366f1; }
+  .c-intent .node__bar { border-left-color: #818cf8; }
+  .c-confirm .node__bar { border-left-color: #a78bfa; }
+  .c-resolved .node__bar { border-left-color: #22c55e; background: rgba(22, 101, 52, 0.12); }
+  .c-dropoff .node__bar { border-left-color: #ef4444; background: rgba(127, 29, 29, 0.1); }
+  .c-transfer .node__bar { border-left-color: #f59e0b; background: rgba(120, 53, 15, 0.08); }
+  .c-agent .node__bar { border-left-color: #c084fc; background: rgba(88, 28, 135, 0.08); }
+
+  /* Tags */
+  .tag {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .t-entry    { background: var(--color-accent); color: #fff; }
+  .t-filter   { background: #333; color: #999; }
+  .t-process  { background: rgba(99,102,241,0.2); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+  .t-gap      { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+  .t-id       { background: rgba(129,140,248,0.15); color: #a5b4fc; border: 1px solid rgba(129,140,248,0.25); }
+  .t-confirm  { background: rgba(167,139,250,0.15); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.25); }
+  .t-resolved { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+  .t-loss     { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+  .t-transfer { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+  .t-overflow { background: rgba(192,132,252,0.15); color: #d8b4fe; border: 1px solid rgba(192,132,252,0.25); }
+
+  /* ---- Expanded Panel ---- */
+  .node__panel {
+    display: none;
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 20px;
+    margin-bottom: 6px;
+    animation: panelSlide 0.2s ease;
+  }
+  .node.expanded .node__panel { display: block; }
+
+  @keyframes panelSlide {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .panel-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 14px;
+  }
+  .panel-card--full {
+    grid-column: 1 / -1;
+  }
+  .panel-card__label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .panel-card__text {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--color-text);
+    font-weight: 400;
+  }
+  .panel-card__text code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: rgba(255,255,255,0.05);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--color-accent);
+  }
+  .panel-card__text strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .panel-card__text em {
+    color: var(--color-text-muted);
+    font-style: normal;
+  }
+
+  /* Benchmark bar */
+  .benchmark {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .benchmark__track {
+    flex: 1;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .benchmark__fill {
+    height: 100%;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .benchmark__value {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text);
+    font-weight: 700;
+    min-width: 48px;
+    text-align: right;
+  }
+
+  /* Diagnostic list */
+  .diagnostic-list {
+    list-style: none;
+    padding: 0;
+  }
+  .diagnostic-list li {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-text);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 8px;
+  }
+  .diagnostic-list li:last-child { border-bottom: none; }
+  .diagnostic-list li::before {
+    content: '?';
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-accent);
+    background: rgba(255,45,0,0.1);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Pitfall callout */
+  .pitfall {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-family: var(--font-heading);
+    font-size: 12px;
+    color: #f87171;
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .pitfall::before {
+    content: '!';
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    background: rgba(239,68,68,0.2);
+    color: #f87171;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ---- Glossary tab ---- */
+  .glossary {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .glossary-item {
+    border-bottom: 1px solid var(--color-border);
+    padding: 24px 0;
+  }
+  .glossary-item:first-child { padding-top: 0; }
+  .glossary-item__term {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--color-text);
+    margin-bottom: 4px;
+  }
+  .glossary-item__def {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 680px;
+  }
+  .glossary-item__warning {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #f87171;
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  /* ---- Ownership tab ---- */
+  .ownership-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .ownership-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 20px;
+    border-top: 3px solid var(--color-border-mid);
+  }
+  .ownership-card__layer {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 6px;
+  }
+  .ownership-card__owner {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--color-text);
+    margin-bottom: 10px;
+  }
+  .ownership-card__levers {
+    list-style: none;
+    padding: 0;
+  }
+  .ownership-card__levers li {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .ownership-card__levers li:last-child { border-bottom: none; }
+  .ownership-card__levers li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  /* ---- Applicability tab ---- */
+  .applicability {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .applicability-section {
+    margin-bottom: 36px;
+  }
+  .applicability-section__title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+  .applicability-section__text {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 720px;
+  }
+  .applicability-section__text strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .adapt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .adapt-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 16px;
+  }
+  .adapt-card__channel {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 6px;
+  }
+  .adapt-card__text {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ---- Legend ---- */
+  .legend {
+    max-width: 960px;
+    margin: 56px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .legend__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--color-text-muted);
+  }
+  .legend__swatch {
+    width: 3px;
+    height: 16px;
+    border-radius: 1px;
+  }
+
+  .footer {
+    max-width: 960px;
+    margin: 32px auto 0;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-border-mid);
+    letter-spacing: 0.5px;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    body { padding: 32px 12px 48px; }
+    .funnel::before { left: 16px; }
+    .section-label { padding-left: 36px; }
+    .section-label__dot { left: 11px; }
+    .node { padding-left: 32px; }
+    .d1 .node__bar, .d1 .node__panel { margin-left: 16px; }
+    .d2 .node__bar, .d2 .node__panel { margin-left: 32px; }
+    .d3 .node__bar, .d3 .node__panel { margin-left: 48px; }
+    .d4 .node__bar, .d4 .node__panel { margin-left: 64px; }
+    .d5 .node__bar, .d5 .node__panel { margin-left: 80px; }
+    .d6 .node__bar, .d6 .node__panel { margin-left: 96px; }
+    .node__bar { font-size: 12px; padding: 9px 10px; }
+    .tag { font-size: 8px; padding: 2px 5px; }
+    .panel-grid { grid-template-columns: 1fr; }
+    .conversion-rate { padding-left: 36px; }
+    .nav-tab { padding: 8px 12px; font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header__label">Analytics Framework</span>
+  <h1 class="header__title">Voicebot Call Resolution Funnel</h1>
+  <p class="header__subtitle">A reusable framework for measuring, diagnosing, and improving enterprise voicebot performance — from IVR entry to final disposition</p>
+  <p class="header__hint"><span>Click</span> any node to expand definition, formula, benchmarks, diagnostics &amp; pitfalls</p>
+</div>
+
+<!-- Navigation -->
+<div class="nav-tabs" role="tablist">
+  <button class="nav-tab active" role="tab" data-tab="funnel">Funnel</button>
+  <button class="nav-tab" role="tab" data-tab="glossary">Glossary</button>
+  <button class="nav-tab" role="tab" data-tab="ownership">Ownership</button>
+  <button class="nav-tab" role="tab" data-tab="applicability">Applicability</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: FUNNEL -->
+<!-- ============================================================ -->
+<div class="tab-content active" id="tab-funnel">
+<div class="funnel">
+
+  <!-- ====== ENTRY ====== -->
+  <div class="section-label">
+    <span class="section-label__dot"></span>
+    <span class="section-label__text">Entry Point</span>
+    <span class="section-label__line"></span>
+  </div>
+
+  <div class="node d0 c-entry" data-node>
+    <div class="node__bar">
+      <span class="node__text">Total Calls on IVR</span>
+      <span class="tag t-entry">Entry</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Total call attempts that reach the IVR system, regardless of outcome. Includes abandoned calls, DTMF timeouts, and calls routed away from the bot. <strong>Count call attempts, not unique callers</strong> — one customer calling 3 times = 3 entries.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>Total IVR Calls = SUM(all inbound SIP sessions)</code><br><br>Source: telephony provider CDR (Call Detail Records) or SBC logs. This is your top-of-funnel denominator — every other metric flows from this.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">Sets the denominator for <strong>Automation Rate</strong> — the truest ROI metric. If the contract commits to handling X lakh calls/month, this is the number you measure against. Without accurate IVR counts, every downstream % is wrong.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Healthy Range</span>
+          <div class="panel-card__text">Volume is context-dependent, but watch for:<br><strong>Day-over-day variance &gt; 15%</strong> — signals IVR routing changes, outages, or marketing-driven spikes.<br><strong>Weekend/weekday ratio</strong> — banking typically sees 40-60% weekend drop.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Common Pitfalls</span>
+          <div class="pitfall">IVR systems may count "calls offered" vs "calls answered" differently. Ensure you're counting calls that actually enter the IVR menu, not just SIP INVITEs. A mismatch here inflates or deflates every rate below.</div>
+          <div class="pitfall">Some telephony providers double-count transferred calls. If a call is transferred from one IVR node to another, it may appear as two entries. Deduplicate by session ID.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversion: IVR → Bot Routing Rate -->
+  <div class="conversion-rate">
+    <span class="conversion-rate__badge">IVR-to-Bot Routing Rate</span>
+    <span class="conversion-rate__label">What % of IVR calls are eligible for bot? Low rate = scope too narrow or IVR misconfigured</span>
+    <span class="conversion-rate__owner">Product + Client</span>
+  </div>
+
+  <!-- ====== TRAFFIC QUALIFICATION ====== -->
+  <div class="section-label">
+    <span class="section-label__dot"></span>
+    <span class="section-label__text">Traffic Qualification</span>
+    <span class="section-label__line"></span>
+  </div>
+
+  <div class="node d1 c-filter" data-node>
+    <div class="node__bar">
+      <span class="node__text">Out of Scope for Bot
+        <span class="node__detail">Wealth, Defence, and other excluded categories</span>
+      </span>
+      <span class="tag t-filter">Filtered</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Calls routed to categories the bot is intentionally not designed to handle. These are <strong>business-scoped exclusions</strong> — the bot could technically attempt them, but the client or product team decided not to include them (regulatory, complexity, or low-volume reasons).</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>IVR-to-Bot Routing Rate = (Calls Sent to Bot / Total Calls on IVR) &times; 100</code><br><br>A low routing rate means scope is too narrow or IVR menu design is diverting bot-eligible calls.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">A large out-of-scope bucket shrinks your addressable opportunity. <strong>Track the top 10 out-of-scope intents monthly</strong> — if any grow to high volume, they become candidates for bot expansion. This is your backlog for scope growth.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Diagnostic Questions</span>
+          <ul class="diagnostic-list">
+            <li>Which excluded categories have the highest call volume? Are any now worth automating?</li>
+            <li>Are calls being incorrectly classified as out-of-scope due to IVR routing errors?</li>
+            <li>Has the client added new products/services that should expand scope?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d1 c-bot" data-node>
+    <div class="node__bar">
+      <span class="node__text">Total Calls Sent to Bot</span>
+      <span class="tag t-process">Routed</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Calls that the IVR system routes to the voicebot for handling. This is the <strong>handoff point</strong> — the IVR has determined this call is bot-eligible and initiates the transfer.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>Calls Sent to Bot = Total Calls on IVR - Out of Scope for Bot</code><br><br><code>Bot Receipt Rate = (Calls Received on Bot / Calls Sent to Bot) &times; 100</code><br><br>Gap between "sent" and "received" reveals infrastructure drop-off — SIP failures, timeout mismatches, or capacity limits.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Common Pitfalls</span>
+          <div class="pitfall">In air-gapped environments, network latency between IVR and bot can cause silent call drops. The IVR logs "sent" but the bot never receives. Always reconcile IVR send count with bot receive count.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversion: Send → Receive -->
+  <div class="conversion-rate">
+    <span class="conversion-rate__badge">Bot Receipt Rate</span>
+    <span class="conversion-rate__label">Gap = infrastructure drop-off (SIP failures, timeouts, capacity). Should be &gt;99%</span>
+    <span class="conversion-rate__owner">Infra / DevOps</span>
+  </div>
+
+  <div class="node d2 c-bot" data-node>
+    <div class="node__bar">
+      <span class="node__text">Total Calls Received on Bot</span>
+      <span class="tag t-process">Processing</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Calls that successfully reach the bot's speech engine and begin processing. The bot has initiated ASR (Automatic Speech Recognition) and is listening. <strong>This is the true bot-level denominator</strong> — all bot performance metrics should use this as the base.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>Bot Receipt Rate = (Calls Received on Bot / Calls Sent to Bot) &times; 100</code><br><br><code>Intent Coverage Rate = (Bot Trained for Instruction / Calls Received on Bot) &times; 100</code></div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Healthy Range</span>
+          <div class="panel-card__text">
+            <strong>Receipt Rate should be &gt;99%.</strong> Any gap between sent and received indicates:
+            <br>&#8226; SIP/WebSocket connection failures
+            <br>&#8226; Bot pod scaling issues (K8s)
+            <br>&#8226; Audio codec mismatches
+            <br>&#8226; Timeout before bot answers
+            <div class="benchmark">
+              <div class="benchmark__track"><div class="benchmark__fill" style="width:99%;background:#22c55e;"></div></div>
+              <span class="benchmark__value" style="color:#22c55e;">&gt;99%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversion: Receive → Intent Coverage -->
+  <div class="conversion-rate">
+    <span class="conversion-rate__badge">Intent Coverage Rate</span>
+    <span class="conversion-rate__label">Trained intents vs total caller needs. Gap between what callers ask and what the bot can handle</span>
+    <span class="conversion-rate__owner">ML / NLU Team</span>
+  </div>
+
+  <!-- ====== INTENT PROCESSING ====== -->
+  <div class="section-label">
+    <span class="section-label__dot"></span>
+    <span class="section-label__text">Intent Processing</span>
+    <span class="section-label__line"></span>
+  </div>
+
+  <div class="node d3 c-filter" data-node>
+    <div class="node__bar">
+      <span class="node__text">Bot is NOT trained for instruction
+        <span class="node__detail">Caller intent falls outside trained intents</span>
+      </span>
+      <span class="tag t-gap">Gap</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Calls where the customer's need doesn't match any of the bot's trained intent categories. The bot either falls back to a generic prompt or transfers immediately. This is the <strong>intent coverage gap</strong>.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">Every call here is a <strong>missed automation opportunity</strong>. Tracking the top unhandled utterances weekly reveals which new intents would yield the highest ROI. Prioritize by volume &times; handling cost.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Diagnostic Playbook</span>
+          <ul class="diagnostic-list">
+            <li>What are the top 20 unhandled utterances this week? Are they new intents or variations of existing ones?</li>
+            <li>What's the cost of adding a new intent vs. permanently transferring? (Some intents aren't worth automating)</li>
+            <li>Are there seasonal patterns? (Tax season, festive offers, year-end statements)</li>
+            <li>Is the fallback detection itself accurate — are some trained intents being misclassified as "untrained"?</li>
+          </ul>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">How to Improve</span>
+          <div class="panel-card__text">
+            <strong>1. Weekly utterance mining:</strong> Sample unhandled calls, cluster by theme, identify top candidates.<br>
+            <strong>2. Intent expansion roadmap:</strong> Add 5-10 new intents per sprint based on volume analysis.<br>
+            <strong>3. Catch-all refinement:</strong> Improve the fallback flow to at least capture what the user wanted before transferring.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d3 c-intent" data-node>
+    <div class="node__bar">
+      <span class="node__text">Bot trained for instruction
+        <span class="node__detail">Based on bot identification &amp; agent handling</span>
+      </span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Calls where the customer's utterance falls within one of the bot's trained intent categories. The bot <strong>has the capability</strong> to handle this request — the question now becomes whether it actually <strong>does</strong>.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>Bot Trained for Instruction = Calls Received on Bot - Bot NOT Trained for Instruction</code><br><br><code>Intent Coverage Rate = (Bot Trained for Instruction / Calls Received on Bot) &times; 100</code><br><br><code>Instruction Compliance Rate = (Bot Identified Intent / Bot Trained for Instruction) &times; 100</code><br><br>Further split into: bot followed instruction (identified) vs. bot failed to follow (drop-off).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversion: Compliance Rate -->
+  <div class="conversion-rate">
+    <span class="conversion-rate__badge">Instruction Compliance Rate</span>
+    <span class="conversion-rate__label">Of trained intents, how often does bot follow through? Separates NLU accuracy from flow bugs</span>
+    <span class="conversion-rate__owner">ML + Engineering</span>
+  </div>
+
+  <div class="node d4 c-dropoff" data-node>
+    <div class="node__bar">
+      <span class="node__text">Bot did NOT follow instruction</span>
+      <span class="tag t-loss">Drop-off</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The bot has a trained intent matching the caller's need, but failed to execute the correct flow. This could be an NLU confidence threshold miss, an ASR transcription error, or a flow routing bug. <strong>The intent exists — the execution failed.</strong></div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Healthy Range</span>
+          <div class="panel-card__text">
+            <strong>Should be &lt;15% of trained calls.</strong> Above 20% = systemic NLU or ASR problem, not edge cases.
+            <div class="benchmark">
+              <div class="benchmark__track"><div class="benchmark__fill" style="width:15%;background:#ef4444;"></div></div>
+              <span class="benchmark__value" style="color:#ef4444;">&lt;15%</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Diagnostic Playbook</span>
+          <ul class="diagnostic-list">
+            <li>Is this an NLU confidence threshold issue? Check the confidence score distribution — are many calls falling just below the threshold?</li>
+            <li>Is ASR accuracy degrading for specific languages/accents? Compare Hindi vs English failure rates.</li>
+            <li>Are there flow routing bugs where the correct intent is identified but the wrong flow is triggered?</li>
+            <li>Check fallback trigger rates — is the bot defaulting to "I didn't understand" too aggressively?</li>
+          </ul>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">How to Improve</span>
+          <div class="panel-card__text">
+            <strong>1. Confidence threshold tuning:</strong> Lower thresholds increase intent identification but risk misclassification. Find the Pareto point per intent.<br>
+            <strong>2. ASR model selection:</strong> Test alternate ASR engines for problem languages. Hindi code-mixing is a common failure mode.<br>
+            <strong>3. Disambiguation flows:</strong> Instead of rejecting low-confidence matches, ask a clarifying question.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d4 c-intent" data-node>
+    <div class="node__bar">
+      <span class="node__text">Bot identified the intent
+        <span class="node__detail">Bot followed the instruction successfully</span>
+      </span>
+      <span class="tag t-id">Identified</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The bot correctly matched the caller's utterance to a trained intent and initiated the appropriate conversational flow. <strong>This does not yet mean the problem is solved</strong> — it means the bot understood what the user wants and is attempting to handle it.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>Confirmation Rate = (Customer Confirmed Intent / Bot Identified Intent) &times; 100</code><br><br>This is the next conversion to watch — it tells you whether the bot communicates its understanding clearly.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">This is the gateway to the confirmation and resolution stages. A high identification rate with low resolution rate means your NLU is good but your <strong>flows are broken</strong>. A low identification rate means NLU needs work first.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Key Insight</span>
+          <div class="panel-card__text">Break this down <strong>per intent</strong>. Aggregate identification rates hide that "account balance" might be at 95% while "card dispute" is at 40%. Intent-level analysis drives targeted investment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversion: Confirmation Rate -->
+  <div class="conversion-rate">
+    <span class="conversion-rate__badge">Confirmation Rate</span>
+    <span class="conversion-rate__label">User agreed bot understood them. Low = bot communicates poorly, not that NLU is wrong</span>
+    <span class="conversion-rate__owner">Voice UX / Conversation Design</span>
+  </div>
+
+  <!-- ====== USER CONFIRMATION ====== -->
+  <div class="section-label">
+    <span class="section-label__dot"></span>
+    <span class="section-label__text">User Confirmation</span>
+    <span class="section-label__line"></span>
+  </div>
+
+  <div class="node d5 c-transfer" data-node>
+    <div class="node__bar">
+      <span class="node__text">Intent identified &rarr; Transferred (no handling)
+        <span class="node__detail">Pre-service transfer, e.g. Dispute</span>
+      </span>
+      <span class="tag t-transfer">Pre-service</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The bot correctly identified the intent but <strong>no automated flow exists</strong> for this use case. The call is transferred to a human agent by design. These are known gaps — the bot recognizes the need but can't fulfill it.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">This bucket is your <strong>automation backlog</strong>. Each intent here is a candidate for flow development. Track volume to prioritize which pre-service transfers to automate next. High-volume transfers = high-ROI automation targets.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">How to Improve</span>
+          <div class="panel-card__text">
+            <strong>1. Prioritize by transfer volume:</strong> Build flows for the top 5 transferred intents first.<br>
+            <strong>2. Partial automation:</strong> Even if full resolution isn't possible, automate data collection (account number, issue type) before transferring — reduces agent handle time.<br>
+            <strong>3. Set expectations:</strong> If the user must go to an agent, tell them why and what to expect — reduces repeat calls.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d5 c-dropoff" data-node>
+    <div class="node__bar">
+      <span class="node__text">Customer did NOT confirm the intent
+        <span class="node__detail">Intent identified with handling available</span>
+      </span>
+      <span class="tag t-loss">Unconfirmed</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The bot identified an intent and asked the customer to confirm, but the customer said "no" or didn't respond. This means either the <strong>bot misidentified the intent</strong> or the <strong>confirmation prompt was confusing</strong>.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Healthy Range</span>
+          <div class="panel-card__text">
+            <strong>Should be &lt;20% of identified calls.</strong> Above 25% indicates systematic prompt or disambiguation issues.
+            <div class="benchmark">
+              <div class="benchmark__track"><div class="benchmark__fill" style="width:20%;background:#ef4444;"></div></div>
+              <span class="benchmark__value" style="color:#ef4444;">&lt;20%</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Diagnostic Playbook</span>
+          <ul class="diagnostic-list">
+            <li>Is the confirmation prompt clear and natural? ("You'd like to check your account balance — is that right?" vs "Intent: balance inquiry. Confirm?")</li>
+            <li>Are there disambiguation issues? ("Balance" could mean account balance, loan balance, credit card balance)</li>
+            <li>What's the confirmation rate per intent? Some intents may have inherently ambiguous language</li>
+            <li>Is TTS quality making the confirmation hard to understand? Test with real users</li>
+            <li>Is over-confirmation driving frustration? Not every intent needs explicit confirmation</li>
+          </ul>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Common Pitfalls</span>
+          <div class="pitfall">Requiring explicit confirmation for every intent adds friction. High-confidence intents (e.g., "check balance" at 98% confidence) may not need "Did you mean account balance?" — just proceed. Reserve confirmation for ambiguous cases.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d5 c-confirm" data-node>
+    <div class="node__bar">
+      <span class="node__text">Customer confirmed the intent
+        <span class="node__detail">Intent identified with handling available</span>
+      </span>
+      <span class="tag t-confirm">Confirmed</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The customer explicitly agreed that the bot understood their request correctly. <strong>This is the "contract moment"</strong> — the bot and the user now have a shared understanding of the task. Everything after this is execution.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text"><code>Resolution Rate = (Resolved on Bot / Customer Confirmed Intent) &times; 100</code><br><br><code>Automation Rate = (Resolved on Bot / Total Calls on IVR) &times; 100</code><br><br>Resolution Rate measures bot execution quality. Automation Rate measures end-to-end business value.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">This is the <strong>true denominator for resolution rate</strong>. Resolution % should always be calculated against confirmed calls, not total calls. A call that was never confirmed was never really "attempted" by the bot.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Key Metric Relationships</span>
+          <div class="panel-card__text">
+            <strong>Confirmation &times; Resolution = True Automation.</strong> Both must be high for the bot to deliver value. High confirmation + low resolution = flow/API problems. Low confirmation + high resolution = NLU/UX problems. Track both, fix the lower one first.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversion: Resolution Rate -->
+  <div class="conversion-rate">
+    <span class="conversion-rate__badge">Resolution Rate (True)</span>
+    <span class="conversion-rate__label">Of confirmed calls, what % actually resolved? This is the number that matters</span>
+    <span class="conversion-rate__owner">Engineering + Product</span>
+  </div>
+
+  <!-- ====== RESOLUTION ====== -->
+  <div class="section-label">
+    <span class="section-label__dot"></span>
+    <span class="section-label__text">True Resolution vs. Drop-off</span>
+    <span class="section-label__line"></span>
+  </div>
+
+  <div class="node d6 c-resolved" data-node>
+    <div class="node__bar">
+      <span class="node__text">Resolved &mdash; Query was handled on bot</span>
+      <span class="tag t-resolved">Resolved</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The bot successfully completed the customer's request end-to-end. The API call succeeded, the customer received confirmation, and the call ended naturally. <strong>This is the only node that represents actual value delivery.</strong></div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Formula</span>
+          <div class="panel-card__text">
+            <code>Resolution Rate = (Resolved on Bot / Customer Confirmed Intent) &times; 100</code><br><br>
+            <code>Automation Rate = (Resolved on Bot / Total Calls on IVR) &times; 100</code><br><br>
+            <em>Automation Rate is the truest ROI metric — it accounts for the entire funnel, not just the bot's slice.</em>
+          </div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Healthy Range</span>
+          <div class="panel-card__text">
+            <strong>Resolution Rate: 70-85%</strong> of confirmed calls for banking voicebots. Informational intents (balance, statement) trend higher (85%+). Transactional intents (transfers, disputes) trend lower (50-65%).
+            <div class="benchmark">
+              <div class="benchmark__track"><div class="benchmark__fill" style="width:80%;background:#22c55e;"></div></div>
+              <span class="benchmark__value" style="color:#22c55e;">70-85%</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">How to Improve</span>
+          <div class="panel-card__text">
+            <strong>1. Intent-level breakdown:</strong> Don't optimize aggregate — find the 5 worst-performing intents and fix those flows.<br>
+            <strong>2. API reliability:</strong> Core banking API failures directly kill resolution. Track API success rates per endpoint.<br>
+            <strong>3. Flow completeness:</strong> Ensure every flow path reaches a terminal state — no dead ends.
+          </div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Common Pitfalls</span>
+          <div class="pitfall"><strong>The original sin:</strong> Counting "max retries hangup" as resolved. If the customer gave up, the query was NOT handled. Resolution requires positive completion signals — API success + user acknowledgment — not just "the call ended without transfer."</div>
+          <div class="pitfall"><strong>Missing edge cases:</strong> PIN generation flows, OTP timeouts, and session expiry mid-transaction all need explicit resolution/non-resolution tracking. Untracked flows default to "resolved" in most systems.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d6 c-dropoff" data-node>
+    <div class="node__bar">
+      <span class="node__text">Hangup by bot
+        <span class="node__detail">Max retry exceeded, system errors</span>
+      </span>
+      <span class="tag t-loss">Bot Error</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The bot terminated the call due to repeated failures — max retries on input, API timeouts, or unrecoverable errors. <strong>The customer did not choose to leave; the bot pushed them out.</strong></div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">
+            At <strong>100K calls/day</strong>, even a 2% bot-error rate = <strong>2,000 frustrated callers daily</strong>. Always frame in absolute numbers for leadership. Percentages hide the human cost.
+            <div class="benchmark">
+              <div class="benchmark__track"><div class="benchmark__fill" style="width:5%;background:#ef4444;"></div></div>
+              <span class="benchmark__value" style="color:#ef4444;">&lt;5%</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Diagnostic Playbook</span>
+          <ul class="diagnostic-list">
+            <li>Which flows hit max retry most often? Is it concentrated in authentication (OTP entry)?</li>
+            <li>What's the average retry count before hangup? Can you increase the retry limit for critical flows?</li>
+            <li>Are API timeouts causing the bot to error out? Check backend response times</li>
+            <li>Is there a graceful degradation path — can the bot offer to transfer instead of hanging up?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d6 c-dropoff" data-node>
+    <div class="node__bar">
+      <span class="node__text">User hangup before resolution</span>
+      <span class="tag t-loss">Abandoned</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The customer disconnected the call before the bot could complete the request. The intent was confirmed, the flow was in progress, but the user gave up. This is a <strong>patience/UX failure</strong> — the bot took too long, was too confusing, or the user lost confidence.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Diagnostic Playbook</span>
+          <ul class="diagnostic-list">
+            <li>At what point in the flow do users abandon? After authentication? During hold/processing? Map the drop-off to a specific flow step</li>
+            <li>Is TTS latency causing impatience? Measure time-to-first-response at each step</li>
+            <li>Are users abandoning during long API calls? Add "Please wait" fillers</li>
+            <li>Compare abandonment rates by time-of-day — peak hours may have longer processing times</li>
+            <li>Is the flow asking too many questions before delivering value?</li>
+          </ul>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">How to Improve</span>
+          <div class="panel-card__text">
+            <strong>1. Reduce time-to-value:</strong> Deliver the first useful piece of information as early as possible in the flow.<br>
+            <strong>2. Progress indicators:</strong> "I'm checking your balance now" reassures the user something is happening.<br>
+            <strong>3. Streamline authentication:</strong> If 47% fail at OTP (as in the ICICI case), explore alternative auth methods.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d6 c-transfer" data-node>
+    <div class="node__bar">
+      <span class="node__text">Transfer to Agent</span>
+      <span class="tag t-transfer">Escalated</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The call was transferred to a human agent <strong>after</strong> intent confirmation and mid-flow. This is different from pre-service transfers — here, the bot attempted the task and failed or the customer explicitly requested an agent.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">
+            <strong>Rising transfer rates are a leading indicator.</strong> They often predict client escalations 2-3 weeks before they happen. Track week-over-week trends, not just absolute numbers. Also: every post-confirmation transfer represents wasted bot processing time + a frustrated customer who already spent time with the bot.
+          </div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Diagnostic Playbook</span>
+          <ul class="diagnostic-list">
+            <li>Is this a designed transfer (flow reached a known limitation) or an error fallback?</li>
+            <li>What % of agent transfers could have been resolved by the bot with better flow design?</li>
+            <li>Are transferred customers satisfied with agent resolution, or do they complain about the bot experience?</li>
+            <li>Track agent handle time for transferred calls — does the bot at least reduce the agent's work by pre-collecting info?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d6 c-transfer" data-node>
+    <div class="node__bar">
+      <span class="node__text">Transfer to IVR</span>
+      <span class="tag t-transfer">Rerouted</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The call is sent back to the IVR menu — not to a human agent, but to the original phone tree. This typically happens when the bot encounters a use case better handled by a different IVR branch, or when the customer wants to start over.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">IVR reroutes create <strong>loop risk</strong> — the customer could be sent back to the bot again, creating an infinite cycle. Track how many rerouted calls return to the bot within the same session. High loop rates = broken routing logic.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Common Pitfalls</span>
+          <div class="pitfall">Some reporting systems count IVR reroutes as "contained" because the call didn't reach a human agent. This is incorrect — the customer's problem was not solved. Always classify reroutes as non-resolutions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== AGENT OVERFLOW ====== -->
+  <div class="section-label">
+    <span class="section-label__dot"></span>
+    <span class="section-label__text">Agent Overflow Path</span>
+    <span class="section-label__line"></span>
+  </div>
+
+  <div class="node d3 c-agent" data-node>
+    <div class="node__bar">
+      <span class="node__text">Customer that went to Agent</span>
+      <span class="tag t-overflow">Overflow</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">Aggregate of all calls that ultimately reached a human agent — regardless of where in the funnel they exited. Includes pre-service transfers, mid-flow escalations, and error fallbacks. <strong>This is the inverse of automation.</strong></div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">Agent overflow directly impacts <strong>cost and SLA</strong>. If the bot was supposed to handle 8 lakh calls/month but only resolves 20K, the agent queue absorbs the difference. Track agent overflow as an absolute number, not just a rate — it drives staffing and cost.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">Key Insight</span>
+          <div class="panel-card__text">Segment overflow by <strong>exit point</strong>: How many left at intent processing? At confirmation? At resolution? Each exit point has a different fix. Don't treat all agent-bound calls as one bucket — they have fundamentally different causes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="node d4 c-agent" data-node>
+    <div class="node__bar">
+      <span class="node__text">Bot &rarr; IVR &rarr; Agent
+        <span class="node__detail">Pre-Intent Identification exit path</span>
+      </span>
+      <span class="tag t-overflow">Early Exit</span>
+      <span class="node__expand-icon">&#9654;</span>
+    </div>
+    <div class="node__panel">
+      <div class="panel-grid">
+        <div class="panel-card">
+          <span class="panel-card__label">Definition</span>
+          <div class="panel-card__text">The customer reached the bot but was routed to a human agent <strong>before the bot even attempted intent identification</strong>. This is the earliest possible exit — the customer may have immediately said "agent" or "representative," or the bot's greeting/welcome flow failed.</div>
+        </div>
+        <div class="panel-card">
+          <span class="panel-card__label">Why It Matters</span>
+          <div class="panel-card__text">High early-exit rates suggest <strong>users don't trust the bot</strong>. They've learned from past bad experiences to skip straight to an agent. This is a perception problem, not a capability problem — and the hardest to fix because it requires rebuilding user confidence.</div>
+        </div>
+        <div class="panel-card panel-card--full">
+          <span class="panel-card__label">How to Improve</span>
+          <div class="panel-card__text">
+            <strong>1. Opening prompt redesign:</strong> The first 5 seconds determine whether the user stays. Make the greeting concise and competent.<br>
+            <strong>2. Quick-win flows:</strong> Offer a simple, reliable service ("Say 'balance' to check your account") to build trust before attempting complex tasks.<br>
+            <strong>3. Reduce "agent" as default:</strong> If the IVR offers "press 0 for agent" prominently, users will always take it. Consider guided discovery instead.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend__item"><div class="legend__swatch" style="background:var(--color-accent)"></div>Entry</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#555"></div>Filtered</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#6366f1"></div>Bot Processing</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#818cf8"></div>Intent ID</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#a78bfa"></div>Confirmed</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#22c55e"></div>Resolved</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#ef4444"></div>Drop-off</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#f59e0b"></div>Transfer</div>
+  <div class="legend__item"><div class="legend__swatch" style="background:#c084fc"></div>Agent Path</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: GLOSSARY -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-glossary">
+<div class="glossary">
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">CONTAINMENT</h3>
+    <p class="glossary-item__def">Call stayed within the bot — did not reach a human agent. Includes max-retry hangups, user abandonment, and IVR reroutes. Measures whether the bot <em>kept</em> the caller, not whether it <em>helped</em> them.</p>
+    <p class="glossary-item__warning">! Often inflates success. A customer who gives up after 5 failed OTP attempts is "contained" but not helped. Use Resolution instead for true performance.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">RESOLUTION</h3>
+    <p class="glossary-item__def">Bot successfully fulfilled the customer's request end-to-end. Requires: correct intent identification + user confirmation + API/backend success + user acknowledgment of completion. This is the actual measure of value delivery.</p>
+    <p class="glossary-item__warning">! Always calculate against confirmed calls, not total calls. A denominator of "all IVR calls" gives Automation Rate, which is different.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">DEFLECTION</h3>
+    <p class="glossary-item__def">Call handled without human involvement. Industry-standard term often used interchangeably with containment in vendor pitches. Carries the same inflation risk — "deflected from agents" doesn't guarantee "resolved for customer."</p>
+    <p class="glossary-item__warning">! When a vendor quotes "85% deflection rate," ask: does that include hangups and bot errors? It usually does.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">AUTOMATION RATE</h3>
+    <p class="glossary-item__def">Percentage of <strong>total IVR calls</strong> where the bot completed the task. Denominator is ALL calls (including out-of-scope and untrained), not just bot-eligible. This is the closest metric to true ROI — it answers "of everyone who called, how many did the bot handle?"</p>
+    <p class="glossary-item__warning">! This is always lower than Resolution Rate because the denominator is much larger. That's by design — don't let stakeholders confuse the two.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">INTENT COVERAGE</h3>
+    <p class="glossary-item__def">Percentage of caller needs that fall within the bot's trained intent categories. A bot with 50 intents serving a bank with 300+ use cases has ~17% intent coverage. The remaining 83% of callers are immediately routed away.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">SLU ACCURACY</h3>
+    <p class="glossary-item__def">Spoken Language Understanding — the combined accuracy of ASR (speech-to-text) and NLU (text-to-intent). Measured as the percentage of utterances where the bot correctly identifies the caller's intent. Industry benchmark for banking: 85-91%.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">CONFIRMATION RATE</h3>
+    <p class="glossary-item__def">Percentage of identified intents where the user explicitly confirmed "yes, that's what I want." A low confirmation rate with high NLU accuracy means the bot understands correctly but communicates poorly — a conversation design problem, not an ML problem.</p>
+  </div>
+
+  <div class="glossary-item">
+    <h3 class="glossary-item__term">CALL DISPOSITION</h3>
+    <p class="glossary-item__def">The final status of a call — how and why it ended. Every call must have exactly one disposition: Resolved, Bot Hangup, User Hangup, Agent Transfer, or IVR Reroute. Undispositioned calls create the measurement gaps that break your metrics.</p>
+    <p class="glossary-item__warning">! If your system has an "Unknown" or "Other" disposition category with &gt;2% of calls, your funnel has tracking gaps. Investigate immediately.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: OWNERSHIP -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-ownership">
+<div class="ownership-grid">
+
+  <div class="ownership-card" style="border-top-color: var(--color-accent);">
+    <div class="ownership-card__layer">Traffic Qualification</div>
+    <div class="ownership-card__owner">PRODUCT + CLIENT</div>
+    <ul class="ownership-card__levers">
+      <li>IVR routing rules and DTMF menus</li>
+      <li>Scope expansion decisions (which categories to automate)</li>
+      <li>Call volume forecasting and capacity planning</li>
+      <li>Out-of-scope intent monitoring for backlog growth</li>
+    </ul>
+  </div>
+
+  <div class="ownership-card" style="border-top-color: #6366f1;">
+    <div class="ownership-card__layer">Intent Processing</div>
+    <div class="ownership-card__owner">ML / NLU TEAM</div>
+    <ul class="ownership-card__levers">
+      <li>Training data quality and volume per intent</li>
+      <li>NLU model tuning and confidence thresholds</li>
+      <li>ASR engine selection and language optimization</li>
+      <li>Intent taxonomy design and disambiguation logic</li>
+      <li>Fallback detection accuracy</li>
+    </ul>
+  </div>
+
+  <div class="ownership-card" style="border-top-color: #a78bfa;">
+    <div class="ownership-card__layer">User Confirmation</div>
+    <div class="ownership-card__owner">VOICE UX / CONVERSATION DESIGN</div>
+    <ul class="ownership-card__levers">
+      <li>Confirmation prompt wording and flow</li>
+      <li>Disambiguation strategy (when to ask, when to proceed)</li>
+      <li>TTS voice quality and pacing</li>
+      <li>Conversation flow length and cognitive load</li>
+      <li>Confidence-based skip logic (skip confirm for high-confidence)</li>
+    </ul>
+  </div>
+
+  <div class="ownership-card" style="border-top-color: #22c55e;">
+    <div class="ownership-card__layer">Resolution</div>
+    <div class="ownership-card__owner">ENGINEERING + PRODUCT</div>
+    <ul class="ownership-card__levers">
+      <li>API reliability and response times</li>
+      <li>Flow completeness (no dead-end paths)</li>
+      <li>Error handling and retry logic</li>
+      <li>Authentication flow optimization (OTP, PIN)</li>
+      <li>Session management and timeout configuration</li>
+    </ul>
+  </div>
+
+  <div class="ownership-card" style="border-top-color: #c084fc;">
+    <div class="ownership-card__layer">Agent Overflow</div>
+    <div class="ownership-card__owner">OPERATIONS + PRODUCT</div>
+    <ul class="ownership-card__levers">
+      <li>Escalation rules and thresholds</li>
+      <li>Agent queue capacity and staffing models</li>
+      <li>Warm transfer vs cold transfer strategy</li>
+      <li>Post-transfer data handoff (what context agents receive)</li>
+      <li>Repeat caller analysis for overflow patterns</li>
+    </ul>
+  </div>
+
+  <div class="ownership-card" style="border-top-color: #f59e0b;">
+    <div class="ownership-card__layer">Infrastructure</div>
+    <div class="ownership-card__owner">DEVOPS / INFRA</div>
+    <ul class="ownership-card__levers">
+      <li>SIP/WebSocket connection stability</li>
+      <li>K8s pod scaling and resource allocation</li>
+      <li>Audio codec compatibility</li>
+      <li>Network latency in air-gapped environments</li>
+      <li>Monitoring and alerting for call drop-offs</li>
+    </ul>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: APPLICABILITY -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-applicability">
+<div class="applicability">
+
+  <div class="applicability-section">
+    <h3 class="applicability-section__title">GENERALIZABLE STRUCTURE</h3>
+    <p class="applicability-section__text">The six-layer funnel — <strong>Entry &rarr; Qualification &rarr; Processing &rarr; Confirmation &rarr; Resolution &rarr; Overflow</strong> — applies to any IVR-integrated voicebot, not just banking. The intent count is variable (telecom might have 80, insurance 30, healthcare 25), but the measurement structure remains identical. What changes are the specific intents, not the funnel shape.</p>
+  </div>
+
+  <div class="applicability-section">
+    <h3 class="applicability-section__title">CHANNEL ADAPTATION</h3>
+    <p class="applicability-section__text">The funnel adapts to different conversational channels. Core layers (intent processing, confirmation, resolution) are universal. What changes is the entry mechanism and the modality-specific failure modes.</p>
+    <div class="adapt-grid">
+      <div class="adapt-card">
+        <div class="adapt-card__channel">Voice (IVR)</div>
+        <div class="adapt-card__text">Full funnel applies. ASR accuracy is the primary variable. Hindi/English code-mixing, background noise, and accent variation are unique failure modes. Authentication via DTMF/OTP is a major bottleneck.</div>
+      </div>
+      <div class="adapt-card">
+        <div class="adapt-card__channel">Chat / Text</div>
+        <div class="adapt-card__text">Remove ASR layer. Replace with text parsing accuracy. Add: typo tolerance, multilingual input detection, emoji/shorthand handling. Confirmation is easier (user can re-read). Abandonment patterns differ (tab switching vs hangup).</div>
+      </div>
+      <div class="adapt-card">
+        <div class="adapt-card__channel">WhatsApp / Messaging</div>
+        <div class="adapt-card__text">Asynchronous — user may respond hours later. Add: session timeout tracking, re-engagement rates. Rich media (buttons, lists) changes confirmation UX. Delivery receipts add a "message seen" layer.</div>
+      </div>
+      <div class="adapt-card">
+        <div class="adapt-card__channel">Video / Screen Share</div>
+        <div class="adapt-card__text">Rare for pure bot interaction, but emerging. Add: visual confirmation layer (show transaction details on screen). Authentication via biometrics changes the auth bottleneck equation entirely.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="applicability-section">
+    <h3 class="applicability-section__title">CONTRACTUAL ALIGNMENT</h3>
+    <p class="applicability-section__text">The funnel must map to SLA definitions. If the contract says "contained calls," <strong>both parties need to agree on which funnel node defines that</strong> — ideally the "Resolved — Query was handled on bot" node, not anything above it. Ambiguity in metric definitions is how the containment-vs-resolution confusion starts. Write the exact funnel node definition into the contract.</p>
+  </div>
+
+  <div class="applicability-section">
+    <h3 class="applicability-section__title">TIME-SERIES USAGE</h3>
+    <p class="applicability-section__text">This funnel is a snapshot. To operationalize it:<br><br>
+    <strong>Daily snapshots:</strong> Populate the same structure with actual numbers. Compare day-over-day. This is what automated daily containment reports should do.<br><br>
+    <strong>Cohort analysis by intent:</strong> Some intents may have 95% resolution while others are at 10%. Aggregate numbers hide this. Always break down by intent.<br><br>
+    <strong>Degradation alerts:</strong> Define thresholds for each conversion rate. When any rate drops &gt;5% day-over-day, trigger an investigation. This prevents the slow drift that causes sudden crises.</p>
+  </div>
+
+  <div class="applicability-section">
+    <h3 class="applicability-section__title">METRIC RELATIONSHIPS</h3>
+    <p class="applicability-section__text">
+    <strong>Intent Coverage vs. Resolution Rate:</strong> Adding more intents increases coverage but can decrease per-intent resolution quality if flows aren't properly built. There's an optimal balance — don't expand scope faster than you can build reliable flows.<br><br>
+    <strong>Confirmation Rate vs. Abandonment:</strong> Requiring explicit confirmation improves accuracy but adds friction. Over-confirming drives hangups. Use confidence-based skip logic.<br><br>
+    <strong>Bot Error Rate vs. Client Trust:</strong> Even 2% bot-error hangups at 100K calls/day = 2,000 frustrated callers daily. Frame in absolute numbers when speaking to leadership.<br><br>
+    <strong>Transfer Rate as leading indicator:</strong> Rising transfer rates predict client escalations 2-3 weeks before they happen. This is your early warning system.
+    </p>
+  </div>
+
+</div>
+</div>
+
+<p class="footer">arcanag.github.io &middot; Voicebot Analytics Framework</p>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Node expand/collapse on click
+  document.querySelectorAll('[data-node]').forEach(node => {
+    const bar = node.querySelector('.node__bar');
+    bar.addEventListener('click', () => {
+      const wasExpanded = node.classList.contains('expanded');
+      // Collapse all others (optional — remove these 3 lines for multi-expand)
+      document.querySelectorAll('[data-node].expanded').forEach(n => {
+        if (n !== node) n.classList.remove('expanded');
+      });
+      node.classList.toggle('expanded', !wasExpanded);
+    });
+  });
+
+  // Keyboard support
+  document.querySelectorAll('.node__bar').forEach(bar => {
+    bar.setAttribute('tabindex', '0');
+    bar.setAttribute('role', 'button');
+    bar.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        bar.click();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -142,9 +142,9 @@ Here's the testing pyramid for AI products:
 <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
   <polygon points="350,15 580,175 120,175" fill="none" stroke="#222" stroke-width="1"/>
   <rect x="150" y="140" width="400" height="32" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="350" y="161" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Unit Tests — Mocked LLM + Preprocessing (60%)</text>
+  <text x="350" y="161" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Unit Tests — Mocked LLM + Preprocessing (60%)</text>
   <rect x="200" y="105" width="300" height="30" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="350" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Integration Tests (20%)</text>
+  <text x="350" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Integration Tests (20%)</text>
   <rect x="250" y="72" width="200" height="28" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
   <text x="350" y="91" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">E2E — Playwright (15%)</text>
   <rect x="300" y="40" width="100" height="26" rx="2" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>

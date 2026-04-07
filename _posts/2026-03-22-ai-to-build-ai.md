@@ -5,7 +5,7 @@ description: "The recursive meta-narrative of using Claude Code to build Career 
 category: "Building with AI"
 read_time: "10 min read"
 date: 2026-03-22
-published: true
+published: false
 tags: ["meta-narrative", "ai-product-management", "claude-code", "building"]
 toc:
   - title: "Three Layers Deep"
@@ -36,11 +36,11 @@ There's a recursive quality to what I built on March 22, 2026.
 <figure class="viz" role="img" aria-label="Three layers of AI: Claude Code as tool, Career Enabler as product, user outcomes">
 <svg viewBox="0 0 700 185" xmlns="http://www.w3.org/2000/svg">
   <rect x="100" y="5" width="500" height="48" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="350" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Layer 1: Claude Code</text>
+  <text x="350" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">Layer 1: Claude Code</text>
   <text x="350" y="42" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">AI Development Tool</text>
   <line x1="350" y1="53" x2="350" y2="65" stroke="#444" stroke-width="1.5"/><polygon points="346,65 350,73 354,65" fill="#444"/>
   <rect x="100" y="70" width="500" height="48" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="350" y="89" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Layer 2: Career Enabler</text>
+  <text x="350" y="89" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">Layer 2: Career Enabler</text>
   <text x="350" y="107" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">AI Inside the Product</text>
   <line x1="350" y1="118" x2="350" y2="130" stroke="#444" stroke-width="1.5"/><polygon points="346,130 350,138 354,130" fill="#444"/>
   <rect x="100" y="135" width="500" height="48" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
@@ -96,12 +96,12 @@ I have Claude Code configured with 17 agents and 106 skills. It's not a chatbot 
 <figure class="viz" role="img" aria-label="LLM vs traditional code decision boundary: what needs reasoning vs what needs algorithms">
 <svg viewBox="0 0 700 170" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="10" width="310" height="150" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">LLMs Excel</text>
+  <text x="175" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">LLMs Excel</text>
   <line x1="36" y1="46" x2="314" y2="46" stroke="#222" stroke-width="1"/>
   <text x="175" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Resume generation</text>
   <text x="175" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Interview question creation</text>
   <text x="175" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Skill gap narrative</text>
-  <text x="175" y="142" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Generation + Interpretation</text>
+  <text x="175" y="142" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Generation + Interpretation</text>
   <line x1="350" y1="20" x2="350" y2="150" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
   <rect x="370" y="10" width="310" height="150" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
   <text x="525" y="36" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff2d00">Traditional Code Wins</text>

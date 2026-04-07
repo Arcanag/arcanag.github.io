@@ -9,6 +9,9 @@ collections:
   case-studies:
     output: true
     permalink: /case-studies/:slug/
+  frameworks:
+    output: true
+    permalink: /frameworks/:slug/
 
 defaults:
   - scope:
@@ -20,6 +23,11 @@ defaults:
       path: "_posts"
     values:
       layout: "post"
+  - scope:
+      path: ""
+      type: "frameworks"
+    values:
+      layout: "framework"
 
 plugins:
   - jekyll-seo-tag

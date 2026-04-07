@@ -11,6 +11,7 @@
       <li><a href="{{ '/about/' | relative_url }}" class="nav__link"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a></li>
       <li><a href="{{ '/case-studies/' | relative_url }}" class="nav__link"{% if page.url contains '/case-studies/' %} aria-current="page"{% endif %}>Work</a></li>
       <li><a href="{{ '/blog/' | relative_url }}" class="nav__link"{% if page.url contains '/blog' or page.layout == 'post' %} aria-current="page"{% endif %}>Blog</a></li>
+      <li><a href="{{ '/frameworks/' | relative_url }}" class="nav__link"{% if page.url contains '/frameworks' or page.layout == 'framework' %} aria-current="page"{% endif %}>Frameworks</a></li>
       <li><a href="#footer" class="nav__link">Contact</a></li>
     </ul>
   </div>

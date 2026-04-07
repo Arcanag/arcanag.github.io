@@ -53,7 +53,9 @@ Agentic PM is that system: 6 specialized AI agents that automate the PM workflow
 ## System Design
 {: #system-design}
 
-The architecture reflects a core belief: **multi-agent systems should be composed of specialists, not one general-purpose agent trying to do everything.**
+<p class="statement">Multi-agent systems should be composed of specialists, not one general-purpose agent trying to do everything.</p>
+
+The architecture reflects this core belief.
 
 Each agent has a **single responsibility**, a well-defined **input/output contract**, and can be **tested independently**.
 
@@ -64,15 +66,15 @@ The agents compose into a pipeline, but they are not tightly coupled:
 <figure class="viz" role="img" aria-label="6-agent pipeline: Requirement Parser to Decomposition to Routing, branching to Communication, Chat, and Timeline">
 <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="10" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="70" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Requirement</text>
-  <text x="70" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Parser</text>
+  <text x="70" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Requirement</text>
+  <text x="70" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Parser</text>
   <line x1="130" y1="100" x2="160" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="160,96 168,100 160,104" fill="#444"/>
   <rect x="168" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="228" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Decomposition</text>
-  <text x="228" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Agent</text>
+  <text x="228" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Decomposition</text>
+  <text x="228" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Agent</text>
   <line x1="288" y1="100" x2="318" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="318,96 326,100 318,104" fill="#444"/>
   <rect x="326" y="80" width="100" height="40" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="376" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0ebe0">Routing</text>
+  <text x="376" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">Routing</text>
   <line x1="426" y1="100" x2="456" y2="100" stroke="#444" stroke-width="1.5"/>
   <line x1="456" y1="100" x2="456" y2="35" stroke="#444" stroke-width="1.5"/>
   <line x1="456" y1="35" x2="486" y2="35" stroke="#444" stroke-width="1.5"/><polygon points="486,31 494,35 486,39" fill="#444"/>
@@ -80,11 +82,11 @@ The agents compose into a pipeline, but they are not tightly coupled:
   <line x1="456" y1="100" x2="456" y2="165" stroke="#444" stroke-width="1.5"/>
   <line x1="456" y1="165" x2="486" y2="165" stroke="#444" stroke-width="1.5"/><polygon points="486,161 494,165 486,169" fill="#444"/>
   <rect x="494" y="15" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="554" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Communication</text>
+  <text x="554" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Communication</text>
   <rect x="494" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="554" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Chat Agent</text>
+  <text x="554" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Chat Agent</text>
   <rect x="494" y="145" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="554" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">Timeline Agent</text>
+  <text x="554" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Timeline Agent</text>
 </svg>
 <figcaption>6-agent pipeline: requirements flow through parsing, decomposition, and routing before dispatch to specialist agents.</figcaption>
 </figure>
@@ -183,15 +185,15 @@ Instead of producing a single delivery date (which is always wrong), the Timelin
 
 <figure class="viz" role="img" aria-label="Monte Carlo distribution with P50, P75, and P90 confidence intervals">
 <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
-  <path d="M 60,145 C 110,140 170,118 230,60 C 275,28 300,22 340,22 C 380,28 405,60 445,90 C 490,118 520,140 560,145" fill="#141414" stroke="#f0ebe0" stroke-width="1.5"/>
+  <path d="M 60,145 C 110,140 170,118 230,60 C 275,28 300,22 340,22 C 380,28 405,60 445,90 C 490,118 520,140 560,145" fill="#141414" stroke="#FFFFFF" stroke-width="1.5"/>
   <line x1="50" y1="145" x2="570" y2="145" stroke="#333" stroke-width="1"/>
   <line x1="340" y1="20" x2="340" y2="145" stroke="#ff2d00" stroke-width="1.5" stroke-dasharray="5,4"/>
-  <line x1="420" y1="65" x2="420" y2="145" stroke="#f0ebe0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="420" y1="65" x2="420" y2="145" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="5,4"/>
   <line x1="490" y1="118" x2="490" y2="145" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
   <text x="340" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ff2d00">P50</text>
   <text x="340" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#ff2d00">Aggressive</text>
-  <text x="420" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0ebe0">P75</text>
-  <text x="420" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f0ebe0">Realistic</text>
+  <text x="420" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">P75</text>
+  <text x="420" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">Realistic</text>
   <text x="490" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#888">P90</text>
   <text x="490" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Conservative</text>
 </svg>
@@ -227,18 +229,18 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
 <figure class="viz" role="img" aria-label="Multi-channel intake: Gmail, Slack, and Jira converge into the Requirement Parser">
 <svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg">
   <rect x="30" y="10" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="75" y="31" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Gmail</text>
+  <text x="75" y="31" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Gmail</text>
   <rect x="30" y="54" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="75" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Slack</text>
+  <text x="75" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Slack</text>
   <rect x="30" y="98" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="75" y="119" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Jira</text>
+  <text x="75" y="119" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Jira</text>
   <line x1="120" y1="26" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
   <line x1="120" y1="70" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
   <line x1="120" y1="114" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
   <polygon points="310,66 318,70 310,74" fill="#444"/>
   <rect x="318" y="48" width="160" height="44" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="398" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Requirement</text>
-  <text x="398" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Parser</text>
+  <text x="398" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Requirement</text>
+  <text x="398" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Parser</text>
 </svg>
 <figcaption>Three intake channels converge into the Requirement Parser for unified processing.</figcaption>
 </figure>
@@ -276,7 +278,9 @@ The hardest decisions were not technical. They were: How many agents? What is ea
 
 ### 2. The Schema Is the Product
 
-I spent more time on the Prisma schema than on any individual agent. The data model — with its dependency tracking, RACI support, confidence intervals, and audit trail — defines what the product can and cannot do. Schema-first design is underrated.
+<p class="statement">The data model IS the product. Schema-first design is underrated.</p>
+
+I spent more time on the Prisma schema than on any individual agent. The data model — with its dependency tracking, RACI support, confidence intervals, and audit trail — defines what the product can and cannot do.
 
 ### 3. Testing AI Systems Requires a Different Strategy
 
@@ -288,7 +292,9 @@ The refactor from 450 lines of scattered proxy code to 100 lines of clean BFF mi
 
 ### 5. Building Both Products in One Day Proved a Thesis
 
-Career Enabler and Agentic PM were both built on the same day — a compressed timeline that was possible because of years of production experience with AI systems, not because the work was trivial. The role of the human in AI-assisted development shifts from implementation to product judgment — deciding what to build, how to scope it, and where to cut corners deliberately.
+Career Enabler and Agentic PM were both built on the same day — a compressed timeline that was possible because of years of production experience with AI systems, not because the work was trivial.
+
+> The role of the human in AI-assisted development shifts from implementation to product judgment — deciding what to build, how to scope it, and where to cut corners deliberately.
 
 ---
 

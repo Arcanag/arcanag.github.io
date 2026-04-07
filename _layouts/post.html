@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+<div class="reading-progress" aria-hidden="true"></div>
 <article class="case-study">
   <header class="case-study-hero">
     <div class="container">
@@ -26,6 +27,22 @@ layout: default
     </div>
   </header>
 
+  {% if page.toc %}
+  <div class="mobile-toc" aria-label="Table of contents">
+    <button class="mobile-toc__toggle" aria-expanded="false" aria-controls="mobile-toc-panel">
+      <span class="mobile-toc__toggle-label">Contents</span>
+      <span class="mobile-toc__toggle-icon" aria-hidden="true">&#9660;</span>
+    </button>
+    <nav id="mobile-toc-panel" class="mobile-toc__panel" hidden>
+      <ul class="mobile-toc__list" role="list">
+        {% for item in page.toc %}
+        <li><a href="#{{ item.anchor }}" class="mobile-toc__link">{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+
   <div class="case-study-body container">
     {% if page.toc %}
     <aside class="case-study-toc" aria-label="Table of contents">
@@ -47,4 +64,5 @@ layout: default
   <div class="case-study-back container">
     <a href="{{ '/blog/' | relative_url }}" class="case-study-back__link">&larr; Back to Blog</a>
   </div>
+  <button class="back-to-top" aria-label="Back to top" hidden>&#8593;</button>
 </article>

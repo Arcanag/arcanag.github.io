@@ -48,18 +48,18 @@ The most important lessons from voice AI aren't about what works. They're about 
 <figure class="viz" role="img" aria-label="Confidence threshold decision tree: high confidence act, medium confirm, low escalate">
 <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
   <rect x="260" y="5" width="180" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="350" y="26" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">Intent Detected</text>
+  <text x="350" y="26" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Intent Detected</text>
   <line x1="280" y1="37" x2="130" y2="70" stroke="#444" stroke-width="1.5"/>
   <line x1="350" y1="37" x2="350" y2="70" stroke="#444" stroke-width="1.5"/>
   <line x1="420" y1="37" x2="570" y2="70" stroke="#444" stroke-width="1.5"/>
-  <rect x="55" y="55" width="50" height="24" rx="3" fill="none" stroke="#f0ebe0" stroke-width="1"/>
-  <text x="80" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f0ebe0">&gt;0.85</text>
+  <rect x="55" y="55" width="50" height="24" rx="3" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <text x="80" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">&gt;0.85</text>
   <rect x="325" y="55" width="55" height="24" rx="3" fill="none" stroke="#888" stroke-width="1"/>
   <text x="352" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">0.5–0.85</text>
   <rect x="550" y="55" width="50" height="24" rx="3" fill="none" stroke="#ff2d00" stroke-width="1"/>
   <text x="575" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">&lt;0.5</text>
-  <rect x="40" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#f0ebe0" stroke-width="1.5"/>
-  <text x="90" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0ebe0">Act</text>
+  <rect x="40" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#FFFFFF" stroke-width="1.5"/>
+  <text x="90" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">Act</text>
   <rect x="300" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#888" stroke-width="1.5"/>
   <text x="350" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#888">Confirm</text>
   <rect x="525" y="95" width="100" height="36" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
@@ -82,7 +82,7 @@ This three-tier pattern took years to tune. The thresholds aren't universal — 
 <figure class="viz" role="img" aria-label="Graceful degradation ladder: rephrase, offer options, transfer to human">
 <svg viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg">
   <rect x="40" y="10" width="200" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="140" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f0ebe0">1. Rephrase &amp; Retry</text>
+  <text x="140" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">1. Rephrase &amp; Retry</text>
   <rect x="140" y="50" width="220" height="30" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
   <text x="250" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">2. Offer Options</text>
   <rect x="260" y="90" width="240" height="30" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
