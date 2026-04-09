@@ -529,33 +529,26 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   background: var(--color-accent);
 }
 @media (max-width: 768px) {
-  .scroll-section { height: auto; }
+  .scroll-section { height: auto; overflow: visible; }
+  .scroll-section__header { display: none; }
   .scroll-section__track { flex-direction: column; transition: none; }
   .scroll-section__card {
     flex: 0 0 auto;
-    height: 100vh;
-    height: 100dvh;
-    padding: calc(var(--nav-height) + var(--space-3xl)) var(--space-lg) var(--space-2xl);
-  }
-  .scroll-section__header {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin-bottom: var(--space-md);
+    min-height: auto;
+    height: auto;
+    justify-content: flex-start;
+    padding: calc(var(--nav-height) + var(--space-xl)) var(--space-lg) var(--space-3xl);
+    border-bottom: 1px solid var(--color-border);
   }
   .scroll-section__counter {
-    position: relative;
-    top: auto;
-    right: auto;
+    position: static;
     display: block;
     margin-bottom: var(--space-sm);
   }
   .scroll-section__cta {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    margin-top: var(--space-xl);
+    position: static;
     display: block;
+    margin-top: var(--space-xl);
   }
   .scroll-section__title { font-size: clamp(2rem, 8vw, 3rem); }
   .scroll-section__dots { display: none; }
