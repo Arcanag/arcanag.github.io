@@ -3,6 +3,8 @@ layout: post
 title: "Two AI Products in One Day: 63 PRs, 67 Jira Tickets, and Zero Chaos"
 description: "How engineering discipline made AI-assisted development faster, not slower — building Career Enabler and Agentic PM in a single day."
 category: "Building with AI"
+theme_color: "#7C3AED"
+hero_bg_word: "SHIPPED"
 read_time: "8 min read"
 date: 2026-03-08
 published: false

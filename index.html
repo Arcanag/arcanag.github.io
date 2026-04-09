@@ -21,66 +21,74 @@ title: Home
   </div>
 </section>
 
-<section class="section" id="work">
-  <div class="container">
-    <h2 class="reveal">Case Studies</h2>
-    <div class="carousel-grid">
-
-      <a href="{{ '/case-studies/banking-voicebot/' | relative_url }}" class="work-card reveal" data-delay="1" style="--card-accent: #1e40af;">
-        <span class="work-card__label">Enterprise AI &mdash; Project Management</span>
-        <h3 class="work-card__title">Rebuilding Trust in a 100K-Call Banking Voicebot</h3>
-        <p class="work-card__description">Inherited a voicebot with 50+ metric bugs and a client losing confidence. Rebuilt measurement from scratch, drove SLU accuracy to 91%, and built incident governance across an air-gapped enterprise environment.</p>
-        <span class="work-card__metric">50+ → 0</span>
-        <span class="work-card__metric-label">Metric Bugs Fixed</span>
-        <span class="work-card__arrow">Read case study</span>
-      </a>
-
-      <a href="{{ '/case-studies/agentic-pm/' | relative_url }}" class="work-card reveal" data-delay="2" style="--card-accent: #6b21a8;">
-        <span class="work-card__label">AI Product &mdash; Agentic Systems</span>
-        <h3 class="work-card__title">Agentic PM: AI Project Management OS</h3>
-        <p class="work-card__description">6 specialized AI agents that automate PM operational work — requirement intake, decomposition, routing, communication, and Monte Carlo timeline forecasting. Multi-channel intake from Gmail, Slack, and Jira.</p>
-        <span class="work-card__metric">6 AI Agents</span>
-        <span class="work-card__metric-label">Automating PM Work</span>
-        <span class="work-card__arrow">Read case study</span>
-      </a>
-
-    </div>
+<section class="scroll-section" id="work">
+  <div class="scroll-section__track">
+    {% assign visible_studies = site.case-studies | where_exp: "s", "s.hidden != true" | sort: "date" | reverse %}
+    {% for study in visible_studies %}
+    <a href="{{ study.url | relative_url }}" class="scroll-section__card" style="--card-theme: {{ study.theme_color | default: '#ff2d00' }};" data-bg-word="{{ study.hero_bg_word | default: '' }}">
+      <span class="scroll-section__label">{{ study.category }}</span>
+      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
+      <h2 class="scroll-section__title">{{ study.title }}</h2>
+      {% if study.description %}
+      <p class="scroll-section__desc">{{ study.description }}</p>
+      {% endif %}
+      {% if study.key_metric %}
+      <p class="scroll-section__metrics">{{ study.key_metric }}</p>
+      {% endif %}
+      <span class="scroll-section__cta">Read case study &rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+  <span class="scroll-section__header">Work</span>
+  <div class="scroll-section__dots">
+    {% for study in visible_studies %}
+    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
+    {% endfor %}
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="reveal">Frameworks</h2>
-    <div class="work-grid">
-      <a href="{{ '/frameworks/voicebot-metrics-funnel/' | relative_url }}" class="work-card reveal" data-delay="1" style="--card-accent: #1e40af;">
-        <span class="work-card__label">Enterprise AI &mdash; Analytics</span>
-        <h3 class="work-card__title">Voicebot Call Resolution Funnel</h3>
-        <p class="work-card__description">A reusable framework for measuring, diagnosing, and improving enterprise voicebot performance — from IVR entry to final disposition. Interactive funnel with definitions, formulas, benchmarks, and diagnostics.</p>
-        <span class="work-card__arrow">Explore framework</span>
-      </a>
-    </div>
-    <p class="reveal section__more"><a href="{{ '/frameworks/' | relative_url }}">All frameworks &rarr;</a></p>
+<section class="scroll-section" id="blog">
+  <div class="scroll-section__track">
+    {% assign published_posts = site.posts | where_exp: "p", "p.published != false" %}
+    {% for post in published_posts limit:2 %}
+    <a href="{{ post.url | relative_url }}" class="scroll-section__card" style="--card-theme: {{ post.theme_color | default: '#ff2d00' }};" data-bg-word="{{ post.hero_bg_word | default: '' }}">
+      <span class="scroll-section__label">{{ post.category }}</span>
+      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
+      <h2 class="scroll-section__title">{{ post.title }}</h2>
+      {% if post.description %}
+      <p class="scroll-section__desc">{{ post.description }}</p>
+      {% endif %}
+      <span class="scroll-section__cta">Read post &rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+  <span class="scroll-section__header">Blog</span>
+  <div class="scroll-section__dots">
+    {% for post in published_posts limit:2 %}
+    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
+    {% endfor %}
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="reveal">Blog</h2>
-    <div class="work-grid">
-      {% for post in site.posts limit:3 %}
-      <a href="{{ post.url }}" class="work-card reveal" data-delay="{{ forloop.index }}">
-        {% if post.category %}
-        <span class="work-card__label">{{ post.category }}</span>
-        {% endif %}
-        <h3 class="work-card__title">{{ post.title }}</h3>
-        {% if post.description %}
-        <p class="work-card__description">{{ post.description }}</p>
-        {% endif %}
-        <span class="work-card__arrow">Read post</span>
-      </a>
-      {% endfor %}
-    </div>
-    <p class="reveal section__more"><a href="{{ '/blog/' | relative_url }}">All posts &rarr;</a></p>
+<section class="scroll-section" id="frameworks">
+  <div class="scroll-section__track">
+    {% for framework in site.frameworks %}
+    <a href="{{ framework.url | relative_url }}" class="scroll-section__card" style="--card-theme: #4A9EFF;" data-bg-word="FUNNEL">
+      <span class="scroll-section__label">{{ framework.category | default: 'Framework' }}</span>
+      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
+      <h2 class="scroll-section__title">{{ framework.title }}</h2>
+      {% if framework.description %}
+      <p class="scroll-section__desc">{{ framework.description }}</p>
+      {% endif %}
+      <span class="scroll-section__cta">Explore framework &rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+  <span class="scroll-section__header">Frameworks</span>
+  <div class="scroll-section__dots">
+    {% for framework in site.frameworks %}
+    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
+    {% endfor %}
   </div>
 </section>
 

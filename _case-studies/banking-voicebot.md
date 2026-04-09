@@ -2,11 +2,12 @@
 layout: case-study
 title: "Rebuilding Trust in a 100K-Call-Per-Day Banking Voicebot"
 description: "A project management case study on inheriting a voicebot with broken metrics, rebuilding measurement from scratch, and driving SLU accuracy to 91% — all in an air-gapped enterprise environment."
-theme_color: "#1e40af"
+theme_color: "#4A9EFF"
+hero_bg_word: "VOICEBOT"
 category: "Enterprise AI — Project Management"
-key_metric: "50+ metric bugs → trusted MIS"
+key_metric: "91% SLU &middot; 30 use cases &middot; 100K+ calls/day"
 read_time: "12 min read"
-date: 2025-10-01
+date: 2026-04-01
 toc:
   - title: "Context & Takeover"
     anchor: "context--takeover"
@@ -24,10 +25,22 @@ toc:
     anchor: "things-id-do-differently"
 ---
 
-<div class="callout callout--tldr">
-<p><strong>Role:</strong> Project Manager, end-to-end ownership of a 100K-call/day banking voicebot.</p>
-<p><strong>Problem:</strong> Inherited broken metrics — containment was fiction (20K actual vs 8L target).</p>
-<p><strong>Impact:</strong> Built a call resolution funnel from scratch, drove SLU accuracy from 70% to 91%, survived 15 critical incidents, and shipped 30 use cases across 5 delivery waves.</p>
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">70→91%</div>
+    <div class="cs-impact-label">SLU Accuracy</div>
+    <div class="cs-impact-desc">Inscope identification, production signed-off</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">30</div>
+    <div class="cs-impact-label">Use Cases Shipped</div>
+    <div class="cs-impact-desc">Across 5 delivery waves, 27-step pipeline each</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">100K+</div>
+    <div class="cs-impact-label">Daily Calls</div>
+    <div class="cs-impact-desc">Air-gapped, on-premises Kubernetes</div>
+  </div>
 </div>
 
 <figure class="mermaid-diagram mermaid-diagram--wide" role="img" aria-label="Project timeline from October 2024 to March 2026 showing five phases: Discovery, Foundation, Stabilization, Acceleration, and Scale">
@@ -38,146 +51,141 @@ toc:
 ## Context & Takeover
 {: #context--takeover}
 
-### The Context
-
-Skit.ai provides enterprise conversational AI solutions. For our largest Indian client, a top-tier private-sector bank, we deployed a bilingual (English + Hindi) voicebot handling **100,000+ daily calls** within an air-gapped, on-premises Kubernetes environment.
+<p class="cs-lead">Skit.ai provides enterprise conversational AI solutions. For our largest Indian client, a top-tier private-sector bank, we deployed a bilingual (English + Hindi) voicebot handling <strong>100,000+ daily calls</strong> within an air-gapped, on-premises Kubernetes environment.</p>
 
 ### What I Inherited
 
-I took over this project in **January 2025**. On paper, it was a continuation — Phase 1 (a single use case) had been completed and signed off the week I joined. In practice, the handover was closer to a cold start.
-
-<div class="scorecard">
-  <div class="scorecard__item">
-    <div class="scorecard__header">
-      <span class="scorecard__indicator scorecard__indicator--red"></span>
-      <span class="scorecard__label">Deployment Stability</span>
-    </div>
-    <span class="scorecard__value">Fragile — single use case, brittle</span>
+<div class="cs-two-col">
+  <div class="cs-two-col__left">
+    <p>I took over this project in <strong>January 2025</strong>. On paper, it was a continuation — Phase 1 (a single use case) had been completed and signed off the week I joined. In practice, the handover was closer to a cold start.</p>
+    <p>The gap between "documented business requirements" and "shippable product" was enormous. None of the underlying technical work existed — no conversational flows, no API integration specs, no ML model architecture for multi-skill routing.</p>
+    <p>Every use case had to be treated as greenfield development built on the Phase 1 platform foundation.</p>
   </div>
-  <div class="scorecard__item">
-    <div class="scorecard__header">
-      <span class="scorecard__indicator scorecard__indicator--red"></span>
-      <span class="scorecard__label">Platform Reliability</span>
+  <div class="cs-two-col__right">
+    <div class="cs-scorecard-grid">
+      <div class="cs-scorecard-grid__cell">
+        <span class="scorecard__indicator scorecard__indicator--red"></span>
+        <span class="cs-scorecard-grid__label">Deployment Stability</span>
+        <span class="cs-scorecard-grid__value">Fragile — single use case, brittle</span>
+      </div>
+      <div class="cs-scorecard-grid__cell">
+        <span class="scorecard__indicator scorecard__indicator--red"></span>
+        <span class="cs-scorecard-grid__label">Platform Reliability</span>
+        <span class="cs-scorecard-grid__value">Known issues in flow builder, auth, analytics</span>
+      </div>
+      <div class="cs-scorecard-grid__cell">
+        <span class="scorecard__indicator scorecard__indicator--amber"></span>
+        <span class="cs-scorecard-grid__label">NLU Maturity</span>
+        <span class="cs-scorecard-grid__value">74 intents — many mistagged as out-of-scope</span>
+      </div>
+      <div class="cs-scorecard-grid__cell">
+        <span class="scorecard__indicator scorecard__indicator--red"></span>
+        <span class="cs-scorecard-grid__label">Documentation</span>
+        <span class="cs-scorecard-grid__value">Zero — no flows, no specs, no handover docs</span>
+      </div>
     </div>
-    <span class="scorecard__value">Known issues in flow builder, auth, analytics</span>
-  </div>
-  <div class="scorecard__item">
-    <div class="scorecard__header">
-      <span class="scorecard__indicator scorecard__indicator--amber"></span>
-      <span class="scorecard__label">NLU Maturity</span>
-    </div>
-    <span class="scorecard__value">74 intents — many mistagged as out-of-scope</span>
-  </div>
-  <div class="scorecard__item">
-    <div class="scorecard__header">
-      <span class="scorecard__indicator scorecard__indicator--red"></span>
-      <span class="scorecard__label">Documentation</span>
-    </div>
-    <span class="scorecard__value">Zero — no flows, no specs, no handover docs</span>
   </div>
 </div>
-
-The gap between "documented business requirements" and "shippable product" was enormous. None of the underlying technical work existed — no conversational flows, no API integration specs, no ML model architecture for multi-skill routing.
-
-Every use case had to be treated as greenfield development built on the Phase 1 platform foundation.
 
 ### The Challenge
 
-By **April 2025**, I was fully managing the project end-to-end, leading three squads through a complex backlog while simultaneously repairing a strained client relationship. The system was highly sophisticated — with **2,188 conversational states** and **130+ core banking integrations** — but suffered from a critical blind spot: unreliable resolution tracking.
+By **April 2025**, I was managing the project end-to-end — leading three squads, repairing a strained client relationship, and confronting a critical blind spot: unreliable resolution tracking.
 
-The scope was massive: **30 use cases** spanning five banking skill groups, each requiring its own API integrations, NLU model changes, conversational flow design, and multi-round testing.
-
-Each use case followed a **27-step development lifecycle** — from requirement intake through API testing, flow design, prompt alignment, integration, internal QA, closed user group testing, and finally production sign-off.
-
-<div class="pipeline" role="img" aria-label="27-step use case development lifecycle spanning 7 phases">
-  <div class="pipeline__phase pipeline__phase--accent">
-    <div class="pipeline__phase-title">1. Requirements</div>
-    <div class="pipeline__step">Requirement Intake</div>
-    <div class="pipeline__step">BRD Review</div>
-    <div class="pipeline__step">Parameter Definition</div>
-    <div class="pipeline__step">Routing Details</div>
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">2,188</div>
+    <div class="cs-impact-label">Conversational States</div>
+    <div class="cs-impact-desc">Bilingual flows across 5 banking skill groups</div>
   </div>
-  <div class="pipeline__phase">
-    <div class="pipeline__phase-title">2. Bank Prerequisites</div>
-    <div class="pipeline__step">API Documentation</div>
-    <div class="pipeline__step">SMS Content</div>
-    <div class="pipeline__step">Production Recordings</div>
-    <div class="pipeline__step">Test Data</div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">130+</div>
+    <div class="cs-impact-label">Core Banking Integrations</div>
+    <div class="cs-impact-desc">Each requiring API testing and prompt alignment</div>
   </div>
-  <div class="pipeline__phase pipeline__phase--accent">
-    <div class="pipeline__phase-title">3. Design & Build</div>
-    <div class="pipeline__step">Flow Design</div>
-    <div class="pipeline__step">Prompt Alignment</div>
-    <div class="pipeline__step">NLU Intent Training</div>
-    <div class="pipeline__step">Entity Mapping</div>
-    <div class="pipeline__step">API Integration</div>
-  </div>
-  <div class="pipeline__phase">
-    <div class="pipeline__phase-title">4. Integration</div>
-    <div class="pipeline__step">End-to-End Wiring</div>
-    <div class="pipeline__step">Error Handling</div>
-    <div class="pipeline__step">Fallback Flows</div>
-    <div class="pipeline__step">DTMF Config</div>
-  </div>
-  <div class="pipeline__phase">
-    <div class="pipeline__phase-title">5. Testing</div>
-    <div class="pipeline__step">Internal QA</div>
-    <div class="pipeline__step">Bug Fixes</div>
-    <div class="pipeline__step">CUG Testing</div>
-    <div class="pipeline__step">Client Validation</div>
-  </div>
-  <div class="pipeline__phase">
-    <div class="pipeline__phase-title">6. Deployment</div>
-    <div class="pipeline__step">POA Document</div>
-    <div class="pipeline__step">Email Approval</div>
-    <div class="pipeline__step">DR Deploy</div>
-    <div class="pipeline__step">Prod Deploy</div>
-  </div>
-  <div class="pipeline__phase pipeline__phase--accent">
-    <div class="pipeline__phase-title">7. Sign-off</div>
-    <div class="pipeline__step">Production Monitoring</div>
-    <div class="pipeline__step">Metric Validation</div>
-    <div class="pipeline__step">Client Sign-off</div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">30</div>
+    <div class="cs-impact-label">Use Cases</div>
+    <div class="cs-impact-desc">27-step lifecycle from intake to production sign-off</div>
   </div>
 </div>
-<p class="cs2-aside" style="margin-top:var(--space-sm);">Each of the 30 use cases passed through this 27-step pipeline — from requirement intake to production sign-off.</p>
+
+Each use case required its own API integrations, NLU model changes, conversational flow design, and multi-round testing.
+
+<div class="cs-pipeline-row" role="img" aria-label="27-step use case development lifecycle spanning 7 phases">
+  <div class="cs-pipeline-row__phase cs-pipeline-row__phase--accent">
+    <span class="cs-pipeline-row__title">Requirements</span>
+    <span class="cs-pipeline-row__step">Requirement Intake</span>
+    <span class="cs-pipeline-row__step">BRD Review</span>
+    <span class="cs-pipeline-row__step">Parameter Definition</span>
+    <span class="cs-pipeline-row__step">Routing Details</span>
+  </div>
+  <span class="cs-pipeline-row__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-pipeline-row__phase">
+    <span class="cs-pipeline-row__title">Bank Prerequisites</span>
+    <span class="cs-pipeline-row__step">API Documentation</span>
+    <span class="cs-pipeline-row__step">SMS Content</span>
+    <span class="cs-pipeline-row__step">Production Recordings</span>
+    <span class="cs-pipeline-row__step">Test Data</span>
+  </div>
+  <span class="cs-pipeline-row__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-pipeline-row__phase cs-pipeline-row__phase--accent">
+    <span class="cs-pipeline-row__title">Design & Build</span>
+    <span class="cs-pipeline-row__step">Flow Design</span>
+    <span class="cs-pipeline-row__step">Prompt Alignment</span>
+    <span class="cs-pipeline-row__step">NLU Intent Training</span>
+    <span class="cs-pipeline-row__step">Entity Mapping</span>
+    <span class="cs-pipeline-row__step">API Integration</span>
+  </div>
+  <span class="cs-pipeline-row__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-pipeline-row__phase">
+    <span class="cs-pipeline-row__title">Integration</span>
+    <span class="cs-pipeline-row__step">End-to-End Wiring</span>
+    <span class="cs-pipeline-row__step">Error Handling</span>
+    <span class="cs-pipeline-row__step">Fallback Flows</span>
+    <span class="cs-pipeline-row__step">DTMF Config</span>
+  </div>
+  <span class="cs-pipeline-row__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-pipeline-row__phase">
+    <span class="cs-pipeline-row__title">Testing</span>
+    <span class="cs-pipeline-row__step">Internal QA</span>
+    <span class="cs-pipeline-row__step">Bug Fixes</span>
+    <span class="cs-pipeline-row__step">CUG Testing</span>
+    <span class="cs-pipeline-row__step">Client Validation</span>
+  </div>
+  <span class="cs-pipeline-row__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-pipeline-row__phase">
+    <span class="cs-pipeline-row__title">Deployment</span>
+    <span class="cs-pipeline-row__step">POA Document</span>
+    <span class="cs-pipeline-row__step">Email Approval</span>
+    <span class="cs-pipeline-row__step">DR Deploy</span>
+    <span class="cs-pipeline-row__step">Prod Deploy</span>
+  </div>
+  <span class="cs-pipeline-row__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-pipeline-row__phase cs-pipeline-row__phase--accent">
+    <span class="cs-pipeline-row__title">Sign-off</span>
+    <span class="cs-pipeline-row__step">Production Monitoring</span>
+    <span class="cs-pipeline-row__step">Metric Validation</span>
+    <span class="cs-pipeline-row__step">Client Sign-off</span>
+  </div>
+</div>
 
 We batched these into five delivery waves with staggered UAT timelines, but even with disciplined batching, the coordination overhead across four levels of the bank's hierarchy was substantial.
-
-<div class="metric-box">
-  <span class="metric-box__label">Conversational States</span>
-  <span class="metric-box__number">2,188</span>
-</div>
-<div class="metric-box">
-  <span class="metric-box__label">API Integrations</span>
-  <span class="metric-box__number">130+</span>
-</div>
-<div class="metric-box">
-  <span class="metric-box__label">Use Cases</span>
-  <span class="metric-box__number">30</span>
-</div>
 
 ### The Catalyst
 
 The bank's leadership was heavily focused on ROI. Our contractual commitment was ambitious: **8 Lakh contained calls** out of **25 Lakh total monthly calls**. However, when I inherited the project in January, we were only containing **20,000 calls**. The bank demanded immediate and aggressive improvements to the Containment Rate in every review meeting. But before we could improve the bot's performance, I had to confront the reality that the containment metric itself was broken — and it had to be fixed before we could prove any real value.
 
-<div class="metric-box">
-  <span class="metric-box__label">Daily Call Volume</span>
-  <span class="metric-box__number">100K+</span>
-</div>
-<div class="metric-box">
-  <span class="metric-box__label">Contractual Target</span>
-  <span class="metric-box__number">8L calls</span>
-</div>
-<div class="metric-box">
-  <span class="metric-box__label">Actual at Takeover</span>
-  <span class="metric-box__number">20K calls</span>
+<div class="cs-swap">
+  <span class="cs-swap__before">20K</span>
+  <span class="cs-swap__arrow" aria-hidden="true">&rarr;</span>
+  <span class="cs-swap__after">800K target</span>
+  <span class="cs-swap__context">Contained calls: actual vs. contractual commitment</span>
 </div>
 
 ## Parallel Development
 {: #parallel-development}
 
-While the team was fighting fires on the live system — fixing metrics, stabilizing infrastructure, and absorbing security mandates — we were simultaneously building the next generation of the product.
+<p class="cs-lead">While the team was fighting fires on the live system — fixing metrics, stabilizing infrastructure, and absorbing security mandates — we were simultaneously building the next generation of the product.</p>
 {: .cs2-lead}
 
 Phase 2 encompassed **30 new use cases** across five banking skill groups. Crucially, this phase introduced three completely new product categories: **NRI Account, Current Account, and Loan**. These categories were entirely absent from the existing model, API landscape, and flow design — each brought its own complex NLU requirements and compliance gates.
@@ -258,7 +266,7 @@ Four subsequent batches were in various stages of development, with UAT targets 
 ## The Broken Metric
 {: #the-broken-metric}
 
-**Containment rate** — the percentage of calls fully resolved by the AI without human handoff — was our primary business metric. Transitioning into January, internal reports showed a severe, unexplained plunge. The most alarming part wasn't the decline itself — it was the lack of clarity behind it.
+<p class="cs-lead"><strong>Containment rate</strong> — the percentage of calls fully resolved by the AI without human handoff — was our primary business metric. Transitioning into January, internal reports showed a severe, unexplained plunge. The most alarming part wasn't the decline itself — it was the lack of clarity behind it.</p>
 {: .cs2-lead}
 
 A colleague frankly admitted: nobody understood the cause of the crash, and worse, there was zero confidence that our tracking calculations were even correct.
@@ -300,55 +308,46 @@ My first instinct was the same as everyone else's: drive up the containment rate
   <p class="tree__caption">Three compounding root causes — each requiring a fundamentally different intervention.</p>
 </div>
 
-<p class="statement">When faced with broken metrics, I halted optimization and chose to build an entirely new analytics funnel from scratch.</p>
+<div class="cs-statement reveal">When faced with broken metrics, I halted optimization and chose to build an entirely new analytics funnel from scratch.</div>
 
 The most critical structural change was eliminating the confusion between a "contained" call and a "resolved" call. I designed a multi-layered funnel that tracked user interactions from the first IVR ping down to the final disposition. The funnel provided visibility into:
 
-- **Traffic Qualification:** Total calls on the IVR vs. total calls actually eligible for bot handling.
-- **Intent Processing:** How many calls hit our 50 trained intents, and whether the bot successfully followed instructions to identify those intents.
-- **User Confirmation:** A strict measure of whether the user confirmed the bot's understanding of their problem.
-- **True Resolution vs. Drop-off:** The final branch that cleanly separated actual Resolutions (the bot fulfilled the request) from non-resolutions (user hangups, bot error hangups, or manual agent transfers).
 
-<p class="statement">By isolating exact drop-off points, we moved away from chasing vanity numbers and started making targeted, data-backed product decisions.</p>
+**By isolating exact drop-off points, we moved away from chasing vanity numbers and started making targeted, data-backed product decisions.**
 
-<figure class="viz" role="img" aria-label="Voicebot Call Resolution Funnel showing stages from IVR entry to final disposition">
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
-  <!-- Funnel stages — center-aligned at x=350 -->
-  <rect x="40" y="10" width="620" height="36" rx="3" fill="#222"/>
-  <text x="55" y="34" font-family="sans-serif" font-size="13" fill="#FFFFFF">Total Calls on IVR</text>
-  <text x="645" y="34" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">100%</text>
-
-  <rect x="80" y="58" width="540" height="36" rx="3" fill="#222"/>
-  <text x="95" y="82" font-family="sans-serif" font-size="13" fill="#FFFFFF">Calls Sent to Bot</text>
-  <text x="605" y="82" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">Bot-eligible</text>
-
-  <rect x="120" y="106" width="460" height="36" rx="3" fill="#222"/>
-  <text x="135" y="130" font-family="sans-serif" font-size="13" fill="#FFFFFF">Bot Trained for Instruction</text>
-  <text x="565" y="130" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">Intent covered</text>
-
-  <rect x="160" y="154" width="380" height="36" rx="3" fill="#222"/>
-  <text x="175" y="178" font-family="sans-serif" font-size="13" fill="#FFFFFF">Bot Identified Intent</text>
-  <text x="525" y="178" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">SLU success</text>
-
-  <rect x="200" y="202" width="300" height="36" rx="3" fill="#222"/>
-  <text x="215" y="226" font-family="sans-serif" font-size="13" fill="#FFFFFF">User Confirmed Intent</text>
-  <text x="485" y="226" text-anchor="end" font-family="sans-serif" font-size="12" fill="#888">Confirmed</text>
-
-  <!-- Final split -->
-  <rect x="203" y="250" width="140" height="36" rx="3" fill="#ff2d00" opacity="0.8"/>
-  <text x="273" y="274" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">Resolved</text>
-
-  <rect x="358" y="250" width="140" height="36" rx="3" fill="#333"/>
-  <text x="428" y="274" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888">Not Resolved</text>
-</svg>
-<figcaption>The call resolution funnel I built — tracking every call from IVR entry to final disposition. Each layer isolates a specific drop-off point.</figcaption>
-</figure>
-
-<div class="info-card" style="background:#141414;border:1.5px solid #2A2A2A;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;box-shadow:0 1px 3px rgba(0,0,0,0.3);">
-  <p style="margin:0 0 0.5rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:#FFFFFF;"><strong>Framework: Voicebot Call Resolution Funnel</strong></p>
-  <p style="margin:0 0 0.75rem;font-size:0.9rem;color:#888;">I turned this measurement approach into a reusable framework — with definitions, formulas, benchmarks, diagnostic questions, and ownership mapping for every stage of the funnel.</p>
-  <a href="/frameworks/voicebot-metrics-funnel/" style="font-family:'Space Mono',monospace;font-size:0.85rem;color:#ff2d00;text-decoration:none;border-bottom:1px solid #ff2d00;">Explore the full framework &rarr;</a>
+<div class="cs-funnel reveal">
+  <div class="cs-funnel__step">
+    <span class="cs-funnel__label">Total Calls on IVR</span>
+    <div class="cs-funnel__bar"><div class="cs-funnel__fill" style="width:100%"></div></div>
+    <span class="cs-funnel__pct">100%</span>
+  </div>
+  <div class="cs-funnel__step">
+    <span class="cs-funnel__label">Calls Sent to Bot</span>
+    <div class="cs-funnel__bar"><div class="cs-funnel__fill" style="width:78%"></div></div>
+    <span class="cs-funnel__pct">Bot-eligible</span>
+  </div>
+  <div class="cs-funnel__step">
+    <span class="cs-funnel__label">Bot Trained for Intent</span>
+    <div class="cs-funnel__bar"><div class="cs-funnel__fill" style="width:60%"></div></div>
+    <span class="cs-funnel__pct">Covered</span>
+  </div>
+  <div class="cs-funnel__step">
+    <span class="cs-funnel__label">Bot Identified Intent</span>
+    <div class="cs-funnel__bar"><div class="cs-funnel__fill" style="width:45%"></div></div>
+    <span class="cs-funnel__pct">SLU hit</span>
+  </div>
+  <div class="cs-funnel__step">
+    <span class="cs-funnel__label">User Confirmed</span>
+    <div class="cs-funnel__bar"><div class="cs-funnel__fill" style="width:35%"></div></div>
+    <span class="cs-funnel__pct">Confirmed</span>
+  </div>
+  <div class="cs-funnel__branch">
+    <div class="cs-funnel__branch-item cs-funnel__branch-item--yes">&#10003; Resolved</div>
+    <div class="cs-funnel__branch-item cs-funnel__branch-item--no">&#10007; Not Resolved</div>
+  </div>
 </div>
+
+<a href="/frameworks/voicebot-metrics-funnel/" class="cs-fw-link reveal">&rarr; Explore the full Voicebot Call Resolution Funnel framework</a>
 
 <div class="testimonial">
   <p class="testimonial__sentiment">TRUST RESTORED</p>
@@ -359,7 +358,7 @@ The most critical structural change was eliminating the confusion between a "con
 ## Divide and Conquer: Triaging System Failures
 {: #divide-and-conquer-triaging-system-failures}
 
-With accurate data in hand, three failure patterns emerged — each requiring a different team and approach:
+<p class="cs-lead">With accurate data in hand, three failure patterns emerged — each requiring a different team and approach:</p>
 {: .cs2-lead}
 
 <figure class="mermaid-diagram" role="img" aria-label="Pie chart showing the breakdown of system failures: 47% authentication, 30% intent classification, 23% conversation dead-ends">
@@ -367,18 +366,14 @@ With accurate data in hand, three failure patterns emerged — each requiring a 
 <figcaption>Authentication failures dominated — the biggest blocker wasn't intent classification but OTP drop-off.</figcaption>
 </figure>
 
-- **Intent classification gaps.** The SLU model was inherited from Voicebot 1.0, which was originally just a simple call-steering bot with 20 intents. Over time, new intents had been bolted on without proper cleanup, and the architecture was never restructured to handle the bank's massive scope of **300+ use cases**. While SLU performance sat at around **70%** for the intents it was explicitly trained for, the model consistently failed on complex utterances like indirect requests or multi-intents. Anything outside this fragile intent universe was immediately escalated to a human agent.
-- **Authentication failures.** This was the finding that changed priorities. A staggering **47% of callers failed after entering their OTP.** Digging into the data, we discovered this was driven by critical DTMF input bugs, specifically failures to capture the first digit or timing out during inter-digit inputs. Surfaced directly in a joint meeting with the bank's team, this meant that even perfectly classified intents were losing customers downstream before they could complete their requests.
-- **Conversation flow dead-ends.** Certain flows had no graceful fallbacks. When the bot couldn't understand a response after three attempts, it would simply hang up. Calls our old MIS had counted as "contained" were actually just customers abandoning the bot in frustration.
-
-<div class="metric-box">
-  <span class="metric-box__label">OTP Failure Rate</span>
-  <span class="metric-box__number">47%</span>
-</div>
+<ul class="cs-body-list">
+  <li><strong>Intent classification gaps.</strong> The SLU model was inherited from a simple 20-intent call-steering bot. Intents had been bolted on without cleanup, never restructured for <strong>300+ use cases</strong>. At <strong>70%</strong> accuracy on trained intents, it consistently failed on complex utterances — indirect requests, multi-intents — escalating everything else to human agents.</li>
+  <li><strong>Authentication failures.</strong> The finding that changed priorities: <strong>47% of callers failed after entering their OTP.</strong> Root cause was critical DTMF bugs — failure to capture the first digit or timing out on inter-digit inputs. Even perfectly classified intents were losing customers downstream.</li>
+  <li><strong>Conversation flow dead-ends.</strong> No graceful fallbacks. After three failed attempts, the bot would simply hang up. Calls our old MIS counted as "contained" were customers abandoning in frustration.</li>
+</ul>
 
 I proposed a **hybrid approach**: flow optimization and authentication fixes for quick wins, SLU expansion for sustained improvement, and security compliance absorbed in parallel.
 
-We considered three options: a full SLU retrain, conversation flow redesign only, or the hybrid model.
 
 <div class="decision-grid" role="img" aria-label="Decision matrix comparing three approaches">
   <div class="decision-card">
@@ -401,41 +396,39 @@ We considered three options: a full SLU retrain, conversation flow redesign only
     <span class="decision-card__badge">Chosen</span>
   </div>
 </div>
-<p class="cs2-aside" style="margin-top:var(--space-xs);text-align:center;">The hybrid approach balanced immediate wins with sustained model improvement.</p>
-
-A complete SLU retrain would have taken **6+ months** — not including the preliminary research required in the air-gapped environment. The hybrid approach let us show immediate, incremental progress while laying the groundwork for larger model improvements.
+<p class="cs2-aside cs2-aside--centered">The hybrid approach balanced immediate wins with sustained model improvement.</p>
 
 I organized the work into **three squads**: Squad 1 (maintenance and bug fixes), Squad 2 (new use cases and intent expansion), and Squad 3 (security, compliance, and infrastructure). Each squad had clear ownership, and the bank's stakeholders knew exactly who to contact for what.
 
 <figure class="viz" role="img" aria-label="Three squads organizational structure with team composition">
 <svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg">
   <!-- Squad 1 -->
-  <rect x="10" y="10" width="216" height="120" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="118" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Squad 1</text>
-  <text x="118" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Maintenance & Bug Fixes</text>
-  <line x1="40" y1="68" x2="196" y2="68" stroke="#333" stroke-width="1"/>
-  <text x="118" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Designer</text>
-  <text x="118" y="104" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Analyst</text>
-  <text x="118" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Operations</text>
+  <rect x="10" y="10" width="216" height="120" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="118" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e8eaed">Squad 1</text>
+  <text x="118" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#7d8590">Maintenance & Bug Fixes</text>
+  <line x1="40" y1="68" x2="196" y2="68" stroke="#21262d" stroke-width="1"/>
+  <text x="118" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Designer</text>
+  <text x="118" y="104" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Analyst</text>
+  <text x="118" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Operations</text>
 
   <!-- Squad 2 -->
-  <rect x="242" y="10" width="216" height="120" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="350" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Squad 2</text>
-  <text x="350" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">New Use Cases</text>
-  <line x1="272" y1="68" x2="428" y2="68" stroke="#333" stroke-width="1"/>
-  <text x="296" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Engineer</text>
-  <text x="404" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Designer</text>
-  <text x="296" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Operations</text>
-  <text x="404" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">ML</text>
+  <rect x="242" y="10" width="216" height="120" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="350" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e8eaed">Squad 2</text>
+  <text x="350" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#7d8590">New Use Cases</text>
+  <line x1="272" y1="68" x2="428" y2="68" stroke="#21262d" stroke-width="1"/>
+  <text x="296" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Engineer</text>
+  <text x="404" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Designer</text>
+  <text x="296" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Operations</text>
+  <text x="404" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">ML</text>
 
   <!-- Squad 3 -->
-  <rect x="474" y="10" width="216" height="120" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="582" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Squad 3</text>
-  <text x="582" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Security & Infrastructure</text>
-  <line x1="504" y1="68" x2="660" y2="68" stroke="#333" stroke-width="1"/>
-  <text x="582" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">DevOps</text>
-  <text x="582" y="104" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Engineering</text>
-  <text x="582" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Product</text>
+  <rect x="474" y="10" width="216" height="120" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="582" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e8eaed">Squad 3</text>
+  <text x="582" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#7d8590">Security & Infrastructure</text>
+  <line x1="504" y1="68" x2="660" y2="68" stroke="#21262d" stroke-width="1"/>
+  <text x="582" y="88" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">DevOps</text>
+  <text x="582" y="104" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Engineering</text>
+  <text x="582" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Product</text>
 </svg>
 <figcaption>Three squads with clear ownership: maintenance, expansion, and security delivered in parallel.</figcaption>
 </figure>
@@ -444,7 +437,7 @@ I organized the work into **three squads**: Squad 1 (maintenance and bug fixes),
 ## What Went Wrong
 {: #what-went-wrong}
 
-This section exists because I believe case studies that only show wins aren't useful. Here's what didn't go as planned:
+<p class="cs-lead">This section exists because I believe case studies that only show wins aren't useful. Here's what didn't go as planned:</p>
 {: .cs2-lead}
 
 <div class="lesson-grid">
@@ -474,11 +467,9 @@ This section exists because I believe case studies that only show wins aren't us
 
 We invested heavily in retraining the SLU model, which yielded strong on-paper results: identification improved from **70% to 91%**, driving a roughly **46% increase** in containment.
 
+<div class="cs-statement reveal">Our model was solution-oriented, but customers call to articulate problems — not state clear requests.</div>
+
 However, this effort failed to address a massive structural gap in our identification layer. The bot's architecture was fundamentally solution-oriented, expecting customers to state clear requests. In reality, customers call to articulate complex problems.
-
-<p class="statement">Our model was solution-oriented, but customers call to articulate problems — not state clear requests.</p>
-
-For example, a customer saying, "I am at an airport lounge and trying to make a payment but the transaction is not working," would misfire into conflicting intents.
 
 <div class="mismatch" role="img" aria-label="Complex customer utterance colliding with multiple intents">
   <div class="mismatch__utterance">"I am at an airport lounge and trying to make a payment but the transaction is not working"</div>
@@ -494,7 +485,7 @@ For example, a customer saying, "I am at an airport lounge and trying to make a 
   <div class="mismatch__collision">Intent Collision — No disambiguation layer</div>
   <div class="mismatch__arrow"></div>
   <div class="mismatch__result">Misfire or Wrong Flow</div>
-  <div class="mismatch__arrow" style="border-left:1px dashed var(--color-border-mid);background:none;"></div>
+  <div class="mismatch__arrow mismatch__arrow--dashed"></div>
   <div class="mismatch__label">What was needed</div>
   <div class="mismatch__needed">
     <span class="mismatch__needed-item">Hierarchical root intent</span>
@@ -508,18 +499,57 @@ A failed payment could stem from multiple distinct root causes—a blocked card,
 
 ### System Instability
 
-We went through a highly volatile period, logging **15 separate incidents** over a three-month span. These outages were driven by a combination of our own architectural flaws — specifically around production-to-DR switchover mechanisms — and external vulnerabilities like bank API connection failures and network drops.
-
-The sheer volume of issues strained the bank's trust, exposed the fragility of our system under real-world banking loads, and severely disrupted our containment improvement drive.
-
-<div class="metric-box">
-  <span class="metric-box__label">Critical Incidents (3 months)</span>
-  <span class="metric-box__number">15</span>
+<div class="cs-incident-bar">
+  <div class="cs-incident-bar__header">
+    <span class="cs-incident-bar__title">15 Incidents in 3 Months</span>
+    <span class="cs-incident-bar__subtitle">Sep – Nov 2025</span>
+  </div>
+  <div class="cs-incident-bar__chart">
+    <div class="cs-incident-bar__row">
+      <span class="cs-incident-bar__label">DR Switchover</span>
+      <div class="cs-incident-bar__track"><div class="cs-incident-bar__fill cs-incident-bar__fill--5" style="width:33%"></div></div>
+      <span class="cs-incident-bar__count">5</span>
+    </div>
+    <div class="cs-incident-bar__row">
+      <span class="cs-incident-bar__label">Bank API Failures</span>
+      <div class="cs-incident-bar__track"><div class="cs-incident-bar__fill cs-incident-bar__fill--4" style="width:27%"></div></div>
+      <span class="cs-incident-bar__count">4</span>
+    </div>
+    <div class="cs-incident-bar__row">
+      <span class="cs-incident-bar__label">Network Drops</span>
+      <div class="cs-incident-bar__track"><div class="cs-incident-bar__fill cs-incident-bar__fill--3" style="width:20%"></div></div>
+      <span class="cs-incident-bar__count">3</span>
+    </div>
+    <div class="cs-incident-bar__row">
+      <span class="cs-incident-bar__label">Process Failures</span>
+      <div class="cs-incident-bar__track"><div class="cs-incident-bar__fill cs-incident-bar__fill--2" style="width:13%"></div></div>
+      <span class="cs-incident-bar__count">2</span>
+    </div>
+    <div class="cs-incident-bar__row">
+      <span class="cs-incident-bar__label">DB/Infra</span>
+      <div class="cs-incident-bar__track"><div class="cs-incident-bar__fill cs-incident-bar__fill--1" style="width:7%"></div></div>
+      <span class="cs-incident-bar__count">1</span>
+    </div>
+  </div>
 </div>
+
+These outages were driven by a combination of our own architectural flaws — specifically around production-to-DR switchover mechanisms — and external vulnerabilities like bank API connection failures and network drops. The sheer volume strained the bank's trust and severely disrupted our containment improvement drive.
 
 ### The ARSIM Process Failure
 
-During planned server maintenance, an infrastructure team member shut down production services without confirming with or informing the bank. This caused approximately seven minutes of unplanned downtime during live calls. The failure wasn't technical; it was a pure process breakdown because a mandatory client approval step did not exist for maintenance windows. We instituted one immediately afterward, but the damage to our credibility was already done.
+<div class="cs-before-after">
+  <div class="cs-before-after__col cs-before-after__col--before">
+    <span class="cs-before-after__label">Before</span>
+    <p>No mandatory client approval for maintenance windows. Infrastructure team could shut down production services without confirming with the bank.</p>
+  </div>
+  <span class="cs-before-after__arrow" aria-hidden="true">&rarr;</span>
+  <div class="cs-before-after__col cs-before-after__col--after">
+    <span class="cs-before-after__label">After</span>
+    <p>Mandatory written client handshake before any system touches. Formal maintenance window approval chain instituted immediately.</p>
+  </div>
+</div>
+
+The failure caused approximately seven minutes of unplanned downtime during live calls. It wasn't technical — it was a pure process breakdown. The damage to our credibility was already done.
 
 ### Security Scope Creep
 
@@ -530,12 +560,15 @@ The bank added **LDAP + MFA authentication, DB encryption, HTTPS migration, and 
 <figcaption>RBI-mandated security requirements (red) injected mid-sprint on top of the existing delivery scope.</figcaption>
 </figure>
 
-Absorbing these mandates without stalling our containment initiatives required ruthless re-prioritization. During certain weeks, security compliance consumed **90% of our infrastructure bandwidth**, creating severe bottlenecks for feature deployments.
+<div class="cs-callout-stat">
+  <div class="cs-callout-stat__value">90%</div>
+  <div class="cs-callout-stat__text">Absorbing these mandates without stalling our containment initiatives required ruthless re-prioritization. During certain weeks, security compliance consumed <strong>90% of our infrastructure bandwidth</strong>, creating severe bottlenecks for feature deployments.</div>
+</div>
 
 ## What We Built
 {: #what-we-built}
 
-Despite the setbacks, the project delivered meaningful improvement across multiple dimensions:
+<p class="cs-lead">Despite the setbacks, the project delivered meaningful improvement across multiple dimensions:</p>
 {: .cs2-lead}
 
 <div class="outcome-grid">
@@ -569,155 +602,113 @@ Despite the setbacks, the project delivered meaningful improvement across multip
     <div class="outcome-card__metric">20-scenario runbook</div>
     <div class="outcome-card__desc">Air-gapped K8s runbook for L1/L2 teams. On-call rotations and escalation matrices eliminated single points of failure.</div>
   </div>
-  <div class="outcome-card">
-    <div class="outcome-card__title">Security Compliance</div>
-    <div class="outcome-card__metric">Parallel delivery</div>
-    <div class="outcome-card__desc">LDAP+MFA, DB encryption, HTTPS, APIGEE OAuth — delivered by dedicated Squad 3 without blocking containment track.</div>
-  </div>
 </div>
 
 Here's the detail behind each outcome:
 
-**Measurement integrity.** We fixed **50+ containment bugs** that were skewing the data. We overhauled the underlying analytics pipeline and debugged the existing dashboards to ensure complete data accuracy.
-
-Operating with "100% trust" as our design principle, we enabled the bank to receive daily automated containment reports they could verify against their own raw data. A fundamental shift from "we think the metric is X" to "here's the metric, here's how we calculated it, and here's how you can validate it."
-
-**SLU accuracy.** In-scope success rate reached **91%**, with out-of-scope success at **82%** — earning sign-off for production deployment on December 17, 2025. Post-deployment, we observed measurable improvement in high-volume flows: iMobile, unable to transact, transaction issues, and outstanding balance.
-
-<div class="metric-box">
-  <span class="metric-box__label">SLU Inscope Accuracy</span>
-  <span class="metric-box__number">91%</span>
+<div class="cs-swap">
+  <span class="cs-swap__before">70%</span>
+  <span class="cs-swap__arrow" aria-hidden="true">&rarr;</span>
+  <span class="cs-swap__after">91%</span>
+  <span class="cs-swap__context">SLU Inscope Accuracy — Before &rarr; After</span>
 </div>
 
-<figure class="viz" role="img" aria-label="SLU accuracy improvement: from 70% to 91% intent identification">
-<svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg">
-  <!-- Before: 70% -->
-  <text x="10" y="35" font-family="sans-serif" font-size="11" fill="#888">Before</text>
-  <rect x="80" y="18" width="378" height="30" rx="3" fill="#ff2d00" opacity="0.7"/>
-  <text x="92" y="38" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">70% identification</text>
+<div class="cs-statement reveal">Post-deployment, we observed measurable improvement in the highest-volume flows — iMobile, unable to transact, transaction issues, and outstanding balance. The SLU model earned production sign-off on December 17, 2025.</div>
 
-  <!-- After: 91% inscope -->
-  <text x="10" y="82" font-family="sans-serif" font-size="11" fill="#888">After</text>
-  <rect x="80" y="65" width="491" height="30" rx="3" fill="#FFFFFF" opacity="0.9"/>
-  <text x="92" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111">91% inscope</text>
+### Authentication Improvement
 
-  <!-- After: 82% OOS (subtle sub-bar) -->
-  <rect x="80" y="104" width="443" height="8" rx="2" fill="#888" opacity="0.3"/>
-  <text x="533" y="113" font-family="sans-serif" font-size="10" fill="#888">82% OOS</text>
-</svg>
-<figcaption>SLU accuracy transformation: from 70% to 91% inscope identification, with 82% out-of-scope success.</figcaption>
-</figure>
+The crippling **47% OTP failure rate** was directly addressed through a redesigned authentication journey and crucial DTMF patience features.
 
-<div class="testimonial">
-  <p class="testimonial__sentiment">MEASURABLE IMPACT</p>
-  <p class="testimonial__quote">"Post-deployment, we observed measurable improvement in the highest-volume flows — iMobile, unable to transact, transaction issues, and outstanding balance. The SLU model earned production sign-off on December 17, 2025."</p>
-  <p class="testimonial__attribution">— Production deployment outcome</p>
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">8s</div>
+    <div class="cs-impact-label">First-Digit Wait</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">6s</div>
+    <div class="cs-impact-label">Inter-Digit Wait</div>
+  </div>
 </div>
 
-**Machine learning safeguards.** We engineered a custom mutation plugin to protect the customer experience from the model's remaining blind spots. It actively monitored live utterances, cross-referencing them against bank-approved regex patterns to override faulty or low-confidence predictions.
+### Deployment Discipline
 
-We instituted a strict fallback threshold: any intent scoring below **0.6 confidence** was automatically mutated to "out-of-scope." Instead of guessing and trapping users in misfired loops, the system gracefully escalated to a human agent — drastically reducing customer friction.
-
-**Authentication improvement.** The crippling **47% OTP failure rate** was directly addressed through a redesigned authentication journey and crucial DTMF patience features.
-
-We optimized listening parameters: **first-digit wait time to 8 seconds** and **inter-digit wait time to 6 seconds**. This significantly reduced timeouts for slower users and was validated through multiple Closed User Group (CUG) testing rounds before production rollout.
-
-<div class="metric-box">
-  <span class="metric-box__label">First-Digit Wait</span>
-  <span class="metric-box__number">8s</span>
-</div>
-<div class="metric-box">
-  <span class="metric-box__label">Inter-Digit Wait</span>
-  <span class="metric-box__number">6s</span>
-</div>
-
-**Deployment discipline.** We successfully managed five major production deployments between August 2025 and March 2026. Each release was executed with strict adherence to a formal Plan of Action, an explicit email-based approval chain, and tightly coordinated execution across both Production and Disaster Recovery (DR) environments.
-
-<div class="metric-box">
-  <span class="metric-box__label">Major Deployments (Aug 2025 – Mar 2026)</span>
-  <span class="metric-box__number">5</span>
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">5</div>
+    <div class="cs-impact-label">Major Deploys</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">8 mo</div>
+    <div class="cs-impact-label">Timeline (Aug–Mar)</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">2×</div>
+    <div class="cs-impact-label">Environments</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">100%</div>
+    <div class="cs-impact-label">POA Coverage</div>
+  </div>
 </div>
 
-**Incident governance.** The early outages forced us to mature our operations overnight, shifting from a reactive to a proactive operational model.
+Each release executed with formal Plan of Action, email-based approval chain, and coordinated Prod + DR execution.
 
-After the October outage, we built a comprehensive **20-scenario air-gapped Kubernetes runbook**. This empowered L1 and L2 support teams to execute recovery protocols immediately, drastically reducing MTTR without relying on a single point of failure.
-
-Following the ARSIM incident, we instituted mandatory written client approval for all maintenance windows — enforcing a formal handshake before any system touches. Coupled with new on-call rotations and escalation matrices, these were the foundational process improvements that made every subsequent delivery safe.
-
-**Security delivered in parallel.** Delivering RBI-mandated compliance — LDAP + MFA, DB encryption, HTTPS migration, and APIGEE API Key + OAuth integration — was the hardest prioritization challenge of the project.
-
-We managed this without blocking the primary containment track through strict resource isolation. A dedicated **Squad 3** handled all infrastructure and compliance work, shielding the core conversational and ML teams from context switching.
-
-We negotiated a phased rollout schedule with the bank and embedded security regressions directly into our existing QA cycles to prevent testing bottlenecks. It was a masterclass in saying "yes, and" to rigid compliance requirements while fiercely protecting the main delivery timeline.
+<div class="cs-two-col cs-two-col--divided">
+  <div class="cs-two-col__left">
+    <h3>Incident Governance</h3>
+    <p>Built a <strong>20-scenario air-gapped K8s runbook</strong> after the October outage — L1/L2 teams could execute recovery immediately, eliminating single points of failure. Instituted <strong>mandatory client approval</strong> for all maintenance windows, on-call rotations, and escalation matrices. Every subsequent delivery was safe.</p>
+  </div>
+  <div class="cs-two-col__right">
+    <h3>Security Delivered in Parallel</h3>
+    <p>RBI-mandated compliance — LDAP+MFA, DB encryption, HTTPS, APIGEE OAuth — delivered by <strong>dedicated Squad 3</strong> without blocking containment. Phased rollout negotiated with the bank, security regressions embedded into existing QA cycles to prevent bottlenecks.</p>
+  </div>
+</div>
 
 ## Things I'd Do Differently
 {: #things-id-do-differently}
 
-<p class="statement">The air-gapped environment was the defining constraint. Every decision — from squad structure to deployment discipline to the 20-scenario runbook — was shaped by the physical reality that nothing could be debugged remotely.</p>
+<p class="cs-lead">The air-gapped environment was the defining constraint. Every decision — from squad structure to deployment discipline to the 20-scenario runbook — was shaped by the physical reality that nothing could be debugged remotely.</p>
 
-<div class="lesson-grid">
-  <div class="lesson-card">
+<div class="cs-statement reveal">If I could restart this 30-use-case rollout, building a "100% trust" analytics pipeline wouldn't be a mid-project pivot — it would be week one.</div>
+
+<div class="lesson-grid lesson-grid--rows">
+  <div class="lesson-card lesson-card--row">
     <span class="lesson-card__number">01</span>
-    <div class="lesson-card__title">Fix measurement first</div>
-    <div class="lesson-card__body">We chased 8L contained calls against a tracking system we couldn't trust. Building a "100% trust" analytics pipeline should have been week one, not a mid-project pivot.</div>
-    <div class="lesson-card__quote">If I could restart, building trusted analytics wouldn't be a pivot — it would be week one.</div>
+    <div class="lesson-card__content">
+      <div class="lesson-card__title">Fix measurement first</div>
+      <div class="lesson-card__body">We chased 8L contained calls against a system we couldn't trust. Pausing optimization to build a call resolution funnel from scratch revealed the real baseline was 20K calls — reporting bugs and broken fallbacks had masked reality. Trusted analytics should have been week one.</div>
+    </div>
   </div>
-  <div class="lesson-card">
+  <div class="lesson-card lesson-card--row">
     <span class="lesson-card__number">02</span>
-    <div class="lesson-card__title">Enterprise AI governance is product management</div>
-    <div class="lesson-card__body">POAs, approval chains, CUG testing, maintenance windows — these aren't overhead. They're the discipline that separates enterprise-grade AI from a sandbox demo.</div>
-    <div class="lesson-card__quote">The ARSIM 7-minute outage didn't just hurt our SLA — it cost months of rebuilt trust.</div>
+    <div class="lesson-card__content">
+      <div class="lesson-card__title">Enterprise AI governance is product management</div>
+      <div class="lesson-card__body">POAs, approval chains, CUG testing, maintenance windows — not overhead, but the discipline separating enterprise AI from a demo. The ARSIM 7-minute outage didn't just hurt our SLA — it cost months of rebuilt trust because a mandatory client handshake didn't exist.</div>
+    </div>
   </div>
-  <div class="lesson-card">
+  <div class="lesson-card lesson-card--row">
     <span class="lesson-card__number">03</span>
-    <div class="lesson-card__title">Single points of failure are PM risks</div>
-    <div class="lesson-card__body">Relying on one infrastructure engineer for prod-to-DR switchovers is a process failure, not just technical debt. Build operational muscle before you need it.</div>
-    <div class="lesson-card__quote">15 critical incidents forced us to mature overnight — on-call rotations, escalation matrices, 20-scenario runbooks.</div>
+    <div class="lesson-card__content">
+      <div class="lesson-card__title">Single points of failure are PM risks</div>
+      <div class="lesson-card__body">One engineer for prod-to-DR switchovers. Undocumented tribal knowledge for recovery. 15 critical incidents in 3 months forced us to mature overnight — on-call rotations, escalation matrices, 20-scenario K8s runbooks. Build operational muscle before you need it.</div>
+    </div>
   </div>
-  <div class="lesson-card">
+  <div class="lesson-card lesson-card--row">
     <span class="lesson-card__number">04</span>
-    <div class="lesson-card__title">Influence through data breaks deadlocks</div>
-    <div class="lesson-card__body">Everyone blamed the NLU model. The data revealed 47% of callers dropped off at OTP — a completely different bottleneck that aligned everyone instantly.</div>
-    <div class="lesson-card__quote">In cross-functional deadlocks, aggregate data is the only objective tiebreaker.</div>
+    <div class="lesson-card__content">
+      <div class="lesson-card__title">Influence through data breaks deadlocks</div>
+      <div class="lesson-card__body">Everyone blamed the NLU model. Our funnel data revealed 47% of callers dropped at OTP — DTMF timeout bugs, not intent classification. Bringing this data to the bank aligned everyone instantly on a hybrid fix. In cross-functional deadlocks, aggregate data is the only objective tiebreaker.</div>
+    </div>
   </div>
-  <div class="lesson-card">
+  <div class="lesson-card lesson-card--row">
     <span class="lesson-card__number">05</span>
-    <div class="lesson-card__title">Absorb scope without losing the thread</div>
-    <div class="lesson-card__body">RBI-mandated security arrived mid-sprint. Three distinct squads was the only way to deliver compliance without killing the primary containment track.</div>
-    <div class="lesson-card__quote">A PM's job isn't to push back on compliance — it's to organize the work so it doesn't kill delivery.</div>
+    <div class="lesson-card__content">
+      <div class="lesson-card__title">Absorb scope without losing the thread</div>
+      <div class="lesson-card__body">RBI-mandated security arrived mid-sprint — non-negotiable. Three distinct squads was the answer: dedicated Squad 3 for all infra and compliance, shielding core teams from context switching. A PM's job isn't to push back on compliance — it's to organize work so it doesn't kill delivery.</div>
+    </div>
   </div>
 </div>
 
-### Fix measurement first
-
-We spent months chasing an ambitious contractual commitment of 8 Lakh contained calls against a tracking system we fundamentally couldn't trust. When we paused optimization to build a multi-layered call resolution funnel from scratch — separating true "resolution" from mere "containment" — we discovered the real baseline was a mere 20,000 calls. Deep-seated reporting bugs and poorly designed fallback flows had been masking the reality of user drop-offs.
-
-> If I could restart this 30-use-case rollout, building a "100% trust" analytics pipeline wouldn't be a mid-project pivot — it would be week one.
-
-### Enterprise AI governance is product management
-
-Formal Plans of Action (POAs), email-based approval chains, CUG testing, and strict maintenance windows — these aren't administrative overhead. They are the product management discipline that separates enterprise-grade AI from a sandbox demo.
-
-The ARSIM incident taught me this viscerally: when an infrastructure engineer shut down production services during live calls without a mandatory client handshake, that **7-minute unplanned outage** didn't just hurt our SLA. It cost us the client trust that takes months to rebuild.
-
-### Single points of failure are PM risks, not just engineering risks
-
-Relying on a single infrastructure engineer for production-to-DR switchovers, or leaving system recovery to undocumented tribal knowledge, aren't just technical debts — they are process failures.
-
-Enduring **15 critical incidents** over a volatile three-month span forced us to mature overnight. A PM's job is to identify these gaps and build operational muscle — on-call rotations, escalation matrices, and **20-scenario Kubernetes runbooks** — so L1/L2 teams can execute recoveries without needing a hero.
-
-### Influence through data breaks deadlocks
-
-When containment plunged, everyone had a theory. The immediate instinct was to blame the inherited 30-intent NLU model.
-
-But the data from our newly isolated funnels revealed a completely different bottleneck: **47% of callers were dropping off immediately after entering their OTP.** The root cause wasn't intent classification — it was critical DTMF timeout bugs.
-
-Bringing this exact data to the bank aligned everyone instantly on a hybrid approach: optimizing DTMF wait times for an immediate win, while strategically expanding the SLU model in the background.
-
-> In cross-functional deadlocks, aggregate data is the only objective tiebreaker.
-
-### Absorb scope without losing the thread
-
-RBI-mandated security requirements — LDAP + MFA, DB encryption, HTTPS migration — arrived mid-sprint and were strictly non-negotiable. A PM's job isn't to push back on regulatory compliance; it's to organize the work so compliance is achieved without killing the primary delivery target.
-
-Structuring the project into **three distinct squads** was the only way this survived. Isolating all infrastructure and security tasks into a dedicated Squad 3 shielded the core teams from context switching, preventing scope creep from consuming the entire team's bandwidth.
+<blockquote class="testimonial testimonial--featured">
+  <p class="testimonial__quote">"In cross-functional deadlocks, aggregate data is the only objective tiebreaker."</p>
+</blockquote>

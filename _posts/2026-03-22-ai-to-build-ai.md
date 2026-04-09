@@ -3,6 +3,8 @@ layout: post
 title: "How I Used AI to Build an AI Career Tool (and What Each Layer Taught Me)"
 description: "The recursive meta-narrative of using Claude Code to build Career Enabler — three layers of AI, and what each layer taught me about building AI products."
 category: "Building with AI"
+theme_color: "#7C3AED"
+hero_bg_word: "META"
 read_time: "10 min read"
 date: 2026-03-22
 published: false

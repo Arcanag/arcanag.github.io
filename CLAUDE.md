@@ -13,10 +13,10 @@ Personal portfolio site for Anurag Sharma — Project Manager at Skit.ai special
 ### Visual Identity
 - **Dark theme**: near-black background (`#060606`), warm text (`#f0ebe0`), red accent (`#ff2d00`)
 - **Grain texture overlay**: CSS-animated SVG noise at 0.05 opacity for tactile feel (static for reduced-motion users)
-- **Typography system**: 3 fonts with distinct roles:
-  - Bebas Neue — display/hero text (impact, confidence)
-  - Barlow Condensed — headings and body (readable, professional)
-  - Space Mono — labels, nav, code (system, technical)
+- **Typography system**: System font stack for display/heading/body, IBM Plex Mono for case study mono
+  - Display/Heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif
+  - Mono (case studies): IBM Plex Mono
+  - 9-tier typographic scale (Sam's Rules): Display → Section → Statement → Subhead → Pullquote → Lead → Body → Aside → Label
 - **BEM naming**: `.block__element--modifier` convention throughout CSS
 
 ### Layout & Spacing
@@ -53,7 +53,7 @@ Personal portfolio site for Anurag Sharma — Project Manager at Skit.ai special
 
 ### Code Conventions
 - No frameworks — vanilla JS only (68 lines)
-- CSS in single file (`main.css`), organized with lettered section headers (a-o)
+- CSS in single file (`main.css`), organized with lettered section headers (a-p)
 - Liquid templates use `hidden` frontmatter flag to exclude case studies from listings
 - `jekyll-seo-tag`, `jekyll-sitemap`, `jekyll-feed` plugins for SEO
 - External links use `target="_blank" rel="noopener noreferrer"`
@@ -61,12 +61,14 @@ Personal portfolio site for Anurag Sharma — Project Manager at Skit.ai special
 ## Content Types
 
 ### Case Studies (`_case-studies/`)
-- Frontmatter: `layout`, `title`, `description`, `category`, `key_metric`, `read_time`, `date`, `toc`, `hidden`
+- Frontmatter: `layout`, `title`, `description`, `theme_color`, `hero_bg_word`, `category`, `key_metric`, `read_time`, `date`, `toc`, `hidden`
+- `theme_color` sets `--color-accent` per page (blue `#4A9EFF`, violet `#7C3AED`, etc.)
+- `hero_bg_word` renders as large atmosphere text in hero (felt, not read)
 - Hidden items excluded from `/case-studies/` index via `{% if study.hidden %}{% continue %}{% endif %}`
 - `banking-voicebot-research.md` is a reference doc (hidden + unpublished) — contains verified metrics
 
 ### Blog Posts (`_posts/`)
-- Frontmatter: `layout`, `title`, `description`, `category`, `read_time`, `date`, `tags`, `toc`, `published`
+- Frontmatter: `layout`, `title`, `description`, `category`, `theme_color`, `hero_bg_word`, `read_time`, `date`, `tags`, `toc`, `published`
 - Dates in filenames must match `date` in frontmatter
 - Categories: "AI Product Thinking", "Technical Deep-Dive", "Building with AI", "Philosophy"
 
@@ -94,3 +96,32 @@ bundle exec htmlproofer ./_site
 | `css/main.css` | All styles — design tokens through responsive |
 | `js/main.js` | Scroll reveal, nav state, hamburger, TOC tracking |
 | `_config.yml` | Jekyll config, collections, plugins, defaults |
+| `_mermaid/` | Mermaid source files (.mmd) + config.json for diagram generation |
+| `.claude/skills/portfolio-style-guide/` | Design system skill — component library, typography, colors, content guide |
+
+## Design System
+
+The site uses a `cs-*` prefixed component library for case studies and blog posts. Full documentation is in `.claude/skills/portfolio-style-guide/`. Key components:
+
+| Component | Purpose |
+|-----------|---------|
+| `cs-impact-strip` | Hero metrics (2-4 cells with large values) |
+| `cs-callout-stat` | Single stat + paragraph |
+| `cs-statement` | Pull quote (2-3 MAX per page) |
+| `cs-lead` | Section opener paragraph (always after h2) |
+| `cs-body-list` | Styled bullet list |
+| `cs-swap` | Before -> After value |
+| `cs-before-after` | Side-by-side comparison |
+| `cs-pipeline-row` | Multi-phase process flow |
+| `cs-funnel` | Conversion/dropout bars |
+| `cs-incident-bar` | Red severity chart |
+| `cs-two-col` | Two-column layout |
+| `cs-fw-link` | Boxed CTA link |
+
+### Theme Colors by Category
+
+| Category | Color |
+|----------|-------|
+| Enterprise AI / Technical Deep-Dive | `#4A9EFF` (blue) |
+| AI Product / Building with AI | `#7C3AED` (violet) |
+| Philosophy | `#ff2d00` (red) |

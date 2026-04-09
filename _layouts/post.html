@@ -2,8 +2,8 @@
 layout: default
 ---
 <div class="reading-progress" aria-hidden="true"></div>
-<article class="case-study">
-  <header class="case-study-hero">
+<article class="case-study" {% if page.theme_color %}style="--color-accent: {{ page.theme_color }};"{% endif %}>
+  <header class="case-study-hero" {% if page.hero_bg_word %}data-bg-word="{{ page.hero_bg_word }}"{% endif %}>
     <div class="container">
       {% if page.category %}
       <p class="case-study-hero__label reveal">{{ page.category }}</p>

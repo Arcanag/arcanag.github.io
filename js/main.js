@@ -48,6 +48,53 @@
     reveals.forEach(function(r) { revealObs.observe(r); });
   }
 
+  // Scroll-hijack horizontal sections
+  // Uses a tall wrapper + sticky inner to pin the section while scrolling horizontally
+  var scrollSections = document.querySelectorAll('.scroll-section');
+  if (scrollSections.length && !matchMedia('(prefers-reduced-motion: reduce)').matches
+      && window.innerWidth > 768) {
+    scrollSections.forEach(function(section) {
+      var track = section.querySelector('.scroll-section__track');
+      var cards = section.querySelectorAll('.scroll-section__card');
+      var dots = section.querySelectorAll('.scroll-section__dot');
+      var totalCards = cards.length;
+      if (totalCards < 2) return;
+
+      // Wrap section in a tall spacer so native scroll drives the animation
+      var wrapper = document.createElement('div');
+      wrapper.className = 'scroll-section-wrapper';
+      wrapper.style.height = (totalCards * 100) + 'vh';
+      wrapper.style.position = 'relative';
+      section.parentNode.insertBefore(wrapper, section);
+      wrapper.appendChild(section);
+
+      // Make section sticky inside the wrapper
+      section.style.position = 'sticky';
+      section.style.top = '0';
+
+      function updateCards() {
+        var wrapperRect = wrapper.getBoundingClientRect();
+        // How far we've scrolled into the wrapper (0 to wrapper.height - viewport)
+        var scrolled = -wrapperRect.top;
+        var maxScroll = wrapper.offsetHeight - window.innerHeight;
+        var progress = Math.max(0, Math.min(1, scrolled / maxScroll));
+
+        // Map progress to card index
+        var cardProgress = progress * (totalCards - 1);
+        var targetIndex = Math.round(cardProgress);
+
+        // Snap to card positions
+        track.style.transform = 'translateX(-' + (targetIndex * 100) + 'vw)';
+        dots.forEach(function(d, i) {
+          d.classList.toggle('scroll-section__dot--active', i === targetIndex);
+        });
+      }
+
+      window.addEventListener('scroll', updateCards, { passive: true });
+      updateCards();
+    });
+  }
+
   // Mobile nav toggle
   var hamburger = document.querySelector('.nav__hamburger');
   var navEl = document.querySelector('.nav');

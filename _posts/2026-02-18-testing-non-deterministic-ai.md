@@ -3,6 +3,8 @@ layout: post
 title: "Testing Non-Deterministic AI Products: A Practical Playbook"
 description: "100+ tests across two AI products — how to build a testing pyramid when your core feature returns different output every time."
 category: "Technical Deep-Dive"
+theme_color: "#4A9EFF"
+hero_bg_word: "TESTING"
 read_time: "8 min read"
 date: 2026-02-18
 tags: ["testing", "ai-products", "pytest", "playwright"]
@@ -23,14 +25,28 @@ toc:
     anchor: "what-not-to-test"
 ---
 
-<div class="callout callout--tldr">
-100+ tests across two AI products — here's the practical playbook for building a testing pyramid when your core feature returns different output every time. Mock the LLM, test the preprocessing, validate the schema, and reserve manual evaluation for qualitative review.
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">100+</div>
+    <div class="cs-impact-label">Tests</div>
+    <div class="cs-impact-desc">Across two AI products</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">4</div>
+    <div class="cs-impact-label">Strategies</div>
+    <div class="cs-impact-desc">Mock, preprocess, schema, manual</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">3</div>
+    <div class="cs-impact-label">Automated Layers</div>
+    <div class="cs-impact-desc">Unit, integration, E2E</div>
+  </div>
 </div>
 
 ## The Problem
 {: #the-problem}
 
-You've built an AI product. You want to write tests. You write:
+<p class="cs-lead">You've built an AI product. You want to write tests. You write:</p>
 
 ```python
 result = generate_tailored_resume(resume, job_description)
@@ -41,14 +57,57 @@ And it breaks immediately, because LLMs are non-deterministic. Even with tempera
 
 Building [Career Enabler](https://github.com/Arcanag/career-enabler) and [Agentic PM](https://github.com/Arcanag/agentic-pm) forced me to develop a practical testing strategy for AI products. Together, they have over 100 tests.
 
-<div class="metric-box"><span class="metric-box__label">Total Tests</span><span class="metric-box__number">100+</span></div>
-
-<div class="metric-box"><span class="metric-box__label">LLM Mock Tests</span><span class="metric-box__number">14</span></div>
 
 ## Strategy 1: Mock LLM Responses
 {: #strategy-1-mock-llm-responses}
 
-The most important insight: most of your business logic happens AROUND the LLM call, not inside it. You can test all of that logic by mocking the LLM response with a predictable fixture.
+<p class="cs-lead">The most important insight: most of your business logic happens AROUND the LLM call, not inside it. You can test all of that logic by mocking the LLM response with a predictable fixture.</p>
+
+<figure class="mermaid-diagram" role="img" aria-label="Decision flowchart: deterministic inputs use mocked LLM for reliable assertions, non-deterministic inputs with real LLM produce unreliable results">
+<svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- Test Input -->
+  <rect x="20" y="100" width="120" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="80" y="125" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e8eaed">Test Input</text>
+  <!-- Arrow to diamond -->
+  <line x1="140" y1="120" x2="210" y2="120" stroke="#21262d" stroke-width="1.5"/>
+  <polygon points="207,116 215,120 207,124" fill="#21262d"/>
+  <!-- Decision diamond -->
+  <polygon points="300,70 390,120 300,170 210,120" fill="#161b22" stroke="#4A9EFF" stroke-width="1.5"/>
+  <text x="300" y="116" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4A9EFF">Deterministic?</text>
+  <text x="300" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">(pre/post LLM)</text>
+  <!-- YES path (top) -->
+  <line x1="300" y1="70" x2="300" y2="30" stroke="#3fb950" stroke-width="1.5"/>
+  <polygon points="296,33 300,25 304,33" fill="#3fb950"/>
+  <text x="312" y="55" font-family="sans-serif" font-size="10" fill="#3fb950">YES</text>
+  <!-- Mock LLM box -->
+  <rect x="230" y="0" width="140" height="30" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="300" y="20" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Mock LLM Response</text>
+  <!-- Arrow to Assert -->
+  <line x1="370" y1="15" x2="440" y2="15" stroke="#3fb950" stroke-width="1.5"/>
+  <polygon points="437,11 445,15 437,19" fill="#3fb950"/>
+  <!-- Assert Logic box -->
+  <rect x="445" y="0" width="140" height="30" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="515" y="20" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#3fb950">Assert Logic</text>
+  <!-- Checkmark -->
+  <text x="600" y="22" font-family="sans-serif" font-size="16" fill="#3fb950">&#x2713;</text>
+  <!-- NO path (bottom) -->
+  <line x1="300" y1="170" x2="300" y2="210" stroke="#f85149" stroke-width="1.5"/>
+  <polygon points="296,207 300,215 304,207" fill="#f85149"/>
+  <text x="312" y="195" font-family="sans-serif" font-size="10" fill="#f85149">NO</text>
+  <!-- Real LLM box -->
+  <rect x="230" y="215" width="140" height="30" rx="4" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <text x="300" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Real LLM Call</text>
+  <!-- Arrow to Non-deterministic -->
+  <line x1="370" y1="230" x2="440" y2="230" stroke="#f85149" stroke-width="1.5"/>
+  <polygon points="437,226 445,230 437,234" fill="#f85149"/>
+  <!-- Non-deterministic box -->
+  <rect x="445" y="215" width="175" height="30" rx="4" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <text x="532" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f85149">Non-deterministic</text>
+  <!-- X mark -->
+  <text x="635" y="237" font-family="sans-serif" font-size="16" fill="#f85149">&#x2717;</text>
+</svg>
+<figcaption>Mock the LLM to make tests deterministic — test your logic, not the model's output.</figcaption>
+</figure>
 
 Agentic PM has 14 tests that use mocked LLM responses. The pattern:
 
@@ -76,7 +135,7 @@ What this doesn't test: whether the LLM produces good decompositions. That's a d
 ## Strategy 2: Test Preprocessing Separately
 {: #strategy-2-test-preprocessing}
 
-Career Enabler's preprocessing pipeline — PDF parsing, NER, TF-IDF keyword matching, readability analysis, ATS scoring — is entirely deterministic. These deserve dedicated test suites.
+<p class="cs-lead">Career Enabler's preprocessing pipeline — PDF parsing, NER, TF-IDF keyword matching, readability analysis, ATS scoring — is entirely deterministic. These deserve dedicated test suites.</p>
 
 ```python
 def test_ats_keyword_matching():
@@ -92,7 +151,7 @@ These tests run in milliseconds, require no API calls, and catch real bugs. When
 ## Strategy 3: Schema Validation
 {: #strategy-3-schema-validation}
 
-Both products use a `parse_llm_json()` utility that validates LLM responses against Pydantic models. The test strategy: verify parsing handles well-formed, malformed, and edge cases.
+<p class="cs-lead">Both products use a <code>parse_llm_json()</code> utility that validates LLM responses against Pydantic models. The test strategy: verify parsing handles well-formed, malformed, and edge cases.</p>
 
 ```python
 def test_parse_llm_json_with_markdown_wrapper():
@@ -111,7 +170,7 @@ That last test matters more than you'd think. LLMs occasionally return apologies
 ## Strategy 4: E2E User Flow Tests
 {: #strategy-4-e2e-user-flows}
 
-Career Enabler has Playwright tests that verify complete workflows without asserting on AI-generated content:
+<p class="cs-lead">Career Enabler has Playwright tests that verify complete workflows without asserting on AI-generated content:</p>
 
 ```python
 async def test_resume_tailoring_flow(page):
@@ -130,30 +189,37 @@ E2E tests are your safety net for integration issues: auth token expiry, CORS pr
 ## The AI Testing Pyramid
 {: #the-ai-testing-pyramid}
 
-Here's the testing pyramid for AI products:
+<p class="cs-lead">Here's the testing pyramid for AI products:</p>
 
-**Level 1 — Unit Tests (60%)**: Mocked LLM + preprocessing. Fast, deterministic, high coverage. Run on every commit.
+### Level 1 — Unit Tests (60%)
 
-**Level 2 — Integration Tests (20%)**: Schema validation, error handling for malformed/refused responses. Run on every commit.
+Mocked LLM + preprocessing. Fast, deterministic, high coverage. Run on every commit.
 
-**Level 3 — E2E Tests (15%)**: Playwright tests that verify user flows, not content. Run on every PR.
+### Level 2 — Integration Tests (20%)
 
-**Level 4 — Manual Evaluation (5%)**: Periodically generate outputs and review qualitatively. Maintain an eval set of inputs and review weekly. This can't be automated, but it CAN be structured.
+Schema validation, error handling for malformed/refused responses. Run on every commit.
 
-<div class="metric-box"><span class="metric-box__label">Automated Test Layers</span><span class="metric-box__number">3</span></div>
+### Level 3 — E2E Tests (15%)
+
+Playwright tests that verify user flows, not content. Run on every PR.
+
+### Level 4 — Manual Evaluation (5%)
+
+Periodically generate outputs and review qualitatively. Maintain an eval set of inputs and review weekly. This can't be automated, but it CAN be structured.
+
 
 <figure class="viz" role="img" aria-label="AI testing pyramid: unit tests 60%, integration 20%, E2E 15%, manual eval 5%">
 <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="350,15 580,175 120,175" fill="none" stroke="#222" stroke-width="1"/>
-  <rect x="150" y="140" width="400" height="32" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="350" y="161" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Unit Tests — Mocked LLM + Preprocessing (60%)</text>
-  <rect x="200" y="105" width="300" height="30" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="350" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Integration Tests (20%)</text>
-  <rect x="250" y="72" width="200" height="28" rx="2" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="350" y="91" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">E2E — Playwright (15%)</text>
-  <rect x="300" y="40" width="100" height="26" rx="2" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="350" y="58" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff2d00">Manual (5%)</text>
-  <text x="350" y="192" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">100+ tests across two AI products</text>
+  <polygon points="350,15 580,175 120,175" fill="none" stroke="#21262d" stroke-width="1"/>
+  <rect x="150" y="140" width="400" height="32" rx="2" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+  <text x="350" y="161" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Unit Tests — Mocked LLM + Preprocessing (60%)</text>
+  <rect x="200" y="105" width="300" height="30" rx="2" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+  <text x="350" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Integration Tests (20%)</text>
+  <rect x="250" y="72" width="200" height="28" rx="2" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+  <text x="350" y="91" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#7d8590">E2E — Playwright (15%)</text>
+  <rect x="300" y="40" width="100" height="26" rx="2" fill="#161b22" stroke="#ff2d00" stroke-width="1.5"/>
+  <text x="350" y="58" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4A9EFF">Manual (5%)</text>
+  <text x="350" y="192" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7d8590">100+ tests across two AI products</text>
 </svg>
 <figcaption>AI testing pyramid: most coverage from fast mocked unit tests; manual evaluation reserved for qualitative review.</figcaption>
 </figure>
@@ -161,13 +227,13 @@ Here's the testing pyramid for AI products:
 ## What Not to Test
 {: #what-not-to-test}
 
-Equally important — what I deliberately don't test:
+<p class="cs-lead">Equally important — what I deliberately don't test:</p>
 
-**Don't test LLM output quality with assertions.** "The tailored resume should mention Python" will break when the LLM writes "Python 3.x" instead.
-
-**Don't test for specific wording.** `assert "stakeholder management" in result` is brittle. The LLM might write "stakeholder engagement" — both correct, both failing your test.
-
-**Don't create golden file tests for LLM outputs.** Snapshot testing works for React components because renders are deterministic. It doesn't work for LLM outputs.
+<ul class="cs-body-list">
+  <li><strong>Don't test LLM output quality with assertions.</strong> "The tailored resume should mention Python" will break when the LLM writes "Python 3.x" instead.</li>
+  <li><strong>Don't test for specific wording.</strong> <code>assert "stakeholder management" in result</code> is brittle. The LLM might write "stakeholder engagement" — both correct, both failing your test.</li>
+  <li><strong>Don't create golden file tests for LLM outputs.</strong> Snapshot testing works for React components because renders are deterministic. It doesn't work for LLM outputs.</li>
+</ul>
 
 The boundary is clear: test your code, validate your contracts, verify your flows. Evaluate your AI separately, with human judgment and structured eval sets — not with pytest assertions.
 

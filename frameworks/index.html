@@ -1,23 +1,26 @@
 ---
-layout: page
+layout: default
 title: Frameworks
 ---
 
-<div class="work-grid">
-  {% for framework in site.frameworks %}
-  <a href="{{ framework.url }}" class="work-card reveal">
-    {% if framework.category %}
-    <span class="work-card__label">{{ framework.category }}</span>
-    {% endif %}
-    <h2 class="work-card__title">{{ framework.title }}</h2>
-    {% if framework.description %}
-    <p class="work-card__description">{{ framework.description }}</p>
-    {% endif %}
-    <span class="work-card__arrow">Explore framework</span>
-  </a>
-  {% endfor %}
-</div>
-
-{% if site.frameworks.size == 0 %}
-<p class="text-muted reveal">Frameworks coming soon.</p>
-{% endif %}
+<section class="scroll-section">
+  <div class="scroll-section__track">
+    {% for framework in site.frameworks %}
+    <a href="{{ framework.url | relative_url }}" class="scroll-section__card" style="--card-theme: #4A9EFF;" data-bg-word="FUNNEL">
+      <span class="scroll-section__label">{{ framework.category | default: 'Framework' }}</span>
+      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
+      <h2 class="scroll-section__title">{{ framework.title }}</h2>
+      {% if framework.description %}
+      <p class="scroll-section__desc">{{ framework.description }}</p>
+      {% endif %}
+      <span class="scroll-section__cta">Explore framework &rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+  <span class="scroll-section__header">Frameworks</span>
+  <div class="scroll-section__dots">
+    {% for framework in site.frameworks %}
+    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
+    {% endfor %}
+  </div>
+</section>

@@ -1,27 +1,30 @@
 ---
-layout: page
+layout: default
 title: Work
 ---
 
-<div class="work-grid">
-  {% for study in site.case-studies %}
-  {% if study.hidden %}{% continue %}{% endif %}
-  <a href="{{ study.url }}" class="work-card reveal">
-    {% if study.category %}
-    <span class="work-card__label">{{ study.category }}</span>
-    {% endif %}
-    <h2 class="work-card__title">{{ study.title }}</h2>
-    {% if study.description %}
-    <p class="work-card__description">{{ study.description }}</p>
-    {% endif %}
-    {% if study.key_metric %}
-    <span class="work-card__metric">{{ study.key_metric }}</span>
-    {% endif %}
-    <span class="work-card__arrow">Read case study</span>
-  </a>
-  {% endfor %}
-</div>
-
-{% if site.case-studies.size == 0 %}
-<p class="text-muted reveal">Case studies coming soon.</p>
-{% endif %}
+<section class="scroll-section">
+  <div class="scroll-section__track">
+    {% assign visible_studies = site.case-studies | where_exp: "s", "s.hidden != true" | sort: "date" | reverse %}
+    {% for study in visible_studies %}
+    <a href="{{ study.url | relative_url }}" class="scroll-section__card" style="--card-theme: {{ study.theme_color | default: '#ff2d00' }};" data-bg-word="{{ study.hero_bg_word | default: '' }}">
+      <span class="scroll-section__label">{{ study.category }}</span>
+      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
+      <h2 class="scroll-section__title">{{ study.title }}</h2>
+      {% if study.description %}
+      <p class="scroll-section__desc">{{ study.description }}</p>
+      {% endif %}
+      {% if study.key_metric %}
+      <p class="scroll-section__metrics">{{ study.key_metric }}</p>
+      {% endif %}
+      <span class="scroll-section__cta">Read case study &rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+  <span class="scroll-section__header">Work</span>
+  <div class="scroll-section__dots">
+    {% for study in visible_studies %}
+    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
+    {% endfor %}
+  </div>
+</section>

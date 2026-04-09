@@ -2,9 +2,10 @@
 layout: case-study
 title: "Designing an AI Project Management OS with 6 Specialized Agents"
 description: "A product case study on architecting a multi-agent system that automates PM operational work — requirement parsing, task decomposition, team routing, timeline forecasting, and client communication."
-theme_color: "#6b21a8"
+theme_color: "#7C3AED"
+hero_bg_word: "AGENTS"
 category: "AI Product — Multi-Agent System Design"
-key_metric: "6 AI agents, 81+ tests"
+key_metric: "6 agents &middot; 81+ tests &middot; 40-60% automated"
 read_time: "11 min read"
 date: 2026-03-22
 toc:
@@ -22,15 +23,28 @@ toc:
     anchor: "things-id-do-differently"
 ---
 
-<div class="callout callout--tldr">
-Built a 6-agent AI system that automates 40-60% of PM operational overhead — requirement parsing, task decomposition, team routing, timeline forecasting, and client communication. Shipped with 81+ tests, 19 PRs, and a multi-tenant data model across a Turborepo monorepo.
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">6</div>
+    <div class="cs-impact-label">AI Agents</div>
+    <div class="cs-impact-desc">Specialized for PM workflow automation</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">81+</div>
+    <div class="cs-impact-label">Tests</div>
+    <div class="cs-impact-desc">Across 19 PRs in Turborepo monorepo</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">40-60%</div>
+    <div class="cs-impact-label">PM Overhead Automated</div>
+    <div class="cs-impact-desc">Parsing, routing, forecasting, comms</div>
+  </div>
 </div>
 
 ## The Problem: PM Overhead Scaling
 {: #the-problem}
 
-After years of managing delivery for AI products, I had seen a painful pattern repeat across every project: **the operational overhead of project management scales linearly with team size, but it shouldn't.**
-{: .cs2-lead}
+<p class="cs-lead">After years of managing delivery for AI products, I had seen a painful pattern repeat across every project: <strong>the operational overhead of project management scales linearly with team size, but it shouldn't.</strong></p>
 
 Requirements come through email, Slack, and meetings in messy, unstructured formats. Breaking them into actionable tasks is mechanical. Assigning those tasks based on skills and capacity is a simple lookup problem. Status reports? Pure aggregation.
 
@@ -38,29 +52,15 @@ None of this requires human judgment. **Yet PMs spend 40-60% of their time trapp
 
 **The Solution:** I built what I kept wishing existed — an AI system that entirely automates the operational layer of project management.
 
-<p class="statement">The constraint was clear: automate the mechanical, preserve the judgment. Every agent boundary was drawn at the line where human product thinking begins.</p>
+<div class="cs-statement reveal">The constraint was clear: automate the mechanical, preserve the judgment. Every agent boundary was drawn at the line where human product thinking begins.</div>
 
 Agentic PM is that system: 6 specialized AI agents that automate the PM workflow from requirement intake to timeline forecasting. But here's what nobody expected when building this architecture...
 
-<div class="metric-box">
-  <span class="metric-box__label">AI Agents</span>
-  <span class="metric-box__number">6</span>
-</div>
-
-<div class="metric-box">
-  <span class="metric-box__label">PRs Merged</span>
-  <span class="metric-box__number">19</span>
-</div>
-
-<div class="metric-box">
-  <span class="metric-box__label">Test Coverage</span>
-  <span class="metric-box__number">81+ tests</span>
-</div>
 
 ## System Design
 {: #system-design}
 
-<p class="statement">Multi-agent systems should be composed of specialists, not one general-purpose agent trying to do everything.</p>
+<div class="cs-statement reveal">Multi-agent systems should be composed of specialists, not one general-purpose agent trying to do everything.</div>
 
 The architecture reflects this core belief.
 
@@ -72,28 +72,28 @@ The agents compose into a pipeline, but they are not tightly coupled:
 
 <figure class="viz" role="img" aria-label="6-agent pipeline: Requirement Parser to Decomposition to Routing, branching to Communication, Chat, and Timeline">
 <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="70" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Requirement</text>
-  <text x="70" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Parser</text>
-  <line x1="130" y1="100" x2="160" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="160,96 168,100 160,104" fill="#444"/>
-  <rect x="168" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="228" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Decomposition</text>
-  <text x="228" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Agent</text>
-  <line x1="288" y1="100" x2="318" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="318,96 326,100 318,104" fill="#444"/>
-  <rect x="326" y="80" width="100" height="40" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="376" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">Routing</text>
-  <line x1="426" y1="100" x2="456" y2="100" stroke="#444" stroke-width="1.5"/>
-  <line x1="456" y1="100" x2="456" y2="35" stroke="#444" stroke-width="1.5"/>
-  <line x1="456" y1="35" x2="486" y2="35" stroke="#444" stroke-width="1.5"/><polygon points="486,31 494,35 486,39" fill="#444"/>
-  <line x1="456" y1="100" x2="486" y2="100" stroke="#444" stroke-width="1.5"/><polygon points="486,96 494,100 486,104" fill="#444"/>
-  <line x1="456" y1="100" x2="456" y2="165" stroke="#444" stroke-width="1.5"/>
-  <line x1="456" y1="165" x2="486" y2="165" stroke="#444" stroke-width="1.5"/><polygon points="486,161 494,165 486,169" fill="#444"/>
-  <rect x="494" y="15" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="554" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Communication</text>
-  <rect x="494" y="80" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="554" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Chat Agent</text>
-  <rect x="494" y="145" width="120" height="40" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="554" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FFFFFF">Timeline Agent</text>
+  <rect x="10" y="80" width="120" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="70" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Requirement</text>
+  <text x="70" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Parser</text>
+  <line x1="130" y1="100" x2="160" y2="100" stroke="#545d68" stroke-width="1.5"/><polygon points="160,96 168,100 160,104" fill="#545d68"/>
+  <rect x="168" y="80" width="120" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="228" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Decomposition</text>
+  <text x="228" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Agent</text>
+  <line x1="288" y1="100" x2="318" y2="100" stroke="#545d68" stroke-width="1.5"/><polygon points="318,96 326,100 318,104" fill="#545d68"/>
+  <rect x="326" y="80" width="100" height="40" rx="4" fill="#161b22" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="376" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">Routing</text>
+  <line x1="426" y1="100" x2="456" y2="100" stroke="#545d68" stroke-width="1.5"/>
+  <line x1="456" y1="100" x2="456" y2="35" stroke="#545d68" stroke-width="1.5"/>
+  <line x1="456" y1="35" x2="486" y2="35" stroke="#545d68" stroke-width="1.5"/><polygon points="486,31 494,35 486,39" fill="#545d68"/>
+  <line x1="456" y1="100" x2="486" y2="100" stroke="#545d68" stroke-width="1.5"/><polygon points="486,96 494,100 486,104" fill="#545d68"/>
+  <line x1="456" y1="100" x2="456" y2="165" stroke="#545d68" stroke-width="1.5"/>
+  <line x1="456" y1="165" x2="486" y2="165" stroke="#545d68" stroke-width="1.5"/><polygon points="486,161 494,165 486,169" fill="#545d68"/>
+  <rect x="494" y="15" width="120" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="554" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Communication</text>
+  <rect x="494" y="80" width="120" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="554" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Chat Agent</text>
+  <rect x="494" y="145" width="120" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="554" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e8eaed">Timeline Agent</text>
 </svg>
 <figcaption>6-agent pipeline: requirements flow through parsing, decomposition, and routing before dispatch to specialist agents.</figcaption>
 </figure>
@@ -104,39 +104,64 @@ The agents compose into a pipeline, but they are not tightly coupled:
   <p class="testimonial__attribution">— Reflection from building the 6-agent pipeline</p>
 </div>
 
-### Stack
+### Architecture
 
-- **Frontend:** Next.js 15 (App Router, TypeScript)
-- **Backend:** FastAPI (Python, async)
-- **Database:** PostgreSQL via Supabase (production), SQLite for testing
-- **AI:** Claude (BYOK with encrypted key storage)
-- **Monorepo:** Turborepo with 5 packages
-- **Testing:** 55 API tests + 12 frontend tests + 14 LLM mock tests
+<figure class="mermaid-diagram" role="img" aria-label="System architecture: Turborepo monorepo with Next.js frontend, BFF proxy, FastAPI backend, Supabase, and Claude AI">
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+  <!-- User -->
+  <rect x="10" y="110" width="80" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="50" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">User</text>
 
-### Monorepo Structure
+  <!-- Arrow -->
+  <line x1="90" y1="130" x2="130" y2="130" stroke="#545d68" stroke-width="1.5"/>
+  <polygon points="130,126 138,130 130,134" fill="#545d68"/>
 
-```
-agentic-pm/
-  apps/
-    web/          # Next.js 15 frontend
-    api/          # FastAPI backend
-  packages/
-    db/           # Prisma schema + migrations
-    ui/           # Shared component library
-    types/        # TypeScript interfaces
-```
+  <!-- Next.js / BFF -->
+  <rect x="140" y="80" width="130" height="100" rx="4" fill="#161b22" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="205" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">Next.js 15</text>
+  <text x="205" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7d8590">App Router + UI</text>
+  <line x1="160" y1="135" x2="250" y2="135" stroke="#21262d" stroke-width="1"/>
+  <text x="205" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7C3AED">BFF Proxy</text>
+  <text x="205" y="170" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#7d8590">API keys never reach client</text>
 
-The Turborepo monorepo was a deliberate choice. With a Next.js frontend and FastAPI backend, sharing type definitions and database schemas across packages prevents the drift that kills multi-service projects.
+  <!-- Arrow -->
+  <line x1="270" y1="130" x2="310" y2="130" stroke="#545d68" stroke-width="1.5"/>
+  <polygon points="310,126 318,130 310,134" fill="#545d68"/>
 
-### BFF Proxy Pattern
+  <!-- FastAPI -->
+  <rect x="320" y="80" width="130" height="100" rx="4" fill="#161b22" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="385" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">FastAPI</text>
+  <text x="385" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7d8590">Python, async</text>
+  <line x1="340" y1="135" x2="430" y2="135" stroke="#21262d" stroke-width="1"/>
+  <text x="385" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7C3AED">6 AI Agents</text>
+  <text x="385" y="170" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#7d8590">81+ tests</text>
 
-The Next.js app acts as a Backend-for-Frontend proxy to the FastAPI service. API keys never reach the client. This was refactored in PR AP-21, which collapsed 450 lines of duplicated proxy code into 100 lines of clean middleware.
+  <!-- Arrow to Supabase -->
+  <line x1="450" y1="110" x2="500" y2="60" stroke="#545d68" stroke-width="1.5"/>
+  <polygon points="498,55 506,58 500,64" fill="#545d68"/>
 
-### Multi-Tenant Data Model
+  <!-- Supabase -->
+  <rect x="500" y="20" width="120" height="50" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="560" y="42" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">Supabase</text>
+  <text x="560" y="58" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7d8590">PostgreSQL + Auth</text>
 
-The Prisma schema supports full multi-tenancy with organization-based data isolation. It includes auth models, organization membership with role-based access, and teams with skills and availability metadata.
+  <!-- Arrow to Claude -->
+  <line x1="450" y1="150" x2="500" y2="200" stroke="#545d68" stroke-width="1.5"/>
+  <polygon points="498,204 506,202 500,196" fill="#545d68"/>
 
-The schema also covers full task hierarchy with dependency tracking, client requirements with clarification threads, work assignments with RACI matrix support, milestones with confidence intervals, agent runs with audit trails, and integration configs for Jira, GitHub, Slack, and Google.
+  <!-- Claude -->
+  <rect x="500" y="190" width="120" height="50" rx="4" fill="#161b22" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="560" y="212" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">Claude API</text>
+  <text x="560" y="228" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#7d8590">BYOK encrypted keys</text>
+
+  <!-- Monorepo label -->
+  <rect x="130" y="240" width="330" height="30" rx="4" fill="none" stroke="#21262d" stroke-width="1" stroke-dasharray="4"/>
+  <text x="295" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#545d68">Turborepo monorepo: 5 packages (web, api, db, ui, types)</text>
+</svg>
+<figcaption>System architecture — BFF proxy pattern with encrypted BYOK keys, multi-tenant Supabase, and 6 specialized AI agents.</figcaption>
+</figure>
+
+The Next.js app acts as a BFF proxy — API keys never reach the client. PR AP-21 collapsed 450 lines of duplicated proxy code into 100 lines of clean middleware. The Prisma schema supports full multi-tenancy with organization-based data isolation, task hierarchy with dependency tracking, RACI matrix support, and integration configs for Jira, GitHub, Slack, and Google.
 
 <div class="callout">
 <strong>Why this schema matters:</strong> The data model IS the product. A multi-agent PM tool without proper dependency tracking, RACI support, and audit trails is a toy. The schema was designed before the first agent was built.
@@ -145,73 +170,151 @@ The schema also covers full task hierarchy with dependency tracking, client requ
 ## The 6 Agents
 {: #the-6-agents}
 
-Each agent is designed around a specific PM operational task. Here is what they do and the product thinking behind each one.
-{: .cs2-lead}
+<p class="cs-lead">Each agent is designed around a specific PM operational task. Here is what they do and the product thinking behind each one.</p>
 
 ### 1. Requirement Parser
 
-**Input:** Unstructured text (email, Slack message, meeting notes, manual entry)
-**Output:** Structured requirement with title, description, priority, category, acceptance criteria, and clarification questions
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Input</div>
+    <div class="cs-impact-value">Unstructured Text</div>
+    <div class="cs-impact-desc">Email, Slack, meeting notes, manual entry</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Output</div>
+    <div class="cs-impact-value">Structured Requirement</div>
+    <div class="cs-impact-desc">Title, priority, acceptance criteria, clarification questions</div>
+  </div>
+</div>
 
-The parser does not just extract information — it identifies what is *missing*. If a client says "we need a dashboard," the parser generates clarification questions: What metrics? Who is the audience? What is the refresh frequency?
+The parser identifies what is *missing*. If a client says "we need a dashboard," it generates clarification questions: What metrics? Who is the audience? What refresh frequency?
 
 ### 2. Decomposition Agent
 
-**Input:** Structured requirement
-**Output:** Epic with nested Features, Stories, and Tasks
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Input</div>
+    <div class="cs-impact-value">Requirement</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Output</div>
+    <div class="cs-impact-value">Epic &rarr; Story &rarr; Task</div>
+    <div class="cs-impact-desc">INVEST-validated with story points</div>
+  </div>
+</div>
 
-This is the agent I am most proud of. It takes a high-level requirement and produces a full work breakdown structure with INVEST-validated user stories and story point estimates. Stories that fail INVEST validation are flagged with specific reasons.
+Takes a high-level requirement and produces a full work breakdown structure. Stories that fail INVEST validation are flagged with specific reasons.
 
-<div class="metric-box">
-  <span class="metric-box__label">Hierarchy Levels</span>
-  <span class="metric-box__number">Epic > Feature > Story > Task</span>
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">4</div>
+    <div class="cs-impact-label">Hierarchy Levels</div>
+    <div class="cs-impact-desc">Epic &gt; Feature &gt; Story &gt; Task</div>
+  </div>
 </div>
 
 ### 3. Routing Agent
 
-**Input:** Task list + team profiles (skills, capacity, current workload)
-**Output:** Assignments with RACI matrix + key person risk analysis
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Input</div>
+    <div class="cs-impact-value">Tasks + Profiles</div>
+    <div class="cs-impact-desc">Skills, capacity, current workload</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Output</div>
+    <div class="cs-impact-value">RACI Assignments</div>
+    <div class="cs-impact-desc">+ key person risk analysis</div>
+  </div>
+</div>
 
-The routing agent considers three dimensions: **expertise match**, **capacity**, and **dependency awareness**. It also flags key person risk — when a single team member is the only one who can deliver a critical task.
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">Expertise</div>
+    <div class="cs-impact-label">Match</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">Capacity</div>
+    <div class="cs-impact-label">Availability</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">Dependency</div>
+    <div class="cs-impact-label">Awareness</div>
+  </div>
+</div>
+
+Flags key person risk — when a single team member is the only one who can deliver a critical task.
 
 ### 4. Communication Agent
 
-**Input:** Project state (tasks, progress, blockers, milestones)
-**Output:** Client-ready status reports with insights and action items
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Input</div>
+    <div class="cs-impact-value">Project State</div>
+    <div class="cs-impact-desc">Tasks, progress, blockers, milestones</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Output</div>
+    <div class="cs-impact-value">Status Reports</div>
+    <div class="cs-impact-desc">Progress, risks, action items with owners</div>
+  </div>
+</div>
 
-Status reports are the most time-consuming zero-creativity PM task. This agent generates structured reports with progress summary, milestone status, risk flags, and action items with owners.
+The most time-consuming zero-creativity PM task — automated with structured insights.
 
 ### 5. Chat Agent
 
-**Input:** Natural language questions about the project
-**Output:** Contextual answers grounded in project data
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Input</div>
+    <div class="cs-impact-value">Natural Language</div>
+    <div class="cs-impact-desc">Questions about the project</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Output</div>
+    <div class="cs-impact-value">Contextual Answers</div>
+    <div class="cs-impact-desc">Grounded in project data</div>
+  </div>
+</div>
 
-Instead of digging through Jira filters, a PM can ask: "What is blocking the payment integration?" or "Which team members are overallocated this sprint?"
+Instead of digging through Jira filters: "What is blocking the payment integration?" or "Which team members are overallocated this sprint?"
 
 ### 6. Timeline Agent
 
-**Input:** Task list with estimates, dependencies, and team assignments
-**Output:** Monte Carlo forecast with P50/P75/P90 confidence dates + critical path
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Input</div>
+    <div class="cs-impact-value">Task Graph</div>
+    <div class="cs-impact-desc">Estimates, dependencies, assignments</div>
+  </div>
+  <div class="cs-impact-cell">
+    <div class="cs-impact-label">Output</div>
+    <div class="cs-impact-value">Monte Carlo</div>
+    <div class="cs-impact-desc">P50/P75/P90 dates + critical path</div>
+  </div>
+</div>
 
 Instead of producing a single delivery date (which is always wrong), the Timeline Agent runs Monte Carlo simulations across the task graph, accounting for estimation uncertainty and dependency chains.
 
-- **P50:** 50% chance of completing by this date (aggressive)
-- **P75:** 75% chance (realistic)
-- **P90:** 90% chance (conservative)
+<ul class="cs-body-list">
+  <li><strong>P50:</strong> 50% chance of completing by this date (aggressive)</li>
+  <li><strong>P75:</strong> 75% chance (realistic)</li>
+  <li><strong>P90:</strong> 90% chance (conservative)</li>
+</ul>
 
 <figure class="viz" role="img" aria-label="Monte Carlo distribution with P50, P75, and P90 confidence intervals">
 <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
-  <path d="M 60,145 C 110,140 170,118 230,60 C 275,28 300,22 340,22 C 380,28 405,60 445,90 C 490,118 520,140 560,145" fill="#141414" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 60,145 C 110,140 170,118 230,60 C 275,28 300,22 340,22 C 380,28 405,60 445,90 C 490,118 520,140 560,145" fill="#161b22" stroke="#FFFFFF" stroke-width="1.5"/>
   <line x1="50" y1="145" x2="570" y2="145" stroke="#333" stroke-width="1"/>
-  <line x1="340" y1="20" x2="340" y2="145" stroke="#ff2d00" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="340" y1="20" x2="340" y2="145" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="5,4"/>
   <line x1="420" y1="65" x2="420" y2="145" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="5,4"/>
   <line x1="490" y1="118" x2="490" y2="145" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
-  <text x="340" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ff2d00">P50</text>
-  <text x="340" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#ff2d00">Aggressive</text>
-  <text x="420" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">P75</text>
-  <text x="420" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#FFFFFF">Realistic</text>
-  <text x="490" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#888">P90</text>
-  <text x="490" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Conservative</text>
+  <text x="340" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#7C3AED">P50</text>
+  <text x="340" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#7C3AED">Aggressive</text>
+  <text x="420" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e8eaed">P75</text>
+  <text x="420" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#e8eaed">Realistic</text>
+  <text x="490" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#7d8590">P90</text>
+  <text x="490" y="176" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#7d8590">Conservative</text>
 </svg>
 <figcaption>Monte Carlo simulation: 1,000 iterations produce a probability distribution. P50/P75/P90 mark delivery confidence levels.</figcaption>
 </figure>
@@ -223,8 +326,7 @@ Instead of producing a single delivery date (which is always wrong), the Timelin
 ## Multi-Channel Intelligence
 {: #multi-channel-intelligence}
 
-Requirements do not arrive in neat forms. They come through email threads, Slack messages, and Jira tickets. Agentic PM meets requirements where they live.
-{: .cs2-lead}
+<p class="cs-lead">Requirements do not arrive in neat forms. They come through email threads, Slack messages, and Jira tickets. Agentic PM meets requirements where they live.</p>
 
 ### Gmail Integration (PRs AP-11, AP-12)
 
@@ -238,26 +340,29 @@ Messages in designated channels are parsed for requirement signals. A product ma
 
 Requirements created in Agentic PM can push to Jira as epics and stories. Updates in Jira reflect back. Teams should not have to abandon their existing tools.
 
-<div class="metric-box">
-  <span class="metric-box__label">Intake Channels</span>
-  <span class="metric-box__number">4</span>
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">4</div>
+    <div class="cs-impact-label">Intake Channels</div>
+    <div class="cs-impact-desc">Gmail, Slack, Jira, and direct input</div>
+  </div>
 </div>
 
 <figure class="viz" role="img" aria-label="Multi-channel intake: Gmail, Slack, and Jira converge into the Requirement Parser">
 <svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg">
-  <rect x="30" y="10" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="75" y="31" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Gmail</text>
-  <rect x="30" y="54" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="75" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Slack</text>
-  <rect x="30" y="98" width="90" height="32" rx="4" fill="#141414" stroke="#222" stroke-width="1.5"/>
-  <text x="75" y="119" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Jira</text>
-  <line x1="120" y1="26" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
-  <line x1="120" y1="70" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
-  <line x1="120" y1="114" x2="310" y2="70" stroke="#444" stroke-width="1.5"/>
-  <polygon points="310,66 318,70 310,74" fill="#444"/>
-  <rect x="318" y="48" width="160" height="44" rx="4" fill="#141414" stroke="#ff2d00" stroke-width="1.5"/>
-  <text x="398" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Requirement</text>
-  <text x="398" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFFFFF">Parser</text>
+  <rect x="30" y="10" width="90" height="32" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="75" y="31" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Gmail</text>
+  <rect x="30" y="54" width="90" height="32" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="75" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Slack</text>
+  <rect x="30" y="98" width="90" height="32" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="75" y="119" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Jira</text>
+  <line x1="120" y1="26" x2="310" y2="70" stroke="#545d68" stroke-width="1.5"/>
+  <line x1="120" y1="70" x2="310" y2="70" stroke="#545d68" stroke-width="1.5"/>
+  <line x1="120" y1="114" x2="310" y2="70" stroke="#545d68" stroke-width="1.5"/>
+  <polygon points="310,66 318,70 310,74" fill="#545d68"/>
+  <rect x="318" y="48" width="160" height="44" rx="4" fill="#161b22" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="398" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Requirement</text>
+  <text x="398" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Parser</text>
 </svg>
 <figcaption>Three intake channels converge into the Requirement Parser for unified processing.</figcaption>
 </figure>
@@ -265,23 +370,26 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
 ## Honest Assessment
 {: #honest-assessment}
 
-Here is where the system falls short.
-{: .cs2-lead}
+<p class="cs-lead">Here is where the system falls short.</p>
 
-**What is weak:**
+### What Is Weak
 
-- **Agent orchestration is linear.** The agents work in sequence, but real PM workflows are not linear. A change in timeline should trigger re-routing, which should update the communication report. This feedback loop does not exist yet.
-- **LLM output consistency.** The Decomposition Agent occasionally produces stories that are too large or too vague. The INVEST validation catches some of these, but not all.
-- **No production deployment.** This runs locally. No CI/CD pipeline, no staging environment, no monitoring.
-- **Monte Carlo accuracy is unvalidated.** The simulation parameters are based on industry heuristics, not calibrated data from actual project outcomes.
-- **Multi-channel intake is MVP.** The Gmail and Slack integrations capture messages, but signal-to-noise filtering is basic.
+<ul class="cs-body-list">
+  <li><strong>Agent orchestration is linear.</strong> The agents work in sequence, but real PM workflows are not linear. A change in timeline should trigger re-routing, which should update the communication report. This feedback loop does not exist yet.</li>
+  <li><strong>LLM output consistency.</strong> The Decomposition Agent occasionally produces stories that are too large or too vague. The INVEST validation catches some of these, but not all.</li>
+  <li><strong>No production deployment.</strong> This runs locally. No CI/CD pipeline, no staging environment, no monitoring.</li>
+  <li><strong>Monte Carlo accuracy is unvalidated.</strong> The simulation parameters are based on industry heuristics, not calibrated data from actual project outcomes.</li>
+  <li><strong>Multi-channel intake is MVP.</strong> The Gmail and Slack integrations capture messages, but signal-to-noise filtering is basic.</li>
+</ul>
 
-**What I would do differently with more time:**
+### What I Would Do Differently
 
-- **Over-engineered v1** — The 6-agent architecture is more complex than a v1 needs. A 3-agent system (Decomposition, Routing, Timeline) would have delivered 80% of the value.
-- **Missing event-driven orchestration** — The current linear pipeline means a timeline change doesn't cascade to routing or communication. An event bus would close this loop.
-- **No real-world validation** — Deploy to a real team for 2 sprints and measure time saved, decomposition accuracy, and forecast calibration before adding more agents.
-- **No feedback loop** — PMs should be able to rate agent outputs, creating training data for prompt improvement over time.
+<ul class="cs-body-list">
+  <li><strong>Over-engineered v1</strong> — The 6-agent architecture is more complex than a v1 needs. A 3-agent system (Decomposition, Routing, Timeline) would have delivered 80% of the value.</li>
+  <li><strong>Missing event-driven orchestration</strong> — The current linear pipeline means a timeline change doesn't cascade to routing or communication. An event bus would close this loop.</li>
+  <li><strong>No real-world validation</strong> — Deploy to a real team for 2 sprints and measure time saved, decomposition accuracy, and forecast calibration before adding more agents.</li>
+  <li><strong>No feedback loop</strong> — PMs should be able to rate agent outputs, creating training data for prompt improvement over time.</li>
+</ul>
 
 <div class="callout">
 <strong>The gap that matters most:</strong> Without validation against real project data, this is a well-architected demo. The path from demo to product requires deploying with a real team, measuring outcomes, and iterating on agent prompts based on actual PM feedback.
@@ -296,7 +404,7 @@ The hardest decisions were not technical. They were: How many agents? What is ea
 
 ### 2. The Schema Is the Product
 
-<p class="statement">The data model IS the product. Schema-first design is underrated.</p>
+<div class="cs-statement reveal">The data model IS the product. Schema-first design is underrated.</div>
 
 I spent more time on the Prisma schema than on any individual agent. The data model — with its dependency tracking, RACI support, confidence intervals, and audit trail — defines what the product can and cannot do.
 
