@@ -180,7 +180,14 @@ The Next.js app acts as a BFF proxy — API keys never reach the client. The Pri
 <figcaption>Schema-first design — every AI capability maps back to a structural decision in the data model.</figcaption>
 </figure>
 
-Every box in this diagram is a category of information the system stores. Starting from the centre — a **Team Workspace** holds all projects, people, and activity. Each **Team Member** connects their own AI credentials so the system can act on their behalf. **Client Requests** are captured automatically from email, Slack, or meetings and held until a PM reviews them — with AI-generated follow-up questions attached to fill any gaps. Each request breaks down into **Work Items** with clear **Blockers** (what must finish first) and **Team Assignments** (who is responsible, who approves, and who just needs to be kept informed). **Deadlines** are stored as three dates — optimistic, realistic, and conservative — rather than a single date that is always wrong. Finally, every decision the AI makes is recorded in an **AI Action Log**, which generates **Alerts** that flag risks and automatically expire once resolved so the feed stays clean.
+<ul class="cs-body-list">
+  <li><strong>Team Workspace</strong> — the root that holds all projects, people, and activity.</li>
+  <li><strong>Team Member</strong> — each person connects their own AI credentials so the system can act on their behalf.</li>
+  <li><strong>Client Request</strong> — captured automatically from email, Slack, or meetings, with AI-generated follow-up questions attached to fill any gaps.</li>
+  <li><strong>Work Item</strong> — each request breaks down into tasks with clear <strong>Blockers</strong> (what must finish first) and <strong>Team Assignments</strong> (who is responsible, who approves, and who just needs to be kept informed).</li>
+  <li><strong>Deadline</strong> — stored as three dates (optimistic, realistic, conservative) rather than a single date that is always wrong.</li>
+  <li><strong>AI Action Log</strong> — every decision the AI makes is recorded, generating <strong>Alerts</strong> that flag risks and expire automatically once resolved.</li>
+</ul>
 
 ## The 6 Agents
 {: #the-6-agents}
