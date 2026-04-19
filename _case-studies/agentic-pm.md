@@ -175,10 +175,12 @@ The Next.js app acts as a BFF proxy — API keys never reach the client. The Pri
 <strong>Why this schema matters:</strong> The data model IS the product. The schema was designed before the first agent was built — and it shows. Every AI capability traces back to a structural decision.
 </div>
 
-<figure class="mermaid-diagram mermaid-diagram--wide" role="img" aria-label="Schema diagram showing Organization as root with OrgMember BYOK, ClientRequirement lifecycle, Task hierarchy with Dependencies and WorkAssignment RACI, Milestone confidence bands, and AgentRun with AgentInsight">
-<img src="/assets/images/case-studies/16-agentic-pm-schema.svg" alt="Agentic PM schema: Organization branches into OrgMember (BYOK LLM keys), ClientRequirement (source channel, status lifecycle, clarification questions), Task (subtask hierarchy, Dependencies, WorkAssignment with RACI roles), Milestone (p50/p85/p95 confidence dates), and AgentRun (token metrics, AgentInsight with expiry)" />
-<figcaption>Schema-first design — every agent capability maps back to a structural decision in the data model.</figcaption>
+<figure class="mermaid-diagram mermaid-diagram--wide" role="img" aria-label="Schema diagram showing Team Workspace as root with Team Member credentials, Client Request lifecycle, Work Item hierarchy with Blockers and Team Assignments, Deadline confidence bands, and AI Action Log with AI Alerts">
+<img src="/assets/images/case-studies/16-agentic-pm-schema.svg" alt="Agentic PM data model: Team Workspace branches into Team Member (personal AI credentials), Client Request (captured from email, Slack, or meetings, with AI-generated follow-up questions), Work Item (subtasks, blockers, team assignments with clear ownership), Deadline (three confidence-level dates), and AI Action Log (every AI decision recorded, with self-expiring alerts)" />
+<figcaption>Schema-first design — every AI capability maps back to a structural decision in the data model.</figcaption>
 </figure>
+
+Every box in this diagram is a category of information the system stores. Starting from the centre — a **Team Workspace** holds all projects, people, and activity. Each **Team Member** connects their own AI credentials so the system can act on their behalf. **Client Requests** are captured automatically from email, Slack, or meetings and held until a PM reviews them — with AI-generated follow-up questions attached to fill any gaps. Each request breaks down into **Work Items** with clear **Blockers** (what must finish first) and **Team Assignments** (who is responsible, who approves, and who just needs to be kept informed). **Deadlines** are stored as three dates — optimistic, realistic, and conservative — rather than a single date that is always wrong. Finally, every decision the AI makes is recorded in an **AI Action Log**, which generates **Alerts** that flag risks and automatically expire once resolved so the feed stays clean.
 
 ## The 6 Agents
 {: #the-6-agents}

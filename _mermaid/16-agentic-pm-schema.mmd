@@ -1,16 +1,16 @@
 graph LR
-    ORG["Organization"]
+    ORG["Team Workspace"]
 
-    ORG --> MEMBER["OrgMember<br/><i>BYOK · encrypted LLM key</i>"]
-    ORG --> REQ["ClientRequirement<br/><i>email · Slack · meeting · manual</i>"]
-    ORG --> TASK["Task<br/><i>hierarchy · points · priority</i>"]
-    ORG --> MILE["Milestone<br/><i>p50 · p85 · p95 dates</i>"]
-    ORG --> ARUN["AgentRun<br/><i>tokens · duration · status</i>"]
+    ORG --> MEMBER["Team Member<br/><i>brings their own AI credentials</i>"]
+    ORG --> REQ["Client Request<br/><i>captured from email · Slack · meetings</i>"]
+    ORG --> TASK["Work Item<br/><i>broken into subtasks · sized · prioritised</i>"]
+    ORG --> MILE["Deadline<br/><i>three confidence-level dates</i>"]
+    ORG --> ARUN["AI Action Log<br/><i>every AI decision recorded</i>"]
 
-    REQ --> CLARQ["ClarificationQuestion<br/><i>AI-generated · status tracked</i>"]
-    TASK --> DEP["Dependency<br/><i>blocks / requires</i>"]
-    TASK --> ASSIGN["WorkAssignment<br/><i>RACI: R · A · C · I</i>"]
-    ARUN --> INSIGHT["AgentInsight<br/><i>severity · expiresAt</i>"]
+    REQ --> CLARQ["Follow-up Question<br/><i>AI-generated · tracked until answered</i>"]
+    TASK --> DEP["Blocker<br/><i>what must finish first</i>"]
+    TASK --> ASSIGN["Team Assignment<br/><i>who does · approves · consults · knows</i>"]
+    ARUN --> INSIGHT["AI Alert<br/><i>flags risks · expires when resolved</i>"]
 
     style ORG fill:#7C3AED,stroke:#7C3AED,color:#fff
     style MEMBER fill:#1a1a1a,stroke:#7C3AED,color:#f0ebe0
