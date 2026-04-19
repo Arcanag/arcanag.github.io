@@ -1804,6 +1804,9 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   font-family: var(--font-heading);
   letter-spacing: 0.02em;
 }
+.timeline .timeline__title {
+  margin-top: 0 !important;
+}
 .timeline__date {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -1813,7 +1816,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   margin-bottom: var(--space-xs);
 }
 .timeline__desc {
-  font-size: var(--text-body);
+  font-size: 15.5px;
   line-height: var(--line-height-body);
   margin: 0;
   color: var(--color-text);
@@ -1906,6 +1909,10 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--color-border);
     padding: 0 1.25rem;
+    transition: top 0.3s ease;
+  }
+  .nav-is-hidden .mobile-toc {
+    top: 0;
   }
   .mobile-toc__toggle {
     display: flex;
@@ -1957,9 +1964,18 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   .lesson-grid { grid-template-columns: 1fr; }
   .case-study-content figure.mermaid-diagram { padding: var(--space-sm); }
   .nav__hamburger { display: flex; }
+  .nav.nav--open {
+    background: var(--color-bg);
+    z-index: 9000;
+    transform: none !important;
+    transition: none;
+  }
   .nav__links {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
     background: var(--color-bg);
     flex-direction: column;
     align-items: center;
@@ -1968,7 +1984,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-base);
-    z-index: 150;
+    z-index: 90;
   }
   .nav.nav--open .nav__links { opacity: 1; pointer-events: all; }
   .nav__links li {
@@ -1983,6 +1999,7 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
   .nav.nav--open .nav__links li:nth-child(4) { transition-delay: 0.2s; }
   .nav.nav--open .nav__links li:nth-child(5) { transition-delay: 0.25s; }
   .nav__link { font-size: 1.1rem; letter-spacing: 0.2em; }
+  .nav.nav--open .nav__link { color: var(--color-text); font-size: 1.25rem; }
   .work-card:hover { transform: none; }
   .hero__metrics { flex-direction: column; gap: var(--space-xs); }
   .hero__metric-divider { display: none; }
@@ -2300,6 +2317,8 @@ hr { border: none; border-top: 1px solid var(--color-border); margin: var(--spac
 }
 .cs-beliefs .cs-statement {
   margin: 24px 0;
+  max-width: 50ch;
+  font-size: 15.5px;
 }
 
 /* About page skill cards */

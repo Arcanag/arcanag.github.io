@@ -8,11 +8,9 @@
     var onScroll = function () {
       var currentScroll = window.scrollY;
       nav.classList.toggle('nav--scrolled', currentScroll > 50);
-      if (currentScroll > 100) {
-        nav.classList.toggle('nav--hidden', currentScroll > lastScroll);
-      } else {
-        nav.classList.remove('nav--hidden');
-      }
+      var hiding = currentScroll > 100 && currentScroll > lastScroll;
+      nav.classList.toggle('nav--hidden', hiding);
+      document.body.classList.toggle('nav-is-hidden', hiding);
       lastScroll = currentScroll;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -102,17 +100,27 @@
     hamburger.addEventListener('click', function () {
       var open = navEl.classList.toggle('nav--open');
       hamburger.setAttribute('aria-expanded', open);
+      if (open) {
+        // Immediately remove nav-hidden so the overlay isn't anchored to a translated parent
+        navEl.classList.remove('nav--hidden');
+        document.body.classList.remove('nav-is-hidden');
+        document.body.style.overflow = 'hidden'; // prevent page scroll while menu is open
+      } else {
+        document.body.style.overflow = '';
+      }
     });
     document.querySelectorAll('.nav__link').forEach(function (link) {
       link.addEventListener('click', function () {
         navEl.classList.remove('nav--open');
         hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       });
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && navEl.classList.contains('nav--open')) {
         navEl.classList.remove('nav--open');
         hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
         hamburger.focus();
       }
     });
