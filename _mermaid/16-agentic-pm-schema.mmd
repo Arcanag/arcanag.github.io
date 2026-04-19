@@ -1,0 +1,24 @@
+graph LR
+    ORG["Organization"]
+
+    ORG --> MEMBER["OrgMember<br/><i>BYOK · encrypted LLM key</i>"]
+    ORG --> REQ["ClientRequirement<br/><i>email · Slack · meeting · manual</i>"]
+    ORG --> TASK["Task<br/><i>hierarchy · points · priority</i>"]
+    ORG --> MILE["Milestone<br/><i>p50 · p85 · p95 dates</i>"]
+    ORG --> ARUN["AgentRun<br/><i>tokens · duration · status</i>"]
+
+    REQ --> CLARQ["ClarificationQuestion<br/><i>AI-generated · status tracked</i>"]
+    TASK --> DEP["Dependency<br/><i>blocks / requires</i>"]
+    TASK --> ASSIGN["WorkAssignment<br/><i>RACI: R · A · C · I</i>"]
+    ARUN --> INSIGHT["AgentInsight<br/><i>severity · expiresAt</i>"]
+
+    style ORG fill:#7C3AED,stroke:#7C3AED,color:#fff
+    style MEMBER fill:#1a1a1a,stroke:#7C3AED,color:#f0ebe0
+    style REQ fill:#1a1a1a,stroke:#7C3AED,color:#f0ebe0
+    style TASK fill:#1a1a1a,stroke:#7C3AED,color:#f0ebe0
+    style MILE fill:#1a1a1a,stroke:#7C3AED,color:#f0ebe0
+    style ARUN fill:#1a1a1a,stroke:#7C3AED,color:#f0ebe0
+    style DEP fill:#141414,stroke:#444,color:#aaa
+    style ASSIGN fill:#141414,stroke:#444,color:#aaa
+    style CLARQ fill:#141414,stroke:#444,color:#aaa
+    style INSIGHT fill:#141414,stroke:#444,color:#aaa

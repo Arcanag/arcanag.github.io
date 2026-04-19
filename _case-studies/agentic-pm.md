@@ -1,6 +1,6 @@
 ---
 layout: case-study
-title: "Designing an AI Project Management OS with 6 Specialized Agents"
+title: "Designing an AI Management System with Specialized Agents"
 description: "A product case study on architecting a multi-agent system that automates PM operational work — requirement parsing, task decomposition, team routing, timeline forecasting, and client communication."
 theme_color: "#7C3AED"
 hero_bg_word: "AGENTS"
@@ -48,7 +48,15 @@ toc:
 
 Requirements come through email, Slack, and meetings in messy, unstructured formats. Breaking them into actionable tasks is mechanical. Assigning those tasks based on skills and capacity is a simple lookup problem. Status reports? Pure aggregation.
 
-None of this requires human judgment. **Yet PMs spend 40-60% of their time trapped in these tasks.** Without a system to handle the operational layer, product managers become glorified task routers, losing the bandwidth needed for strategy, stakeholder alignment, and actual product decisions.
+None of this requires human judgment. Without a system to handle the operational layer, product managers become glorified task routers, losing the bandwidth needed for strategy, stakeholder alignment, and actual product decisions.
+
+<div class="cs-impact-strip">
+  <div class="cs-impact-cell">
+    <div class="cs-impact-value">40–60%</div>
+    <div class="cs-impact-label">PM Time Lost</div>
+    <div class="cs-impact-desc">Spent on mechanical operational tasks that require no human judgment</div>
+  </div>
+</div>
 
 **The Solution:** I built what I kept wishing existed — an AI system that entirely automates the operational layer of project management.
 
@@ -161,146 +169,55 @@ The agents compose into a pipeline, but they are not tightly coupled:
 <figcaption>System architecture — BFF proxy pattern with encrypted BYOK keys, multi-tenant Supabase, and 6 specialized AI agents.</figcaption>
 </figure>
 
-The Next.js app acts as a BFF proxy — API keys never reach the client. PR AP-21 collapsed 450 lines of duplicated proxy code into 100 lines of clean middleware. The Prisma schema supports full multi-tenancy with organization-based data isolation, task hierarchy with dependency tracking, RACI matrix support, and integration configs for Jira, GitHub, Slack, and Google.
+The Next.js app acts as a BFF proxy — API keys never reach the client. The Prisma schema supports full multi-tenancy with organization-based data isolation, task hierarchy with dependency tracking, RACI matrix support, and integration configs for Jira, GitHub, Slack, and Google.
 
 <div class="callout">
-<strong>Why this schema matters:</strong> The data model IS the product. A multi-agent PM tool without proper dependency tracking, RACI support, and audit trails is a toy. The schema was designed before the first agent was built.
+<strong>Why this schema matters:</strong> The data model IS the product. The schema was designed before the first agent was built — and it shows. Every AI capability traces back to a structural decision.
 </div>
+
+<figure class="mermaid-diagram mermaid-diagram--wide" role="img" aria-label="Schema diagram showing Organization as root with OrgMember BYOK, ClientRequirement lifecycle, Task hierarchy with Dependencies and WorkAssignment RACI, Milestone confidence bands, and AgentRun with AgentInsight">
+<img src="/assets/images/case-studies/16-agentic-pm-schema.svg" alt="Agentic PM schema: Organization branches into OrgMember (BYOK LLM keys), ClientRequirement (source channel, status lifecycle, clarification questions), Task (subtask hierarchy, Dependencies, WorkAssignment with RACI roles), Milestone (p50/p85/p95 confidence dates), and AgentRun (token metrics, AgentInsight with expiry)" />
+<figcaption>Schema-first design — every agent capability maps back to a structural decision in the data model.</figcaption>
+</figure>
 
 ## The 6 Agents
 {: #the-6-agents}
 
 <p class="cs-lead">Each agent is designed around a specific PM operational task. Here is what they do and the product thinking behind each one.</p>
 
-### 1. Requirement Parser
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">Unstructured Text</div>
-    <div class="cs-impact-desc">Email, Slack, meeting notes, manual entry</div>
+<div class="outcome-grid">
+  <div class="outcome-card">
+    <div class="outcome-card__title">Requirement Parser</div>
+    <div class="outcome-card__metric">Unstructured → Structured</div>
+    <div class="outcome-card__desc">Parses email, Slack, and meeting notes into titled requirements with priority and acceptance criteria. Identifies what is missing — and generates the clarification questions a PM would ask.</div>
   </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Output</div>
-    <div class="cs-impact-value">Structured Requirement</div>
-    <div class="cs-impact-desc">Title, priority, acceptance criteria, clarification questions</div>
+  <div class="outcome-card">
+    <div class="outcome-card__title">Decomposition Agent</div>
+    <div class="outcome-card__metric">Requirement → Epic → Story → Task</div>
+    <div class="outcome-card__desc">Produces a full 4-level work breakdown structure from a single requirement. Stories that fail INVEST validation are flagged with specific reasons, not silently accepted.</div>
   </div>
-</div>
-
-The parser identifies what is *missing*. If a client says "we need a dashboard," it generates clarification questions: What metrics? Who is the audience? What refresh frequency?
-
-### 2. Decomposition Agent
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">Requirement</div>
+  <div class="outcome-card">
+    <div class="outcome-card__title">Routing Agent</div>
+    <div class="outcome-card__metric">Tasks → RACI Assignments</div>
+    <div class="outcome-card__desc">Assigns work by weighing expertise match, sprint capacity, and dependency awareness. Flags key person risk when a single team member is the only one who can deliver a critical task.</div>
   </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Output</div>
-    <div class="cs-impact-value">Epic &rarr; Story &rarr; Task</div>
-    <div class="cs-impact-desc">INVEST-validated with story points</div>
+  <div class="outcome-card">
+    <div class="outcome-card__title">Communication Agent</div>
+    <div class="outcome-card__metric">Project State → Status Report</div>
+    <div class="outcome-card__desc">Aggregates tasks, progress, blockers, and milestones into structured client-ready reports. The most time-consuming zero-creativity PM task, automated.</div>
   </div>
-</div>
-
-Takes a high-level requirement and produces a full work breakdown structure. Stories that fail INVEST validation are flagged with specific reasons.
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-value">4</div>
-    <div class="cs-impact-label">Hierarchy Levels</div>
-    <div class="cs-impact-desc">Epic &gt; Feature &gt; Story &gt; Task</div>
+  <div class="outcome-card">
+    <div class="outcome-card__title">Chat Agent</div>
+    <div class="outcome-card__metric">Natural Language → Project Answers</div>
+    <div class="outcome-card__desc">Answers questions grounded in live project data — "What is blocking the payment integration?" or "Who is overallocated this sprint?" — without touching a Jira filter.</div>
+  </div>
+  <div class="outcome-card">
+    <div class="outcome-card__title">Timeline Agent</div>
+    <div class="outcome-card__metric">Task Graph → P50 / P75 / P90</div>
+    <div class="outcome-card__desc">Runs Monte Carlo simulations across the dependency graph to produce confidence-banded delivery dates. Replaces the single-date estimate, which is always wrong.</div>
   </div>
 </div>
 
-### 3. Routing Agent
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">Tasks + Profiles</div>
-    <div class="cs-impact-desc">Skills, capacity, current workload</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Output</div>
-    <div class="cs-impact-value">RACI Assignments</div>
-    <div class="cs-impact-desc">+ key person risk analysis</div>
-  </div>
-</div>
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-value">Expertise</div>
-    <div class="cs-impact-label">Match</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-value">Capacity</div>
-    <div class="cs-impact-label">Availability</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-value">Dependency</div>
-    <div class="cs-impact-label">Awareness</div>
-  </div>
-</div>
-
-Flags key person risk — when a single team member is the only one who can deliver a critical task.
-
-### 4. Communication Agent
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">Project State</div>
-    <div class="cs-impact-desc">Tasks, progress, blockers, milestones</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Output</div>
-    <div class="cs-impact-value">Status Reports</div>
-    <div class="cs-impact-desc">Progress, risks, action items with owners</div>
-  </div>
-</div>
-
-The most time-consuming zero-creativity PM task — automated with structured insights.
-
-### 5. Chat Agent
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">Natural Language</div>
-    <div class="cs-impact-desc">Questions about the project</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Output</div>
-    <div class="cs-impact-value">Contextual Answers</div>
-    <div class="cs-impact-desc">Grounded in project data</div>
-  </div>
-</div>
-
-Instead of digging through Jira filters: "What is blocking the payment integration?" or "Which team members are overallocated this sprint?"
-
-### 6. Timeline Agent
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">Task Graph</div>
-    <div class="cs-impact-desc">Estimates, dependencies, assignments</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Output</div>
-    <div class="cs-impact-value">Monte Carlo</div>
-    <div class="cs-impact-desc">P50/P75/P90 dates + critical path</div>
-  </div>
-</div>
-
-Instead of producing a single delivery date (which is always wrong), the Timeline Agent runs Monte Carlo simulations across the task graph, accounting for estimation uncertainty and dependency chains.
-
-<ul class="cs-body-list">
-  <li><strong>P50:</strong> 50% chance of completing by this date (aggressive)</li>
-  <li><strong>P75:</strong> 75% chance (realistic)</li>
-  <li><strong>P90:</strong> 90% chance (conservative)</li>
-</ul>
 
 <figure class="viz" role="img" aria-label="Monte Carlo distribution with P50, P75, and P90 confidence intervals">
 <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
@@ -328,23 +245,24 @@ Instead of producing a single delivery date (which is always wrong), the Timelin
 
 <p class="cs-lead">Requirements do not arrive in neat forms. They come through email threads, Slack messages, and Jira tickets. Agentic PM meets requirements where they live.</p>
 
-### Gmail Integration (PRs AP-11, AP-12)
-
-The system monitors a configured Gmail inbox for emails matching project-related patterns. When a client emails a feature request, the Requirement Parser automatically extracts structured requirements and creates draft items for PM review.
-
-### Slack Integration (PR AP-13)
-
-Messages in designated channels are parsed for requirement signals. A product manager saying "client X wants SSO support by Q3" in Slack becomes a structured requirement with priority, acceptance criteria gaps, and clarification questions — automatically.
-
-### Jira Integration (PR AP-14)
-
-Requirements created in Agentic PM can push to Jira as epics and stories. Updates in Jira reflect back. Teams should not have to abandon their existing tools.
-
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-value">4</div>
-    <div class="cs-impact-label">Intake Channels</div>
-    <div class="cs-impact-desc">Gmail, Slack, Jira, and direct input</div>
+<div class="decision-grid" role="img" aria-label="Three intake integrations: Gmail, Slack, and Jira">
+  <div class="decision-card" style="border-color:#7C3AED">
+    <div class="decision-card__title">Gmail</div>
+    <div class="decision-card__row"><span class="decision-card__label">Signal</span><span class="decision-card__value">Client emails</span></div>
+    <div class="decision-card__row"><span class="decision-card__label">How</span><span class="decision-card__value">Inbox monitoring for project patterns</span></div>
+    <div class="decision-card__row"><span class="decision-card__label">Output</span><span class="decision-card__value">Draft requirements for PM review</span></div>
+  </div>
+  <div class="decision-card" style="border-color:#7C3AED">
+    <div class="decision-card__title">Slack</div>
+    <div class="decision-card__row"><span class="decision-card__label">Signal</span><span class="decision-card__value">Channel messages</span></div>
+    <div class="decision-card__row"><span class="decision-card__label">How</span><span class="decision-card__value">Parses requirement signals in real time</span></div>
+    <div class="decision-card__row"><span class="decision-card__label">Output</span><span class="decision-card__value">Structured requirement with priority + gaps</span></div>
+  </div>
+  <div class="decision-card" style="border-color:#7C3AED">
+    <div class="decision-card__title">Jira</div>
+    <div class="decision-card__row"><span class="decision-card__label">Signal</span><span class="decision-card__value">Existing tickets</span></div>
+    <div class="decision-card__row"><span class="decision-card__label">How</span><span class="decision-card__value">Bi-directional sync of epics and stories</span></div>
+    <div class="decision-card__row"><span class="decision-card__label">Output</span><span class="decision-card__value">Teams keep their existing workflow</span></div>
   </div>
 </div>
 
@@ -356,9 +274,9 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
   <text x="75" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Slack</text>
   <rect x="30" y="98" width="90" height="32" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
   <text x="75" y="119" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Jira</text>
-  <line x1="120" y1="26" x2="310" y2="70" stroke="#545d68" stroke-width="1.5"/>
-  <line x1="120" y1="70" x2="310" y2="70" stroke="#545d68" stroke-width="1.5"/>
-  <line x1="120" y1="114" x2="310" y2="70" stroke="#545d68" stroke-width="1.5"/>
+  <path d="M 120,26 C 215,26 215,70 310,70" fill="none" stroke="#545d68" stroke-width="1.5"/>
+  <path d="M 120,70 L 310,70" fill="none" stroke="#545d68" stroke-width="1.5"/>
+  <path d="M 120,114 C 215,114 215,70 310,70" fill="none" stroke="#545d68" stroke-width="1.5"/>
   <polygon points="310,66 318,70 310,74" fill="#545d68"/>
   <rect x="318" y="48" width="160" height="44" rx="4" fill="#161b22" stroke="#7C3AED" stroke-width="1.5"/>
   <text x="398" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e8eaed">Requirement</text>
@@ -374,22 +292,33 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
 
 ### What Is Weak
 
-<ul class="cs-body-list">
-  <li><strong>Agent orchestration is linear.</strong> The agents work in sequence, but real PM workflows are not linear. A change in timeline should trigger re-routing, which should update the communication report. This feedback loop does not exist yet.</li>
-  <li><strong>LLM output consistency.</strong> The Decomposition Agent occasionally produces stories that are too large or too vague. The INVEST validation catches some of these, but not all.</li>
-  <li><strong>No production deployment.</strong> This runs locally. No CI/CD pipeline, no staging environment, no monitoring.</li>
-  <li><strong>Monte Carlo accuracy is unvalidated.</strong> The simulation parameters are based on industry heuristics, not calibrated data from actual project outcomes.</li>
-  <li><strong>Multi-channel intake is MVP.</strong> The Gmail and Slack integrations capture messages, but signal-to-noise filtering is basic.</li>
-</ul>
-
-### What I Would Do Differently
-
-<ul class="cs-body-list">
-  <li><strong>Over-engineered v1</strong> — The 6-agent architecture is more complex than a v1 needs. A 3-agent system (Decomposition, Routing, Timeline) would have delivered 80% of the value.</li>
-  <li><strong>Missing event-driven orchestration</strong> — The current linear pipeline means a timeline change doesn't cascade to routing or communication. An event bus would close this loop.</li>
-  <li><strong>No real-world validation</strong> — Deploy to a real team for 2 sprints and measure time saved, decomposition accuracy, and forecast calibration before adding more agents.</li>
-  <li><strong>No feedback loop</strong> — PMs should be able to rate agent outputs, creating training data for prompt improvement over time.</li>
-</ul>
+<div class="lesson-grid">
+  <div class="lesson-card">
+    <span class="lesson-card__number">01</span>
+    <div class="lesson-card__title">Linear Orchestration</div>
+    <div class="lesson-card__body">The agents work in sequence, but real PM workflows are not linear. A timeline change should trigger re-routing, which should update the communication report. This feedback loop does not exist yet.</div>
+  </div>
+  <div class="lesson-card">
+    <span class="lesson-card__number">02</span>
+    <div class="lesson-card__title">LLM Output Consistency</div>
+    <div class="lesson-card__body">The Decomposition Agent occasionally produces stories that are too large or too vague. INVEST validation catches some of these, but structural checks can't catch intent drift.</div>
+  </div>
+  <div class="lesson-card">
+    <span class="lesson-card__number">03</span>
+    <div class="lesson-card__title">No Production Deployment</div>
+    <div class="lesson-card__body">The system runs locally. There is no CI/CD pipeline, no staging environment, and no monitoring. The architecture is production-ready; the deployment is not.</div>
+  </div>
+  <div class="lesson-card">
+    <span class="lesson-card__number">04</span>
+    <div class="lesson-card__title">Unvalidated Monte Carlo</div>
+    <div class="lesson-card__body">Simulation parameters are based on industry heuristics, not calibrated against actual project outcomes. The model is structurally correct but not yet empirically grounded.</div>
+  </div>
+  <div class="lesson-card" style="grid-column: 1 / -1">
+    <span class="lesson-card__number">05</span>
+    <div class="lesson-card__title">Multi-Channel Intake is MVP</div>
+    <div class="lesson-card__body">Gmail and Slack integrations capture messages, but signal-to-noise filtering is basic. A PM channel with 200 messages a day would surface too many false positives to be useful.</div>
+  </div>
+</div>
 
 <div class="callout">
 <strong>The gap that matters most:</strong> Without validation against real project data, this is a well-architected demo. The path from demo to product requires deploying with a real team, measuring outcomes, and iterating on agent prompts based on actual PM feedback.
@@ -398,27 +327,45 @@ Requirements created in Agentic PM can push to Jira as epics and stories. Update
 ## Things I'd Do Differently
 {: #things-id-do-differently}
 
-### 1. Multi-Agent Design Is a Product Problem, Not an Engineering Problem
-
-The hardest decisions were not technical. They were: How many agents? What is each agent's boundary? When does one agent's output become another's input? These are product decomposition questions disguised as architecture questions.
-
-### 2. The Schema Is the Product
-
 <div class="cs-statement reveal">The data model IS the product. Schema-first design is underrated.</div>
 
-I spent more time on the Prisma schema than on any individual agent. The data model — with its dependency tracking, RACI support, confidence intervals, and audit trail — defines what the product can and cannot do.
-
-### 3. Testing AI Systems Requires a Different Strategy
-
-The 81+ tests break down as: 55 API tests (deterministic behavior), 12 frontend tests (component rendering), and 14 LLM mock tests (agent behavior with controlled inputs). You cannot assert on exact LLM output, so tests validate structure, required fields, and constraint satisfaction. This is a testing philosophy refined through years of evaluating non-deterministic AI systems in production.
-
-### 4. BFF Proxy Is Non-Negotiable for AI Products
-
-The refactor from 450 lines of scattered proxy code to 100 lines of clean BFF middleware was one of the highest-ROI changes. In any AI product where users provide API keys, the frontend must never touch those keys directly.
-
-### 5. Building Both Products in One Day Proved a Thesis
-
-Career Enabler and Agentic PM were both built on the same day — a compressed timeline that was possible because of years of production experience with AI systems, not because the work was trivial.
+<div class="lesson-grid lesson-grid--rows">
+  <div class="lesson-card lesson-card--row">
+    <span class="lesson-card__number">01</span>
+    <div>
+      <div class="lesson-card__title">Multi-Agent Design Is a Product Problem, Not an Engineering Problem</div>
+      <div class="lesson-card__body">The hardest decisions were not technical. They were: How many agents? What is each agent's boundary? When does one agent's output become another's input? These are product decomposition questions disguised as architecture questions.</div>
+    </div>
+  </div>
+  <div class="lesson-card lesson-card--row">
+    <span class="lesson-card__number">02</span>
+    <div>
+      <div class="lesson-card__title">The Schema Is the Product</div>
+      <div class="lesson-card__body">I spent more time on the Prisma schema than on any individual agent. The data model — with its dependency tracking, RACI support, confidence intervals, and audit trail — defines what the product can and cannot do.</div>
+    </div>
+  </div>
+  <div class="lesson-card lesson-card--row">
+    <span class="lesson-card__number">03</span>
+    <div>
+      <div class="lesson-card__title">Testing AI Systems Requires a Different Strategy</div>
+      <div class="lesson-card__body">The 81+ tests break down as: 55 API tests (deterministic behavior), 12 frontend tests (component rendering), and 14 LLM mock tests (agent behavior with controlled inputs). You cannot assert on exact LLM output, so tests validate structure, required fields, and constraint satisfaction.</div>
+    </div>
+  </div>
+  <div class="lesson-card lesson-card--row">
+    <span class="lesson-card__number">04</span>
+    <div>
+      <div class="lesson-card__title">Protecting User Credentials Is Non-Negotiable</div>
+      <div class="lesson-card__body">When users bring their own AI credentials to a product, those keys must be protected at all times — never exposed in the browser. The architecture routes all AI calls through a server-side proxy so credentials are always encrypted and handled securely.</div>
+    </div>
+  </div>
+  <div class="lesson-card lesson-card--row">
+    <span class="lesson-card__number">05</span>
+    <div>
+      <div class="lesson-card__title">Speed Comes From Experience, Not Shortcuts</div>
+      <div class="lesson-card__body">Agentic PM was built in a compressed timeline — not because the architecture is simple, but because years of managing AI product delivery made it possible to move fast without compromising on the fundamentals: a solid data model, clean agent boundaries, and a test suite that could catch regressions.</div>
+    </div>
+  </div>
+</div>
 
 > The role of the human in AI-assisted development shifts from implementation to product judgment — deciding what to build, how to scope it, and where to cut corners deliberately.
 
