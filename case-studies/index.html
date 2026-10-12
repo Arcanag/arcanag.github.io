@@ -1,30 +1,16 @@
 ---
-layout: default
-title: Work
+layout: page
+title: Case studies
+kicker: Case studies
+bg_word: WORK
+tagline: "How the work was done — including what went wrong."
+description: "Case studies by Anurag Sharma — a voice-AI portfolio, a banking voicebot and an agentic PM system."
 ---
-
-<section class="scroll-section">
-  <div class="scroll-section__track">
-    {% assign visible_studies = site.case-studies | where_exp: "s", "s.hidden != true" | sort: "date" | reverse %}
-    {% for study in visible_studies %}
-    <a href="{{ study.url | relative_url }}" class="scroll-section__card" style="--card-theme: {{ study.theme_color | default: '#ff2d00' }};" data-bg-word="{{ study.hero_bg_word | default: '' }}">
-      <span class="scroll-section__label">{{ study.category }}</span>
-      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
-      <h2 class="scroll-section__title">{{ study.title }}</h2>
-      {% if study.description %}
-      <p class="scroll-section__desc">{{ study.description }}</p>
-      {% endif %}
-      {% if study.key_metric %}
-      <p class="scroll-section__metrics">{{ study.key_metric }}</p>
-      {% endif %}
-      <span class="scroll-section__cta">Read case study &rarr;</span>
-    </a>
-    {% endfor %}
-  </div>
-  <span class="scroll-section__header">Work</span>
-  <div class="scroll-section__dots">
-    {% for study in visible_studies %}
-    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
-    {% endfor %}
-  </div>
+<section class="section" aria-label="All case studies">
+  <ul class="cases" role="list">
+    {%- assign cases = site.case-studies | where_exp: "c", "c.hidden != true" | sort: "order" %}
+    {%- for c in cases %}
+    <li>{% include case-tile.html case=c %}</li>
+    {%- endfor %}
+  </ul>
 </section>

@@ -6,7 +6,8 @@
   var hasIO = 'IntersectionObserver' in window;
 
   // Scroll reveal: sections and tiles fade up once (600ms, see _motion.scss).
-  if (hasIO && !reduceMotion) {
+  // Skipped on deep links: hidden sections would otherwise be the scroll target.
+  if (hasIO && !reduceMotion && !window.location.hash) {
     var targets = document.querySelectorAll('main .section, .tiles > li, .cases > li');
     var revealer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {

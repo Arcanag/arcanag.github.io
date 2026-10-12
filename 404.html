@@ -1,13 +1,14 @@
 ---
-layout: default
-title: "404"
+layout: page
+title: "Page not found"
+heading: "Page not found."
+kicker: "404"
+bg_word: "404"
+tagline: "The page moved or never existed."
 permalink: /404.html
+sitemap: false
 ---
-
-<section class="hero" style="min-height: 60vh;">
-  <div class="container">
-    <p class="hero__label reveal">404</p>
-    <h1 class="hero__title reveal" data-delay="1">Page not found.</h1>
-    <p class="hero__subtitle reveal" data-delay="2"><a href="{{ '/' | relative_url }}">Back to home &rarr;</a></p>
-  </div>
-</section>
+<nav class="nextnav" aria-label="Where next">
+  <a class="btn" href="{{ '/' | relative_url }}">Back to home</a>
+  <a class="tlink" href="{{ '/writing/' | relative_url }}">Browse all writing →</a>
+</nav>
