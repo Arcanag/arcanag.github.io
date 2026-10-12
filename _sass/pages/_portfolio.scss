@@ -1,1 +1,40 @@
 // Page-specific styles: portfolio. Use tokens from _tokens.scss; no raw hex.
+// Voice-AI portfolio case study (_case-studies/voice-ai-portfolio.html). Prefix: .pf-
+
+// Paired before/after charts with a small title each
+.pf-pair__title { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite); }
+.pf-pair .columns { margin-top: 18px; }
+.pf-target { background: transparent; border: 1.5px dashed var(--stone); border-bottom: 0; }
+
+// Inline legend under stacked bars
+.pf-legend { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; padding: 0; }
+.pf-legend li { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-card-b); color: var(--graphite); }
+.pf-legend b { font-size: 22px; letter-spacing: -0.02em; }
+.pf-legend__sw { width: 12px; height: 12px; border-radius: 3px; background: var(--ink); flex: none; }
+.pf-legend__sw--red { background: var(--red); }
+.pf-legend__sw--stone { background: var(--stone); }
+.pf-legend__sw--green { background: var(--green); }
+
+// Language platform: 12 cells, live vs added
+.pf-langs { margin-top: 36px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; }
+.pf-langs span { height: 56px; border-radius: 8px; background: var(--ink); }
+.pf-langs span.is-new { background: var(--green); }
+@media (max-width: 640px) { .pf-langs { grid-template-columns: repeat(6, minmax(0, 1fr)); } .pf-langs span { height: 40px; } }
+
+// Billing bands: resolution % axis (74–85) with two bands and two markers
+.pf-bands { position: relative; margin-top: 64px; height: 56px; border-bottom: 2px solid var(--ink); }
+.pf-bands__band {
+  position: absolute; bottom: 0; left: var(--l); width: var(--w); height: 100%;
+  border-radius: 10px 10px 0 0; background: var(--surface);
+  display: flex; align-items: flex-end; padding: 0 10px 8px;
+  font-family: var(--mono); font-size: var(--t-note); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite);
+}
+.pf-bands__band--up { background: var(--green-tint); color: var(--green-deep); }
+.pf-bands__mark { position: absolute; bottom: 0; left: var(--l); width: 2px; height: calc(100% + 28px); background: var(--stone); }
+.pf-bands__mark--now { background: var(--green); }
+.pf-bands__mark span {
+  position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); white-space: nowrap;
+  font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--graphite);
+}
+.pf-bands__mark--now span { color: var(--green-deep); }
+.pf-bands__axis { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--mono); font-size: var(--t-note); color: var(--note); }

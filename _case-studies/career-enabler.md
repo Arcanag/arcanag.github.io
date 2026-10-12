@@ -8,6 +8,7 @@ key_metric: "16 features shipped in 1 day"
 read_time: "10 min read"
 date: 2026-03-22
 hidden: true
+published: false  # unpublished in the white-first redesign; restyle before re-publishing
 toc:
   - title: "The Problem"
     anchor: "the-problem"

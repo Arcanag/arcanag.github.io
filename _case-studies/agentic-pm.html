@@ -1,0 +1,188 @@
+---
+title: "Designing an AI management system with six specialised agents"
+short_title: "Six AI agents for PM work"
+description: "Personal project: a six-agent AI system that automates the operational layer of project management — parsing, decomposition, routing, forecasting, reporting."
+tagline: "Automating the operational layer of project management — so PMs keep their time for judgment."
+kicker: "Case study · Personal project · Multi-agent AI"
+meta: "Personal project · March 2026 · 11 min read"
+read_time: "11 min"
+date: 2026-03-22
+bg_word: AGENTS
+order: 3
+tile_tone: surface
+tile_kicker: "Agentic AI · Personal project"
+tile_title: "Six AI agents for a PM’s operational work"
+tile_stat: "6 agents · 81 tests · P50/P75/P90 forecasts"
+skills:
+  - zero-to-one-product-development
+  - ai-ml-fluency-and-evals
+  - product-requirements
+hero_stats:
+  - value: "6"
+    label: "specialised AI agents"
+  - value: "81"
+    label: "tests across 19 PRs"
+  - value: "40–60%"
+    label: "PM time on mechanical work (my estimate)"
+  - value: "5"
+    label: "monorepo packages"
+next:
+  url: /case-studies/voice-ai-portfolio/
+  label: "Next case study: Voice-AI portfolio"
+---
+<section class="section" id="the-problem" data-toc="The problem">
+  <p class="label">01 / The problem</p>
+  <h2 class="h2">PM overhead scales <em>with team size.</em></h2>
+  <p class="lead">Parsing requirements is mechanical. Assigning work is a lookup. Status reports are aggregation. <b>None of it needs human judgment.</b></p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value stat__value--red">40–60%</div>
+      <div class="stat__label">of PM time on mechanical work</div>
+      <p class="stat__body">My estimate from years of delivery work — not a measured figure.</p>
+    </div>
+    <div class="stat">
+      <div class="stat__value">3</div>
+      <div class="stat__label">intake channels: email, Slack, meetings</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Automate the mechanical. <em>Preserve the judgment.</em></p>
+  <p class="pull__sub">Every agent boundary sits where human product thinking begins.</p>
+</section>
+
+<section class="section" id="system-design" data-toc="System design">
+  <p class="label">02 / System design</p>
+  <h2 class="h2">Specialists, <em>not a generalist.</em></h2>
+  <p class="lead">Each agent has <b>one job, a clear input/output contract,</b> and can be tested on its own.</p>
+  <div class="flow ag-flow" role="img" aria-label="Requirement Parser feeds the Decomposition agent, which feeds Routing, which dispatches to the Communication, Chat and Timeline agents">
+    <span class="flow__node">Requirement Parser</span>
+    <span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Decomposition</span>
+    <span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Routing</span>
+    <span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="ag-flow__group">
+      <span class="flow__node flow__node--green">Communication</span>
+      <span class="flow__node flow__node--green">Chat</span>
+      <span class="flow__node flow__node--green">Timeline</span>
+    </span>
+  </div>
+  <ul class="ag-stack" role="list">
+    <li class="ag-stack__row"><span class="ag-stack__name">Next.js 15</span><span class="ag-stack__desc">App Router + BFF proxy — keys never reach the client</span></li>
+    <li class="ag-stack__row"><span class="ag-stack__name">FastAPI</span><span class="ag-stack__desc">Python, async</span></li>
+    <li class="ag-stack__row ag-stack__row--ink"><span class="ag-stack__name">6 AI agents</span><span class="ag-stack__desc">81 tests</span></li>
+    <li class="ag-stack__row"><span class="ag-stack__name">Supabase</span><span class="ag-stack__desc">PostgreSQL + auth, multi-tenant</span></li>
+    <li class="ag-stack__row"><span class="ag-stack__name">Claude API</span><span class="ag-stack__desc">bring-your-own, encrypted keys</span></li>
+  </ul>
+  <p class="note">Turborepo monorepo · 5 packages (web, api, db, ui, types)</p>
+</section>
+
+<section class="section">
+  <p class="pull">Get the boundaries wrong and you build a monolith wearing a <em>microservices costume.</em></p>
+</section>
+
+<section class="section" id="the-schema" data-toc="The schema">
+  <p class="label">03 / The schema</p>
+  <h2 class="h2">The data model <em>is the product.</em></h2>
+  <p class="lead">Designed <b>before the first agent was built.</b> Every AI capability traces back to it.</p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--ink"><p class="card__tag">Root</p><h3 class="card__title">Team workspace</h3><p class="card__body">The root that holds every project, person and activity.</p></div>
+    <div class="card card--stone"><p class="card__tag">People</p><h3 class="card__title">Team member</h3><p class="card__body">Each person connects their own AI credentials.</p></div>
+    <div class="card card--stone"><p class="card__tag">Intake</p><h3 class="card__title">Client request</h3><p class="card__body">Captured from email, Slack or meetings, with AI follow-up questions.</p></div>
+    <div class="card card--stone"><p class="card__tag">Work</p><h3 class="card__title">Work item</h3><p class="card__body">Tasks with blockers and RACI assignments.</p></div>
+    <div class="card card--stone"><p class="card__tag">Time</p><h3 class="card__title">Deadline</h3><p class="card__body">Three dates — optimistic, realistic, conservative.</p></div>
+    <div class="card card--red"><p class="card__tag">Audit</p><h3 class="card__title">AI action log</h3><p class="card__body">Every AI decision recorded, with self-expiring alerts.</p></div>
+  </div>
+</section>
+
+<section class="section" id="the-six-agents" data-toc="The six agents">
+  <p class="label">04 / The six agents</p>
+  <h2 class="h2">Six agents. <em>One job each.</em></h2>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--ink"><p class="card__tag">Unstructured → structured</p><h3 class="card__title">Requirement Parser</h3><p class="card__body">Turns email, Slack and notes into requirements with priority and acceptance criteria — and asks the missing questions.</p></div>
+    <div class="card card--ink"><p class="card__tag">Requirement → task</p><h3 class="card__title">Decomposition</h3><p class="card__body">A 4-level work breakdown. Stories failing INVEST checks are flagged with reasons, not silently accepted.</p></div>
+    <div class="card card--ink"><p class="card__tag">Tasks → RACI</p><h3 class="card__title">Routing</h3><p class="card__body">Weighs expertise, capacity and dependencies. Flags key-person risk.</p></div>
+    <div class="card card--green"><p class="card__tag">State → status report</p><h3 class="card__title">Communication</h3><p class="card__body">Aggregates progress, blockers and milestones into client-ready reports.</p></div>
+    <div class="card card--green"><p class="card__tag">Question → answer</p><h3 class="card__title">Chat</h3><p class="card__body">“What’s blocking the payment integration?” — answered from live data.</p></div>
+    <div class="card card--green"><p class="card__tag">Graph → P50 / P75 / P90</p><h3 class="card__title">Timeline</h3><p class="card__body">Monte Carlo across the dependency graph for confidence-banded dates.</p></div>
+  </div>
+</section>
+
+<section class="section" id="forecasting" data-toc="Forecasting">
+  <p class="label">05 / Forecasting</p>
+  <h2 class="h2">Dates are <em>distributions.</em></h2>
+  <p class="lead">Any tool that gives you <b>one delivery date is lying to you.</b></p>
+  <figure class="ag-hist" role="img" aria-label="Illustrative probability distribution of delivery dates, with P50 (aggressive), P75 (realistic) and P90 (conservative) markers moving later in time">
+    <div class="ag-hist__bars" aria-hidden="true">
+      <span style="--h:0%"></span><span style="--h:0%"></span><span style="--h:0.4%"></span><span style="--h:3.6%"></span><span style="--h:15.4%"></span><span style="--h:38.1%"></span><span style="--h:65.8%"></span><span style="--h:88.6%"></span><span style="--h:100%"></span><span class="is-p50" style="--h:99%"></span><span style="--h:88.7%"></span><span style="--h:73.8%"></span><span class="is-mark" style="--h:57.9%"></span><span style="--h:43.4%"></span><span class="is-mark" style="--h:31.4%"></span><span style="--h:22.1%"></span><span style="--h:15.2%"></span><span style="--h:10.3%"></span><span style="--h:6.8%"></span><span style="--h:4.5%"></span><span style="--h:2.9%"></span><span style="--h:1.9%"></span><span style="--h:1.2%"></span><span style="--h:0.8%"></span>
+    </div>
+    <div class="ag-hist__markers" aria-hidden="true">
+      <span class="ag-hist__marker ag-hist__marker--p50" style="--l:39.6%"><b>P50</b>Aggressive</span>
+      <span class="ag-hist__marker" style="--l:52.1%"><b>P75</b>Realistic</span>
+      <span class="ag-hist__marker" style="--l:60.4%"><b>P90</b>Conservative</span>
+    </div>
+  </figure>
+  <p class="note">Illustrative shape · 1,000 simulated runs per forecast</p>
+</section>
+
+<section class="section" id="intake" data-toc="Intake">
+  <p class="label">06 / Intake</p>
+  <h2 class="h2">Meet requirements <em>where they live.</em></h2>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--stone"><p class="card__tag">Gmail</p><h3 class="card__title">Client emails</h3><p class="card__body">Inbox monitoring drafts requirements for PM review.</p></div>
+    <div class="card card--stone"><p class="card__tag">Slack</p><h3 class="card__title">Channel messages</h3><p class="card__body">Requirement signals parsed in real time, with priority and gaps.</p></div>
+    <div class="card card--stone"><p class="card__tag">Jira</p><h3 class="card__title">Existing tickets</h3><p class="card__body">Bi-directional sync, so teams keep their workflow.</p></div>
+  </div>
+</section>
+
+<section class="section" id="honest-assessment" data-toc="Honest assessment">
+  <p class="label">07 / Honest assessment</p>
+  <h2 class="h2">Where it <em>falls short.</em></h2>
+  <ol class="numlist numlist--red">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Linear orchestration</h3><p class="numlist__body">A timeline change should trigger re-routing and an updated report. That feedback loop doesn’t exist yet.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">LLM output consistency</h3><p class="numlist__body">Decomposition sometimes produces stories that are too large or vague; INVEST checks catch some, not intent drift.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">No production deployment</h3><p class="numlist__body">Runs locally — no CI/CD, staging or monitoring.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Unvalidated Monte Carlo</h3><p class="numlist__body">Parameters come from industry heuristics, not calibrated against real outcomes.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">05</span><div><h3 class="numlist__title">Multi-channel intake is an MVP</h3><p class="numlist__body">Signal-to-noise filtering is basic; a busy channel would surface too many false positives.</p></div></li>
+  </ol>
+</section>
+
+<section class="section">
+  <p class="pull">Without real project data, this is a well-architected <em>demo.</em></p>
+  <p class="pull__sub">The path to product: deploy with a real team, measure outcomes, iterate on prompts from PM feedback.</p>
+</section>
+
+<section class="section" id="testing" data-toc="Testing">
+  <p class="label">08 / Testing</p>
+  <h2 class="h2">81 tests. <em>Three strategies.</em></h2>
+  <p class="lead">You can’t assert on exact LLM output, so tests check <b>structure, required fields and constraints.</b> The <a href="{{ '/technical%20deep-dive/2026/02/18/testing-non-deterministic-ai/' | relative_url }}">testing playbook</a> explains the approach.</p>
+  <div class="ag-tests">
+    <div class="stackbar" role="img" aria-label="81 tests: 55 API tests, 12 frontend tests, 14 LLM mock tests">
+      <span class="stackbar__seg" style="--w:67.9%"></span><span class="stackbar__seg stackbar__seg--mid" style="--w:14.8%"></span><span class="stackbar__seg stackbar__seg--red" style="--w:17.3%"></span>
+    </div>
+    <div class="grid3 ag-tests__legend">
+      <div><div class="ag-tests__n">55</div><div class="stat__label">API tests · deterministic</div></div>
+      <div><div class="ag-tests__n ag-tests__n--mid">12</div><div class="stat__label">frontend tests</div></div>
+      <div><div class="ag-tests__n ag-tests__n--red">14</div><div class="stat__label">LLM mock tests · structure, not exact output</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="in-hindsight" data-toc="In hindsight">
+  <p class="label">09 / In hindsight</p>
+  <h2 class="h2">Five things <em>I learned.</em></h2>
+  <ol class="numlist">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Multi-agent design is a product problem</h3><p class="numlist__body">How many agents, and where each boundary sits, are product decomposition questions disguised as architecture.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">The schema is the product</h3><p class="numlist__body">More time went into the data model than any single agent. It defines what the product can and cannot do.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Testing AI needs a different strategy</h3><p class="numlist__body">You can’t assert on exact LLM output, so tests check structure, required fields and constraints.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Protect user credentials</h3><p class="numlist__body">All AI calls go through a server-side proxy, so keys are never exposed in the browser.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">05</span><div><h3 class="numlist__title">Speed comes from experience</h3><p class="numlist__body">Years of delivering AI products made it possible to move fast without skipping fundamentals.</p></div></li>
+  </ol>
+</section>
+
+<section class="section">
+  <p class="pull">The human’s role shifts from implementation to <em>product judgment.</em></p>
+  <p class="pull__sub"><a class="tlink" href="https://github.com/Arcanag/agentic-pm" target="_blank" rel="noopener noreferrer">See the code on GitHub →<span class="sr-only"> (opens in new tab)</span></a></p>
+</section>
