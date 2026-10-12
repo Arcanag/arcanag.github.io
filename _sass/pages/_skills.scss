@@ -1,1 +1,81 @@
-// Page-specific styles: skills. Use tokens from _tokens.scss; no raw hex.
+// Page-specific styles: skill pages 01–05 and 11 (.sk- prefix). Tokens only; no raw hex.
+
+// Side-by-side visual + text column (option map + option cards; spec box + readers)
+.sk-split { margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 36px; }
+
+// Option map — 2px ink axes, dashed quadrant lines, grey rejected dots, red chosen dot with halo
+.sk-optmap {
+  flex: 1 1 320px; position: relative; height: 300px; margin: 0 0 30px 30px;
+  border-left: 2px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--plot);
+}
+.sk-optmap__vline { position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed var(--mid); }
+.sk-optmap__hline { position: absolute; top: 50%; left: 0; right: 0; border-top: 1px dashed var(--mid); }
+.sk-optmap__zone { position: absolute; left: 10px; top: 10px; font-family: var(--mono); font-size: var(--t-note); font-weight: 600; color: var(--green-deep); }
+.sk-optmap__pt {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; white-space: nowrap;
+}
+.sk-optmap__pt::before { content: ""; width: 18px; height: 18px; border-radius: 50%; background: var(--dot); }
+.sk-optmap__pt--chosen { font-size: 15px; font-weight: 700; color: var(--red-deep); }
+.sk-optmap__pt--chosen::before { width: 28px; height: 28px; background: var(--red); box-shadow: 0 0 0 8px var(--halo); }
+.sk-optmap__axis { position: absolute; font-family: var(--mono); font-size: var(--t-note); color: var(--note); white-space: nowrap; }
+.sk-optmap__axis--y { left: -28px; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); }
+.sk-optmap__axis--x { left: 50%; bottom: -28px; transform: translateX(-50%); }
+
+// Option cards (stacked)
+.sk-options { flex: 1 1 340px; display: flex; flex-direction: column; gap: 12px; }
+.sk-option { padding: 18px 20px; border-radius: 16px; background: var(--surface); }
+.sk-option__tag { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.04em; color: var(--graphite); }
+.sk-option__title { margin-top: 4px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.sk-option__body { margin-top: 4px; font-size: 15px; line-height: 1.45; color: var(--graphite); }
+.sk-option--chosen { background: var(--red-tint); box-shadow: inset 0 0 0 2px var(--red); }
+.sk-option--chosen .sk-option__tag, .sk-option--chosen .sk-option__title { color: var(--red-deep); }
+.sk-option--chosen .sk-option__body { color: var(--ink); }
+
+// Narrow bar stack (keeps rate bars readable on wide screens)
+.sk-narrow { max-width: 720px; }
+
+// Assumption vs data panel — big serif quote
+.sk-quote { margin-top: 16px; font-family: var(--serif); font-style: italic; font-size: clamp(26px, 2.2vw, 36px); line-height: 1.1; }
+.sk-panel-note { margin-top: 18px; font-size: 15px; line-height: 1.5; color: var(--graphite); }
+.ba__panel .hbar { margin-top: 16px; gap: 18px; }
+
+// Spec hub — one black box feeding four readers
+.sk-spec { flex: none; width: 150px; height: 190px; border-radius: 16px; background: var(--ink); color: var(--paper);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+.sk-spec__n { font-size: 30px; font-weight: 700; letter-spacing: -0.03em; }
+.sk-spec__l { font-family: var(--mono); font-size: var(--t-note); color: var(--mid); }
+.sk-readers { flex: 1 1 460px; gap: 24px 28px; }
+.sk-reader { border-top: 2px solid var(--ink); padding-top: 12px; }
+.sk-reader__who { font-size: 20px; font-weight: 700; letter-spacing: -0.015em; }
+.sk-reader__what { margin-top: 6px; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.3; color: var(--graphite); }
+
+// 27-step pipeline ticks
+.sk-ticks { margin-top: 40px; }
+.sk-ticks__ends { display: flex; justify-content: space-between; font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.06em; color: var(--graphite); }
+.sk-ticks__row { display: flex; gap: 4px; margin-top: 10px; }
+.sk-ticks__row span { flex: 1; height: 44px; border-radius: 5px; background: var(--ink); }
+.sk-ticks__row span:last-child { background: var(--green); }
+@media (max-width: 640px) { .sk-ticks__row { gap: 2px; } .sk-ticks__row span { height: 32px; border-radius: 3px; } }
+
+// Before / after squads
+.sk-panel-title { margin-top: 6px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+.sk-work { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.sk-work span { padding: 8px 12px; border-radius: 8px; background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 600; }
+.sk-work .m { background: var(--note); }
+.sk-work .s { background: var(--red-deep); }
+.sk-squads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+.sk-squad { background: var(--paper); border-radius: 12px; padding: 14px; border-top: 4px solid var(--ink); }
+.sk-squad--m { border-top-color: var(--stone); }
+.sk-squad--s { border-top-color: var(--red); }
+.sk-squad__name { font-size: 18px; font-weight: 700; }
+.sk-squad__own { margin-top: 4px; font-size: 13px; color: var(--graphite); }
+.sk-caption { margin-top: 16px; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.35; color: var(--graphite); }
+@media (max-width: 420px) { .sk-squads { grid-template-columns: minmax(0, 1fr); } }
+
+// A → B big-number swap (incidents → runbook)
+.sk-swap { margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
+.sk-swap__n { font-size: clamp(64px, 7.6vw, 150px); line-height: 0.9; letter-spacing: -0.05em; font-weight: 700; }
+.sk-swap__arrow { font-size: 48px; color: var(--stone); }
+.sk-swap__text { flex: 1 1 260px; font-size: 17px; line-height: 1.5; color: var(--graphite); }

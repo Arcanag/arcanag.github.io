@@ -1,0 +1,62 @@
+---
+title: Metrics & analytics
+order: 4
+tag: Product
+rubric: "Analytical thinking · product analytics"
+bg_word: MEASURE
+tagline: "Measuring what users actually do, step by step — and making the number something a client can audit."
+description: "How Anurag Sharma rebuilt a voicebot's core metric: 50+ tracking bugs fixed and a five-stage call resolution funnel that gave every drop a name and an owner."
+tile_stat: "50+"
+tile_label: "tracking bugs found and fixed"
+tile_line: "What users really do, step by step."
+graphic: funnel
+proved_by:
+  - url: /case-studies/banking-voicebot/
+    kind: case study
+    read_time: 12 min
+  - url: /frameworks/voicebot-metrics-funnel/
+    kind: framework
+---
+<section class="section">
+  <p class="label">01 / The situation</p>
+  <h2 class="h2">A number <em>nobody trusted.</em></h2>
+  <p class="lead">The main metric had dropped, and nobody could say why — <b>or whether the number was even right.</b></p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--red">50+</div><div class="stat__label">tracking bugs</div></div>
+    <div class="stat"><div class="stat__value">10+</div><div class="stat__label">intents with no data</div></div>
+    <div class="stat"><div class="stat__value stat__value--sm">Max retries</div><div class="stat__label">hang-ups logged as success</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">“Contained” isn’t the same as <em>resolved.</em></p>
+  <p class="pull__sub">A call can end inside the bot without the caller getting what they needed.</p>
+</section>
+
+<section class="section">
+  <p class="label">02 / The funnel</p>
+  <h2 class="h2">Five stages. <em>Five questions.</em></h2>
+  <p class="lead">I rebuilt measurement so a drop at any step had <b>a name and an owner.</b></p>
+  <div class="funnel" role="img" aria-label="Five-stage call resolution funnel: calls on IVR, sent to bot, intent covered, intent identified, resolved — each stage answers one question.">
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar" style="--w:100%">Calls on IVR</div></div><p class="funnel__text">How much demand is there?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--2" style="--w:86%">Sent to bot</div></div><p class="funnel__text">Are calls reaching the bot?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--3" style="--w:72%">Intent covered</div></div><p class="funnel__text">Does the bot support this request?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--4" style="--w:58%">Intent identified</div></div><p class="funnel__text">Did it understand the caller?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--red" style="--w:46%">Resolved</div></div><p class="funnel__text">Did the caller get what they needed?</p></div>
+  </div>
+  <p class="note">Illustrative widths — the shape, not the data</p>
+  <p class="mt-m"><a class="tlink" href="{{ '/frameworks/voicebot-metrics-funnel/' | relative_url }}">See the full funnel framework →</a></p>
+</section>
+
+<section class="section">
+  <p class="label">✓ / The result</p>
+  <div class="grid2 grid--result mt-l">
+    <div class="stat stat--result"><div class="stat__value">50+</div><div class="stat__label">tracking bugs fixed</div></div>
+    <div class="stat stat--result"><div class="stat__value">47%</div><div class="stat__label">OTP leak surfaced by the funnel</div></div>
+  </div>
+  <div class="hindsight">
+    <p class="label label--muted">In hindsight</p>
+    <p class="hindsight__text">From “we don’t trust your metrics” to “show us how to improve them.”</p>
+    <p class="note">Paraphrased stakeholder reaction</p>
+  </div>
+</section>

@@ -1,0 +1,123 @@
+---
+title: "Risk & compliance management"
+order: 12
+tag: Delivery
+rubric: "Risk management · compliance"
+bg_word: RISK
+tagline: "Catching exposures at the requirement stage — and turning incidents into runbooks and gates."
+description: "How Anurag Sharma managed risk in regulated voice AI: compliance exposures caught before build, 15 incidents turned into a 20-scenario runbook, and two vendor-risk audits."
+tile_stat: "2"
+tile_label: "compliance exposures caught pre-build"
+tile_line: "Gate the build, not the launch."
+graphic: checks
+proved_by:
+  - url: /case-studies/voice-ai-portfolio/
+    kind: case study
+    read_time: 13 min
+  - url: /case-studies/banking-voicebot/
+    kind: case study
+    read_time: 12 min
+---
+<section class="section">
+  <p class="label">01 / The situation</p>
+  <h2 class="h2">Regulated, air-gapped, <em>and live.</em></h2>
+  <p class="lead">A Tier-1 private bank’s voicebot ran on an air-gapped stack while <b>RBI security mandates landed mid-delivery.</b> Every failure happened in front of live callers.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value stat__value--red">15</div>
+      <div class="stat__label">incidents in 3 months, Sep – Nov 2025</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value stat__value--red">7 min</div>
+      <div class="stat__label">unplanned downtime during live calls</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">up to 90%</div>
+      <div class="stat__label">of infra bandwidth on compliance, peak weeks</div>
+    </div>
+  </div>
+  <div class="cbar" role="img" aria-label="15 incidents, September to November 2025, by cause: DR switchover 5, bank API failures 4, network drops 3, process failures 2, database or infrastructure 1.">
+    <div class="cbar__row"><span class="cbar__label">DR switchover</span><span class="cbar__track"><span class="cbar__fill cbar__fill--red" style="--w:100%"></span></span><span class="cbar__count">5</span></div>
+    <div class="cbar__row"><span class="cbar__label">Bank API failures</span><span class="cbar__track"><span class="cbar__fill" style="--w:80%"></span></span><span class="cbar__count">4</span></div>
+    <div class="cbar__row"><span class="cbar__label">Network drops</span><span class="cbar__track"><span class="cbar__fill" style="--w:60%"></span></span><span class="cbar__count">3</span></div>
+    <div class="cbar__row"><span class="cbar__label">Process failures</span><span class="cbar__track"><span class="cbar__fill" style="--w:40%"></span></span><span class="cbar__count">2</span></div>
+    <div class="cbar__row"><span class="cbar__label">DB / infra</span><span class="cbar__track"><span class="cbar__fill" style="--w:20%"></span></span><span class="cbar__count">1</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">02 / The safety net</p>
+  <h2 class="h2">From incidents <em>to a runbook.</em></h2>
+  <p class="lead">The 7-minute outage was a process gap: <b>no mandatory client approval</b> for maintenance windows. So the fixes were process, not heroics.</p>
+  <div class="skn-swap">
+    <div><div class="skn-swap__value skn-swap__value--from">15</div><div class="skn-swap__label">incidents in 3 months</div></div>
+    <div class="skn-swap__arrow" aria-hidden="true">→</div>
+    <div><div class="skn-swap__value skn-swap__value--to">20</div><div class="skn-swap__label">scenario air-gapped runbook</div></div>
+    <p class="skn-swap__text">Plus <b>mandatory client-approval gates</b>, on-call rotations, escalation matrices, and a real-time diagnostics and alerting system.</p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Two exposures, caught before <em>a single call was made.</em></p>
+</section>
+
+<section class="section">
+  <p class="label">03 / The gate</p>
+  <h2 class="h2">Caught at review. <em>Fixed the same day.</em></h2>
+  <p class="lead">On the next portfolio, compliance moved upstream: <b>a requirements-gap gate blocks development</b> until every exposure is resolved.</p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--red">
+      <p class="card__tag">Exposure 1</p>
+      <h3 class="card__title">Offer disclosed to third parties</h3>
+      <p class="card__body">A script set would have revealed a customer’s offer to third-party contacts — forbidden by the client’s own requirements.</p>
+    </div>
+    <div class="card card--red">
+      <p class="card__tag">Exposure 2</p>
+      <h3 class="card__title">Promotion labelled as service</h3>
+      <p class="card__body">A promotional flow was labelled as a service call — the distinction telecom regulation turns on.</p>
+    </div>
+    <div class="card card--green">
+      <p class="card__tag">Standing gate</p>
+      <h3 class="card__title">No build until resolved</h3>
+      <p class="card__body">Both fixed before development started; the requirements-gap check is now a standing gate on every new build.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">04 / The audits</p>
+  <h2 class="h2">Two audits. <em>Same week.</em></h2>
+  <p class="lead">Two banking clients ran on-site vendor-risk audits of us in the same week. <b>I owned readiness for both</b> — and flagged our own deviations before the auditors could.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value">46</div>
+      <div class="stat__label">checkpoint rows across Legal, Delivery, HR, Finance, CS, IT</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">218/267</div>
+      <div class="stat__label">controls with evidence linked</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">12</div>
+      <div class="stat__label">control domains re-scored</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">✓ / The result</p>
+  <div class="grid2 grid--result mt-l">
+    <div class="stat stat--result">
+      <div class="stat__value">−98%</div>
+      <div class="stat__label">incident detection time, after real-time diagnostics and alerting</div>
+    </div>
+    <div class="stat stat--result">
+      <div class="stat__value">2</div>
+      <div class="stat__label">compliance exposures fixed before development</div>
+    </div>
+  </div>
+  <div class="hindsight">
+    <p class="label label--muted">In hindsight</p>
+    <p class="hindsight__text">My first audit scoring used a mid-audit tracker, not the closed pack — 13 rows wrong. Check the source before the score.</p>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+---
+title: Product discovery
+order: 1
+tag: Product
+rubric: "Product sense · problem framing"
+bg_word: LEAK
+tagline: "Finding the real user pain before deciding what to build — so the business numbers move."
+description: "How Anurag Sharma finds the real problem behind a failing AI product: a 47% OTP drop-off at a bank, and intent errors (not ASR) on a consumer voicebot."
+tile_stat: "47%"
+tile_label: "of callers failing at login"
+tile_line: "Real user pain, found in the data."
+graphic: bars
+proved_by:
+  - url: /case-studies/banking-voicebot/
+    kind: case study
+    read_time: 12 min
+  - url: /case-studies/voice-ai-portfolio/
+    kind: case study
+---
+<section class="section">
+  <p class="label">01 / The situation</p>
+  <h2 class="h2">Everyone blamed <em>the AI.</em></h2>
+  <p class="lead">Contained calls had dropped and <b>nobody could explain why.</b> The pressure was to improve the model.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--red">20K</div><div class="stat__label">contained calls/mo</div></div>
+    <div class="stat"><div class="stat__value">800K</div><div class="stat__label">the contract target</div></div>
+    <div class="stat"><div class="stat__value">70%</div><div class="stat__label">intent accuracy (SLU)</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">02 / Finding the pain</p>
+  <h2 class="h2">The real problem <em>was at login.</em></h2>
+  <p class="lead">I looked at <b>the whole call journey,</b> not just the model. The biggest leak was a DTMF timing bug at the OTP step.</p>
+  <div class="grid2 ba">
+    <div class="ba__panel">
+      <p class="label label--muted">What everyone assumed</p>
+      <p class="sk-quote">“The AI model isn’t accurate enough.”</p>
+      <p class="sk-panel-note">Intent accuracy was 70%, so the model took the blame.</p>
+    </div>
+    <div class="ba__panel">
+      <p class="label red-deep">What the data showed</p>
+      <div class="hbar" role="img" aria-label="47% of callers failed at the OTP step; 23% hit a dead end in the flow. Each rate is measured on its own base.">
+        <div class="hbar__row"><span class="hbar__label">Failed at OTP</span><span class="hbar__value red">47%</span><div class="hbar__track"><div class="hbar__fill hbar__fill--red" style="--w:47%"></div></div></div>
+        <div class="hbar__row"><span class="hbar__label">Dead end in the flow</span><span class="hbar__value">23%</span><div class="hbar__track"><div class="hbar__fill" style="--w:23%"></div></div></div>
+      </div>
+      <p class="note">Each rate measured on its own base</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Callers describe problems, <em>not requests.</em></p>
+  <p class="pull__sub">A more accurate model still couldn’t tell similar problems apart — so I proposed grouping intents under root problems.</p>
+</section>
+
+<section class="section">
+  <p class="label">03 / Again, on a second product</p>
+  <h2 class="h2">Not the speech engine. <em>The intents.</em></h2>
+  <p class="lead">On a global smartphone brand’s inbound voicebot, I reviewed <b>698 detractor responses,</b> 500 agent transfers and the raw transcripts before agreeing what to fix.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value">698</div><div class="stat__label">detractor responses reviewed</div></div>
+    <div class="stat"><div class="stat__value stat__value--red">21%</div><div class="stat__label">of detractors never really interacted</div></div>
+    <div class="stat"><div class="stat__value">41.5%</div><div class="stat__label">raw “unknown” rate — mostly silence</div></div>
+  </div>
+  <div class="hbar sk-narrow" role="img" aria-label="Among 549 engaged detractors, 44% were intent misclassification and about 8% were genuine speech-recognition errors.">
+    <div class="hbar__row"><span class="hbar__label">Intent misclassification</span><span class="hbar__value red">44%</span><div class="hbar__track"><div class="hbar__fill hbar__fill--red" style="--w:44%"></div></div></div>
+    <div class="hbar__row"><span class="hbar__label">Genuine speech-recognition (ASR) errors</span><span class="hbar__value">~8%</span><div class="hbar__track"><div class="hbar__fill" style="--w:8%"></div></div></div>
+  </div>
+  <p class="note">Share of 549 engaged detractors</p>
+  <p class="lead">The roadmap moved from <b>“fix the speech engine” to intent fixes,</b> a fast metric clean-up for silent callers, and a flow change scoped as an A/B test rather than a blind rewrite.</p>
+</section>
+
+<section class="section">
+  <p class="label">✓ / The result</p>
+  <div class="grid2 grid--result mt-l">
+    <div class="stat stat--result"><div class="stat__value">70→91%</div><div class="stat__label">intent accuracy, signed off by the bank</div></div>
+    <div class="stat stat--result"><div class="stat__value">118–146K</div><div class="stat__label">contained calls a month, up from 20K</div></div>
+  </div>
+  <div class="hindsight">
+    <p class="label label--muted">In hindsight</p>
+    <p class="hindsight__text">The 800K target wasn’t met. The case study explains why.</p>
+  </div>
+</section>
