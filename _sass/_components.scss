@@ -13,6 +13,9 @@
 
 // Big stat — 2px ink rule, number, mono uppercase label (PDF §06 "Big stat")
 .stat { border-top: 2px solid var(--ink); padding-top: 14px; }
+// In a stat row, each stat uses the row's tracks: values bottom-align, labels start together.
+.grid--stats > .stat, .grid--result > .stat { display: grid; grid-template-rows: subgrid; grid-row: span 3; row-gap: 0; align-content: start; }
+.grid--stats > .stat > .stat__value, .grid--result > .stat > .stat__value { align-self: end; }
 .stat__value { font-size: var(--t-stat); line-height: 0.95; letter-spacing: -0.045em; font-weight: 700; color: var(--ink); }
 .stat__value--red   { color: var(--red-deep); }
 .stat__value--green { color: var(--green-deep); }
@@ -44,6 +47,10 @@
   background: var(--surface); border-radius: var(--r-card); padding: clamp(20px, 1.8vw, 32px);
   border-top: 4px solid var(--card-accent, var(--stone));
 }
+// Cards in a card grid share row tracks, so tag / title / body / footer line up across a row
+// even when one title wraps. Up to 4 children per card (tag, title, body, why or footer).
+.grid--cards > .card { display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; align-content: start; }
+.grid--cards > .card > * { min-width: 0; }
 .card--plain  { border-top: 0; }
 .card--red    { --card-accent: var(--red); }
 .card--ink    { --card-accent: var(--ink); }

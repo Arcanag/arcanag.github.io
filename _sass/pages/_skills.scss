@@ -71,6 +71,8 @@
 .sk-squad--s { border-top-color: var(--red); }
 .sk-squad__name { font-size: 18px; font-weight: 700; }
 .sk-squad__own { margin-top: 4px; font-size: 13px; color: var(--graphite); }
+.ba--captioned > .ba__panel { display: flex; flex-direction: column; }
+.ba--captioned .sk-caption { margin-top: auto; padding-top: 16px; }
 .sk-caption { margin-top: 16px; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.35; color: var(--graphite); }
 @media (max-width: 420px) { .sk-squads { grid-template-columns: minmax(0, 1fr); } }
 

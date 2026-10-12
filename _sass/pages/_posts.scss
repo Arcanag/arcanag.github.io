@@ -41,10 +41,10 @@
 
 // Pipeline with a cost under each stage
 .po-pipe { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
-.po-pipe__stage { display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: var(--r-inner); background: var(--surface); }
+.po-pipe__stage { display: grid; grid-template-rows: subgrid; grid-row: span 3; row-gap: 6px; padding: 16px; border-radius: var(--r-inner); background: var(--surface); }
 .po-pipe__name { font-weight: 700; font-size: 17px; line-height: 1.2; }
 .po-pipe__tool { font-family: var(--mono); font-size: var(--t-label); color: var(--graphite); }
-.po-pipe__cost { margin-top: auto; padding-top: 10px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--green-deep); }
+.po-pipe__cost { align-self: start; padding-top: 10px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--green-deep); }
 .po-pipe__stage--paid { background: var(--ink); color: var(--paper); }
 .po-pipe__stage--paid .po-pipe__tool { color: var(--mid); }
 .po-pipe__stage--paid .po-pipe__cost { color: var(--red-soft); }
