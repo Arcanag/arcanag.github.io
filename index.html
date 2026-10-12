@@ -1,101 +1,35 @@
 ---
 layout: default
-title: Home
+wide: true
+description: "Anurag Sharma — product management for conversational and agentic AI. Led a banking voicebot handling 100K+ calls a day."
 ---
-
-<section class="hero">
-  <div class="container">
-    <p class="hero__label reveal" data-delay="1">AI Product &amp; Delivery Leader</p>
-    <h1 class="hero__title reveal" data-delay="2">I build AI products<br>that replace complexity<br>with conversation.</h1>
-    <p class="hero__subtitle reveal" data-delay="3">Project Manager at Skit.ai with 5+ years of experience across analytics, project, and product management. I specialize in shipping enterprise conversational AI, from high-volume voicebot platforms to automated agent architectures.</p>
-    <div class="hero__metrics reveal" data-delay="4">
-      <span class="hero__metric">100K+ calls/day</span>
-      <span class="hero__metric-divider">&middot;</span>
-      <span class="hero__metric">50+ metric bugs fixed</span>
-      <span class="hero__metric-divider">&middot;</span>
-      <span class="hero__metric">6 AI agents built</span>
-      <span class="hero__metric-divider">&middot;</span>
-      <span class="hero__metric">16 features in 1 day</span>
-    </div>
-    <a href="#work" class="hero__scroll" aria-label="Scroll to work">Scroll</a>
-  </div>
+<section class="home-hero">
+  <p class="home-hero__kicker">Product management · Conversational &amp; agentic AI</p>
+  <h1 class="home-hero__title">I turn complex AI problems into clear priorities, shipped products and measurable results.</h1>
+  <p class="home-hero__lead">Led a banking voicebot handling 100K+ calls a day. Now running a portfolio of ~4M calls a day.</p>
 </section>
 
-<section class="scroll-section" id="work">
-  <div class="scroll-section__track">
-    {% assign visible_studies = site.case-studies | where_exp: "s", "s.hidden != true" | sort: "date" | reverse %}
-    {% for study in visible_studies %}
-    <a href="{{ study.url | relative_url }}" class="scroll-section__card" style="--card-theme: {{ study.theme_color | default: '#ff2d00' }};" data-bg-word="{{ study.hero_bg_word | default: '' }}">
-      <span class="scroll-section__label">{{ study.category }}</span>
-      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
-      <h2 class="scroll-section__title">{{ study.title }}</h2>
-      {% if study.description %}
-      <p class="scroll-section__desc">{{ study.description }}</p>
-      {% endif %}
-      {% if study.key_metric %}
-      <p class="scroll-section__metrics">{{ study.key_metric }}</p>
-      {% endif %}
-      <span class="scroll-section__cta">Read case study &rarr;</span>
-    </a>
-    {% endfor %}
-  </div>
-  <span class="scroll-section__header">Work</span>
-  <div class="scroll-section__dots">
-    {% for study in visible_studies %}
-    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
-    {% endfor %}
-  </div>
+<section class="section section--home" id="work" aria-labelledby="work-h">
+  <div class="section__head"><h2 class="section__title" id="work-h">How I work</h2></div>
+  <ul class="tiles" role="list">
+    {%- assign skills = site.skills | sort: "order" %}
+    {%- for s in skills %}
+    <li>{% include skill-tile.html skill=s %}</li>
+    {%- endfor %}
+  </ul>
 </section>
 
-<section class="scroll-section" id="blog">
-  <div class="scroll-section__track">
-    {% assign published_posts = site.posts | where_exp: "p", "p.published != false" %}
-    {% for post in published_posts limit:2 %}
-    <a href="{{ post.url | relative_url }}" class="scroll-section__card" style="--card-theme: {{ post.theme_color | default: '#ff2d00' }};" data-bg-word="{{ post.hero_bg_word | default: '' }}">
-      <span class="scroll-section__label">{{ post.category }}</span>
-      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
-      <h2 class="scroll-section__title">{{ post.title }}</h2>
-      {% if post.description %}
-      <p class="scroll-section__desc">{{ post.description }}</p>
-      {% endif %}
-      <span class="scroll-section__cta">Read post &rarr;</span>
-    </a>
-    {% endfor %}
-  </div>
-  <span class="scroll-section__header">Blog</span>
-  <div class="scroll-section__dots">
-    {% for post in published_posts limit:2 %}
-    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
-    {% endfor %}
-  </div>
+<section class="section section--home" id="cases" aria-labelledby="cases-h">
+  <div class="section__head"><h2 class="section__title" id="cases-h">Case studies</h2></div>
+  <ul class="cases" role="list">
+    {%- assign cases = site.case-studies | where_exp: "c", "c.hidden != true" | sort: "order" %}
+    {%- for c in cases %}
+    <li>{% include case-tile.html case=c %}</li>
+    {%- endfor %}
+  </ul>
 </section>
 
-<section class="scroll-section" id="frameworks">
-  <div class="scroll-section__track">
-    {% for framework in site.frameworks %}
-    <a href="{{ framework.url | relative_url }}" class="scroll-section__card" style="--card-theme: #4A9EFF;" data-bg-word="FUNNEL">
-      <span class="scroll-section__label">{{ framework.category | default: 'Framework' }}</span>
-      <span class="scroll-section__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }} / {{ forloop.length | prepend: '00' | slice: -2, 2 }}</span>
-      <h2 class="scroll-section__title">{{ framework.title }}</h2>
-      {% if framework.description %}
-      <p class="scroll-section__desc">{{ framework.description }}</p>
-      {% endif %}
-      <span class="scroll-section__cta">Explore framework &rarr;</span>
-    </a>
-    {% endfor %}
-  </div>
-  <span class="scroll-section__header">Frameworks</span>
-  <div class="scroll-section__dots">
-    {% for framework in site.frameworks %}
-    <span class="scroll-section__dot{% if forloop.first %} scroll-section__dot--active{% endif %}"></span>
-    {% endfor %}
-  </div>
-</section>
-
-<section class="section">
-  <div class="container container--narrow">
-    <h2 class="reveal">About</h2>
-    <p class="reveal" data-delay="1">I specialize in conversational AI products at the intersection of NLP, voice technology, and enterprise SaaS. My work spans voicebot platform delivery, integration architecture, and sprint operations for high-stakes B2B environments.</p>
-    <p class="reveal section__more" data-delay="2"><a href="{{ '/about/' | relative_url }}">More about me &rarr;</a></p>
-  </div>
+<section class="section section--home" id="writing" aria-labelledby="writing-h">
+  <div class="section__head"><h2 class="section__title" id="writing-h">Writing</h2></div>
+  {% include writing-list.html %}
 </section>

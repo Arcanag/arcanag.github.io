@@ -1,0 +1,49 @@
+// a. Design tokens — Visual Design Guidelines v1.0 §11 (docs/design-guidelines-v1.pdf).
+// Reference these; never raw values.
+:root {
+  /* colour */
+  --paper: #FFFFFF;     --surface: #F5F5F3;   --ink: #121212;
+  --graphite: #4A4A47;  --stone: #8A8A86;     --note: #6B6B68;
+  --rule: #E6E6E3;      --backdrop: #F3F3F0;  --mid: #CFCFCB;
+  --red: #D62B2B;       --red-deep: #B01E1E;  --red-tint: #FDECEC;  --red-soft: #FF8A8A;
+  --green: #12855F;     --green-deep: #0E6B4C; --green-tint: #EAF5EF;
+  /* chart-only neutrals used by the reference pages */
+  --ink-2: #3A3A38;     --track: #EFEFEC;     --plot: #FAFAF8;      --dot: #9A9A96;
+  --halo: rgba(214, 43, 43, 0.15);
+
+  /* type families */
+  --sans:  'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --mono:  'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  /* type scale */
+  --t-home-h1:  clamp(38px, 5vw, 96px);
+  --t-skill-h1: clamp(52px, 7vw, 140px);
+  --t-case-h1:  clamp(44px, 6vw, 120px);
+  --t-h2:       clamp(34px, 4.2vw, 80px);
+  --t-section:  clamp(28px, 2.8vw, 52px);
+  --t-tagline:  clamp(19px, 1.7vw, 30px);
+  --t-lead:     clamp(18px, 1.5vw, 26px);
+  --t-stat:     clamp(48px, 5.6vw, 112px);
+  --t-stat-sm:  clamp(44px, 5vw, 104px);
+  --t-pull:     clamp(32px, 4.2vw, 84px);
+  --t-hind:     clamp(28px, 3.2vw, 64px);
+  --t-card-h:   clamp(20px, 1.6vw, 30px);
+  --t-card-b:   clamp(15px, 1.05vw, 19px);
+  --t-num:      clamp(36px, 4vw, 72px);
+  --t-body:     clamp(16px, 1.15vw, 21px);
+  --t-label:    12px; /* mono, uppercase, 0.08em */
+  --t-note:     11px;
+
+  /* layout */
+  --w-home: 1760px;  --w-inner: 1560px;
+  --pad-x: clamp(20px, 5vw, 112px);
+  --pad-section: clamp(64px, 6vw, 128px);
+  --measure: 46ch;
+
+  /* spacing */
+  --space-1: 4px; --space-2: 8px; --space-3: 14px; --space-4: 20px; --space-5: 36px; --space-6: 56px;
+
+  /* shape */
+  --r-tile: 22px; --r-card: 20px; --r-inner: 14px; --r-bar: 8px; --r-pill: 999px;
+}

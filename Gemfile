@@ -1,15 +1,9 @@
 source "https://rubygems.org"
 
-# gem "github-pages", group: :jekyll_plugins  # Pinned to Jekyll 3.9 — incompatible with Ruby 4.0
-gem "jekyll", "~> 4.3"
+# Matches the GitHub Pages legacy builder (Jekyll 3.10, whitelisted plugins only).
+gem "github-pages", group: :jekyll_plugins
+gem "webrick", "~> 1.8"
 
-group :jekyll_plugins do
-  gem "jekyll-seo-tag"
-  gem "jekyll-sitemap"
-  gem "jekyll-feed"
+group :test do
+  gem "html-proofer", "~> 5.0"
 end
-
-gem "csv", "~> 3.3"
-gem "webrick", "~> 1.9"
-
-gem "bigdecimal", "~> 4.0"

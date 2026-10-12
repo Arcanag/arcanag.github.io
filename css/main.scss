@@ -1,0 +1,25 @@
+---
+# Compiled by Jekyll (Ruby Sass via github-pages) to /css/main.css.
+# Note: Ruby Sass evaluates min()/max(); wrap CSS min()/max() in #{'...'}.
+---
+@import "tokens";
+@import "base";
+@import "layout";
+@import "type";
+@import "components";
+@import "charts";
+@import "tiles";
+@import "longform";
+@import "motion";
+
+// Page-specific visuals. Each partial is owned by one page or page family.
+@import "pages/home";
+@import "pages/skills";
+@import "pages/skills-new";
+@import "pages/banking";
+@import "pages/agentic";
+@import "pages/portfolio";
+@import "pages/framework";
+@import "pages/playbook";
+@import "pages/posts";
+@import "pages/about";

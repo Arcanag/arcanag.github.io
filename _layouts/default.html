@@ -1,16 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  {% include head.html %}
+{% include head.html %}
 </head>
 <body>
-  <div class="custom-cursor"></div>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  {% include grain.html %}
-  {% include nav.html %}
-  <main id="main-content">{{ content }}</main>
-  {% include cta.html %}
-  {% include footer.html %}
-  <script src="{{ '/js/main.js' | relative_url }}"></script>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="wrap{% if page.wide %} wrap--home{% endif %}">
+    {% include header.html %}
+    <main id="main">
+{{ content }}
+    </main>
+    {% include footer.html %}
+  </div>
+  <script src="{{ '/js/main.js' | relative_url }}" defer></script>
+  {%- for script in page.scripts %}
+  <script src="{{ script | relative_url }}" defer></script>
+  {%- endfor %}
 </body>
 </html>

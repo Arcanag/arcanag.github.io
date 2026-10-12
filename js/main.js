@@ -1,229 +1,90 @@
+// Progressive enhancement only: every page is complete without this file.
 (function () {
   'use strict';
 
-  // Nav scroll state + auto-hide on scroll down
-  var nav = document.querySelector('.nav');
-  if (nav) {
-    var lastScroll = 0;
-    var onScroll = function () {
-      var currentScroll = window.scrollY;
-      nav.classList.toggle('nav--scrolled', currentScroll > 50);
-      var hiding = currentScroll > 100 && currentScroll > lastScroll;
-      nav.classList.toggle('nav--hidden', hiding);
-      document.body.classList.toggle('nav-is-hidden', hiding);
-      lastScroll = currentScroll;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
-  // Custom cursor
-  var cursor = document.querySelector('.custom-cursor');
-  if (cursor && matchMedia('(pointer: fine)').matches) {
-    document.addEventListener('mousemove', function(e) {
-      cursor.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px) translate(-50%, -50%)';
-    });
-    var interactables = document.querySelectorAll('a, button, .work-card');
-    interactables.forEach(function(el) {
-      el.addEventListener('mouseenter', function() { cursor.classList.add('is-hovering'); });
-      el.addEventListener('mouseleave', function() { cursor.classList.remove('is-hovering'); });
-    });
-  }
-
-  // Scroll reveal
-  var reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && reveals.length) {
-    var revealObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          var delay = entry.target.getAttribute('data-delay') || 0;
-          entry.target.style.transitionDelay = (delay * 0.1) + 's';
-          revealObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(function(r) { revealObs.observe(r); });
-  }
-
-  // Scroll-hijack horizontal sections
-  // Uses a tall wrapper + sticky inner to pin the section while scrolling horizontally
-  var scrollSections = document.querySelectorAll('.scroll-section');
-  if (scrollSections.length && !matchMedia('(prefers-reduced-motion: reduce)').matches
-      && window.innerWidth > 768) {
-    scrollSections.forEach(function(section) {
-      var track = section.querySelector('.scroll-section__track');
-      var cards = section.querySelectorAll('.scroll-section__card');
-      var dots = section.querySelectorAll('.scroll-section__dot');
-      var totalCards = cards.length;
-      if (totalCards < 2) return;
-
-      // Wrap section in a tall spacer so native scroll drives the animation
-      var wrapper = document.createElement('div');
-      wrapper.className = 'scroll-section-wrapper';
-      wrapper.style.height = (totalCards * 100) + 'vh';
-      wrapper.style.position = 'relative';
-      section.parentNode.insertBefore(wrapper, section);
-      wrapper.appendChild(section);
-
-      // Make section sticky inside the wrapper
-      section.style.position = 'sticky';
-      section.style.top = '0';
-
-      function updateCards() {
-        var wrapperRect = wrapper.getBoundingClientRect();
-        // How far we've scrolled into the wrapper (0 to wrapper.height - viewport)
-        var scrolled = -wrapperRect.top;
-        var maxScroll = wrapper.offsetHeight - window.innerHeight;
-        var progress = Math.max(0, Math.min(1, scrolled / maxScroll));
-
-        // Map progress to card index
-        var cardProgress = progress * (totalCards - 1);
-        var targetIndex = Math.round(cardProgress);
-
-        // Snap to card positions
-        track.style.transform = 'translateX(-' + (targetIndex * 100) + 'vw)';
-        dots.forEach(function(d, i) {
-          d.classList.toggle('scroll-section__dot--active', i === targetIndex);
-        });
-      }
-
-      window.addEventListener('scroll', updateCards, { passive: true });
-      updateCards();
-    });
-  }
-
-  // Mobile nav toggle
-  var hamburger = document.querySelector('.nav__hamburger');
-  var navEl = document.querySelector('.nav');
-  if (hamburger && navEl) {
-    hamburger.addEventListener('click', function () {
-      var open = navEl.classList.toggle('nav--open');
-      hamburger.setAttribute('aria-expanded', open);
-      if (open) {
-        // Immediately remove nav-hidden so the overlay isn't anchored to a translated parent
-        navEl.classList.remove('nav--hidden');
-        document.body.classList.remove('nav-is-hidden');
-        document.body.style.overflow = 'hidden'; // prevent page scroll while menu is open
-      } else {
-        document.body.style.overflow = '';
-      }
-    });
-    document.querySelectorAll('.nav__link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navEl.classList.remove('nav--open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && navEl.classList.contains('nav--open')) {
-        navEl.classList.remove('nav--open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-        hamburger.focus();
-      }
-    });
-  }
-
-  // TOC active link tracking (desktop + mobile)
-  var desktopTocLinks = document.querySelectorAll('.case-study-toc__link');
-  var mobileTocLinks = document.querySelectorAll('.mobile-toc__link');
-  var allTocLinks = document.querySelectorAll('.case-study-toc__link, .mobile-toc__link');
-  if ('IntersectionObserver' in window && allTocLinks.length) {
-    var headings = document.querySelectorAll('.case-study-content h2[id]');
-    var tocObs = new IntersectionObserver(function (entries) {
+  // Scroll reveal: sections and tiles fade up once (600ms, see _motion.scss).
+  if (hasIO && !reduceMotion) {
+    var targets = document.querySelectorAll('main .section, .tiles > li, .cases > li');
+    var revealer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        var id = entry.target.getAttribute('id');
         if (entry.isIntersecting) {
-          allTocLinks.forEach(function (l) { l.classList.remove('is-active'); });
-          document.querySelectorAll('.case-study-toc__link[href="#' + id + '"], .mobile-toc__link[href="#' + id + '"]').forEach(function (l) {
-            l.classList.add('is-active');
-          });
+          entry.target.classList.add('is-in');
+          revealer.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '-20% 0px -60% 0px' });
-    headings.forEach(function (h) { tocObs.observe(h); });
-  }
-
-  // Mobile TOC toggle
-  var mobileTocToggle = document.querySelector('.mobile-toc__toggle');
-  var mobileTocPanel = document.querySelector('.mobile-toc__panel');
-  if (mobileTocToggle && mobileTocPanel) {
-    mobileTocToggle.addEventListener('click', function () {
-      var expanded = mobileTocToggle.getAttribute('aria-expanded') === 'true';
-      mobileTocToggle.setAttribute('aria-expanded', !expanded);
-      mobileTocPanel.hidden = expanded;
-    });
-    mobileTocPanel.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        mobileTocToggle.setAttribute('aria-expanded', 'false');
-        mobileTocPanel.hidden = true;
-      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight) {
+        el.classList.add('reveal');
+        revealer.observe(el);
+      }
     });
   }
 
-  // Reading progress bar
-  var progressBar = document.querySelector('.reading-progress');
-  var article = document.querySelector('.case-study-content');
-  if (progressBar && article) {
-    window.addEventListener('scroll', function () {
-      var articleTop = article.getBoundingClientRect().top + window.scrollY;
-      var articleHeight = article.offsetHeight;
-      var scrolled = window.scrollY - articleTop;
-      var progress = Math.max(0, Math.min(1, scrolled / (articleHeight - window.innerHeight)));
-      progressBar.style.width = (progress * 100) + '%';
-    }, { passive: true });
-  }
+  // Reading bar on long pages: progress, current section, contents.
+  var bar = document.querySelector('[data-readbar]');
+  if (!bar) return;
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[data-toc][id]'));
+  var hero = document.querySelector('.hero');
+  var article = document.querySelector('main article') || document.querySelector('main');
+  var list = bar.querySelector('[data-readbar-list]');
+  var toggle = bar.querySelector('[data-readbar-toggle]');
+  var panel = bar.querySelector('#readbar-toc');
+  var current = bar.querySelector('[data-readbar-current]');
+  var progress = bar.querySelector('.readbar__progress');
+  var links = [];
 
-  // Mermaid diagram lightbox zoom
-  var lightbox = null;
+  bar.hidden = false;
+  if (!sections.length) { toggle.hidden = true; }
 
-  function openLightbox(img) {
-    var figure = img.closest('.mermaid-diagram');
-    var caption = figure ? figure.querySelector('figcaption') : null;
-
-    lightbox = document.createElement('div');
-    lightbox.className = 'diagram-lightbox';
-    lightbox.innerHTML =
-      '<img src="' + img.src + '" alt="' + (img.alt || '') + '" />' +
-      '<span class="diagram-lightbox__hint">ESC or click to close</span>' +
-      (caption ? '<span class="diagram-lightbox__caption">' + caption.textContent + '</span>' : '');
-
-    document.body.appendChild(lightbox);
-    document.body.style.overflow = 'hidden';
-    requestAnimationFrame(function () { lightbox.classList.add('is-visible'); });
-  }
-
-  function closeLightbox() {
-    if (!lightbox) return;
-    lightbox.classList.remove('is-visible');
-    setTimeout(function () {
-      if (lightbox && lightbox.parentNode) lightbox.parentNode.removeChild(lightbox);
-      lightbox = null;
-      document.body.style.overflow = '';
-    }, 200);
-  }
-
-  document.addEventListener('click', function (e) {
-    if (lightbox) { closeLightbox(); return; }
-    if (e.target.tagName !== 'IMG') return;
-    if (!e.target.closest('.mermaid-diagram')) return;
-    openLightbox(e.target);
+  sections.forEach(function (section, i) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + section.id;
+    a.innerHTML = '<span class="n">' + String(i + 1).padStart(2, '0') + '</span>';
+    a.appendChild(document.createTextNode(section.getAttribute('data-toc')));
+    a.addEventListener('click', function () { setOpen(false); });
+    li.appendChild(a);
+    list.appendChild(li);
+    links.push(a);
   });
 
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.hidden = !open;
+  }
+  toggle.addEventListener('click', function () {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && lightbox) closeLightbox();
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); toggle.focus(); }
   });
 
-  // Back to top
-  var backToTop = document.querySelector('.back-to-top');
-  if (backToTop) {
-    window.addEventListener('scroll', function () {
-      backToTop.hidden = window.scrollY < 600;
-    }, { passive: true });
-    backToTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  function update() {
+    var heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+    bar.classList.toggle('is-visible', heroBottom < 0);
+    if (heroBottom >= 0 && !panel.hidden) setOpen(false);
+
+    var rect = article.getBoundingClientRect();
+    var total = rect.height - window.innerHeight;
+    var p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    progress.style.setProperty('--p', p.toFixed(4));
+
+    var active = -1;
+    sections.forEach(function (s, i) { if (s.getBoundingClientRect().top < 120) active = i; });
+    links.forEach(function (a, i) {
+      if (i === active) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     });
+    current.textContent = active >= 0 ? '· ' + sections[active].getAttribute('data-toc') : '';
   }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { window.requestAnimationFrame(function () { update(); ticking = false; }); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();

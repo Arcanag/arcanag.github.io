@@ -1,0 +1,12 @@
+{%- comment -%} All published writing (posts + frameworks), newest first. {%- endcomment -%}
+{%- assign items = site.posts | concat: site.frameworks | sort: "date" | reverse -%}
+<ul class="writing">
+  {%- for w in items %}
+  <li><a class="writing-row" href="{{ w.url | relative_url }}">
+    <span class="writing-row__type">{{ w.writing_type | default: "Article" }}</span>
+    <span class="writing-row__title">{{ w.list_title | default: w.title }}</span>
+    <span class="writing-row__summary">{{ w.summary | default: w.description }}</span>
+    <span class="writing-row__date">{{ w.date | date: "%b %Y" }}{% if w.read_time %} · {{ w.read_time }}{% endif %} →</span>
+  </a></li>
+  {%- endfor %}
+</ul>

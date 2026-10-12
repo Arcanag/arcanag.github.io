@@ -1,11 +1,28 @@
 title: "Anurag Sharma"
-description: "AI Product & Delivery Leader. Building products that replace complexity with conversation."
+description: "Anurag Sharma — product management for conversational and agentic AI."
 url: "https://arcanag.github.io"
 baseurl: ""
+lang: en
 markdown: kramdown
 permalink: pretty
 
+author:
+  name: "Anurag Sharma"
+  email: "anurag95sharma@gmail.com"
+  linkedin: "https://www.linkedin.com/in/anursharma"
+  github: "https://github.com/Arcanag"
+  resume: "/assets/Anurag-Sharma-Resume.pdf"
+
+social:
+  name: "Anurag Sharma"
+  links:
+    - "https://www.linkedin.com/in/anursharma"
+    - "https://github.com/Arcanag"
+
 collections:
+  skills:
+    output: true
+    permalink: /how-i-work/:slug/
   case-studies:
     output: true
     permalink: /case-studies/:slug/
@@ -16,23 +33,41 @@ collections:
 defaults:
   - scope:
       path: ""
+      type: "skills"
+    values:
+      layout: "skill"
+  - scope:
+      path: ""
       type: "case-studies"
     values:
-      layout: "case-study"
+      layout: "longform"
+      toc: true
   - scope:
-      path: "_posts"
+      path: ""
+      type: "posts"
     values:
-      layout: "post"
+      layout: "longform"
+      toc: true
   - scope:
       path: ""
       type: "frameworks"
     values:
-      layout: "framework"
-
-include:
-  - rahul-mahima-wedding/_astro
+      layout: "longform"
+      toc: true
 
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-redirect-from
+
+exclude:
+  - CLAUDE.md
+  - README.md
+  - Makefile
+  - Gemfile
+  - Gemfile.lock
+  - docs/
+  - "*.zip"
+  - vendor/
+  - .claude/

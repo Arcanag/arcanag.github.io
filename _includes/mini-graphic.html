@@ -1,0 +1,29 @@
+{%- comment -%} Wordless tile graphic. include.name selects the shape (see _sass/_tiles.scss .mg--*). {%- endcomment -%}
+{%- case include.name -%}
+{%- when 'sequence' -%}
+<div class="mg mg--sequence" aria-hidden="true"><span class="b"></span><span class="a">›</span><span class="b"></span><span class="a">›</span><span class="b"></span></div>
+{%- when 'doc' -%}
+<div class="mg mg--doc" aria-hidden="true"><span class="page"></span><span class="lines"><span></span><span style="--w:80%"></span><span style="--w:90%"></span><span style="--w:60%"></span></span></div>
+{%- when 'dots' -%}
+<div class="mg mg--dots" aria-hidden="true"><span style="--x:14%;--y:60%"></span><span style="--x:72%;--y:12%"></span><span class="key" style="--x:32%;--y:6%"></span></div>
+{%- when 'bars' -%}
+<div class="mg mg--bars" aria-hidden="true"><span class="key" style="--w:47%"></span><span style="--w:30%"></span><span style="--w:23%"></span></div>
+{%- when 'funnel' -%}
+<div class="mg mg--funnel" aria-hidden="true"><span style="--w:100%"></span><span style="--w:80%"></span><span style="--w:60%"></span><span style="--w:42%"></span></div>
+{%- when 'org' -%}
+<div class="mg mg--org" aria-hidden="true"><span class="lead-dot"></span><span class="row"><span></span><span></span><span class="key"></span></span></div>
+{%- when 'gap' -%}
+<div class="mg mg--gap" aria-hidden="true"><span></span><span class="key"></span></div>
+{%- when 'columns' -%}
+<div class="mg mg--columns" aria-hidden="true"><span style="--h:70%"></span><span class="key" style="--h:96%"></span></div>
+{%- when 'steps' -%}
+<div class="mg mg--steps" aria-hidden="true"><span style="--h:35%"></span><span style="--h:35%"></span><span class="key" style="--h:56%"></span><span class="key" style="--h:56%"></span></div>
+{%- when 'fanout' -%}
+<div class="mg mg--fanout" aria-hidden="true"><span class="src"></span><span class="lines"><span></span><span></span><span></span></span><span class="outs"><span></span><span></span><span></span><span></span><span></span><span></span></span></div>
+{%- when 'gantt' -%}
+<div class="mg mg--gantt" aria-hidden="true"><span class="key" style="--w:22%;--l:0%"></span><span style="--w:24%;--l:18%"></span><span style="--w:24%;--l:38%"></span><span style="--w:22%;--l:58%"></span><span style="--w:22%;--l:76%"></span><span class="par" style="--w:100%;--l:0%"></span></div>
+{%- when 'hub' -%}
+<div class="mg mg--hub" aria-hidden="true"><span class="side"><span></span><span></span><span></span></span><span class="lines"><span></span><span></span><span></span></span><span class="core"></span><span class="lines"><span></span><span></span><span></span></span><span class="side"><span></span><span></span><span></span></span></div>
+{%- when 'checks' -%}
+<div class="mg mg--checks" aria-hidden="true"><span></span><span></span><span class="key"></span><span></span><span></span></div>
+{%- endcase -%}
