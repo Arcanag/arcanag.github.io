@@ -1,1 +1,118 @@
-// Page-specific styles: posts. Use tokens from _tokens.scss; no raw hex.
+// Page-specific styles: the three rewritten posts (voice bots → agents, cost-conscious AI, the essay).
+// Prefix .po-. Tokens only; no raw hex.
+
+// Big value inside a card (thresholds, scores)
+.po-value { margin-top: 10px; font-size: clamp(32px, 3vw, 56px); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
+
+// Degradation ladder — each step sits further right and lower
+.po-ladder { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 10px; }
+.po-ladder__step {
+  margin-left: calc(var(--i, 0) * clamp(24px, 8vw, 160px));
+  max-width: 520px; padding: 18px 22px; border-radius: var(--r-inner);
+  background: var(--surface); border-left: 4px solid var(--stone);
+}
+.po-ladder__step--last { border-left-color: var(--red); background: var(--red-tint); }
+.po-ladder__n { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--graphite); }
+.po-ladder__step--last .po-ladder__n { color: var(--red-deep); }
+.po-ladder__title { margin-top: 6px; font-size: var(--t-card-h); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+.po-ladder__quote { margin-top: 6px; font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--graphite); }
+@media (max-width: 640px) { .po-ladder__step { margin-left: calc(var(--i, 0) * 16px); } }
+
+// Comparison table (pattern map, capability gaps)
+.po-table { width: 100%; margin-top: 36px; border-collapse: collapse; font-size: var(--t-card-b); line-height: 1.4; }
+.po-table th {
+  padding: 0 12px 12px 0; border-bottom: 2px solid var(--ink); text-align: left; vertical-align: bottom;
+  font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite);
+}
+.po-table td { padding: 16px 12px 16px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.po-table td:first-child { font-weight: 600; color: var(--ink); }
+.po-table .po-arrow { width: 2.5em; color: var(--stone); font-weight: 700; }
+.po-table .po-yes, .po-table .po-no { font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+.po-table .po-yes { color: var(--green-deep); }
+.po-table .po-no { color: var(--red-deep); }
+.po-table-wrap { overflow-x: auto; }
+@media (max-width: 640px) {
+  .po-table--map thead { display: none; }
+  .po-table--map tr { display: grid; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .po-table--map td { padding: 2px 0; border: 0; }
+  .po-table--map .po-arrow { display: none; }
+  .po-table--map td:last-child::before { content: "→ "; color: var(--stone); }
+}
+
+// Pipeline with a cost under each stage
+.po-pipe { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.po-pipe__stage { display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: var(--r-inner); background: var(--surface); }
+.po-pipe__name { font-weight: 700; font-size: 17px; line-height: 1.2; }
+.po-pipe__tool { font-family: var(--mono); font-size: var(--t-label); color: var(--graphite); }
+.po-pipe__cost { margin-top: auto; padding-top: 10px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--green-deep); }
+.po-pipe__stage--paid { background: var(--ink); color: var(--paper); }
+.po-pipe__stage--paid .po-pipe__tool { color: var(--mid); }
+.po-pipe__stage--paid .po-pipe__cost { color: var(--red-soft); }
+@media (max-width: 1000px) { .po-pipe { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px)  { .po-pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+// 2×2 decision matrix with axis labels
+.po-matrix { margin-top: 36px; display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: stretch; }
+.po-matrix__axis { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite); }
+.po-matrix__axis--row { writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; align-self: center; }
+.po-matrix__axis--col { text-align: center; }
+.po-matrix__cell { min-height: 120px; padding: 18px; border-radius: 18px; background: var(--surface); }
+.po-matrix__cell--key { background: var(--ink); color: var(--paper); }
+.po-matrix__cell--key .po-matrix__where { color: var(--mid); }
+.po-matrix__when { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite); }
+.po-matrix__cell--key .po-matrix__when { color: var(--mid); }
+.po-matrix__pick { margin-top: 8px; font-size: var(--t-card-h); font-weight: 700; letter-spacing: -0.02em; }
+.po-matrix__where { margin-top: 4px; font-size: 15px; color: var(--graphite); }
+@media (max-width: 640px) {
+  .po-matrix { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .po-matrix__axis--row, .po-matrix__corner { display: none; }
+}
+
+// Iteration cycle — five steps, then back to the start
+.po-cycle { list-style: none; margin: 36px 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.po-cycle__step { padding: 0; }
+.po-cycle__step span { display: inline-block; padding: 14px 20px; border-radius: var(--r-pill); background: var(--surface); font-weight: 600; font-size: 17px; }
+.po-cycle__step--start span { background: var(--ink); color: var(--paper); }
+.po-cycle > li:not(:last-child)::after { content: "→"; margin-left: 10px; color: var(--stone); font-weight: 700; }
+.po-cycle > li:not(:last-child) { display: inline-flex; align-items: center; }
+.po-cycle__back { padding: 14px 20px; border-radius: var(--r-pill); border: 1.5px dashed var(--stone); font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite); }
+
+// Spectrum of degree, not kind — markers along one track
+.po-spectrum { margin-top: 48px; }
+.po-spectrum__track { position: relative; height: 14px; border-radius: 7px; background: var(--rule); }
+.po-spectrum__fill { position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: 7px; background: var(--ink); opacity: 0.12; }
+.po-spectrum__marks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.po-spectrum__mark { position: relative; padding-top: 22px; font-size: var(--t-card-b); font-weight: 600; text-align: center; }
+.po-spectrum__mark::before {
+  content: ""; position: absolute; left: 50%; top: -24px; width: 20px; height: 20px; margin-left: -10px;
+  border-radius: 50%; background: var(--ink); border: 3px solid var(--paper);
+}
+.po-spectrum__mark--open { color: var(--red-deep); }
+.po-spectrum__mark--open::before { background: var(--red); box-shadow: 0 0 0 6px var(--halo); }
+.po-spectrum__ends { display: flex; justify-content: space-between; margin-top: 14px; font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite); }
+@media (max-width: 520px) { .po-spectrum__mark { font-size: 13px; } }
+
+// Two clocks — fast and slow lanes
+.po-clocks { margin-top: 36px; display: grid; gap: 18px; }
+.po-clocks__row { display: grid; grid-template-columns: clamp(120px, 14vw, 220px) minmax(0, 1fr); gap: 16px; align-items: center; }
+.po-clocks__name { font-weight: 700; font-size: var(--t-card-h); letter-spacing: -0.02em; line-height: 1.15; }
+.po-clocks__name span { display: block; margin-top: 4px; font-family: var(--mono); font-size: var(--t-label); font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite); }
+.po-clocks__lane { display: flex; gap: 6px; }
+.po-clocks__tick { flex: 1; height: 28px; border-radius: 6px; background: var(--mid); }
+.po-clocks__lane--fast .po-clocks__tick { flex: 0 0 auto; width: 18%; background: var(--red); }
+.po-clocks__lane--slow .po-clocks__tick { background: var(--green); opacity: 0.85; }
+@media (max-width: 640px) { .po-clocks__row { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+
+// Iteration as the ground — five outputs standing on one base
+.po-ground { margin-top: 36px; }
+.po-ground__outputs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.po-ground__outputs li { padding: 18px 10px; border-radius: var(--r-inner) var(--r-inner) 0 0; background: var(--surface); text-align: center; font-weight: 600; font-size: var(--t-card-b); }
+.po-ground__base { padding: 20px; border-radius: 0 0 var(--r-inner) var(--r-inner); background: var(--ink); color: var(--paper); text-align: center; font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+@media (max-width: 640px) {
+  .po-ground__outputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .po-ground__outputs li { border-radius: var(--r-inner); }
+  .po-ground__base { margin-top: 10px; border-radius: var(--r-inner); }
+}
+
+// Quote block inside prose (essay)
+.po-quote { margin-top: 28px; max-width: 46ch; padding-left: 22px; border-left: 2px solid var(--red); font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2vw, 34px); line-height: 1.25; color: var(--ink); }

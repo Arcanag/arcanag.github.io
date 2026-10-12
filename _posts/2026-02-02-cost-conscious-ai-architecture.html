@@ -1,0 +1,156 @@
+---
+title: "Cost-conscious AI architecture"
+short_title: "Cost-conscious AI architecture"
+list_title: "Cost-conscious AI architecture"
+description: "Python preprocessing, zero-token scoring, a SQLite-vs-Postgres framework and BYOK — patterns for cutting LLM costs in AI products."
+summary: "Send the LLM only what only an LLM can do: preprocessing, zero-token scoring, BYOK and a ~$5/month stack."
+tagline: "Most AI products send far too much text to the model. Treat token cost as an architecture constraint, not a billing surprise."
+category: "Technical Deep-Dive"
+writing_type: Article
+kicker: "Article · Technical deep-dive"
+meta: "Article · February 2026 · 10 min read"
+read_time: "10 min"
+bg_word: TOKENS
+date: 2026-02-02
+tags: ["ai-architecture", "llm-optimization", "cost-reduction", "python"]
+skills: [ai-ml-fluency-and-evals, business-acumen, zero-to-one-product-development]
+hero_stats:
+  - value: "2000→300"
+    label: "tokens per request, with preprocessing"
+    tone: green
+  - value: "$0"
+    label: "ATS scoring cost"
+  - value: "~$5/mo"
+    label: "infrastructure, two products"
+  - value: "<100ms"
+    label: "deterministic score"
+next:
+  url: "/technical%20deep-dive/2026/02/18/testing-non-deterministic-ai/"
+  label: "Next read: Testing non-deterministic AI"
+---
+
+<section class="section" id="token-bleed" data-toc="The token bleed">
+  <p class="label">01 / The token bleed</p>
+  <h2 class="h2">Too much text. <em>Every request.</em></h2>
+  <p class="lead">Concatenate a resume and a job description, ask the model to “make this match” — and you’ve spent <b>2,000+ input tokens before it writes a word.</b> Multiply by thousands of users and the API bill becomes your biggest cost.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value">800–1200</div><div class="stat__label">words in a typical resume</div></div>
+    <div class="stat"><div class="stat__value">500–1000</div><div class="stat__label">words in a job description</div></div>
+    <div class="stat"><div class="stat__value stat__value--red">2000+</div><div class="stat__label">input tokens, sent naively</div></div>
+  </div>
+  <p class="prose mt-l">When I built a resume-tailoring tool, I treated token cost as a first-class constraint. <b>The model receives only the structured gap between resume and job description</b> — never the raw documents.</p>
+</section>
+
+<section class="section" id="preprocessing" data-toc="The preprocessing pipeline">
+  <p class="label">02 / The preprocessing pipeline</p>
+  <h2 class="h2">Five free steps. <em>One paid one.</em></h2>
+  <p class="lead">Python extracts, parses, compares and scores locally. <b>Only the final, structured prompt costs money.</b></p>
+  <ol class="po-pipe" role="list" aria-label="Pipeline: five Python stages at $0 feed one paid LLM call">
+    <li class="po-pipe__stage"><span class="po-pipe__name">PDF input</span><span class="po-pipe__tool">pdfplumber</span><span class="po-pipe__cost">$0</span></li>
+    <li class="po-pipe__stage"><span class="po-pipe__name">Entities</span><span class="po-pipe__tool">spaCy NER</span><span class="po-pipe__cost">$0</span></li>
+    <li class="po-pipe__stage"><span class="po-pipe__name">Keyword gaps</span><span class="po-pipe__tool">TF-IDF</span><span class="po-pipe__cost">$0</span></li>
+    <li class="po-pipe__stage"><span class="po-pipe__name">Readability</span><span class="po-pipe__tool">textstat</span><span class="po-pipe__cost">$0</span></li>
+    <li class="po-pipe__stage"><span class="po-pipe__name">Delta prompt</span><span class="po-pipe__tool">structured</span><span class="po-pipe__cost">$0</span></li>
+    <li class="po-pipe__stage po-pipe__stage--paid"><span class="po-pipe__name">LLM</span><span class="po-pipe__tool">Claude API</span><span class="po-pipe__cost">$$</span></li>
+  </ol>
+  <p class="label label--muted mt-xl">What the model actually receives</p>
+<pre class="code"><code>Missing JD keywords: [Kubernetes, A/B testing, stakeholder management]
+Readability gap: Resume grade 14, target grade 11
+Weak bullets: [bullet 3 in job 1 — no quantified impact]
+Task: Rewrite only the following 3 bullets to incorporate
+missing keywords and improve readability.</code></pre>
+  <div class="hbar" role="img" aria-label="Tokens per request: about 2000 naively, about 300 with preprocessing — roughly 85% fewer">
+    <div class="hbar__row"><span class="hbar__label">Naive — raw resume + job description</span><span class="hbar__value">2000</span><div class="hbar__track"><div class="hbar__fill hbar__fill--red" style="--w:100%"></div></div></div>
+    <div class="hbar__row"><span class="hbar__label">Delta — structured gaps only</span><span class="hbar__value">~300</span><div class="hbar__track"><div class="hbar__fill hbar__fill--green" style="--w:15%"></div></div></div>
+  </div>
+  <p class="note">Input tokens per request · ~85% fewer, and better output because the problem arrives pre-digested.</p>
+</section>
+
+<section class="section">
+  <p class="pull">Every token you send to an LLM should be one that <em>only an LLM can process.</em></p>
+  <p class="pull__sub">If Python can do it — keyword matching, readability scoring, entity extraction — Python should do it.</p>
+</section>
+
+<section class="section" id="zero-token" data-toc="Zero-token scoring">
+  <p class="label">03 / Zero-token scoring</p>
+  <h2 class="h2">$0 scoring. <em>Under 100ms.</em></h2>
+  <p class="lead">The ATS compatibility score uses no LLM at all. Users get <b>an instant score</b> while the tailoring runs in the background — and the fast part is free.</p>
+  <div class="grid4 grid--cards mt-l">
+    <div class="card card--ink"><p class="card__tag">Parsability</p><h3 class="card__title">Can an ATS read it?</h3><p class="card__body">Section extraction, standard headers.</p></div>
+    <div class="card card--ink"><p class="card__tag">Keywords</p><h3 class="card__title">Does it match?</h3><p class="card__body">TF-IDF cosine similarity, weighted by section.</p></div>
+    <div class="card card--ink"><p class="card__tag">Formatting</p><h3 class="card__title">Will it survive?</h3><p class="card__body">Layout detection, font inference, no graphics.</p></div>
+    <div class="card card--ink"><p class="card__tag">Structure</p><h3 class="card__title">Is it complete?</h3><p class="card__body">Required sections, chronology, date formats.</p></div>
+  </div>
+</section>
+
+<section class="section" id="databases" data-toc="SQLite vs Postgres">
+  <p class="label">04 / SQLite vs Postgres</p>
+  <h2 class="h2">Two products. <em>Two databases.</em></h2>
+  <p class="lead">I built two products on the same day and chose different databases for each. <b>Concurrency and query complexity decided it</b> — not habit.</p>
+  <div class="po-matrix" role="img" aria-label="Decision matrix. Low concurrency and simple queries: SQLite, used by the resume tool. Low concurrency and complex: either. High concurrency and simple: Postgres. High concurrency and complex: Postgres, used by Agentic PM.">
+    <span class="po-matrix__corner" aria-hidden="true"></span>
+    <span class="po-matrix__axis po-matrix__axis--col">Simple queries</span>
+    <span class="po-matrix__axis po-matrix__axis--col">Complex queries</span>
+    <span class="po-matrix__axis po-matrix__axis--row">Low concurrency</span>
+    <div class="po-matrix__cell po-matrix__cell--key"><p class="po-matrix__when">Low · simple</p><p class="po-matrix__pick">SQLite</p><p class="po-matrix__where">The resume tool</p></div>
+    <div class="po-matrix__cell"><p class="po-matrix__when">Low · complex</p><p class="po-matrix__pick">Either</p></div>
+    <span class="po-matrix__axis po-matrix__axis--row">High concurrency</span>
+    <div class="po-matrix__cell"><p class="po-matrix__when">High · simple</p><p class="po-matrix__pick">Postgres</p></div>
+    <div class="po-matrix__cell po-matrix__cell--key"><p class="po-matrix__when">High · complex</p><p class="po-matrix__pick">Postgres</p><p class="po-matrix__where">Agentic PM</p></div>
+  </div>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--stone">
+      <p class="card__tag">The resume tool · SQLite</p>
+      <p class="card__body">Single-user, minimal write concurrency, simple CRUD. No database server to run; backup is a file copy.</p>
+    </div>
+    <div class="card card--ink">
+      <p class="card__tag"><a href="{{ '/case-studies/agentic-pm/' | relative_url }}">Agentic PM</a> · Postgres</p>
+      <p class="card__body">Several agents write at once, tenants need row-level security, queries join agents, tasks and sprints, and Monte Carlo runs generate thousands of rows.</p>
+    </div>
+  </div>
+  <ol class="numlist">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">User concurrency</h3><p class="numlist__body">How many simultaneous writers?</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Write patterns</h3><p class="numlist__body">Simple CRUD or complex transactions?</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Query complexity</h3><p class="numlist__body">Single-table lookups or multi-join analytics?</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Ops budget</h3><p class="numlist__body">Can you afford to run a database server? If all four answers are “simple”, SQLite is right.</p></div></li>
+  </ol>
+</section>
+
+<section class="section" id="byok" data-toc="BYOK as cost architecture">
+  <p class="label">05 / BYOK as cost architecture</p>
+  <h2 class="h2">Their key. <em>Their bill.</em></h2>
+  <p class="lead">Bring-your-own-key isn’t only a pricing decision. <b>It decouples scaling from LLM spend.</b></p>
+  <div class="grid4 grid--cards mt-l">
+    <div class="card card--green"><p class="card__tag">Cost</p><h3 class="card__title">No token margin to manage</h3><p class="card__body">No throttling heavy users, no surprise bills.</p></div>
+    <div class="card card--green"><p class="card__tag">Trust</p><h3 class="card__title">Users control their data flow</h3><p class="card__body">Directly to the LLM provider.</p></div>
+    <div class="card card--green"><p class="card__tag">Pricing</p><h3 class="card__title">$9/month, transparent</h3><p class="card__body">Platform fee and LLM cost stay separate.</p></div>
+    <div class="card card--green"><p class="card__tag">Scale</p><h3 class="card__title">Costs track compute</h3><p class="card__body">Cheap compute, not expensive tokens.</p></div>
+  </div>
+  <div class="flow" role="img" aria-label="Key flow: the user enters an API key, the browser sends it to the server, the server stores it encrypted and calls the Claude API. The key never leaves the server.">
+    <span class="flow__node flow__node--light">User enters key</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node flow__node--light">Browser sends to server</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Server · encrypted storage, rate limits</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node flow__node--green">Claude API</span>
+  </div>
+  <p class="note">The key never leaves the server · rate limits stop UI bugs burning tokens.</p>
+  <p class="prose mt-l">The trade-off is onboarding friction. For technical professionals changing roles, getting an API key is a 2-minute task.</p>
+</section>
+
+<section class="section" id="together" data-toc="Putting it together">
+  <p class="label">06 / Putting it together</p>
+  <h2 class="h2">~$5 a month. <em>Full stack.</em></h2>
+  <p class="lead">Lean isn’t cheap for its own sake. <b>Every dollar goes where it improves the user’s outcome.</b></p>
+  <div class="rows" role="table" aria-label="Monthly cost stack">
+    <div class="rows__row" role="row"><span class="rows__key" role="cell">Compute</span><span class="rows__val" role="cell">Single container — no database server, Redis or queue · <b>~$5/mo</b></span></div>
+    <div class="rows__row" role="row"><span class="rows__key" role="cell">Database</span><span class="rows__val" role="cell">SQLite file + uploaded PDFs · <b>$0</b></span></div>
+    <div class="rows__row" role="row"><span class="rows__key" role="cell">LLM</span><span class="rows__val" role="cell">BYOK — the user pays · <b>$0</b></span></div>
+    <div class="rows__row" role="row"><span class="rows__key" role="cell">Preprocessing</span><span class="rows__val" role="cell">Python libraries · <b>$0</b></span></div>
+    <div class="rows__row" role="row"><span class="rows__key label--ink" role="cell">Total</span><span class="rows__val" role="cell"><b>~$5/month</b></span></div>
+  </div>
+  <div class="callout-dashed"><span class="label label--muted">The naive stack</span><span>Managed Postgres ($20–50/mo), Redis ($15/mo), LLM costs absorbed by the platform — plus the overhead of running it all.</span></div>
+  <p class="prose mt-l">The same principle runs through <a href="{{ '/case-studies/agentic-pm/' | relative_url }}">Agentic PM</a>: the decomposition agent parses structure, finds dependencies and estimates complexity heuristically, and <b>sends only the ambiguous parts to the model.</b></p>
+</section>
+
+<section class="section">
+  <p class="pull">Token consciousness isn’t premature optimisation. <em>It’s product architecture.</em></p>
+</section>
