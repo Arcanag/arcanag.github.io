@@ -11,7 +11,7 @@ Positioning: product management for conversational and agentic AI. Every homepag
 **Long-form** (case studies, posts, framework; layout `longform`): hero (bg word, kicker, H1 ≤18ch, tagline, meta line, Skills shown chips, 4 hero stats incl. the honest target comparison) → numbered sections (each `id` + `data-toc`) → pulls between groups, never consecutive → What went wrong (red numbered list + chart) → What we built (green stats) → In hindsight (ink numbered list) → closing pull → back/next.
 
 ## Front matter
-Skill: `title, order, tag (Product|Delivery), rubric, bg_word, tagline, description, tile_stat, tile_label, tile_line, graphic, proved_by: [{url, kind, read_time}]`.
+Skill: `title, order, tag (Product|Delivery), rubric, bg_word, tagline, description, tile_stat, tile_label, tile_line (unused on the tile), graphic, proved_by: [{url, kind, read_time}]`.
 `graphic` is one of the mini-graphics in `_includes/mini-graphic.html`.
 
 Case study: `title, short_title, description, tagline, kicker, meta, read_time, bg_word, order, tile_tone (ink|surface), tile_kicker, tile_title, tile_stat, skills: [slugs], hero_stats: [{value, label, tone}], next: {url, label}`.

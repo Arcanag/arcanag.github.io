@@ -16,12 +16,11 @@
 .skill-tile__head { display: flex; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: var(--t-label); color: var(--note); }
 .skill-tile__tag { letter-spacing: 0.06em; text-transform: uppercase; }
 .skill-tile__tag--product { color: var(--red-deep); }
-.skill-tile__stat { font-size: clamp(36px, 3vw, 60px); line-height: 1; letter-spacing: -0.04em; font-weight: 700; }
-.skill-tile__statlabel { margin-top: 6px; font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite); }
+// The skill name leads the tile; the proof number sits in the foot as supporting evidence.
+.skill-tile__title { font-size: clamp(30px, 2.6vw, 52px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
 .skill-tile__graphic { align-self: center; }
-.skill-tile__foot { padding-top: 16px; border-top: 1px solid var(--rule); }
-.skill-tile__title { font-size: clamp(22px, 1.6vw, 30px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; }
-.skill-tile__line { margin-top: 6px; font-size: clamp(15px, 1vw, 19px); line-height: 1.45; color: var(--graphite); }
+.skill-tile__stat { font-size: clamp(24px, 1.8vw, 34px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
+.skill-tile__statlabel { margin-top: 6px; font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite); }
 .skill-tile__cta { margin-top: 14px; font-size: clamp(14px, 0.95vw, 17px); font-weight: 600; }
 
 // Case tiles — primary on Ink, secondary on Surface
