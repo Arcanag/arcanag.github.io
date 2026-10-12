@@ -1,0 +1,67 @@
+// Page-specific styles: delivery ↔ CS operating model framework (.om-). Tokens only; no raw hex.
+
+// Seven pieces beside the 13-section map
+.om-split { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+@media (max-width: 860px) { .om-split { grid-template-columns: minmax(0, 1fr); } }
+.om-sections { background: var(--surface); border-radius: var(--r-card); padding: clamp(20px, 2vw, 32px); }
+.om-sections__list { list-style: none; margin: 14px 0 0; padding: 0; counter-reset: om; display: grid; gap: 6px; }
+.om-sections__list li {
+  counter-increment: om; display: flex; gap: 12px; align-items: baseline;
+  padding: 8px 12px; border-radius: 10px; font-size: var(--t-card-b); line-height: 1.35; color: var(--note);
+}
+.om-sections__list li::before { content: counter(om, decimal-leading-zero); font-family: var(--mono); font-size: var(--t-label); color: var(--stone); min-width: 2ch; }
+.om-sections__list li.is-key { background: var(--paper); color: var(--ink); font-weight: 600; }
+.om-sections__list li.is-key::before { color: var(--red); }
+
+// Ownership test — the one question, large
+.om-test { background: var(--surface); border-radius: 24px; padding: clamp(24px, 3vw, 48px); }
+.om-test__q { margin-top: 12px; max-width: 28ch; font-family: var(--serif); font-style: italic; font-size: var(--t-hind); line-height: 1.1; color: var(--ink); }
+.om-test .card { background: var(--paper); }
+
+// Lifecycle — 8 stages; ink = delivery leads, outline = CS leads, red top rule = handoff
+.om-life { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 1000px) { .om-life { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 520px)  { .om-life { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.om-life__stage {
+  display: flex; flex-direction: column; gap: 6px; min-height: 120px; padding: 14px;
+  border-radius: var(--r-inner); background: var(--ink); color: var(--paper); border-top: 5px solid transparent;
+}
+.om-life__stage--cs { background: var(--paper); color: var(--ink); outline: 1.5px solid var(--ink); outline-offset: -1.5px; }
+.om-life__stage.is-handoff { border-top-color: var(--red); }
+.om-life__n { font-family: var(--mono); font-size: var(--t-label); opacity: 0.8; }
+.om-life__name { font-size: clamp(15px, 1.05vw, 18px); font-weight: 700; line-height: 1.2; }
+.om-life__owner { margin-top: auto; font-family: var(--mono); font-size: var(--t-note); letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.85; }
+.om-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-family: var(--mono); font-size: var(--t-note); text-transform: uppercase; color: var(--graphite); }
+.om-legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.om-legend__sw { width: 14px; height: 14px; border-radius: 4px; background: var(--ink); }
+.om-legend__sw--cs { background: var(--paper); outline: 1.5px solid var(--ink); outline-offset: -1.5px; }
+.om-legend__sw--handoff { height: 5px; background: var(--red); }
+
+// RACI-lite table
+.om-table-wrap { overflow-x: auto; }
+.om-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: var(--t-card-b); line-height: 1.4; }
+.om-table th, .om-table td { padding: 14px 16px 14px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.om-table thead th { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite); border-bottom: 2px solid var(--ink); }
+.om-table tbody th { font-weight: 600; color: var(--ink); }
+.om-table td { color: var(--graphite); }
+
+// Health rating chip inside each lens card
+.om-rating { display: inline-block; margin-top: 16px; padding: 4px 12px; border-radius: var(--r-pill); font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.om-rating--ok   { background: var(--green-tint); color: var(--green-deep); }
+.om-rating--risk { background: var(--red-tint); color: var(--red-deep); }
+
+// Escalation ladder — each level steps right and up
+.om-ladder { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.om-ladder__step {
+  display: grid; grid-template-columns: 90px minmax(0, 1fr) minmax(0, 1.4fr); gap: 4px 20px; align-items: baseline;
+  margin-left: calc(var(--i, 0) * clamp(0px, 6vw, 96px)); padding: 16px 20px;
+  border-radius: var(--r-inner); background: var(--surface); border-left: 4px solid var(--stone);
+}
+.om-ladder__step--top { border-left-color: var(--red); }
+.om-ladder__lvl { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--graphite); }
+.om-ladder__step--top .om-ladder__lvl { color: var(--red-deep); }
+.om-ladder__who { font-weight: 700; }
+.om-ladder__when { color: var(--graphite); font-size: var(--t-card-b); }
+@media (max-width: 640px) {
+  .om-ladder__step { grid-template-columns: minmax(0, 1fr); margin-left: 0; }
+}

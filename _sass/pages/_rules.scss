@@ -1,0 +1,28 @@
+// Page-specific styles: rules essay (/writing/every-failure-becomes-a-rule/). .ru- prefix; tokens only.
+
+// Failure → rule pairs
+.ru-pairs { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 14px; }
+.ru-pairs__row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.ru-pairs__fail, .ru-pairs__rule { border-radius: var(--r-card); padding: clamp(18px, 1.6vw, 26px); background: var(--surface); border-top: 4px solid var(--red); }
+.ru-pairs__fail .card__tag { color: var(--red-deep); }
+.ru-pairs__rule { background: var(--green-tint); border-top-color: var(--green); }
+.ru-pairs__rule .card__tag { color: var(--green-deep); }
+.ru-pairs__text { margin-top: 8px; font-size: var(--t-card-b); line-height: 1.5; color: var(--ink); }
+.ru-pairs__arrow { align-self: center; font-size: 28px; font-weight: 700; color: var(--stone); }
+@media (max-width: 760px) {
+  .ru-pairs__row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .ru-pairs__arrow { transform: rotate(90deg); justify-self: center; font-size: 22px; }
+  .ru-pairs__row + .ru-pairs__row { margin-top: 18px; }
+}
+
+// Ratchet — enforcement strength rising left to right, key step red
+.ru-ratchet { margin-top: 40px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: end; height: 260px; border-bottom: 2px solid var(--ink); }
+.ru-ratchet__step { height: var(--h); min-height: 96px; display: flex; flex-direction: column; justify-content: flex-start; gap: 6px; padding: 14px; border-radius: 10px 10px 0 0; background: var(--mid); }
+.ru-ratchet__step--key { background: var(--red-tint); border-top: 4px solid var(--red); }
+.ru-ratchet__step--key .ru-ratchet__name, .ru-ratchet__step--key .ru-ratchet__how { color: var(--red-deep); }
+.ru-ratchet__name { font-weight: 700; font-size: var(--t-card-b); line-height: 1.2; color: var(--ink); }
+.ru-ratchet__how { font-family: var(--mono); font-size: var(--t-note); letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.4; color: var(--ink); }
+@media (max-width: 640px) {
+  .ru-ratchet { grid-template-columns: minmax(0, 1fr); height: auto; align-items: stretch; border-bottom: 0; border-left: 2px solid var(--ink); gap: 8px; }
+  .ru-ratchet__step { height: auto; min-height: 0; width: var(--h); min-width: 62%; border-radius: 0 10px 10px 0; }
+}
