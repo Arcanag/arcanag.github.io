@@ -1,0 +1,15 @@
+{%- assign s = include.skill -%}
+{%- assign num = s.order | prepend: "0" | slice: -2, 2 -%}
+<a class="skill-tile" href="{{ s.url | relative_url }}">
+  <div class="skill-tile__head"><span>{{ num }}</span><span class="skill-tile__tag{% if s.tag == 'Product' %} skill-tile__tag--product{% endif %}">{{ s.tag }}</span></div>
+  <div>
+    <div class="skill-tile__stat">{{ s.tile_stat }}</div>
+    <div class="skill-tile__statlabel">{{ s.tile_label }}</div>
+  </div>
+  <div class="skill-tile__graphic">{% include mini-graphic.html name=s.graphic %}</div>
+  <div class="skill-tile__foot">
+    <h3 class="skill-tile__title">{{ s.title }}</h3>
+    <p class="skill-tile__line">{{ s.tile_line }}</p>
+    <div class="skill-tile__cta" aria-hidden="true">See how →</div>
+  </div>
+</a>

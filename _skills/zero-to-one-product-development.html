@@ -1,0 +1,94 @@
+---
+title: "0→1 product development"
+order: 8
+tag: Product
+rubric: "Zero-to-one · builder mindset"
+bg_word: BUILD
+tagline: "A personal project: six AI agents for the mechanical half of a PM’s week — framed, designed, built and tested end to end."
+description: "Anurag Sharma’s personal 0→1 build: a six-agent AI system for project-management operations, with 81 tests and probabilistic delivery forecasts."
+tile_stat: "6 agents"
+tile_label: "designed, built, tested · personal"
+tile_line: "From a problem to a working system."
+graphic: fanout
+proved_by:
+  - url: /case-studies/agentic-pm/
+    kind: case study
+    read_time: 11 min
+---
+<section class="section">
+  <p class="label">01 / The situation</p>
+  <h2 class="h2">PM overhead <em>scales with team size.</em></h2>
+  <p class="lead">Parsing requirements, assigning work and writing status reports is mechanical. <b>I built the tool I kept wishing existed</b> — a personal project, not a work deployment.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value">3</div>
+      <div class="stat__label">intake channels: email, Slack, meetings</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">6</div>
+      <div class="stat__label">mechanical jobs, one agent each</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">5</div>
+      <div class="stat__label">packages in one monorepo</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Automate the mechanical. Preserve <em>the judgment.</em></p>
+  <p class="pull__sub">Every agent boundary sits where human product thinking begins.</p>
+</section>
+
+<section class="section">
+  <p class="label">02 / The system</p>
+  <h2 class="h2">Specialists, <em>not a generalist.</em></h2>
+  <p class="lead">Each agent has one job, a clear input/output contract, and <b>can be tested on its own.</b> Deciding where those boundaries sit was a product decision, not an architecture one.</p>
+  <div class="flow" role="img" aria-label="Agent pipeline: Requirement Parser, then Decomposition, then Routing, then Communication. Chat and Timeline agents read the same data.">
+    <span class="flow__node">Requirement Parser</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Decomposition</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Routing</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node flow__node--green">Communication</span>
+    <span class="flow__node flow__node--light">Chat</span>
+    <span class="flow__node flow__node--light">Timeline</span>
+  </div>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">Front end</span><span class="rows__val">Next.js 15 with a server-side proxy — API keys never reach the browser</span></div>
+    <div class="rows__row"><span class="rows__key">Agents</span><span class="rows__val">FastAPI (Python, async)</span></div>
+    <div class="rows__row"><span class="rows__key">Data</span><span class="rows__val">Supabase PostgreSQL + auth, multi-tenant; schema designed before the first agent</span></div>
+    <div class="rows__row"><span class="rows__key">Model</span><span class="rows__val">Claude API, bring-your-own key, stored encrypted</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">03 / Forecasting</p>
+  <h2 class="h2">Dates are <em>distributions.</em></h2>
+  <p class="lead">The Timeline agent runs a Monte Carlo simulation across the dependency graph and returns <b>three dates, not one</b>: aggressive, realistic and conservative.</p>
+  <div class="skn-hist" role="img" aria-label="Illustrative distribution of simulated finish dates with P50, P75 and P90 marked.">
+    <span style="--h:6%"></span><span style="--h:12%"></span><span style="--h:22%"></span><span style="--h:36%"></span><span style="--h:52%"></span><span style="--h:68%"></span><span style="--h:82%"></span><span style="--h:94%"></span><span style="--h:100%"></span><span class="p50" style="--h:96%"></span><span style="--h:88%"></span><span style="--h:76%"></span><span class="p75" style="--h:64%"></span><span style="--h:52%"></span><span style="--h:42%"></span><span class="p90" style="--h:33%"></span><span style="--h:25%"></span><span style="--h:19%"></span><span style="--h:14%"></span><span style="--h:10%"></span><span style="--h:7%"></span><span style="--h:5%"></span><span style="--h:3%"></span><span style="--h:2%"></span>
+  </div>
+  <div class="skn-hist__labels" aria-hidden="true">
+    <span class="p50" style="--l:39.6%">P50<small>aggressive</small></span>
+    <span style="--l:52.1%">P75<small>realistic</small></span>
+    <span style="--l:64.6%">P90<small>conservative</small></span>
+  </div>
+  <p class="note">Illustrative shape · 1,000 simulated runs per forecast</p>
+</section>
+
+<section class="section">
+  <p class="label">✓ / The result</p>
+  <div class="grid2 grid--result mt-l">
+    <div class="stat stat--result">
+      <div class="stat__value">81</div>
+      <div class="stat__label">tests across 19 PRs: 55 API, 12 front-end, 14 LLM-mock tests that check structure, not exact output</div>
+    </div>
+    <div class="stat stat--result">
+      <div class="stat__value">6</div>
+      <div class="stat__label">agents, each with its own contract and tests</div>
+    </div>
+  </div>
+  <div class="hindsight">
+    <p class="label label--muted">In hindsight</p>
+    <p class="hindsight__text">Without real project data it’s a well-architected demo. The next step is a real team, not more features.</p>
+  </div>
+</section>

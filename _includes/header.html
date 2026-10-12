@@ -1,0 +1,12 @@
+<header class="site-header">
+  <a class="site-header__brand" href="{{ '/' | relative_url }}"><span class="site-header__dot" aria-hidden="true"></span>{{ site.author.name }}</a>
+  <nav class="site-header__nav" aria-label="Primary">
+    <ul>
+      <li><a class="site-header__link" href="{{ '/#work' | relative_url }}"{% if page.collection == 'skills' %} aria-current="page"{% endif %}>How I work</a></li>
+      <li><a class="site-header__link" href="{{ '/case-studies/' | relative_url }}"{% if page.url contains '/case-studies/' %} aria-current="page"{% endif %}>Case studies</a></li>
+      <li><a class="site-header__link" href="{{ '/writing/' | relative_url }}"{% if page.url == '/writing/' or page.collection == 'posts' or page.collection == 'frameworks' %} aria-current="page"{% endif %}>Writing</a></li>
+      <li><a class="site-header__link" href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a></li>
+      <li><a class="site-header__link" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>

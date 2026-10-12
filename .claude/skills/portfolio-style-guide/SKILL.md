@@ -1,29 +1,27 @@
 ---
 name: portfolio-style-guide
-description: Design system and style language for arcanag.github.io case studies and blog posts. Use when writing, editing, or reviewing case study or blog content to ensure consistent typography, components, colors, and structure.
+description: White-first design system for arcanag.github.io (Visual Design Guidelines v1.0). Use when writing, editing or reviewing a skill page, case study, post, framework or any page markup, so tokens, components, page templates and content rules stay consistent.
 disable-model-invocation: true
 ---
 
-## When to Use
-
-- Writing a new case study or blog post
-- Editing existing content for style consistency
-- Adding diagrams, metrics, or visual components
+## When to use
+- Adding or editing a skill page (`_skills/`), case study, post, framework, or About
+- Adding a chart, stat, card or any visual
 - Reviewing content before publishing
 
-## Invocation Steps
+## Source of truth
+`docs/design-guidelines-v1.pdf` (18 pages). These reference files condense it and map it to the code.
+Tokens live in `_sass/_tokens.scss`; shared components in `_sass/_components.scss`, `_charts.scss`, `_tiles.scss`.
 
-1. Read the content type (case study vs blog post) and load the correct frontmatter template from [content-guide.md](reference/content-guide.md)
-2. Check the category and assign the correct `theme_color` from [colors.md](reference/colors.md)
-3. For each `##` section, ensure it opens with a `<p class="cs-lead">` paragraph
-4. Replace any data/metrics with the appropriate component from [components.md](reference/components.md)
-5. Apply the typography hierarchy from [typography.md](reference/typography.md)
-6. Use the quality checklist in [content-guide.md](reference/content-guide.md) before publishing
-7. Verify SVG diagrams use the theme color palette from [colors.md](reference/colors.md)
+## Steps
+1. Pick the template (home / skill / long-form) and front matter from [content-guide.md](reference/content-guide.md).
+2. Build every section as: label → two-tone H2 → lead → one visual ([components.md](reference/components.md)).
+3. Colour only carries meaning: red = problem/risk/chosen, green = improvement, ink/greys = structure ([colors.md](reference/colors.md)).
+4. Type roles and sizes come from tokens, never raw values ([typography.md](reference/typography.md)).
+5. Run the checklist in content-guide.md: confidentiality, every number traced to a source, honesty labels, accessibility, `make proof`.
 
-## Reference Files
-
-- **[reference/components.md](reference/components.md)** -- Full cs-* component library with markup patterns, grouped by purpose
-- **[reference/typography.md](reference/typography.md)** -- 9-tier typographic scale, font families, placement rules
-- **[reference/colors.md](reference/colors.md)** -- Theme color system, per-page overrides, semantic colors, SVG palette
-- **[reference/content-guide.md](reference/content-guide.md)** -- Frontmatter templates, content structure, quality checklist, anti-patterns
+## Reference files
+- [reference/components.md](reference/components.md) — markup for every component and chart, shared and page-specific
+- [reference/typography.md](reference/typography.md) — families, roles, the clamp() scale, measure
+- [reference/colors.md](reference/colors.md) — palette, roles, contrast pairs, meaning rules
+- [reference/content-guide.md](reference/content-guide.md) — templates, front matter, voice, numbers, confidentiality, checklist

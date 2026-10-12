@@ -1,0 +1,224 @@
+---
+title: "Rebuilding trust in a 100K-call-a-day banking voicebot"
+short_title: "Banking voicebot"
+description: "How I rebuilt measurement, triaged failures and drove intent accuracy from 70% to 91% on a 100K-call-a-day, air-gapped banking voicebot."
+tagline: "Inheriting broken metrics, rebuilding measurement from scratch, and driving intent accuracy (SLU) to 91% — in an air-gapped environment."
+kicker: "Case study · Enterprise AI · Banking"
+meta: "Skit.ai · Jan 2025 – Mar 2026 · 12 min read"
+read_time: "12 min"
+date: 2026-04-01
+bg_word: TRUST
+order: 2
+tile_tone: surface
+tile_kicker: "Enterprise AI · Banking"
+tile_title: "Rebuilding trust in a 100K-call-a-day banking voicebot"
+tile_stat: "70→91% intent accuracy · 30 use cases"
+skills:
+  - product-discovery
+  - prioritisation-and-roadmapping
+  - metrics-and-analytics
+  - product-requirements
+  - delivery-and-execution
+  - cross-functional-leadership
+  - risk-and-compliance-management
+hero_stats:
+  - value: "70→91%"
+    label: "intent accuracy (SLU), signed off"
+    tone: green
+  - value: "30"
+    label: "use cases in 5 waves"
+  - value: "100K+"
+    label: "calls a day, air-gapped"
+  - value: "118–146K"
+    label: "contained calls/mo by Mar 2026 · target 800K"
+next:
+  url: /case-studies/agentic-pm/
+  label: "Next case study: Agentic PM"
+---
+<section class="section" id="context" data-toc="Context &amp; takeover">
+  <p class="label">01 / Context &amp; takeover</p>
+  <h2 class="h2">A cold start, <em>dressed as a handover.</em></h2>
+  <p class="lead">I took over in <b>January 2025.</b> Phase 1 was signed off the week I joined — but none of the technical work for the next phase existed.</p>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">Deployment</span><span class="rows__val"><span class="rows__dot" aria-hidden="true"></span>Fragile — one use case, brittle</span></div>
+    <div class="rows__row"><span class="rows__key">Platform</span><span class="rows__val"><span class="rows__dot" aria-hidden="true"></span>Known issues in flow builder, auth, analytics</span></div>
+    <div class="rows__row"><span class="rows__key">NLU model</span><span class="rows__val"><span class="rows__dot" aria-hidden="true"></span>74 intents — many mistagged as out-of-scope</span></div>
+    <div class="rows__row"><span class="rows__key">Documentation</span><span class="rows__val"><span class="rows__dot" aria-hidden="true"></span>Zero — no flows, no specs, no handover docs</span></div>
+  </div>
+</section>
+
+<section class="section" id="scale" data-toc="The scale">
+  <p class="label">02 / The scale</p>
+  <h2 class="h2">30 use cases. <em>Each built from scratch.</em></h2>
+  <p class="lead">Every use case needed its own <b>APIs, NLU changes, flows and multi-round testing</b> — through a 27-step lifecycle.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value">2,188</div><div class="stat__label">conversational states</div></div>
+    <div class="stat"><div class="stat__value">80+</div><div class="stat__label">core-banking API integrations</div></div>
+    <div class="stat"><div class="stat__value">3</div><div class="stat__label">new product categories: NRI, Current, Loan</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">8 lakh contained calls promised. <em>20,000</em> delivered.</p>
+  <p class="pull__sub">Out of 25 lakh monthly calls. The bank pushed for improvement in every review.</p>
+</section>
+
+<section class="section" id="parallel-development" data-toc="Parallel development">
+  <p class="label">03 / Parallel development</p>
+  <h2 class="h2">Five waves. <em>Built in parallel.</em></h2>
+  <p class="lead">Staggered UAT windows, with the flexibility to <b>pull forward unblocked work.</b></p>
+  <div class="bk-gantt mt-l" role="img" aria-label="Five delivery waves from April 2025 to May 2026: wave 1, 8 use cases, Apr–Aug 2025; wave 2, 6, Jun–Nov 2025; wave 3, 6, Aug 2025–Jan 2026; wave 4, 5, Oct 2025–Mar 2026; wave 5, 5, Dec 2025–May 2026. Parallel tracks: MIS revamp Apr–Jun 2025, SLU retraining May–Dec 2025, security compliance Aug 2025–Mar 2026.">
+    <div class="bk-gantt__row"><span class="bk-gantt__name">Wave 1 <span>· 8</span></span><span class="bk-gantt__track"><span class="bk-gantt__bar" style="--l:0%;--w:35.71%"></span></span></div>
+    <div class="bk-gantt__row"><span class="bk-gantt__name">Wave 2 <span>· 6</span></span><span class="bk-gantt__track"><span class="bk-gantt__bar" style="--l:14.29%;--w:42.86%"></span></span></div>
+    <div class="bk-gantt__row"><span class="bk-gantt__name">Wave 3 <span>· 6</span></span><span class="bk-gantt__track"><span class="bk-gantt__bar" style="--l:28.57%;--w:42.86%"></span></span></div>
+    <div class="bk-gantt__row"><span class="bk-gantt__name">Wave 4 <span>· 5</span></span><span class="bk-gantt__track"><span class="bk-gantt__bar" style="--l:42.86%;--w:42.86%"></span></span></div>
+    <div class="bk-gantt__row"><span class="bk-gantt__name">Wave 5 <span>· 5</span></span><span class="bk-gantt__track"><span class="bk-gantt__bar" style="--l:57.14%;--w:42.86%"></span></span></div>
+    <div class="bk-gantt__row bk-gantt__row--axis"><span></span><span class="bk-gantt__axis"><span style="--l:0%">Apr 25</span><span style="--l:21.43%">Jul</span><span style="--l:42.86%">Oct</span><span style="--l:64.29%">Jan 26</span><span style="--l:85.71%">Apr</span></span></div>
+    <p class="bk-gantt__group">Parallel critical tracks</p>
+    <div class="bk-gantt__row bk-gantt__row--thin"><span class="bk-gantt__name">MIS revamp</span><span class="bk-gantt__track"><span class="bk-gantt__bar bk-gantt__bar--red" style="--l:0%;--w:21.43%"></span></span></div>
+    <div class="bk-gantt__row bk-gantt__row--thin"><span class="bk-gantt__name">SLU retraining</span><span class="bk-gantt__track"><span class="bk-gantt__bar bk-gantt__bar--green" style="--l:7.14%;--w:57.14%"></span></span></div>
+    <div class="bk-gantt__row bk-gantt__row--thin"><span class="bk-gantt__name">Security compliance</span><span class="bk-gantt__track"><span class="bk-gantt__bar bk-gantt__bar--stone" style="--l:28.57%;--w:57.14%"></span></span></div>
+  </div>
+  <p class="note">Track spans approximate · planned windows; wave 5 runs past the Mar 2026 end of this case study</p>
+</section>
+
+<section class="section" id="dependencies" data-toc="External dependencies">
+  <p class="label">04 / External dependencies</p>
+  <h2 class="h2">Seven gates <em>before we could start.</em></h2>
+  <p class="lead">Every use case waited on <b>seven bank-side prerequisites</b> before our pipeline could begin.</p>
+  <ol class="bk-gates mt-l" role="list">
+    <li><span>1</span>Requirement documents</li>
+    <li><span>2</span>API documentation</li>
+    <li><span>3</span>Parameter definitions</li>
+    <li><span>4</span>Routing details</li>
+    <li><span>5</span>SMS content</li>
+    <li><span>6</span>Production recordings</li>
+    <li><span>7</span>Test data</li>
+  </ol>
+</section>
+
+<section class="section" id="broken-metric" data-toc="The broken metric">
+  <p class="label">05 / The broken metric</p>
+  <h2 class="h2">A number <em>nobody trusted.</em></h2>
+  <p class="lead">Containment had plunged, and <b>nobody was confident the calculation was even right.</b></p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--red"><p class="card__tag">Root cause 1</p><h3 class="card__title">Compromised analytics</h3><p class="card__body">50+ bugs in tracking code. Max-retry hang-ups counted as contained. Missing data for 10+ intents.</p></div>
+    <div class="card card--red"><p class="card__tag">Root cause 2</p><h3 class="card__title">Metric misalignment</h3><p class="card__body">No shared definition of success. Containment confused with resolution. Team and client measuring differently.</p></div>
+    <div class="card card--red"><p class="card__tag">Root cause 3</p><h3 class="card__title">Rushed product design</h3><p class="card__body">No graceful fallbacks. Three-attempt hang-ups counted as contained. Incomplete flows.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">I halted optimisation and built the analytics funnel <em>from scratch.</em></p>
+</section>
+
+<section class="section" id="funnel" data-toc="The funnel">
+  <p class="label">06 / The funnel</p>
+  <h2 class="h2">Contained isn’t <em>resolved.</em></h2>
+  <p class="lead">Tracking from the first IVR ping to final disposition <b>exposed exact drop-off points.</b></p>
+  <div class="funnel" role="img" aria-label="Six-stage call funnel: total calls on IVR, calls sent to bot, bot trained for intent, bot identified intent, user confirmed, resolved or not resolved. Bar widths are illustrative.">
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar" style="--w:100%">Total calls on IVR</div></div><p class="funnel__text">100%</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--2" style="--w:86%">Calls sent to bot</div></div><p class="funnel__text">bot-eligible</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--3" style="--w:72%">Bot trained for intent</div></div><p class="funnel__text">covered</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--green" style="--w:58%">Bot identified intent</div></div><p class="funnel__text">SLU hit</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar bk-funnel--deep" style="--w:46%">User confirmed</div></div><p class="funnel__text">confirmed</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--red" style="--w:34%">Resolved / not resolved</div></div><p class="funnel__text">the real outcome</p></div>
+  </div>
+  <p class="note">Illustrative · bar widths show the shape of the funnel, not measured volumes</p>
+  <p class="mt-m"><a class="tlink" href="{{ '/frameworks/voicebot-metrics-funnel/' | relative_url }}">The full Call Resolution Funnel framework →</a></p>
+</section>
+
+<section class="section">
+  <p class="pull__label label label--green">Trust restored</p>
+  <p class="pull pull--wide">“The conversation shifted from ‘we don’t trust your metrics’ to ‘show us how to <em>improve them.</em>’”</p>
+  <p class="pull__cite">Paraphrased stakeholder reaction, after the new reporting went live</p>
+</section>
+
+<section class="section" id="triage" data-toc="Triage">
+  <p class="label">07 / Triage</p>
+  <h2 class="h2">Everyone blamed <em>the model.</em></h2>
+  <p class="lead">With accurate data, <b>three failure patterns</b> emerged — each needing a different team.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--red">47%</div><div class="stat__label">Authentication</div><p class="stat__body">of callers failed after entering their OTP — DTMF bugs dropping the first digit or timing out.</p></div>
+    <div class="stat"><div class="stat__value">70%</div><div class="stat__label">Intent classification</div><p class="stat__body">accuracy on trained intents. Model inherited from a 20-intent call-steering bot.</p></div>
+    <div class="stat"><div class="stat__value">23%</div><div class="stat__label">Flow dead-ends</div><p class="stat__body">No graceful fallbacks. After three failed attempts, the bot hung up.</p></div>
+  </div>
+  <p class="note">Each rate measured on its own base</p>
+</section>
+
+<section class="section" id="decision" data-toc="The decision">
+  <p class="label">08 / The decision</p>
+  <h2 class="h2">Three options. <em>One call.</em></h2>
+  <p class="lead">Balance <b>quick wins now</b> against <b>a fix that lasts.</b></p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--ink"><p class="card__tag">Option A</p><h3 class="card__title">Full SLU retrain</h3><p class="card__body">6+ months · high risk in an air-gapped stack. Comprehensive but delayed.</p></div>
+    <div class="card card--ink"><p class="card__tag">Option B</p><h3 class="card__title">Flow redesign only</h3><p class="card__body">2–3 months · low risk. Quick wins, no lasting fix.</p></div>
+    <div class="card card--chosen"><p class="card__tag">Option C · Chosen</p><h3 class="card__title">Hybrid</h3><p class="card__body">Immediate + ongoing · medium risk. Auth and flow fixes now, SLU expansion in parallel, security absorbed alongside.</p></div>
+  </div>
+</section>
+
+<section class="section" id="team" data-toc="The team">
+  <p class="label">09 / The team</p>
+  <h2 class="h2">Three squads. <em>Clear ownership.</em></h2>
+  <p class="lead">The bank always knew <b>exactly who to contact for what.</b></p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--stone"><p class="card__tag">Squad 1</p><h3 class="card__title">Maintenance &amp; bug fixes</h3><ul class="bk-roles" role="list"><li>Designer</li><li>Analyst</li><li>Operations</li></ul></div>
+    <div class="card card--ink"><p class="card__tag">Squad 2</p><h3 class="card__title">New use cases</h3><ul class="bk-roles" role="list"><li>Engineer</li><li>Designer</li><li>Operations</li><li>ML</li></ul></div>
+    <div class="card card--red"><p class="card__tag">Squad 3</p><h3 class="card__title">Security &amp; infrastructure</h3><ul class="bk-roles" role="list"><li>DevOps</li><li>Engineering</li><li>Product</li></ul></div>
+  </div>
+</section>
+
+<section class="section" id="what-went-wrong" data-toc="What went wrong">
+  <p class="label">10 / What went wrong</p>
+  <h2 class="h2">Not every <em>bet paid off.</em></h2>
+  <p class="lead">Case studies that only show wins <b>aren’t useful.</b></p>
+  <ol class="numlist numlist--red">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Architectural mismatch</h3><p class="numlist__body">Intent accuracy rose from 70% to 91%, but the model was solution-oriented while customers describe problems. Complex utterances triggered conflicting intents.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">System instability</h3><p class="numlist__body">15 incidents in 3 months — flaws in the production-to-disaster-recovery (DR) switchover, plus bank API failures and network drops.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">A maintenance-window failure</h3><p class="numlist__body">7 minutes of unplanned downtime during live calls, because no mandatory client approval existed for maintenance windows. A process gap, not a technical one.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Security scope creep</h3><p class="numlist__body">RBI-mandated compliance consumed up to 90% of infrastructure bandwidth in peak weeks.</p></div></li>
+  </ol>
+  <div class="panel mt-l">
+    <p class="label label--muted">One caller, three intents</p>
+    <p class="bk-utterance">“I am at an airport lounge and trying to make a payment but the transaction is not working.”</p>
+    <ul class="bk-intents" role="list"><li class="tag">airport-lounge</li><li class="tag">transaction-issue</li><li class="tag">transaction-status</li><li class="tag bk-tag--red">→ intent collision</li></ul>
+    <p class="card__body">What was needed: hierarchical root intents, multi-intent handling, problem-to-solution disambiguation.</p>
+  </div>
+  <p class="label label--muted mt-xl">15 incidents · Sep – Nov 2025</p>
+  <div class="cbar mt-s" role="img" aria-label="15 incidents between September and November 2025: DR switchover 5, bank API failures 4, network drops 3, process failures 2, database or infrastructure 1.">
+    <div class="cbar__row"><span class="cbar__label">DR switchover</span><span class="cbar__track"><span class="cbar__fill cbar__fill--red" style="--w:100%"></span></span><span class="cbar__count">5</span></div>
+    <div class="cbar__row"><span class="cbar__label">Bank API failures</span><span class="cbar__track"><span class="cbar__fill" style="--w:80%"></span></span><span class="cbar__count">4</span></div>
+    <div class="cbar__row"><span class="cbar__label">Network drops</span><span class="cbar__track"><span class="cbar__fill" style="--w:60%"></span></span><span class="cbar__count">3</span></div>
+    <div class="cbar__row"><span class="cbar__label">Process failures</span><span class="cbar__track"><span class="cbar__fill" style="--w:40%"></span></span><span class="cbar__count">2</span></div>
+    <div class="cbar__row"><span class="cbar__label">DB / infra</span><span class="cbar__track"><span class="cbar__fill" style="--w:20%"></span></span><span class="cbar__count">1</span></div>
+  </div>
+</section>
+
+<section class="section" id="what-we-built" data-toc="What we built">
+  <p class="label">11 / What we built</p>
+  <h2 class="h2">Despite <em>the setbacks.</em></h2>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--green">50+</div><div class="stat__label">tracking bugs fixed</div><p class="stat__body">Analytics rebuilt on “100% trust”: daily reports the bank verifies against raw data.</p></div>
+    <div class="stat"><div class="stat__value stat__value--green">91%</div><div class="stat__label">in-scope intent accuracy</div><p class="stat__body">From 70%; 82% out-of-scope. Production sign-off on 17 Dec 2025.</p></div>
+    <div class="stat"><div class="stat__value stat__value--green">&lt;0.6</div><div class="stat__label">confidence → escalate</div><p class="stat__body">A custom plugin overrides low-confidence predictions with a graceful human handoff.</p></div>
+    <div class="stat"><div class="stat__value stat__value--green">8s / 6s</div><div class="stat__label">keypad (DTMF) patience</div><p class="stat__body">First-digit and inter-digit waits in a redesigned OTP journey, validated in closed user group (CUG) rounds.</p></div>
+    <div class="stat"><div class="stat__value stat__value--green">5</div><div class="stat__label">major deploys</div><p class="stat__body">Formal plan of action, email approval chain, coordinated Prod + DR, Aug 2025 – Mar 2026.</p></div>
+    <div class="stat"><div class="stat__value stat__value--green">20</div><div class="stat__label">scenario runbook</div><p class="stat__body">Air-gapped Kubernetes recovery for L1/L2 teams, plus on-call rotations and escalation matrices.</p></div>
+  </div>
+</section>
+
+<section class="section" id="hindsight" data-toc="In hindsight">
+  <p class="label">12 / In hindsight</p>
+  <h2 class="h2">Five things <em>I’d do differently.</em></h2>
+  <ol class="numlist">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Fix measurement first</h3><p class="numlist__body">We chased 8 lakh contained calls against a system we couldn’t trust. Trusted analytics should have been week one.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Enterprise AI governance is product management</h3><p class="numlist__body">Plans of action, approval chains, closed-user-group testing and maintenance windows are the discipline that separates enterprise AI from a demo.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Single points of failure are PM risks</h3><p class="numlist__body">One engineer for prod-to-DR switchovers and undocumented recovery steps. Build operational muscle before you need it.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Influence through data breaks deadlocks</h3><p class="numlist__body">Everyone blamed the NLU model. The funnel showed 47% dropping at OTP, and that aligned everyone on a hybrid fix.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">05</span><div><h3 class="numlist__title">Absorb scope without losing the thread</h3><p class="numlist__body">A dedicated security squad shielded core teams from context switching when RBI mandates arrived mid-sprint.</p></div></li>
+  </ol>
+</section>
+
+<section class="section">
+  <p class="pull">In cross-functional deadlocks, aggregate data is the only <em>objective tiebreaker.</em></p>
+</section>

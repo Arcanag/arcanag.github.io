@@ -1,13 +1,11 @@
-<footer class="footer" id="footer">
-  <div class="container">
-    <div class="footer__inner">
-      <p class="footer__tagline">Let's build something worth talking about.</p>
-      <ul class="footer__links" role="list">
-        <li><a href="mailto:anurag95sharma@gmail.com" class="footer__link">Email</a></li>
-        <li><a href="https://github.com/Arcanag" class="footer__link" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in new tab)</span></a></li>
-        <li><a href="https://linkedin.com/in/anursharma" class="footer__link" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (opens in new tab)</span></a></li>
-      </ul>
-      <p class="footer__copy">&copy; {{ 'now' | date: "%Y" }} Anurag Sharma</p>
-    </div>
-  </div>
+<footer class="site-footer" id="contact">
+  <a class="site-footer__email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+  <ul class="site-footer__links">
+    <li><a href="{{ site.author.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (opens in new tab)</span></a></li>
+    <li><a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in new tab)</span></a></li>
+    {%- assign resume = site.static_files | where: "path", site.author.resume | first %}
+    {%- if resume %}
+    <li><a href="{{ site.author.resume | relative_url }}">Résumé<span class="sr-only"> (PDF)</span></a></li>
+    {%- endif %}
+  </ul>
 </footer>

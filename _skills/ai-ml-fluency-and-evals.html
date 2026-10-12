@@ -1,0 +1,129 @@
+---
+title: "AI/ML fluency & evals"
+order: 6
+tag: Product
+rubric: "Technical fluency · AI evaluation"
+bg_word: EVALS
+tagline: "Moving a live voice product from NLP to an LLM — and measuring the win and its quality debt together."
+description: "How Anurag Sharma measured an NLP→LLM cutover: 4.2× promise-to-pay per dialled lead, a 74/100 defect audit and 12,000+ LLM-judged calls."
+tile_stat: "4.2×"
+tile_label: "PTP per dialled lead, NLP → LLM"
+tile_line: "Ship the win with its quality debt."
+graphic: columns
+proved_by:
+  - url: /case-studies/voice-ai-portfolio/
+    kind: case study
+    read_time: 13 min
+  - url: "/technical%20deep-dive/2026/02/18/testing-non-deterministic-ai/"
+    kind: playbook
+    read_time: 8 min
+---
+<section class="section">
+  <p class="label">01 / The situation</p>
+  <h2 class="h2">Wins claimed. <em>Quality unmeasured.</em></h2>
+  <p class="lead">A leading private-sector bank had moved a lending bot from NLP to an LLM. <b>Everyone called it a win</b> — nobody had measured it, or what it cost in quality.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value">~1.6M</div>
+      <div class="stat__label">calls / 30 days on the lending flow</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">0.62%</div>
+      <div class="stat__label">promise-to-pay per dialled lead on NLP</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">2</div>
+      <div class="stat__label">LLM bots live, quality unmeasured</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">A win reported without its quality debt isn’t a measurement. It’s <em>marketing.</em></p>
+</section>
+
+<section class="section">
+  <p class="label">02 / The cutover</p>
+  <h2 class="h2">4.2× lift. <em>Measured honestly.</em></h2>
+  <p class="lead">Same engagement conditions, a decomposed funnel, and numbers checked against the orchestration database rather than the dashboard. <b>A clean before/after — not an A/B test</b>, and labelled that way.</p>
+  <div class="columns" role="img" aria-label="Promise-to-pay per dialled lead: 0.62% on the NLP bot, 2.59% on the LLM bot, a 4.2 times lift.">
+    <div class="columns__col"><div class="columns__value">0.62%</div><div class="columns__bar" style="--h:24%"></div></div>
+    <div class="columns__col"><div class="columns__value green">2.59%</div><div class="columns__bar columns__bar--after" style="--h:100%"></div></div>
+  </div>
+  <div class="columns__labels" aria-hidden="true"><span>NLP bot</span><span>LLM bot</span></div>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">PTP / dialled lead</span><span class="rows__val"><b>4.2×</b> (0.62% → 2.59%)</span></div>
+    <div class="rows__row"><span class="rows__key">PTP / engaged lead</span><span class="rows__val"><b>3.7×</b></span></div>
+    <div class="rows__row"><span class="rows__key">Engagement</span><span class="rows__val">At parity — so the lift isn’t a traffic effect</span></div>
+  </div>
+  <p class="note">Before / after on the same flow: NLP Mar–Dec 2025, LLM from Jan 2026 · not a randomised test</p>
+</section>
+
+<section class="section">
+  <p class="label">03 / The audit</p>
+  <h2 class="h2">74 of 100 calls. <em>Defective.</em></h2>
+  <p class="lead">So we listened to the calls behind the number. <b>The 4.2× was real. So was the debt</b> — and both shipped together, as a prioritised fix list.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value stat__value--red">74/100</div>
+      <div class="stat__label">audited calls with defects</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value stat__value--red">~40%</div>
+      <div class="stat__label">accuracy of a “qualified lead” bucket</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value stat__value--red">63%</div>
+      <div class="stat__label">of calls dead-ending at one pitch gate</div>
+    </div>
+  </div>
+
+  <h3 class="card__title mt-xl">Judging the judge</h3>
+  <p class="lead">A hallucination audit on 2,000 pitched calls, judged against the exact live prompt configs the calls ran on — with confidence intervals, not just rates.</p>
+  <div class="skn-ci" role="img" aria-label="Hallucination rate with 95% confidence intervals, n equals 2,000: lending bot 0.2% (0.05 to 0.73), credit-card bot 3.1% (2.19 to 4.37), combined 1.65% (1.18 to 2.31).">
+    <div class="skn-ci__row">
+      <span class="skn-ci__label">Lending bot<small>n = 1,000</small></span>
+      <span class="skn-ci__track"><span class="skn-ci__range" style="--l:1%;--w:13.6%"></span><span class="skn-ci__point" style="--x:4%"></span></span>
+      <span class="skn-ci__value">0.2%</span>
+    </div>
+    <div class="skn-ci__row">
+      <span class="skn-ci__label">Card bot<small>n = 1,000</small></span>
+      <span class="skn-ci__track"><span class="skn-ci__range" style="--l:43.8%;--w:43.6%"></span><span class="skn-ci__point skn-ci__point--red" style="--x:62%"></span></span>
+      <span class="skn-ci__value red-deep">3.1%</span>
+    </div>
+    <div class="skn-ci__row">
+      <span class="skn-ci__label">Combined<small>n = 2,000</small></span>
+      <span class="skn-ci__track"><span class="skn-ci__range" style="--l:23.6%;--w:22.6%"></span><span class="skn-ci__point" style="--x:33%"></span></span>
+      <span class="skn-ci__value">1.65%</span>
+    </div>
+    <div class="skn-ci__axis" aria-hidden="true">
+      <span></span>
+      <span class="skn-ci__ticks"><span style="--l:0%">0%</span><span style="--l:20%">1%</span><span style="--l:40%">2%</span><span style="--l:60%">3%</span><span style="--l:80%">4%</span><span style="--l:100%">5%</span></span>
+      <span class="skn-ci__axis-spacer"></span>
+    </div>
+  </div>
+  <p class="note">Bars show 95% confidence intervals · voicemail and disconnects excluded (no pitch, no hallucination surface)</p>
+  <div class="callout-dashed">
+    <span class="label label--muted">Also</span>
+    <span>How I test the code around the model: <a class="tlink" href="{{ '/technical%20deep-dive/2026/02/18/testing-non-deterministic-ai/' | relative_url }}">Testing non-deterministic AI products →</a></span>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">✓ / The result</p>
+  <div class="grid2 grid--result mt-l">
+    <div class="stat stat--result">
+      <div class="stat__value">95.4%</div>
+      <div class="stat__label">precision on the flagship intent, across 12,000+ LLM-judged calls (n = 2,060)</div>
+    </div>
+    <div class="stat stat--result">
+      <div class="stat__value">4.2×</div>
+      <div class="stat__label">promise-to-pay per dialled lead, reported with its defect audit</div>
+    </div>
+  </div>
+  <p class="lead">Where two judge passes disagreed on the LLM bots, <b>we withheld the number</b> rather than publish either.</p>
+  <div class="hindsight">
+    <p class="label label--muted">In hindsight</p>
+    <p class="hindsight__text">Instrument before migrating. We measured the win after the cutover — baseline first would have saved weeks.</p>
+  </div>
+</section>

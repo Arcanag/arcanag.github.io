@@ -1,0 +1,291 @@
+---
+title: "Scaling a voice-AI portfolio through the LLM migration"
+short_title: "Voice-AI portfolio"
+description: "Running a 3-account voice-AI portfolio at ~4M calls a day at peak: measuring an NLP→LLM migration honestly, defusing metric escalations, and gating builds."
+tagline: "Three live accounts, one NLP→LLM migration, twelve languages. Measure the win honestly, expose the quality debt, gate the next build."
+kicker: "Case study · Voice AI · Portfolio"
+meta: "Skit.ai · Apr 2026 – present · 11 min read"
+read_time: "11 min"
+date: 2026-07-04
+bg_word: "SCALE"
+order: 1
+tile_tone: ink
+tile_kicker: "Voice AI · Portfolio · ~4M calls/day at peak"
+tile_title: "Scaling a voice-AI portfolio through the LLM migration"
+tile_stat: "4.2× PTP lift · 74/100 calls defective · 12 languages"
+skills:
+  - product-discovery
+  - product-strategy
+  - ai-ml-fluency-and-evals
+  - business-acumen
+  - stakeholder-management
+  - risk-and-compliance-management
+hero_stats:
+  - value: "4.2×"
+    label: "promise-to-pay per dialled lead, NLP → LLM"
+    tone: green
+  - value: "74/100"
+    label: "calls defective in the audit behind that win"
+    tone: red
+  - value: "~4M"
+    label: "calls a day at peak, 3 live accounts"
+  - value: "8→12"
+    label: "languages, all 12 live"
+next:
+  url: /case-studies/banking-voicebot/
+  label: "Next case study: Banking voicebot"
+---
+
+<section class="section" id="portfolio" data-toc="The portfolio">
+  <p class="label">01 / The portfolio</p>
+  <h2 class="h2">Three accounts. <em>One operating layer.</em></h2>
+  <p class="lead">In April 2026 I took delivery ownership of <b>three live voice-AI accounts</b>: two banks running outbound collections and cross-sell, and a global smartphone brand’s inbound customer-service line.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value">3</div><div class="stat__label">live accounts: two banks, one consumer brand</div></div>
+    <div class="stat"><div class="stat__value">110+</div><div class="stat__label">conversational flows</div></div>
+    <div class="stat"><div class="stat__value">22,614</div><div class="stat__label">voice prompts across 12 languages</div></div>
+  </div>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">Delivery tracking</span><span class="rows__val"><span class="rows__dot"></span>All three account boards empty; the work lived on 8 other boards and in 623 email threads</span></div>
+    <div class="rows__row"><span class="rows__key">Migration</span><span class="rows__val"><span class="rows__dot"></span>NLP → LLM cutovers live and wins claimed; quality unmeasured</span></div>
+    <div class="rows__row"><span class="rows__key">Client trust</span><span class="rows__val"><span class="rows__dot"></span>Open escalations on engagement metrics and a contested promise-to-pay decline</span></div>
+    <div class="rows__row"><span class="rows__key">Ops bandwidth</span><span class="rows__val"><span class="rows__dot"></span>One activity quietly taking 29.5% of total team hours, and growing</span></div>
+  </div>
+</section>
+
+<section class="section" id="migration" data-toc="The migration, measured">
+  <p class="label">02 / The migration, measured</p>
+  <h2 class="h2">4.2× more promises. <em>Then the audit.</em></h2>
+  <p class="lead">On a high-volume lending bot, the LLM took over all traffic from the NLP bot. I compared the two at the lead level, <b>checked against the orchestration database</b>, not the dashboard.</p>
+  <div class="grid2 grid--cards mt-l">
+    <div class="pf-pair" role="img" aria-label="Promise-to-pay per dialled lead rose from 0.62% on the NLP bot to 2.59% on the LLM bot, 4.2 times.">
+      <p class="pf-pair__title">Promise-to-pay (PTP) per dialled lead</p>
+      <div class="columns" aria-hidden="true">
+        <div class="columns__col"><div class="columns__value">0.62%</div><div class="columns__bar" style="--h:20%"></div></div>
+        <div class="columns__col"><div class="columns__value green">2.59%</div><div class="columns__bar columns__bar--after" style="--h:82%"></div></div>
+      </div>
+      <div class="columns__labels" aria-hidden="true"><span>NLP bot</span><span>LLM bot · 4.2×</span></div>
+    </div>
+    <div class="pf-pair" role="img" aria-label="Promise-to-pay per engaged lead rose from 2.73% to 10.0%, 3.7 times.">
+      <p class="pf-pair__title">PTP per engaged lead</p>
+      <div class="columns" aria-hidden="true">
+        <div class="columns__col"><div class="columns__value">2.73%</div><div class="columns__bar" style="--h:22%"></div></div>
+        <div class="columns__col"><div class="columns__value green">10.0%</div><div class="columns__bar columns__bar--after" style="--h:82%"></div></div>
+      </div>
+      <div class="columns__labels" aria-hidden="true"><span>NLP bot</span><span>LLM bot · 3.7×</span></div>
+    </div>
+  </div>
+  <p class="note">Clean before/after, not an A/B test · Engagement at parity · Each rate measured on its own base</p>
+
+  <p class="lead mt-xl">That number alone would have made a good slide. So we listened to <b>100 calls behind it</b>.</p>
+  <div class="stackbar" role="img" aria-label="Of 100 audited calls, 74 had defects and 26 were clean.">
+    <span class="stackbar__seg stackbar__seg--red" style="--w:74%"></span>
+    <span class="stackbar__seg stackbar__seg--mid" style="--w:26%"></span>
+  </div>
+  <ul class="pf-legend">
+    <li><span class="pf-legend__sw pf-legend__sw--red"></span><b>74</b> defective</li>
+    <li><span class="pf-legend__sw pf-legend__sw--stone"></span><b>26</b> clean</li>
+  </ul>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--red"><p class="card__tag">Defect</p><h3 class="card__title">A “qualified lead” bucket that was ~40% accurate</h3><p class="card__body">The lead category the client acted on was mostly mislabelled.</p></div>
+    <div class="card card--red"><p class="card__tag">Defect</p><h3 class="card__title">63% of calls dead-ended at one pitch gate</h3><p class="card__body">A single rigid step stopped most conversations from progressing.</p></div>
+  </div>
+  <p class="lead">Both numbers shipped together, and the defects became <b>a prioritised fix list</b>. The next LLM build’s requirements document went through the same gate: four critical gaps found, fixed by the vendor the same day, then development started.</p>
+</section>
+
+<section class="section">
+  <p class="pull">A win reported without its quality debt isn’t a measurement. It’s <em>marketing.</em></p>
+</section>
+
+<section class="section" id="evaluation" data-toc="Evaluating AI with AI">
+  <p class="label">03 / Evaluating AI with AI</p>
+  <h2 class="h2">12,000 calls judged. <em>One number withheld.</em></h2>
+  <p class="lead">Disposition accuracy was checked with <b>blind LLM judging</b>, stratified samples and re-sample passes to remove small-sample noise.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value">12,000+</div><div class="stat__label">calls judged by an LLM</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">95.4%</div><div class="stat__label">precision on the flagship intent (n=2,060)</div></div>
+    <div class="stat"><div class="stat__value">1.65%</div><div class="stat__label">hallucination rate, 2 LLM bots (n=2,000)</div></div>
+  </div>
+  <div class="hbar" role="img" aria-label="Hallucination rate per LLM bot, 1,000 pitched calls each: lending bot 0.2%, card bot 3.1%.">
+    <div class="hbar__row"><span class="hbar__label">Lending bot · 1,000 pitched calls</span><span class="hbar__value">0.2%</span><div class="hbar__track"><div class="hbar__fill" style="--w:6%"></div></div></div>
+    <div class="hbar__row"><span class="hbar__label">Card bot · 1,000 pitched calls</span><span class="hbar__value red-deep">3.1%</span><div class="hbar__track"><div class="hbar__fill hbar__fill--red" style="--w:100%"></div></div></div>
+  </div>
+  <p class="note">Bar length scaled to the higher rate · Judged against the exact live prompt each call ran on</p>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--ink"><p class="card__tag">Withheld</p><h3 class="card__title">Two judge passes disagreed on the LLM bots</h3><p class="card__body">We published neither number. A metric nobody can trust does more harm than no metric.</p></div>
+    <div class="card card--ink"><p class="card__tag">Caught mid-run</p><h3 class="card__title">A ground-truth bug producing 98% scores</h3><p class="card__body">The affected samples were rebuilt before anything was reported.</p></div>
+  </div>
+</section>
+
+<section class="section" id="escalation" data-toc="Metrics under pressure">
+  <p class="label">04 / Metrics under pressure</p>
+  <h2 class="h2">The rate fell. <em>The bot didn’t.</em></h2>
+  <p class="lead">The client escalated a fall in promise-to-pay on a flagship LLM flow. Instead of defending the bot, I <b>split the funnel stage by stage</b> to find what had actually changed.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--red">5.03→3.03%</div><div class="stat__label">PTP rate, the escalated decline</div></div>
+    <div class="stat"><div class="stat__value">17→30%</div><div class="stat__label">voicemail share of “engaged” calls</div><p class="stat__body">Voicemail inflated the denominator, so every downstream rate fell without the bot changing.</p></div>
+    <div class="stat"><div class="stat__value">4.37→3.51</div><div class="stat__label">dial attempts per lead</div><p class="stat__body">A configuration change, not a performance change.</p></div>
+  </div>
+  <p class="lead">Replayed on a timeline, the “decline” broke down into explainable parts, each with an owner and a fix. The escalation closed because <b>the client could follow every step in their own raw data</b>.</p>
+</section>
+
+<section class="section" id="dialling" data-toc="Testing a strategy">
+  <p class="label">05 / Testing a strategy</p>
+  <h2 class="h2">A 1.7% slice. <em>Four wrong assumptions.</em></h2>
+  <p class="lead">The client proposed a dialling strategy built on a chart of 1.7% of attempts. I tested it against <b>the full population of 63M monthly attempts</b>.</p>
+  <ol class="numlist numlist--red">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">“3–4 PM is the best window.”</h3><p class="numlist__body">False. The chart’s worst weekday hour, 5 PM, was the population’s best, at 7.62% yield.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">“Time of day matters a lot.”</h3><p class="numlist__body">The whole weekday curve spans only 0.9–1.6 pp.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">“Saturday and Monday are interchangeable.”</h3><p class="numlist__body">Monday yields 7.37% against Saturday’s 5.85%, so a Monday attempt is worth 1.26×.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">“Capacity is the constraint.”</h3><p class="numlist__body">The system had already carried 2.2× its mean daily attempts at peak.</p></div></li>
+  </ol>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--green">+0.56 pp</div><div class="stat__label">yield from per-flow hour allocation</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">+7.5%</div><div class="stat__label">engaged calls</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">+66,880</div><div class="stat__label">engaged calls from a day-of-week shift</div></div>
+  </div>
+  <p class="note">Recommended figures are projections from population data, not measured after rollout</p>
+</section>
+
+<section class="section">
+  <p class="pull">Aggregate data is the kindest tiebreaker. Nobody loses face to <em>a funnel.</em></p>
+</section>
+
+<section class="section" id="languages" data-toc="Twelve languages">
+  <p class="label">06 / Scale and languages</p>
+  <h2 class="h2">Eight languages to twelve. <em>A supply chain.</em></h2>
+  <p class="lead">Adding a language to a voicebot isn’t translation. I ran it end to end: <b>an external annotation vendor</b>, tooling, and per-language test dates committed to the client and tracked like any other delivery.</p>
+  <div class="pf-langs" role="img" aria-label="Language platform grew from 8 to 12 languages; all 12 are live.">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <span class="is-new"></span><span class="is-new"></span><span class="is-new"></span><span class="is-new"></span>
+  </div>
+  <ul class="pf-legend">
+    <li><span class="pf-legend__sw"></span><b>8</b> original</li>
+    <li><span class="pf-legend__sw pf-legend__sw--green"></span><b>4</b> added · all 12 live</li>
+  </ul>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--red">
+      <p class="card__tag">Root cause</p>
+      <h3 class="card__title">~46% of engaged calls returned “unknown”</h3>
+      <p class="card__body">One region’s collections lagged, and the standing explanation was customer behaviour. The speech pipeline was the real cause, so a market complaint became an engineering target with a 17-point language QA checklist.</p>
+    </div>
+    <div class="card card--ink">
+      <p class="card__tag">Corpus audit</p>
+      <h3 class="card__title">All 110 bots and 22,614 prompts reviewed</h3>
+      <p class="card__body">It found speech markup too faint to hear on ~19,000 prompts and ~800 prompts at risk of half-speed audio. Fixes were phased in.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="capacity" data-toc="The capacity case">
+  <p class="label">07 / The capacity case</p>
+  <h2 class="h2">1.2M calls a day. <em>Planned for 4.5M.</em></h2>
+  <p class="lead">Growth needed about <b>1,000 more concurrent phone channels</b>. I led the business case: a ₹600K line investment, weighed against modest visible revenue and justified by dialling capacity and reduced complaint risk.</p>
+  <div class="pf-pair" role="img" aria-label="Capacity from about 1.2 million to a target of 4.5 million calls a day, needing about 1,000 more channels.">
+    <div class="columns" aria-hidden="true">
+      <div class="columns__col"><div class="columns__value">~1.2M</div><div class="columns__bar" style="--h:22%"></div></div>
+      <div class="columns__col"><div class="columns__value">4.5M</div><div class="columns__bar pf-target" style="--h:82%"></div></div>
+    </div>
+    <div class="columns__labels" aria-hidden="true"><span>Calls/day before</span><span>Target · +1,000 channels</span></div>
+  </div>
+  <p class="note">Target, not achieved volume · Dashed bar = planned capacity</p>
+</section>
+
+<section class="section" id="collections" data-toc="Resolution is revenue">
+  <p class="label">08 / Resolution is revenue</p>
+  <h2 class="h2">A best month. <em>A higher billing band.</em></h2>
+  <p class="lead">On the second bank’s credit-card collections book, the bot is paid per resolved lead, and the rate depends on the resolution band. In July 2026 the book closed at <b>82.51%, its best standard month on record</b>.</p>
+  <div class="pf-bands" role="img" aria-label="Resolution rose from a previous best of 79.78% in the 75–80% band to 82.51% in the 80–84% band, raising the billing rate from ₹10 to ₹16 per paid lead.">
+    <div class="pf-bands__band" style="--l:9.09%; --w:45.45%" aria-hidden="true">75–80% · ₹10/lead</div>
+    <div class="pf-bands__band pf-bands__band--up" style="--l:54.55%; --w:36.36%" aria-hidden="true">80–84% · ₹16/lead</div>
+    <div class="pf-bands__mark" style="--l:52.55%" aria-hidden="true"><span>79.78%</span></div>
+    <div class="pf-bands__mark pf-bands__mark--now" style="--l:77.36%" aria-hidden="true"><span>82.51%</span></div>
+  </div>
+  <div class="pf-bands__axis" aria-hidden="true"><span>74%</span><span>Value resolution</span><span>85%</span></div>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value">79.78%</div><div class="stat__label">previous best month</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">82.51%</div><div class="stat__label">July 2026 close</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">+60%</div><div class="stat__label">step in billing rate per paid lead</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">At portfolio scale, the operating layer <em>is the product.</em></p>
+</section>
+
+<section class="section" id="governance" data-toc="Governance">
+  <p class="label">09 / Governance</p>
+  <h2 class="h2">623 threads. <em>94 governed issues.</em></h2>
+  <p class="lead">The boards were empty because work drifts to wherever it is easiest. A 90-day email triage <b>rebuilt the largest account’s delivery state</b>, with source links and dependencies on every issue.</p>
+  <div class="flow" role="img" aria-label="623 email threads triaged into 94 governed issues, single-source boards for all 3 accounts, then a weekly planning cadence.">
+    <span class="flow__node flow__node--light">623 email threads</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">94 governed issues</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">One board per account</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node flow__node--green">Weekly “6 things that gate this week”</span>
+  </div>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--green"><p class="card__tag">Ops time</p><h3 class="card__title">~1,895 hours freed</h3><p class="card__body">About 2.5 people, from six process fixes found in a 4-month time-allocation analysis.</p></div>
+    <div class="card card--green"><p class="card__tag">Handover</p><h3 class="card__title">Zero dropped blockers</h3><p class="card__body">Mid-quarter account handover: the one hard blocker escalated before the outgoing PM left, and a timeline slip told to the client before it landed.</p></div>
+    <div class="card card--green"><p class="card__tag">Recovery plan</p><h3 class="card__title">11 problems, 5 root causes</h3><p class="card__body">A 30/60/90-day plan answering every delivery problem the client named, with owners and exit checks.</p></div>
+  </div>
+</section>
+
+<section class="section" id="compliance" data-toc="Compliance as a gate">
+  <p class="label">10 / Compliance as a gate</p>
+  <h2 class="h2">Two exposures. <em>Caught before build.</em></h2>
+  <p class="lead">Both were found in requirements review, <b>before a single call was made</b>, and fixed the same day. Requirement gaps now block development until resolved.</p>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--red"><p class="card__tag">Exposure 1</p><h3 class="card__title">Offer details disclosed to third parties</h3><p class="card__body">A script set would have read a customer’s offer to other contacts, which the client’s own requirements forbid.</p></div>
+    <div class="card card--red"><p class="card__tag">Exposure 2</p><h3 class="card__title">A promotional call labelled as service</h3><p class="card__body">Under telecom regulation, that distinction decides whether the call is allowed at all.</p></div>
+  </div>
+  <div class="callout-dashed"><span class="label label--muted">Same week</span><span>Owned vendor-risk audit readiness for <b>two banking clients</b> as the assessed vendor, including <b>46 checkpoint rows</b> across legal, delivery, HR, finance, customer success and IT.</span></div>
+</section>
+
+<section class="section" id="what-went-wrong" data-toc="What went wrong">
+  <p class="label">11 / What went wrong</p>
+  <h2 class="h2">My mistakes. <em>What they changed.</em></h2>
+  <p class="lead">Each failure became <b>a written rule</b>, not a promise to be more careful.</p>
+  <ol class="numlist numlist--red">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">A client report with ~10 of 13 items wrong</h3><p class="numlist__body">Status was inferred from who emailed last, not the tracker. Corrected line by line with sources; inferred status is now banned from reporting.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">I called it “scraper abuse”. It was our own load testing.</h3><p class="numlist__body">The top caller was unflagged internal testing, billed to clients. One adversarial re-read overturned my conclusion, and that re-read is now mandatory before a surprising finding ships.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Ops debt grew for months unmeasured</h3><p class="numlist__body">The 29.5% time sink was in the data all along. A weekly hours-per-client KPI now exists so the next drift can’t hide.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Our tools lost to our inboxes</h3><p class="numlist__body">Governance that adds friction gets routed around. The rebuild held only because intake became easier than the workaround.</p></div></li>
+  </ol>
+  <div class="stackbar" role="img" aria-label="Client report: about 10 of 13 items wrong, 3 correct.">
+    <span class="stackbar__seg stackbar__seg--red" style="--w:76.9%"></span>
+    <span class="stackbar__seg stackbar__seg--mid" style="--w:23.1%"></span>
+  </div>
+  <ul class="pf-legend">
+    <li><span class="pf-legend__sw pf-legend__sw--red"></span><b>~10</b> items wrong</li>
+    <li><span class="pf-legend__sw pf-legend__sw--stone"></span><b>~3</b> correct, of 13 in the report</li>
+  </ul>
+</section>
+
+<section class="section" id="what-we-built" data-toc="What we built">
+  <p class="label">✓ / What we built</p>
+  <h2 class="h2">Measured wins. <em>Audited debt.</em></h2>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--green">4.2×</div><div class="stat__label">PTP per dialled lead after the LLM cutover</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">95.4%</div><div class="stat__label">precision on the flagship intent</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">12</div><div class="stat__label">languages on the platform</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">82.51%</div><div class="stat__label">best collections close, +60% billing rate</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">~1,895</div><div class="stat__label">ops hours freed (≈2.5 FTE)</div></div>
+    <div class="stat"><div class="stat__value stat__value--green">2</div><div class="stat__label">compliance exposures stopped before build</div></div>
+  </div>
+</section>
+
+<section class="section" id="hindsight" data-toc="In hindsight">
+  <p class="label">12 / In hindsight</p>
+  <h2 class="h2">Four things. <em>Done differently.</em></h2>
+  <ol class="numlist">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Instrument before migrating</h3><p class="numlist__body">The LLM cutovers came before the measurement programme, so the baseline was rebuilt afterwards. The right order is baseline → migrate → audit.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Ban inferred values on day one</h3><p class="numlist__body">The ground-truth-first rule was obvious. It wasn’t written down until a bad report forced it.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Treat judge disagreement as a deliverable</h3><p class="numlist__body">Withholding the LLM-bot number was right, but “we don’t know yet” arrived late. Judge-agreement checks now run before the audit.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Start language QA at launch</h3><p class="numlist__body">The 46% “unknown” rate should have been a launch gate for every language, not a discovery after a market lagged.</p></div></li>
+  </ol>
+</section>
+
+<section class="section">
+  <p class="pull pull--wide">Depth taught me how systems fail. Scale is teaching me <em>which failures repeat.</em></p>
+  <p class="pull__sub">The only durable answer to both is measurement the client could audit.</p>
+</section>

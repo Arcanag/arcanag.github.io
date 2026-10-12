@@ -1,0 +1,7 @@
+{%- assign c = include.case -%}
+<a class="case-tile{% if c.tile_tone == 'ink' %} case-tile--ink{% endif %}" href="{{ c.url | relative_url }}">
+  <span class="case-tile__kicker">{{ c.tile_kicker }}{% if c.read_time %} · {{ c.read_time }}{% endif %}</span>
+  <span class="case-tile__title">{{ c.tile_title | default: c.title }}</span>
+  {%- if c.tile_stat %}<span class="case-tile__stat">{{ c.tile_stat }}</span>{% endif %}
+  <span class="case-tile__cta" aria-hidden="true">Read →</span>
+</a>

@@ -1,53 +1,33 @@
-# Typography System
+# Typography
 
-## 9-Tier Scale (Sam's Rules)
+Three families, three jobs (Google Fonts, `display=swap`, loaded in `_includes/head.html`):
+- **Instrument Sans** 400–700 — voice: headlines, body, numbers, buttons (`--sans`)
+- **Instrument Serif** italic 400 — emphasis: second half of headlines, pulls, hindsight, "why" notes (`--serif`)
+- **JetBrains Mono** 400–600 — metadata: section labels, kickers, stat labels, chart axes and notes (`--mono`)
 
-| Tier | Variable | Size | Element | Usage |
-|------|----------|------|---------|-------|
-| 1. Display | `--cs-display` | 52-82px | `h1` hero title | ONE per page |
-| 2. Section | `--cs-section` | 36-56px | `h2` | Chapter headings (auto-numbered 01, 02...) |
-| 3. Statement | `--cs-statement` | 26-36px | `.cs-statement` | Pull quotes, 2-3 MAX per page |
-| 4. Subhead | `--cs-subhead` | 22px | `h3` | Subsections (left accent border) |
-| 5. Pullquote | `--cs-pullquote` | 17-20px | `.cs-pullquote` | Attributed quotes |
-| 6. Lead | `.cs-lead` | 20px | `<p>` | Section opener, ALWAYS after h2 |
-| 7. Body | `--cs-body` | 15.5px | `<p>` | Default reading text |
-| 8. Aside | `--cs-aside` | 14px | `<figcaption>` | Captions, footnotes |
-| 9. Label | `--cs-label` | 10.5px | `.cs-impact-label` | Uppercase metadata |
+## Signature: the two-tone headline
+`<h2 class="h2">Three options. <em>One call.</em></h2>` — bold sans fact, then serif-italic point in stone, same size.
+Whole headline under ~8 words. `<em class="is-red">` when the serif half names the problem.
 
-## Data Typography (Rule 4)
+## Scale (tokens → roles)
+| Token | Value | Role |
+|---|---|---|
+| `--t-home-h1` | clamp(38px, 5vw, 96px) | Home hero H1 (lh 1.02, -0.035em) |
+| `--t-skill-h1` | clamp(52px, 7vw, 140px) | Skill H1 (lh 0.95, -0.045em) |
+| `--t-case-h1` | clamp(44px, 6vw, 120px) | Case/long-form H1, max 18ch |
+| `--t-tagline` | clamp(19px, 1.7vw, 30px) | Hero tagline, max 40ch |
+| `--t-section` | clamp(28px, 2.8vw, 52px) | Home section headings |
+| `--t-h2` | clamp(34px, 4.2vw, 80px) | Two-tone H2 |
+| `--t-lead` | clamp(18px, 1.5vw, 26px) | Lead, max 46ch, one bold phrase |
+| `--t-stat` | clamp(48px, 5.6vw, 112px) | Big stat number |
+| `--t-pull` | clamp(32px, 4.2vw, 84px) | Pull statement, serif, max 22ch |
+| `--t-hind` | clamp(28px, 3.2vw, 64px) | Hindsight line |
+| `--t-card-h` / `--t-card-b` | clamp(20px,1.6vw,30px) / clamp(15px,1.05vw,19px) | Card title / body |
+| `--t-num` | clamp(36px, 4vw, 72px) | Numbered-list number |
+| `--t-label` | 12px | Mono labels, uppercase, 0.08em (stat labels 0.04em) |
+| `--t-note` | 11px | Chart notes, uppercase, `--note` |
 
-Numbers representing findings get special treatment:
-- `--data`: clamp(36px, 5vw, 48px) -- standard data
-- `--data-hero`: clamp(48px, 7vw, 72px) -- hero stats
-- `--data-weight`: 900
-- `--data-tracking`: -0.03em
+Ghost background word: clamp(110px, 21vw, 420px), `--backdrop`, one per page, aria-hidden.
 
-## Font Families
-
-| Context | Variable | Stack |
-|---------|----------|-------|
-| Global display | `--font-display` | -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif |
-| Global heading | `--font-heading` | Same system stack |
-| Global mono | `--font-mono` | Same system stack |
-| Case study mono | `--font-mono` (override) | 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace |
-
-## Placement Rules
-
-1. **cs-lead**: ALWAYS immediately after every `##` heading. 20px, muted color, max-width 55ch.
-2. **cs-statement**: Max 2-3 per case study. Italic, accent color, left border, max-width 26ch.
-3. **h2**: Auto-generates number prefix (01, 02...) and accent underline. Gets drop cap on first `<p>`.
-4. **h3**: Left accent border, 22px, no numbering. Use for subsections only.
-5. **Bold headers**: Use `### Heading` not `**Heading:**` for anything that acts as a section label.
-6. **Lists**: Wrap bold-item lists in `<ul class="cs-body-list">` not plain markdown `- **item**`.
-
-## Responsive Type
-
-All sizes use `clamp(min, viewport, max)`:
-- Mobile: renders at min value
-- Scales linearly with viewport
-- Desktop: caps at max value
-
-At 900px breakpoint, scale reduces:
-- `--cs-display`: 3rem (from 5.125rem)
-- `--cs-section`: 2.25rem (from 3.5rem)
-- `.cs-lead`: 18px (from 20px)
+## Measure
+Body and leads max 46ch; taglines 40ch; pulls 22ch; `.prose` 62ch for long passages. Headlines are not width-limited except case H1 (18ch).

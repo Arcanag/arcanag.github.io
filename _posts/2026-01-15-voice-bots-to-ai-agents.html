@@ -1,0 +1,162 @@
+---
+title: "From voice bots to AI agents"
+short_title: "Voice bots to AI agents"
+list_title: "From voice bots to AI agents"
+description: "Voice AI already solved confidence thresholds, graceful degradation and escape hatches. The agentic wave is relearning them the hard way."
+summary: "What production voice AI already learned about confidence, fallback and escalation — and what agent builders are relearning."
+tagline: "Production voice AI already solved confidence thresholds, graceful degradation and escape hatches. The agentic wave is relearning them the hard way."
+category: "AI Product Thinking"
+writing_type: Article
+kicker: "Article · AI product thinking"
+meta: "Article · January 2026 · 8 min read"
+read_time: "8 min"
+bg_word: VOICE
+date: 2026-01-15
+tags: ["conversational-ai", "agentic-systems", "voice-ai"]
+skills: [product-discovery, metrics-and-analytics]
+hero_stats:
+  - value: "3"
+    label: "confidence tiers"
+  - value: "3"
+    label: "steps before a human"
+  - value: "4"
+    label: "patterns ported to agents"
+  - value: "1"
+    label: "north-star metric"
+next:
+  url: "/technical%20deep-dive/2026/02/02/cost-conscious-ai-architecture/"
+  label: "Next read: Cost-conscious AI architecture"
+---
+
+<section class="section" id="first-agents" data-toc="The first agents">
+  <p class="label">01 / The first agents</p>
+  <h2 class="h2">Voice bots <em>were agents first.</em></h2>
+  <p class="lead">Before “agentic AI” was a buzzword, voice bots did agent work in production — <b>multi-turn systems handling real phone calls</b> for banks, telecoms and insurers.</p>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">Perceive</span><span class="rows__val">Recognise intent from noisy, accented, interrupted speech.</span></div>
+    <div class="rows__row"><span class="rows__key">Extract</span><span class="rows__val">Pull account numbers, dates and amounts out of natural conversation, in real time.</span></div>
+    <div class="rows__row"><span class="rows__key">Remember</span><span class="rows__val">Keep context across turns — what the caller said three turns ago.</span></div>
+    <div class="rows__row"><span class="rows__key">Decide</span><span class="rows__val">Choose when to act alone and when to transfer to a human.</span></div>
+    <div class="rows__row"><span class="rows__key">Respond fast</span><span class="rows__val">On a phone call, a 2-second pause feels like an eternity.</span></div>
+  </div>
+  <p class="note">Perceive, reason, act, escalate — the same loop every agent runs.</p>
+</section>
+
+<section class="section" id="confidence" data-toc="Confidence thresholds">
+  <p class="label">02 / Confidence thresholds</p>
+  <h2 class="h2">The score matters less <em>than what you do with it.</em></h2>
+  <p class="lead">Every utterance gets a confidence score. The thresholds took years to tune — and <b>they scale with the cost of being wrong.</b></p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--ink">
+      <p class="card__tag">High confidence</p>
+      <p class="po-value">&gt; 0.85</p>
+      <h3 class="card__title">Act on the intent</h3>
+    </div>
+    <div class="card card--stone">
+      <p class="card__tag">Medium confidence</p>
+      <p class="po-value">0.5–0.85</p>
+      <h3 class="card__title">Confirm before acting</h3>
+    </div>
+    <div class="card card--red">
+      <p class="card__tag">Low confidence</p>
+      <p class="po-value">&lt; 0.5</p>
+      <h3 class="card__title">Escalate to a human</h3>
+    </div>
+  </div>
+  <div class="callout-dashed"><span class="label label--muted">Rule of thumb</span><span>A $500 payment confirms at 0.9. A balance lookup is fine at 0.7.</span></div>
+</section>
+
+<section class="section" id="degradation" data-toc="Graceful degradation">
+  <p class="label">03 / Graceful degradation</p>
+  <h2 class="h2">The fallback <em>is the product.</em></h2>
+  <p class="lead">Voice bots can’t crash — there’s a person on the line. So every bot has a ladder that <b>narrows towards a human, one step at a time.</b></p>
+  <ol class="po-ladder" role="list">
+    <li class="po-ladder__step" style="--i:0"><p class="po-ladder__n">Step 1</p><p class="po-ladder__title">Rephrase and retry</p><p class="po-ladder__quote">“Could you say that differently?”</p></li>
+    <li class="po-ladder__step" style="--i:1"><p class="po-ladder__n">Step 2</p><p class="po-ladder__title">Offer options</p><p class="po-ladder__quote">“I can help with payments, balance enquiries or account updates.”</p></li>
+    <li class="po-ladder__step po-ladder__step--last" style="--i:2"><p class="po-ladder__n">Step 3</p><p class="po-ladder__title">Transfer to a human</p><p class="po-ladder__quote">“Let me connect you with someone who can help.”</p></li>
+  </ol>
+  <div class="grid2 ba">
+    <div class="ba__panel">
+      <p class="label label--muted">Worse</p>
+      <p class="card__title">80% handled perfectly, 20% crash</p>
+    </div>
+    <div class="ba__panel ba__panel--after">
+      <p class="label label--green">Better</p>
+      <p class="card__title">70% handled perfectly, 30% escalated gracefully</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Users don’t mind talking to an AI. They mind being <em>stuck</em> with one.</p>
+  <p class="pull__sub">The quality of your escalation path matters as much as the quality of your automation.</p>
+</section>
+
+<section class="section" id="patterns" data-toc="Patterns everywhere">
+  <p class="label">04 / Patterns everywhere</p>
+  <h2 class="h2">Same patterns. <em>New clothes.</em></h2>
+  <p class="lead">When I built <a href="{{ '/case-studies/agentic-pm/' | relative_url }}">Agentic PM</a>, I didn’t invent these patterns. <b>I ported them from voice AI.</b></p>
+  <div class="po-table-wrap">
+    <table class="po-table po-table--map">
+      <thead><tr><th scope="col">Voice bot pattern</th><th scope="col" class="po-arrow"><span class="sr-only">becomes</span></th><th scope="col">Agentic AI pattern</th></tr></thead>
+      <tbody>
+        <tr><td>Confidence scoring (NLU threshold)</td><td class="po-arrow" aria-hidden="true">→</td><td>Task confidence — flag low-certainty tasks for review</td></tr>
+        <tr><td>Fallback chains (rephrase → options → transfer)</td><td class="po-arrow" aria-hidden="true">→</td><td>Routing fallback — ask a clarifying question before misrouting</td></tr>
+        <tr><td>Human escalation (transfer to a live agent)</td><td class="po-arrow" aria-hidden="true">→</td><td>Human review — sensitivity-gated approval before sending</td></tr>
+        <tr><td>Containment rate (% of calls resolved by AI)</td><td class="po-arrow" aria-hidden="true">→</td><td>Autonomy rate (% of tasks done without intervention)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="containment" data-toc="Containment rate">
+  <p class="label">05 / Containment rate</p>
+  <h2 class="h2">One metric <em>for every agent.</em></h2>
+  <p class="lead">Containment — or its equivalent — should be the north-star metric for any AI agent system, because it <b>captures capability and calibration together.</b></p>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">Voice bots</span><span class="rows__val">% of calls resolved by AI</span></div>
+    <div class="rows__row"><span class="rows__key">Chatbots</span><span class="rows__val">% of tickets deflected without a human agent</span></div>
+    <div class="rows__row"><span class="rows__key">Coding assistants</span><span class="rows__val">% of suggestions accepted without modification</span></div>
+    <div class="rows__row"><span class="rows__key">Agent systems</span><span class="rows__val">% of tasks completed without human intervention</span></div>
+    <div class="rows__row"><span class="rows__key">AI PM tools</span><span class="rows__val">% of planning decisions that aren’t overridden</span></div>
+  </div>
+  <div class="grid2 grid--stats mt-xl">
+    <div class="stat">
+      <div class="stat__value stat__value--red">95%</div>
+      <div class="stat__label">autonomous — but 20% wrong</div>
+      <p class="stat__body">Looks better on a dashboard. Delivers less.</p>
+    </div>
+    <div class="stat">
+      <div class="stat__value stat__value--green">70%</div>
+      <div class="stat__label">autonomous — 98% accurate</div>
+      <p class="stat__body">The higher effective containment rate.</p>
+    </div>
+  </div>
+  <div class="callout-dashed"><span class="label label--muted">Watch out</span><span>Higher isn’t always better. Push containment from 70% to 90% by making transfers harder, and CSAT drops.</span></div>
+</section>
+
+<section class="section" id="gaps" data-toc="What agents haven't learned">
+  <p class="label">06 / What agents haven’t learned</p>
+  <h2 class="h2">Solved problems, <em>repeated.</em></h2>
+  <p class="lead">Across AutoGPT, CrewAI and LangGraph, I keep seeing <b>mistakes voice AI made and fixed years ago.</b></p>
+  <div class="po-table-wrap">
+    <table class="po-table">
+      <thead><tr><th scope="col">Capability</th><th scope="col">Voice AI</th><th scope="col">Most agents</th></tr></thead>
+      <tbody>
+        <tr><td>Escape hatches — hand off to a human mid-task</td><td class="po-yes">Solved</td><td class="po-no">Missing</td></tr>
+        <tr><td>Error recovery — back out gracefully when context goes wrong</td><td class="po-yes">Solved</td><td class="po-no">Missing</td></tr>
+        <tr><td>Capability transparency — declare limits up front</td><td class="po-yes">Solved</td><td class="po-no">Missing</td></tr>
+        <tr><td>Latency matched to the task</td><td class="po-yes">Solved</td><td class="po-no">Missing</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">A judgement from following the ecosystem, not a benchmark.</p>
+  <div class="prose mt-l">
+    <p>Most agent demos run until they succeed or fail, with no mid-task escape hatch. Users discover limits through failure. And agents often take 30 seconds over a decision a human makes in 2 — <b>perceived intelligence is a function of speed and accuracy.</b></p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">If you’re building agents, <em>study voice bots first.</em></p>
+  <p class="pull__sub">The patterns for confidence, fallback, escalation and containment are battle-tested across millions of production interactions. If you’ve built voice, chat or dialogue systems, you already understand the hardest parts of agent design.</p>
+</section>

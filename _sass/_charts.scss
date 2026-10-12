@@ -1,0 +1,70 @@
+// g. Shared charts — HTML/CSS only (PDF §07). Per-instance data via custom props:
+//    style="--w: 47%" (width), "--l: 12%" (left), "--h: 60%" (height).
+
+// Horizontal bar — rates that each have their own base
+.hbar { margin-top: 36px; display: grid; gap: 22px; }
+.hbar__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 20px; align-items: end; }
+.hbar__label { font-size: var(--t-card-b); line-height: 1.35; }
+.hbar__value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.hbar__track { grid-column: 1 / -1; height: 14px; border-radius: 7px; background: var(--rule); overflow: hidden; }
+.hbar__fill { height: 100%; width: var(--w, 0%); border-radius: 7px; background: var(--ink); }
+.hbar__fill--red { background: var(--red); }
+.hbar__fill--green { background: var(--green); }
+.hbar__fill--mid { background: var(--mid); }
+
+// Count bars — label | bar | count (incidents, categories)
+.cbar { margin-top: 36px; display: grid; gap: 12px; }
+.cbar__row { display: grid; grid-template-columns: clamp(140px, 12vw, 220px) minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.cbar__label { font-size: var(--t-card-b); line-height: 1.3; }
+.cbar__track { height: 16px; border-radius: var(--r-bar); background: var(--track); }
+.cbar__fill { height: 100%; width: var(--w, 0%); border-radius: var(--r-bar); background: var(--ink); }
+.cbar__fill--red { background: var(--red); }
+.cbar__count { font-size: 22px; font-weight: 700; min-width: 2ch; text-align: right; }
+@media (max-width: 640px) {
+  .cbar__row { grid-template-columns: minmax(0, 1fr) auto; }
+  .cbar__track { grid-column: 1 / -1; grid-row: 2; }
+}
+
+// Funnel — right-aligned bars of decreasing width + serif question beside each stage
+.funnel { margin-top: 36px; display: grid; gap: 10px; }
+.funnel__row { display: grid; grid-template-columns: minmax(0, 52%) minmax(0, 1fr); gap: 20px; align-items: center; }
+.funnel__barwrap { display: flex; justify-content: flex-end; }
+.funnel__bar {
+  width: var(--w, 100%); min-height: 52px; padding: 10px 16px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: flex-end; text-align: right;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.funnel__bar--2 { background: var(--ink-2); }
+.funnel__bar--3 { background: var(--note); }
+.funnel__bar--4 { background: var(--stone); }
+.funnel__bar--green { background: var(--green); }
+.funnel__bar--red { background: var(--red); }
+.funnel__text { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.5vw, 26px); line-height: 1.25; color: var(--graphite); }
+@media (max-width: 640px) {
+  .funnel__row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .funnel__barwrap { justify-content: flex-start; }
+  .funnel__bar { justify-content: flex-start; text-align: left; min-width: 60%; }
+}
+
+// Before → after column pair on a 2px ink baseline
+.columns { margin-top: 36px; display: flex; align-items: flex-end; gap: clamp(20px, 4vw, 64px); height: 240px; border-bottom: 2px solid var(--ink); }
+.columns__col { flex: 0 1 140px; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+.columns__bar { height: var(--h, 50%); border-radius: 8px 8px 0 0; background: var(--mid); }
+.columns__bar--after { background: var(--green); }
+.columns__value { margin-bottom: 8px; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.columns__labels { display: flex; gap: clamp(20px, 4vw, 64px); margin-top: 10px; }
+.columns__labels span { flex: 0 1 140px; font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite); }
+
+// Stacked 100% bar
+.stackbar { margin-top: 36px; display: flex; height: 56px; border-radius: 10px; overflow: hidden; }
+.stackbar__seg { width: var(--w); background: var(--ink); }
+.stackbar__seg--mid { background: var(--stone); }
+.stackbar__seg--red { background: var(--red); }
+
+// Pipeline / flow nodes
+.flow { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.flow__node { padding: 14px 18px; border-radius: 12px; background: var(--ink); color: var(--paper); font-weight: 600; font-size: var(--t-card-b); }
+.flow__node--green { background: var(--green); }
+.flow__node--light { background: var(--surface); color: var(--ink); }
+.flow__arrow { color: var(--stone); font-weight: 700; }

@@ -1,0 +1,98 @@
+---
+title: "Testing non-deterministic AI products"
+short_title: "Testing non-deterministic AI"
+description: "A testing pyramid for AI products that never answer the same way twice — four strategies from 100+ tests across two AI products."
+tagline: "100+ tests across two AI products — a testing pyramid for when your core feature never answers the same way twice."
+category: "Technical Deep-Dive"
+date: 2026-02-18
+kicker: "Playbook · Technical deep-dive"
+meta: "Playbook · February 2026 · 8 min read"
+read_time: "8 min"
+bg_word: TESTS
+writing_type: Playbook
+list_title: "Testing non-deterministic AI products"
+summary: "A testing pyramid for products that never answer the same way twice, from 100+ tests."
+tags: ["testing", "ai-products", "pytest", "playwright"]
+skills:
+  - ai-ml-fluency-and-evals
+  - zero-to-one-product-development
+hero_stats:
+  - value: "100+"
+    label: "tests, two products"
+  - value: "4"
+    label: "strategies"
+  - value: "3"
+    label: "automated layers"
+  - value: "60%"
+    label: "recommended share: mocked unit tests"
+next:
+  url: /frameworks/voicebot-metrics-funnel/
+  label: "Next read: Call resolution funnel"
+---
+<section class="section" id="the-problem" data-toc="The problem">
+  <p class="label">01 / The problem</p>
+  <h2 class="h2"><code class="pb-inline">assert ==</code> <em>will fail.</em></h2>
+  <p class="lead">Even at temperature 0, outputs drift across API versions and model updates. <b>So teams skip testing — or test the wrong things.</b></p>
+<pre class="code"><code>result = generate_tailored_resume(resume, job_description)
+assert result == expected_output  # This WILL fail on the next run</code></pre>
+</section>
+
+<section class="section">
+  <p class="pull">Most business logic happens <em>around</em> the LLM call — not inside it.</p>
+</section>
+
+<section class="section" id="four-strategies" data-toc="Four strategies">
+  <p class="label">02 / Four strategies</p>
+  <h2 class="h2">Test the code. <em>Not the model.</em></h2>
+  <p class="lead">Each strategy isolates something <b>deterministic</b> you can assert on. They come from testing two products: <a href="{{ '/case-studies/agentic-pm/' | relative_url }}">Agentic PM</a> and a resume-tailoring product I built.</p>
+  <ol class="numlist">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Mock LLM responses</h3><p class="numlist__body">Most business logic happens around the LLM call. Fix the response with a fixture and test your rules — <a href="{{ '/case-studies/agentic-pm/' | relative_url }}">Agentic PM</a> has 14 of these.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Test preprocessing separately</h3><p class="numlist__body">PDF parsing, NER, TF-IDF matching and ATS scoring are deterministic. They run in milliseconds and catch real bugs.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Validate the schema</h3><p class="numlist__body">Parse every response against a Pydantic model. Test the well-formed, the malformed — and the polite refusal.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Test user flows end to end</h3><p class="numlist__body">Playwright checks that the journey works and something was generated — the plumbing, not the AI.</p></div></li>
+  </ol>
+</section>
+
+<section class="section" id="in-practice" data-toc="In practice">
+  <p class="label">03 / In practice</p>
+  <h2 class="h2">A mocked <em>LLM test.</em></h2>
+  <p class="lead">The fixture fixes the model’s answer; the test checks <b>your parsing, aggregation and thresholds.</b></p>
+<pre class="code"><code>@patch('agents.decomposition.call_llm')
+def test_epic_decomposition_creates_subtasks(mock_llm):
+    mock_llm.return_value = {"tasks": [
+        {"title": "Design API schema", "hours": 4, "confidence": 0.9},
+        {"title": "Implement endpoints", "hours": 8, "confidence": 0.85},
+    ]}
+    result = decompose_epic("Build user authentication API")
+    assert len(result.tasks) == 2
+    assert all(t.confidence &gt; 0.8 for t in result.tasks)
+    assert result.total_estimate == 12</code></pre>
+</section>
+
+<section class="section" id="the-pyramid" data-toc="The pyramid">
+  <p class="label">04 / The pyramid</p>
+  <h2 class="h2">Mostly fast. <em>A little human.</em></h2>
+  <p class="lead">Most coverage from <b>mocked unit tests;</b> human review where judgement is needed.</p>
+  <div class="pb-pyramid" role="img" aria-label="Recommended testing pyramid: 60% unit tests on every commit, 20% integration on every commit, 15% end-to-end on every PR, 5% manual evaluation reviewed weekly">
+    <div class="pb-pyramid__row"><div class="pb-pyramid__bar pb-pyramid__bar--manual" style="--w:22%"><span>Manual evaluation</span><span>5%</span></div><p class="pb-pyramid__cadence">Structured eval set, reviewed weekly</p></div>
+    <div class="pb-pyramid__row"><div class="pb-pyramid__bar" style="--w:44%"><span>End-to-end (Playwright)</span><span>15%</span></div><p class="pb-pyramid__cadence">Every PR</p></div>
+    <div class="pb-pyramid__row"><div class="pb-pyramid__bar pb-pyramid__bar--2" style="--w:68%"><span>Integration · schema &amp; errors</span><span>20%</span></div><p class="pb-pyramid__cadence">Every commit</p></div>
+    <div class="pb-pyramid__row"><div class="pb-pyramid__bar pb-pyramid__bar--red" style="--w:100%"><span>Unit · mocked LLM + preprocessing</span><span>60%</span></div><p class="pb-pyramid__cadence">Every commit</p></div>
+  </div>
+  <p class="note">Recommended share of tests per layer, not a measured split</p>
+</section>
+
+<section class="section" id="what-not-to-test" data-toc="What not to test">
+  <p class="label">05 / What not to test</p>
+  <h2 class="h2">Three tests <em>that only create noise.</em></h2>
+  <ol class="numlist numlist--red">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Don’t assert on output quality</h3><p class="numlist__body">“Should mention Python” breaks the day the model writes “Python 3.x”.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Don’t test for specific wording</h3><p class="numlist__body">“Stakeholder management” vs “stakeholder engagement” — both right, both failing.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Don’t snapshot LLM output</h3><p class="numlist__body">Golden files work for deterministic renders, not for models.</p></div></li>
+  </ol>
+</section>
+
+<section class="section">
+  <p class="pull pull--wide">Test your code. Validate your contracts. Verify your flows. <em>Evaluate your AI separately.</em></p>
+  <p class="pull__sub">With human judgment and structured eval sets — not with pytest assertions.</p>
+</section>

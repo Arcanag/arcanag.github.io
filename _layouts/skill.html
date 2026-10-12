@@ -1,0 +1,32 @@
+---
+layout: default
+---
+{%- assign skills = site.skills | sort: "order" -%}
+{%- assign next_skill = nil -%}
+{%- assign want = page.order | plus: 1 -%}
+{%- for s in skills -%}{%- if s.order == want -%}{%- assign next_skill = s -%}{%- endif -%}{%- endfor -%}
+{%- assign num = page.order | prepend: "0" | slice: -2, 2 -%}
+<section class="hero">
+  {%- if page.bg_word %}<div class="hero__ghost" aria-hidden="true">{{ page.bg_word }}</div>{% endif %}
+  <div class="hero__inner">
+    <a class="hero__back" href="{{ '/#work' | relative_url }}">← All skills</a>
+    <p class="label">How I work · {{ num }} · {{ page.tag }}</p>
+    <h1 class="hero__title">{{ page.title }}</h1>
+    {%- if page.tagline %}<p class="hero__tagline">{{ page.tagline }}</p>{% endif %}
+    {%- if page.rubric %}<p class="hero__rubric">What hiring teams call this: {{ page.rubric }}</p>{% endif %}
+  </div>
+</section>
+
+{{ content }}
+
+<nav class="nextnav" aria-label="Continue">
+  {%- assign proof = page.proved_by | first -%}
+  {%- if proof %}
+  <a class="btn" href="{{ proof.url | relative_url }}">Read the full {{ proof.kind | default: "case study" }}{% if proof.read_time %} · {{ proof.read_time }}{% endif %}</a>
+  {%- endif %}
+  {%- if next_skill %}
+  <a class="tlink" href="{{ next_skill.url | relative_url }}">Next: {{ next_skill.title }} →</a>
+  {%- else %}
+  <a class="tlink" href="{{ '/#work' | relative_url }}">Back to all skills →</a>
+  {%- endif %}
+</nav>

@@ -1,0 +1,62 @@
+---
+layout: default
+---
+{%- comment -%}
+Case studies, posts, framework, playbook. Content is a series of <section class="section" id="..." data-toc="Title">.
+Front matter: kicker, title, tagline, meta, bg_word, skills (skill slugs), hero_stats [{value,label,tone}],
+toc (true), back {url,label}, next {url,label}.
+{%- endcomment -%}
+{%- if page.toc %}
+<div class="readbar" data-readbar hidden>
+  <div class="wrap">
+    <div class="readbar__inner">
+      <p class="readbar__title">{{ page.short_title | default: page.title }} <span class="readbar__current" data-readbar-current></span></p>
+      <button class="readbar__toggle" type="button" aria-expanded="false" aria-controls="readbar-toc" data-readbar-toggle>Contents</button>
+    </div>
+    <nav class="readbar__toc" id="readbar-toc" aria-label="Contents" hidden><ol data-readbar-list></ol></nav>
+  </div>
+  <div class="readbar__progress" aria-hidden="true"></div>
+</div>
+{%- endif %}
+{%- assign back_url = page.back.url | default: "/writing/" -%}
+{%- assign back_label = page.back.label | default: "All writing" -%}
+{%- if page.collection == "case-studies" -%}{%- assign back_url = page.back.url | default: "/case-studies/" -%}{%- assign back_label = page.back.label | default: "All case studies" -%}{%- endif -%}
+<article>
+<section class="hero hero--long">
+  {%- if page.bg_word %}<div class="hero__ghost" aria-hidden="true">{{ page.bg_word }}</div>{% endif %}
+  <div class="hero__inner">
+    <a class="hero__back" href="{{ back_url | relative_url }}">← {{ back_label }}</a>
+    {%- if page.kicker %}<p class="label">{{ page.kicker }}</p>{% endif %}
+    <h1 class="hero__title">{{ page.title }}</h1>
+    {%- assign tagline = page.tagline | default: page.description -%}
+    {%- if tagline %}<p class="hero__tagline">{{ tagline }}</p>{% endif %}
+    {%- if page.meta %}<p class="hero__meta">{{ page.meta }}</p>{% endif %}
+    {%- if page.skills %}
+    <div class="hero__chips">
+      <span class="hero__chips-label">Skills shown</span>
+      {%- for slug in page.skills %}{% assign s = site.skills | where: "slug", slug | first %}{% if s %}
+      <a class="chip" href="{{ s.url | relative_url }}">{{ s.title }}</a>{% endif %}{% endfor %}
+    </div>
+    {%- endif %}
+  </div>
+  {%- if page.hero_stats %}
+  <div class="grid4 grid--stats hero__stats">
+    {%- for st in page.hero_stats %}
+    <div class="stat">
+      <div class="stat__value stat__value--sm{% if st.tone %} stat__value--{{ st.tone }}{% endif %}">{{ st.value }}</div>
+      <div class="stat__label">{{ st.label }}</div>
+    </div>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+</section>
+
+{{ content }}
+</article>
+
+<nav class="nextnav" aria-label="Continue">
+  <a class="tlink" href="{{ back_url | relative_url }}">← {{ back_label }}</a>
+  {%- if page.next %}
+  <a class="btn" href="{{ page.next.url | relative_url }}">{{ page.next.label }} →</a>
+  {%- endif %}
+</nav>

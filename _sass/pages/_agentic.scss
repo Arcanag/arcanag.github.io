@@ -1,0 +1,44 @@
+// Page-specific styles: agentic PM case study (.ag-). Use tokens; no raw hex.
+
+// Flow: three green output agents stacked at the end of the chain
+.ag-flow { margin-top: 40px; }
+.ag-flow .flow__node { text-align: center; font-size: clamp(14px, 1vw, 18px); font-weight: 700; }
+.ag-flow .flow__arrow { font-size: 24px; }
+.ag-flow__group { display: flex; flex-direction: column; gap: 8px; }
+
+// Tech stack rows
+.ag-stack { margin: 32px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; max-width: 900px; }
+.ag-stack__row {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+  padding: 16px 20px; border-radius: var(--r-inner); background: var(--surface);
+}
+.ag-stack__row--ink { background: var(--ink); color: var(--paper); }
+.ag-stack__name { font-size: var(--t-body); font-weight: 700; }
+.ag-stack__desc { font-family: var(--mono); font-size: 13px; }
+
+// Histogram — 24 bars on an ink baseline, P50 red, P75/P90 ink
+.ag-hist { margin: 40px 0 0; max-width: 1000px; }
+.ag-hist__bars { display: flex; align-items: flex-end; gap: 3px; height: clamp(160px, 16vw, 260px); border-bottom: 2px solid var(--ink); }
+.ag-hist__bars span { flex: 1; height: var(--h); border-radius: 4px 4px 0 0; background: var(--mid); }
+.ag-hist__bars span.is-p50 { background: var(--red); }
+.ag-hist__bars span.is-mark { background: var(--ink); }
+.ag-hist__markers { position: relative; height: 52px; margin-top: 10px; }
+.ag-hist__marker {
+  position: absolute; left: var(--l); transform: translateX(-50%); text-align: center;
+  font-family: var(--mono); font-size: var(--t-note); text-transform: uppercase; color: var(--graphite);
+}
+.ag-hist__marker b { display: block; font-family: var(--sans); font-size: 18px; color: var(--ink); }
+.ag-hist__marker--p50 b { color: var(--red-deep); }
+@media (max-width: 640px) {
+  .ag-hist__marker { font-size: 0; }
+  .ag-hist__marker b { font-size: 15px; }
+}
+
+// Test split
+.ag-tests { margin-top: 40px; max-width: 1000px; }
+.ag-tests .stackbar { margin-top: 0; height: clamp(40px, 3vw, 56px); }
+.ag-tests__legend { margin-top: 18px; gap: 20px; }
+.ag-tests__n { font-size: clamp(36px, 3.6vw, 72px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.ag-tests__n--mid { color: var(--note); }
+.ag-tests__n--red { color: var(--red-deep); }
+@media (max-width: 760px) { .ag-tests__legend { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

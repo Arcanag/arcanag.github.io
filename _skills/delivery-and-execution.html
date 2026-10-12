@@ -1,0 +1,103 @@
+---
+title: "Delivery & execution"
+order: 9
+tag: Delivery
+rubric: "Execution · programme delivery"
+bg_word: WAVES
+tagline: "Shipping 30 use cases into an air-gapped bank in parallel waves — while the live system kept taking calls."
+description: "How Anurag Sharma delivered 30 voicebot use cases for a Tier-1 bank in five parallel waves, through seven bank-side gates and five coordinated deploys."
+tile_stat: "5 waves"
+tile_label: "30 use cases, built in parallel"
+tile_line: "Parallel waves, predictable windows."
+graphic: gantt
+proved_by:
+  - url: /case-studies/banking-voicebot/
+    kind: case study
+    read_time: 12 min
+---
+<section class="section">
+  <p class="label">01 / The situation</p>
+  <h2 class="h2">30 use cases. <em>Each from scratch.</em></h2>
+  <p class="lead">For a Tier-1 private bank, every use case needed its own APIs, NLU changes, flows and multi-round testing — <b>through a 27-step lifecycle</b>, on an air-gapped system that was already live.</p>
+  <div class="grid3 grid--stats mt-l">
+    <div class="stat">
+      <div class="stat__value">30</div>
+      <div class="stat__label">use cases to deliver</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value stat__value--red">7</div>
+      <div class="stat__label">bank-side gates per use case</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">3</div>
+      <div class="stat__label">new product categories: NRI, Current, Loan</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">02 / The waves</p>
+  <h2 class="h2">Five waves. <em>Built in parallel.</em></h2>
+  <p class="lead">Staggered build, test and deploy windows gave the bank <b>predictable testing slots</b> — with the freedom to pull forward any use case that unblocked early.</p>
+  <div class="skn-gantt" role="img" aria-label="Delivery plan, April 2025 to May 2026. Wave 1, 8 use cases, build April to July 2025, deploy July. Wave 2, 6 use cases, build June to September, test, deploy October. Wave 3, 6 use cases, build August to November, deploy December. Wave 4, 5 use cases, build October to January 2026, deploy February. Wave 5, 5 use cases, build December to March 2026, test March, deploy April to May 2026. Parallel tracks: MIS revamp April to August 2025, SLU retraining June to December 2025, security compliance July 2025 to February 2026.">
+    <div class="skn-gantt__plot">
+      <div class="skn-gantt__row"><span class="skn-gantt__label">Wave 1 · 8</span><span class="skn-gantt__track"><span class="skn-gantt__bar" style="--l:0%;--w:21.43%"></span><span class="skn-gantt__bar skn-gantt__bar--ship" style="--l:21.43%;--w:7.14%"></span></span></div>
+      <div class="skn-gantt__row"><span class="skn-gantt__label">Wave 2 · 6</span><span class="skn-gantt__track"><span class="skn-gantt__bar" style="--l:14.29%;--w:21.43%"></span><span class="skn-gantt__bar skn-gantt__bar--test" style="--l:35.71%;--w:7.14%"></span><span class="skn-gantt__bar skn-gantt__bar--ship" style="--l:42.86%;--w:7.14%"></span></span></div>
+      <div class="skn-gantt__row"><span class="skn-gantt__label">Wave 3 · 6</span><span class="skn-gantt__track"><span class="skn-gantt__bar" style="--l:28.57%;--w:21.43%"></span><span class="skn-gantt__bar skn-gantt__bar--test" style="--l:50%;--w:7.14%"></span><span class="skn-gantt__bar skn-gantt__bar--ship" style="--l:57.14%;--w:7.14%"></span></span></div>
+      <div class="skn-gantt__row"><span class="skn-gantt__label">Wave 4 · 5</span><span class="skn-gantt__track"><span class="skn-gantt__bar" style="--l:42.86%;--w:21.43%"></span><span class="skn-gantt__bar skn-gantt__bar--test" style="--l:64.29%;--w:7.14%"></span><span class="skn-gantt__bar skn-gantt__bar--ship" style="--l:71.43%;--w:7.14%"></span></span></div>
+      <div class="skn-gantt__row"><span class="skn-gantt__label">Wave 5 · 5</span><span class="skn-gantt__track"><span class="skn-gantt__bar" style="--l:57.14%;--w:21.43%"></span><span class="skn-gantt__bar skn-gantt__bar--test" style="--l:78.57%;--w:7.14%"></span><span class="skn-gantt__bar skn-gantt__bar--ship" style="--l:85.71%;--w:7.14%"></span></span></div>
+      <div class="skn-gantt__section">
+        <div class="skn-gantt__row"><span class="skn-gantt__label">MIS revamp</span><span class="skn-gantt__track skn-gantt__track--par"><span class="skn-gantt__bar skn-gantt__bar--par skn-gantt__bar--red" style="--l:0%;--w:28.57%"></span></span></div>
+        <div class="skn-gantt__row"><span class="skn-gantt__label">SLU retraining</span><span class="skn-gantt__track skn-gantt__track--par"><span class="skn-gantt__bar skn-gantt__bar--par skn-gantt__bar--ship" style="--l:14.29%;--w:42.86%"></span></span></div>
+        <div class="skn-gantt__row"><span class="skn-gantt__label">Security</span><span class="skn-gantt__track skn-gantt__track--par"><span class="skn-gantt__bar skn-gantt__bar--par skn-gantt__bar--stone" style="--l:21.43%;--w:50%"></span></span></div>
+      </div>
+      <div class="skn-gantt__row">
+        <span></span>
+        <span class="skn-gantt__axis" aria-hidden="true"><span class="skn-gantt__tick" style="--l:0%">APR 25</span><span class="skn-gantt__tick" style="--l:21.43%">JUL</span><span class="skn-gantt__tick" style="--l:42.86%">OCT</span><span class="skn-gantt__tick" style="--l:64.29%">JAN 26</span><span class="skn-gantt__tick" style="--l:85.71%">APR</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="skn-legend" aria-hidden="true"><span style="--c:var(--ink)">Build</span><span style="--c:var(--stone)">Test (CUG)</span><span style="--c:var(--green)">Production deploy</span></div>
+  <p class="note">Spans from the delivery plan, approximate · wave 5’s deploy window (Apr–May 2026) falls after the case study closes in Mar 2026</p>
+</section>
+
+<section class="section">
+  <p class="pull">At any moment, use cases sat at <em>every stage</em> of the lifecycle at once.</p>
+</section>
+
+<section class="section">
+  <p class="label">03 / The gates</p>
+  <h2 class="h2">Seven gates <em>before day one.</em></h2>
+  <p class="lead">Each use case waited on seven bank-side prerequisites before our pipeline could start. <b>I tracked them as dependencies</b>, not as excuses — and chased them four levels deep in the bank.</p>
+  <ol class="skn-gates">
+    <li><b>1</b>Requirement documents</li>
+    <li><b>2</b>API documentation</li>
+    <li><b>3</b>Parameter definitions</li>
+    <li><b>4</b>Routing details</li>
+    <li><b>5</b>SMS content</li>
+    <li><b>6</b>Production recordings</li>
+    <li><b>7</b>Test data</li>
+  </ol>
+  <div class="callout-dashed">
+    <span class="label label--muted">Every deploy</span>
+    <span>A formal plan of action, an email approval chain, and <b>production and disaster-recovery sites updated together.</b></span>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">✓ / The result</p>
+  <div class="grid2 grid--result mt-l">
+    <div class="stat stat--result">
+      <div class="stat__value">30</div>
+      <div class="stat__label">use cases built in 5 waves, alongside 3 parallel tracks</div>
+    </div>
+    <div class="stat stat--result">
+      <div class="stat__value">5</div>
+      <div class="stat__label">major deploys, Aug 2025 – Mar 2026, coordinated across production and DR</div>
+    </div>
+  </div>
+  <div class="hindsight">
+    <p class="label label--muted">In hindsight</p>
+    <p class="hindsight__text">One engineer held the production-to-DR switchover. Single points of failure are delivery risks — build the muscle early.</p>
+  </div>
+</section>
