@@ -1,12 +1,13 @@
 // Home tiles: skill tiles, case tiles, writing rows, mini-graphics (PDF §06)
 
 // Skill tiles — 3 / 2 below 980 / 1 below 640
-.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 1.4vw, 28px); list-style: none; margin: 0; padding: 0; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto auto 1fr auto; gap: clamp(16px, 1.4vw, 28px); list-style: none; margin: 0; padding: 0; }
 @media (max-width: 980px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .tiles { grid-template-columns: minmax(0, 1fr); } }
 
+.tiles > li { display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; }
 .skill-tile {
-  height: 100%; display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px;
+  grid-row: span 4; display: grid; grid-template-rows: subgrid; row-gap: 18px;
   min-height: clamp(280px, 20vw, 400px); padding: clamp(24px, 2vw, 40px);
   border-radius: var(--r-tile); background: var(--surface); text-decoration: none; color: var(--ink);
 }
@@ -28,14 +29,14 @@
 @media (max-width: 980px) { .cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .cases { grid-template-columns: minmax(0, 1fr); } }
 .case-tile {
-  height: 100%; display: flex; flex-direction: column; gap: 16px; padding: 32px;
+  height: 100%; display: grid; grid-template-rows: auto 1fr auto auto; gap: 16px; padding: 32px;
   min-height: clamp(240px, 18vw, 360px); border-radius: var(--r-tile);
   background: var(--surface); color: var(--ink); text-decoration: none;
 }
-.case-tile__kicker { font-family: var(--mono); font-size: var(--t-label); color: var(--note); }
+.case-tile__kicker { min-height: 3em; font-family: var(--mono); font-size: var(--t-label); line-height: 1.5; color: var(--note); }
 .case-tile__title { font-size: clamp(26px, 2vw, 40px); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; }
-.case-tile__stat { font-family: var(--mono); font-size: 13px; color: var(--graphite); }
-.case-tile__cta { margin-top: auto; font-size: 14px; font-weight: 600; }
+.case-tile__stat { min-height: 3em; font-family: var(--mono); font-size: 13px; line-height: 1.5; color: var(--graphite); }
+.case-tile__cta { font-size: 14px; font-weight: 600; }
 .case-tile:hover .case-tile__cta { color: var(--red); }
 .case-tile--ink { background: var(--ink); color: var(--paper); }
 .case-tile--ink:hover { color: var(--paper); }
@@ -46,16 +47,16 @@
 // Writing rows — type | title | summary | date
 .writing { border-top: 2px solid var(--ink); list-style: none; margin: 0; padding: 0; }
 .writing-row {
-  display: grid; grid-template-columns: minmax(90px, 0.6fr) minmax(0, 2.2fr) minmax(0, 2.6fr) auto;
+  display: grid; grid-template-columns: 112px minmax(0, 2.2fr) minmax(0, 2.6fr) 160px;
   gap: clamp(12px, 2vw, 40px); align-items: baseline;
   padding: clamp(20px, 1.8vw, 32px) 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink);
 }
 .writing-row__type { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-deep); }
 .writing-row__title { font-size: clamp(20px, 1.7vw, 32px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
 .writing-row__summary { font-size: clamp(15px, 1vw, 19px); line-height: 1.5; color: var(--graphite); }
-.writing-row__date { font-family: var(--mono); font-size: var(--t-label); color: var(--note); white-space: nowrap; }
+.writing-row__date { font-family: var(--mono); font-size: var(--t-label); color: var(--note); white-space: nowrap; text-align: right; }
 .writing-row:hover .writing-row__title { color: var(--red); }
-@media (max-width: 860px) { .writing-row { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+@media (max-width: 860px) { .writing-row { grid-template-columns: minmax(0, 1fr); gap: 6px; } .writing-row__date { text-align: left; } }
 
 // Mini-graphics — wordless, 30–60px tall; red marks the key element, mid grey the rest
 .mg { display: flex; align-items: center; gap: 6px; height: 56px; }

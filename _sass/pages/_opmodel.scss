@@ -23,14 +23,14 @@
 @media (max-width: 1000px) { .om-life { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 520px)  { .om-life { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .om-life__stage {
-  display: flex; flex-direction: column; gap: 6px; min-height: 120px; padding: 14px;
+  display: grid; grid-template-rows: subgrid; grid-row: span 3; row-gap: 6px; min-height: 120px; padding: 14px;
   border-radius: var(--r-inner); background: var(--ink); color: var(--paper); border-top: 5px solid transparent;
 }
 .om-life__stage--cs { background: var(--paper); color: var(--ink); outline: 1.5px solid var(--ink); outline-offset: -1.5px; }
 .om-life__stage.is-handoff { border-top-color: var(--red); }
 .om-life__n { font-family: var(--mono); font-size: var(--t-label); opacity: 0.8; }
 .om-life__name { font-size: clamp(15px, 1.05vw, 18px); font-weight: 700; line-height: 1.2; }
-.om-life__owner { margin-top: auto; font-family: var(--mono); font-size: var(--t-note); letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.85; }
+.om-life__owner { align-self: start; font-family: var(--mono); font-size: var(--t-note); letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.85; }
 .om-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-family: var(--mono); font-size: var(--t-note); text-transform: uppercase; color: var(--graphite); }
 .om-legend > span { display: inline-flex; align-items: center; gap: 8px; }
 .om-legend__sw { width: 14px; height: 14px; border-radius: 4px; background: var(--ink); }
@@ -46,7 +46,7 @@
 .om-table td { color: var(--graphite); }
 
 // Health rating chip inside each lens card
-.om-rating { display: inline-block; margin-top: 16px; padding: 4px 12px; border-radius: var(--r-pill); font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.om-rating { display: inline-block; justify-self: start; align-self: end; margin-top: 16px; padding: 4px 12px; border-radius: var(--r-pill); font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 .om-rating--ok   { background: var(--green-tint); color: var(--green-deep); }
 .om-rating--risk { background: var(--red-tint); color: var(--red-deep); }
 
