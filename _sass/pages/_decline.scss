@@ -1,0 +1,37 @@
+// Page-specific styles: metric-decline playbook (.dc-). Use tokens; no raw hex.
+
+// Engaged-call composition — two 100% bars, human vs voicemail
+.dc-mix { margin-top: 36px; display: grid; gap: 14px; }
+.dc-mix__row { display: grid; grid-template-columns: clamp(64px, 6vw, 96px) minmax(0, 1fr); gap: 16px; align-items: center; }
+.dc-mix__name { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graphite); }
+.dc-mix__bar { display: flex; height: 52px; border-radius: 10px; overflow: hidden; }
+.dc-mix__seg {
+  width: var(--w); display: flex; align-items: center; padding: 0 14px; overflow: hidden; white-space: nowrap;
+  background: var(--ink); color: var(--paper); font-weight: 600; font-size: var(--t-card-b);
+}
+.dc-mix__seg--vm { background: var(--red); justify-content: center; padding: 0 6px; }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 14px 0 0; padding: 0; list-style: none; font-size: 15px; color: var(--graphite); }
+.dc-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.dc-swatch { width: 14px; height: 14px; border-radius: 4px; background: var(--ink); }
+.dc-swatch--vm { background: var(--red); }
+
+// Timeline — dots on a 2px ink line, one step per column (stacks on small screens)
+.dc-timeline { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; position: relative; }
+.dc-timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 2px; background: var(--ink); }
+.dc-timeline__step { position: relative; padding-top: 32px; }
+.dc-timeline__dot { position: absolute; top: 0; left: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 3px solid var(--paper); }
+.dc-timeline__dot--red { background: var(--red); }
+.dc-timeline__dot--green { background: var(--green); }
+.dc-timeline__tag { font-family: var(--mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--graphite); }
+.dc-timeline__text { margin-top: 6px; font-size: var(--t-card-b); line-height: 1.4; }
+@media (max-width: 760px) {
+  .dc-timeline { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .dc-timeline::before { left: 8px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+  .dc-timeline__step { padding-top: 0; padding-left: 30px; }
+  .dc-timeline__dot { left: 0; }
+}
+
+// Checklist — square check boxes, 1px rules
+.dc-check { list-style: none; margin: 36px 0 0; padding: 0; border-top: 1px solid var(--rule); max-width: 72ch; }
+.dc-check li { position: relative; padding: 18px 0 18px 40px; border-bottom: 1px solid var(--rule); font-size: var(--t-body); line-height: 1.45; }
+.dc-check li::before { content: ""; position: absolute; left: 0; top: 20px; width: 20px; height: 20px; border: 2px solid var(--ink); border-radius: 5px; }

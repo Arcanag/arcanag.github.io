@@ -1,0 +1,149 @@
+---
+title: "Decomposing a metric decline in front of an unhappy client"
+short_title: "A metric decline in five moves"
+description: "A five-move playbook for explaining a metric decline to an escalating client: freeze definitions, decompose the funnel, split denominator from numerator, quantify, replay."
+tagline: "When a client escalates a falling number, defending the bot loses. Five moves turn a contested decline into parts the client can check in their own data."
+date: 2026-08-27
+permalink: /writing/metric-decline-in-five-moves/
+kicker: "Playbook · Metrics"
+meta: "Playbook · August 2026 · 7 min read"
+read_time: "7 min"
+bg_word: DECLINE
+writing_type: Playbook
+list_title: "Decomposing a metric decline in five moves"
+summary: "Freeze definitions, decompose the funnel, split denominator from numerator, quantify, replay — how an escalation ends."
+skills:
+  - metrics-and-analytics
+  - stakeholder-management
+  - product-discovery
+hero_stats:
+  - value: "5"
+    label: "moves, in this order"
+  - value: "5.03→3.03%"
+    label: "the escalated PTP rate"
+    tone: red
+  - value: "17→30%"
+    label: "voicemail share of “engaged” calls"
+  - value: "4.37→3.51"
+    label: "dial attempts per lead"
+next:
+  url: "/technical%20deep-dive/2026/02/18/testing-non-deterministic-ai/"
+  label: "Next read: Testing non-deterministic AI"
+---
+<section class="section" id="the-situation" data-toc="The situation">
+  <p class="label">00 / The situation</p>
+  <h2 class="h2">The number fell. <em>The client called.</em></h2>
+  <p class="lead">A leading private-sector bank escalated a fall in promise-to-pay (PTP) on a flagship collections flow: <b>from 5.03% to 3.03%</b>, with a contested lead shortfall attached.</p>
+  <p class="lead">The instinctive vendor posture is defence. It fails, because a defence asks the client to trust you. <b>A decomposition lets them check you.</b></p>
+  <div class="grid2 grid--stats mt-l">
+    <div class="stat"><div class="stat__value stat__value--red">5.03→3.03%</div><div class="stat__label">PTP rate on the flagship flow</div></div>
+    <div class="stat"><div class="stat__value">38,478→16,042</div><div class="stat__label">promises to pay, before vs after</div></div>
+  </div>
+  <p class="mt-m"><a class="tlink" href="{{ '/case-studies/voice-ai-portfolio/#escalation' | relative_url }}">The full story is in the voice-AI portfolio case study →</a></p>
+</section>
+
+<section class="section">
+  <p class="pull">Every metric is a fraction. Most metric arguments are secretly about <em>the bottom half.</em></p>
+</section>
+
+<section class="section" id="freeze-definitions" data-toc="Freeze definitions">
+  <p class="label">01 / Freeze definitions</p>
+  <h2 class="h2">Agree the words <em>before the numbers.</em></h2>
+  <p class="lead">Half of every metric escalation is two parties using one word for two things. Before any analysis, <b>write down each term with the client</b> and stop it moving for the rest of the conversation.</p>
+  <div class="grid3 grid--cards mt-l">
+    <div class="card card--ink"><p class="card__tag">Dialled lead</p><h3 class="card__title">A customer the campaign tried to reach</h3><p class="card__body">Counted once, however many attempts were made.</p></div>
+    <div class="card card--red"><p class="card__tag">Engaged</p><h3 class="card__title">The contested word</h3><p class="card__body">Did it include voicemail pick-ups? It did. That one fact moved every rate below it.</p></div>
+    <div class="card card--ink"><p class="card__tag">PTP rate</p><h3 class="card__title">Promises ÷ which base?</h3><p class="card__body">Per dialled lead and per engaged call are different metrics. Name the denominator every time.</p></div>
+  </div>
+  <p class="note">The fix is not clever: classify voicemail explicitly, report engaged-human rates separately, and sign the definitions off with the client.</p>
+</section>
+
+<section class="section" id="decompose-funnel" data-toc="Decompose the funnel">
+  <p class="label">02 / Decompose the funnel</p>
+  <h2 class="h2">One number is <em>six numbers.</em></h2>
+  <p class="lead">A headline rate is the product of every stage above it. Split it stage by stage and <b>find the first stage that moved</b>, not the last one the dashboard shows.</p>
+  <div class="funnel" role="img" aria-label="Illustrative outbound collections funnel with six stages: dialled leads, connected, engaged, engaged with a human, pitched, promise to pay. The voicemail stage sits between engaged and engaged-human.">
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar" style="--w:100%">Dialled leads</div></div><p class="funnel__text">How many attempts did each lead get?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--2" style="--w:86%">Connected</div></div><p class="funnel__text">Did the line pick up at all?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--red" style="--w:72%">Engaged</div></div><p class="funnel__text">Was it a person — or a voicemail?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--3" style="--w:58%">Engaged, human</div></div><p class="funnel__text">The base the bot can actually influence.</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--4" style="--w:46%">Pitched</div></div><p class="funnel__text">Did the conversation reach the ask?</p></div>
+    <div class="funnel__row"><div class="funnel__barwrap"><div class="funnel__bar funnel__bar--green" style="--w:34%">Promise to pay</div></div><p class="funnel__text">The outcome the client escalated.</p></div>
+  </div>
+  <p class="note">Illustrative widths · stage names, not measured drop-offs</p>
+</section>
+
+<section class="section" id="denominator" data-toc="Denominator vs numerator">
+  <p class="label">03 / Separate denominator from numerator</p>
+  <h2 class="h2">The bottom half moved. <em>The bot didn’t.</em></h2>
+  <p class="lead">Voicemail’s share of “engaged” calls grew <b>from 17% to 30%</b>. Every rate built on that base deflated, and no bot change was identified to explain it.</p>
+  <div class="dc-mix" role="img" aria-label="Composition of engaged calls. Before: 83% human, 17% voicemail. After: 70% human, 30% voicemail.">
+    <div class="dc-mix__row"><span class="dc-mix__name">Before</span><div class="dc-mix__bar"><span class="dc-mix__seg" style="--w:83%">83% human</span><span class="dc-mix__seg dc-mix__seg--vm" style="--w:17%">17%</span></div></div>
+    <div class="dc-mix__row"><span class="dc-mix__name">After</span><div class="dc-mix__bar"><span class="dc-mix__seg" style="--w:70%">70% human</span><span class="dc-mix__seg dc-mix__seg--vm" style="--w:30%">30%</span></div></div>
+  </div>
+  <ul class="dc-legend"><li><span class="dc-swatch"></span>Human conversation</li><li><span class="dc-swatch dc-swatch--vm"></span>Voicemail counted as “engaged”</li></ul>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--red"><p class="card__tag">The arithmetic</p><h3 class="card__title">70 ÷ 83 ≈ 0.84</h3><p class="card__body">Same bot, same people answering: any per-engaged rate falls by roughly a sixth just because the base now holds more voicemail.</p></div>
+    <div class="card card--ink"><p class="card__tag">The question to ask</p><h3 class="card__title">Did the top or the bottom change?</h3><p class="card__body">If the numerator per human held and the denominator grew, the product didn’t get worse. The measurement did.</p></div>
+  </div>
+  <p class="note">Shares measured on engaged calls in one book · the 0.84 factor is arithmetic on those shares, not a separate measurement</p>
+</section>
+
+<section class="section">
+  <p class="pull">A configuration change wearing a <em>performance-problem costume.</em></p>
+</section>
+
+<section class="section" id="quantify" data-toc="Quantify each factor">
+  <p class="label">04 / Quantify each factor</p>
+  <h2 class="h2">Name every cause. <em>Give each an owner.</em></h2>
+  <p class="lead">Each factor gets evidence, a type, an owner and a fix. <b>Input changes and measurement changes are not bot regressions</b>, and the ledger makes that visible.</p>
+  <div class="rows">
+    <div class="rows__row"><span class="rows__key">Voicemail in “engaged”</span><span class="rows__val"><span class="rows__dot"></span><b>Denominator.</b> Share 17% → 30%. Owner: metric definitions. Fix: classify voicemail; report engaged-human rates.</span></div>
+    <div class="rows__row"><span class="rows__key">Dial cadence</span><span class="rows__val"><span class="rows__dot"></span><b>Input.</b> 4.37 → 3.51 attempts per lead, fewer chances per customer. Owner: dialling configuration. Fix: restore and document cadence.</span></div>
+    <div class="rows__row"><span class="rows__key">Bot behaviour</span><span class="rows__val"><b>Checked; no change identified.</b> No flow or prompt change was found to explain the drop. Owner: delivery. Fix: none identified — say so plainly, with what was checked.</span></div>
+  </div>
+  <p class="note">Factor sizes are not shown: they were reconciled with the client on their own data and aren’t published here</p>
+</section>
+
+<section class="section" id="replay" data-toc="Replay the timeline">
+  <p class="label">05 / Replay the timeline</p>
+  <h2 class="h2">Walk every factor. <em>On their data.</em></h2>
+  <p class="lead">Put every change next to the metric, then walk the client through each one <b>from their own raw data</b>, not your dashboard. Date each factor from the logs before you present an order.</p>
+  <ol class="dc-timeline" role="list" aria-label="Factors and steps in the decline, not in date order">
+    <li class="dc-timeline__step"><span class="dc-timeline__dot"></span><p class="dc-timeline__tag">Change</p><p class="dc-timeline__text">Dial cadence reduced in configuration</p></li>
+    <li class="dc-timeline__step"><span class="dc-timeline__dot dc-timeline__dot--red"></span><p class="dc-timeline__tag">Change</p><p class="dc-timeline__text">Voicemail share of “engaged” rises</p></li>
+    <li class="dc-timeline__step"><span class="dc-timeline__dot dc-timeline__dot--red"></span><p class="dc-timeline__tag">Symptom</p><p class="dc-timeline__text">PTP rate falls; the client escalates</p></li>
+    <li class="dc-timeline__step"><span class="dc-timeline__dot"></span><p class="dc-timeline__tag">Decompose</p><p class="dc-timeline__text">Definitions frozen; funnel split stage by stage</p></li>
+    <li class="dc-timeline__step"><span class="dc-timeline__dot dc-timeline__dot--green"></span><p class="dc-timeline__tag">Close</p><p class="dc-timeline__text">Each factor owned and fixed; escalation ends</p></li>
+  </ol>
+  <p class="note">Factors and steps, not a dated sequence · date each one from your logs</p>
+  <div class="hindsight"><p class="label label--muted">What ended it</p><p class="hindsight__text">Not a better argument. The client could follow every step in their own data.</p></div>
+</section>
+
+<section class="section" id="what-not-to-do" data-toc="What not to do">
+  <p class="label">06 / What not to do</p>
+  <h2 class="h2">Four rules. <em>Each learned once.</em></h2>
+  <ol class="numlist numlist--red">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Don’t call a rate change a regression before decomposing it</h3><p class="numlist__body">A lower lead-level rate is usually an under-dialling artefact. Check attempts per lead and active days first.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Don’t compare a running cohort with a closed one</h3><p class="numlist__body">On another book, matching the comparison by day turned a −47.92 pp “collapse” into −0.65 pp.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Don’t state a population fact from a sample</h3><p class="numlist__body">A status claim drawn from 12 of 48 tickets was wrong; the true answer came a week later.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">04</span><div><h3 class="numlist__title">Don’t substitute a portfolio aggregate for a single use case</h3><p class="numlist__body">If the row for that use case doesn’t exist, omit it. A blended number in its place is a wrong number.</p></div></li>
+  </ol>
+</section>
+
+<section class="section" id="checklist" data-toc="Checklist">
+  <p class="label">07 / The checklist</p>
+  <h2 class="h2">Before the call. <em>Not during it.</em></h2>
+  <ul class="dc-check" role="list">
+    <li>Every term in the escalation written down and agreed with the client</li>
+    <li>Funnel split stage by stage; the first stage that moved identified</li>
+    <li>Each rate labelled with its denominator; denominator mix checked</li>
+    <li>Inputs checked: attempts per lead, active days, cohort still running or closed</li>
+    <li>Each factor has evidence, an owner and a fix — including “no bot change identified”</li>
+    <li>Each factor dated from the logs and walked from the client’s raw data</li>
+  </ul>
+</section>
+
+<section class="section">
+  <p class="pull">Escalations don’t end when you argue well. They end when the client <em>can check every step.</em></p>
+</section>

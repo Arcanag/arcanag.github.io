@@ -1,0 +1,155 @@
+---
+title: "Every failure becomes a rule"
+short_title: "Every failure becomes a rule"
+list_title: "Every failure becomes a rule"
+description: "An essay on delivery governance: why ungoverned delivery is the slow kind, and how retrospectives become enforced rules instead of meetings."
+summary: "Ungoverned delivery slows you down — it just sends the invoice later. How every failure becomes a written, enforced rule."
+tagline: "Governance isn’t what slows delivery down. Ungoverned delivery is — it just sends the invoice later."
+permalink: /writing/every-failure-becomes-a-rule/
+writing_type: Essay
+kicker: "Essay · Ways of working"
+meta: "Essay · September 2026 · 7 min read"
+read_time: "7 min"
+bg_word: RULES
+date: 2026-09-17
+skills:
+  - risk-and-compliance-management
+  - delivery-and-execution
+  - metrics-and-analytics
+hero_stats:
+  - value: "16+"
+    label: "written retrospectives"
+  - value: "~30"
+    label: "automation scripts in a quarter"
+  - value: "8"
+    label: "SOPs in the same quarter"
+next:
+  url: "/writing/metric-decline-in-five-moves/"
+  label: "Next read: Decomposing a metric decline"
+---
+
+<section class="section" id="claim" data-toc="Governance is speed">
+  <p class="label">01 / The claim</p>
+  <h2 class="h2">Governance is speed. <em>Chaos invoices later.</em></h2>
+  <p class="lead">The usual story is that process slows delivery down. My experience running a multi-account portfolio says the opposite: <b>ungoverned delivery is the slow kind</b> — it just hides the cost until later.</p>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--red">
+      <p class="card__tag">Ungoverned</p>
+      <h3 class="card__title">Fast today, paid for later</h3>
+      <p class="card__body">Every problem is solved from scratch, by whoever is closest. The fix lives in someone’s memory. The same failure returns next month and costs the same hours again — plus whatever it cost the client the first time.</p>
+    </div>
+    <div class="card card--green">
+      <p class="card__tag">Governed</p>
+      <h3 class="card__title">Paid once, then free</h3>
+      <p class="card__body">The failure is written down, turned into a rule, and the rule is enforced. The next time the same situation appears, the rule handles it. The cost of the lesson is paid exactly once.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Solving the same problem twice is <em>the actual waste.</em></p>
+  <p class="pull__sub">Not process. Not documentation. Repetition.</p>
+</section>
+
+<section class="section" id="mechanism" data-toc="The mechanism">
+  <p class="label">02 / The mechanism</p>
+  <h2 class="h2">Failure in. <em>Rule out.</em></h2>
+  <p class="lead">Each failure goes through the same four steps. The retrospective is not the output — <b>the enforced rule is.</b></p>
+  <div class="flow" role="img" aria-label="Four steps: an incident, a written retrospective, a standing rule, and an enforced check.">
+    <span class="flow__node flow__node--light">Incident</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Written retrospective</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node">Standing rule</span><span class="flow__arrow" aria-hidden="true">→</span>
+    <span class="flow__node flow__node--green">Enforced check</span>
+  </div>
+  <div class="prose mt-l">
+    <p>A retrospective that ends in feelings is a meeting. It produces agreement, maybe an apology, and no change in what happens next time. A retrospective that ends in a <b>written, enforced rule</b> is an asset: it keeps paying out every time the situation recurs.</p>
+    <p>Across the portfolio that meant more than 16 written retrospectives, each one converting a single defect into a standing control. Over one quarter the same habit produced roughly 30 automation scripts and 8 SOPs — not because anyone loves process, but because each of them replaced a problem we had already solved once by hand.</p>
+  </div>
+</section>
+
+<section class="section" id="examples" data-toc="Four failures, four rules">
+  <p class="label">03 / In practice</p>
+  <h2 class="h2">Four failures. <em>Four rules.</em></h2>
+  <p class="lead">One quarter, four retrospectives, one pattern: <b>every failure was a missing rule</b>, and every fix was a written one.</p>
+  <ol class="ru-pairs" role="list">
+    <li class="ru-pairs__row">
+      <div class="ru-pairs__fail"><p class="card__tag">Failure</p><p class="ru-pairs__text">A client status report with roughly 10 of 13 items wrong — status inferred from who emailed last, not the tracker.</p></div>
+      <span class="ru-pairs__arrow" aria-hidden="true">→</span>
+      <div class="ru-pairs__rule"><p class="card__tag">Rule</p><p class="ru-pairs__text">Inference banned from status reporting. Ground truth first, or the item ships labelled “unverified”.</p></div>
+    </li>
+    <li class="ru-pairs__row">
+      <div class="ru-pairs__fail"><p class="card__tag">Failure</p><p class="ru-pairs__text">An investigation framed the wrong way round, so a surprising finding nearly went out unchallenged.</p></div>
+      <span class="ru-pairs__arrow" aria-hidden="true">→</span>
+      <div class="ru-pairs__rule"><p class="card__tag">Rule</p><p class="ru-pairs__text">A mandatory adversarial re-read before any surprising finding ships.</p></div>
+    </li>
+    <li class="ru-pairs__row">
+      <div class="ru-pairs__fail"><p class="card__tag">Failure</p><p class="ru-pairs__text">Project boards that looked empty, so nobody could see what was actually in flight.</p></div>
+      <span class="ru-pairs__arrow" aria-hidden="true">→</span>
+      <div class="ru-pairs__rule"><p class="card__tag">Rule</p><p class="ru-pairs__text">An intake SOP: every request lands on a board through one door.</p></div>
+    </li>
+    <li class="ru-pairs__row">
+      <div class="ru-pairs__fail"><p class="card__tag">Failure</p><p class="ru-pairs__text">Reconciliation chaos between documents, trackers and boards that each told a different story.</p></div>
+      <span class="ru-pairs__arrow" aria-hidden="true">→</span>
+      <div class="ru-pairs__rule"><p class="card__tag">Rule</p><p class="ru-pairs__text">A document → sheet → board procedure with sign-off on every row.</p></div>
+    </li>
+  </ol>
+  <p class="mt-m"><a class="tlink" href="{{ '/case-studies/voice-ai-portfolio/' | relative_url }}">The wrong report, in the portfolio case study →</a></p>
+</section>
+
+<section class="section" id="judgement" data-toc="The judgement trap">
+  <p class="label">04 / The judgement trap</p>
+  <h2 class="h2">Checklists trust you. <em class="is-red">That’s the flaw.</em></h2>
+  <p class="lead">The most useful finding from the retrospectives: <b>a rule whose trigger is your own judgement cannot catch an error in that judgement.</b></p>
+  <div class="prose mt-l">
+    <p>A checklist only runs when someone decides it applies. The failures worth preventing are exactly the ones where that decision is wrong — the report that <em>felt</em> done, the board that <em>looked</em> neglected. So the strongest rules don’t wait to be remembered. They sit in the path of the work as a hook or a preflight and run every time.</p>
+  </div>
+  <div class="ru-ratchet" role="img" aria-label="Enforcement strength rises from memory, to a checklist, to a template, to an automated preflight that runs every time.">
+    <div class="ru-ratchet__step" style="--h:22%"><span class="ru-ratchet__name">Memory</span><span class="ru-ratchet__how">Runs if someone remembers</span></div>
+    <div class="ru-ratchet__step" style="--h:44%"><span class="ru-ratchet__name">Checklist</span><span class="ru-ratchet__how">Runs if someone decides it applies</span></div>
+    <div class="ru-ratchet__step" style="--h:68%"><span class="ru-ratchet__name">Template</span><span class="ru-ratchet__how">Shapes the work, can be skipped</span></div>
+    <div class="ru-ratchet__step ru-ratchet__step--key" style="--h:100%"><span class="ru-ratchet__name">Preflight / hook</span><span class="ru-ratchet__how">Runs every time, in the path</span></div>
+  </div>
+  <p class="note">Conceptual ordering, not a measurement</p>
+  <div class="grid2 grid--cards mt-l">
+    <div class="card card--ink">
+      <p class="card__tag">Preflight</p>
+      <h3 class="card__title">The board that wasn’t neglected</h3>
+      <p class="card__body">A board-visibility check found that boards were silently hiding tickets created through the API: <b>60.5% hidden on one board, 100% on another, 40 of 48 on a third.</b> It read exactly like a neglected board, and it was not. Judgement would have blamed the team; the preflight found the system.</p>
+    </div>
+    <div class="card card--ink">
+      <p class="card__tag">Gate</p>
+      <h3 class="card__title">The email that checks itself</h3>
+      <p class="card__body">After a real defect reached a client, outgoing client email gained a mechanical pre-send check: two different dates for one deliverable, internal details leaking out, completion claims without evidence. It doesn’t rely on the sender noticing — that was the original failure.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="pull">Precision about what you don’t know <em>is a feature.</em></p>
+</section>
+
+<section class="section" id="ground-truth" data-toc="Ground truth or nothing">
+  <p class="label">05 / Ground truth or nothing</p>
+  <h2 class="h2">“Probably done” <em class="is-red">is fiction.</em></h2>
+  <p class="lead">The most dangerous words in delivery reporting are “it’s probably done”. <b>A report becomes fiction one reasonable guess at a time.</b></p>
+  <div class="prose mt-l">
+    <p>The rule after the wrong report was simple: no inferred values in anything a client sees. Every status traces to an authoritative source — the tracker, the board, the artifact — or it ships labelled “unverified”.</p>
+    <p>It feels slower. It is faster. The hours that used to go into unwinding confidently wrong reports now go into the work. And “unverified, checking” turns out to build more trust with a client than a clean-looking report that is quietly made of guesses.</p>
+  </div>
+</section>
+
+<section class="section" id="limits" data-toc="What rules cost">
+  <p class="label">06 / The limits</p>
+  <h2 class="h2">Rules ossify. <em>Prune them.</em></h2>
+  <p class="lead">A rulebook is not free. Written honestly, the habit has <b>three costs worth managing.</b></p>
+  <ol class="numlist">
+    <li class="numlist__item"><span class="numlist__num">01</span><div><h3 class="numlist__title">Rules outlive their reasons.</h3><p class="numlist__body">A rule written for one failure keeps running after the system that caused it has changed. Each rule needs its origin written next to it, so it can be retired when the reason is gone.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">02</span><div><h3 class="numlist__title">Rules don’t cover the new problem.</h3><p class="numlist__body">Rules encode past failures. A genuinely new situation still needs judgement — the rulebook only frees attention for it by handling the repeats.</p></div></li>
+    <li class="numlist__item"><span class="numlist__num">03</span><div><h3 class="numlist__title">Process for its own sake is the same waste.</h3><p class="numlist__body">A rule that never fires, or that people route around, costs effort and earns nothing. If a failure hasn’t recurred and the check only adds friction, delete it.</p></div></li>
+  </ol>
+</section>
+
+<section class="section">
+  <p class="pull">A retro that ends in feelings is a meeting. One that ends in a written rule <em>is an asset.</em></p>
+  <p class="pull__sub">Culture is just the rules you actually enforce.</p>
+</section>
