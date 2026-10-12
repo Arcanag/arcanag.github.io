@@ -4,14 +4,14 @@ The site exists to let a hiring manager, recruiter or founder understand what An
 Positioning: product management for conversational and agentic AI. Every homepage skill must be **proved** by a case study, framework or playbook.
 
 ## Page templates (PDF §08)
-**Home** (`index.html`): header → hero (kicker, one-sentence H1, one scale line) → How I work (12 skill tiles, 3×4) → Case studies (Ink lead tile + Surface tiles) → Writing rows → footer. Tiles, cases and writing rows render from front matter.
+**Home** (`index.html`): header → hero (kicker, one-sentence H1, one scale line) → How I work (6 skill tiles, 3×2) → Case studies (Ink lead tile + Surface tiles) → Writing rows → footer. Tiles, cases and writing rows render from front matter.
 
 **Skill page** (`_skills/<slug>.html`, layout `skill`): hero (bg word, "How I work · NN · Product|Delivery", H1, tagline, "What hiring teams call this") → 01 / The situation (two-tone H2, lead, 3 stats) → optional pull → 02 core visual → optional 03 → ✓ / The result (2 green stats + hindsight) → layout adds "Read the full case study" + "Next: skill →".
 
 **Long-form** (case studies, posts, framework; layout `longform`): hero (bg word, kicker, H1 ≤18ch, tagline, meta line, Skills shown chips, 4 hero stats incl. the honest target comparison) → numbered sections (each `id` + `data-toc`) → pulls between groups, never consecutive → What went wrong (red numbered list + chart) → What we built (green stats) → In hindsight (ink numbered list) → closing pull → back/next.
 
 ## Front matter
-Skill: `title, order, tag (Product|Delivery), rubric, bg_word, tagline, description, tile_stat, tile_label, tile_line, graphic, proved_by: [{url, kind, read_time}]`.
+Skill: `title, order, tag (Product|Delivery), rubric, bg_word, tagline, description, tile_stat, tile_label, tile_line (unused on the tile), graphic, proved_by: [{url, kind, read_time}]`.
 `graphic` is one of the mini-graphics in `_includes/mini-graphic.html`.
 
 Case study: `title, short_title, description, tagline, kicker, meta, read_time, bg_word, order, tile_tone (ink|surface), tile_kicker, tile_title, tile_stat, skills: [slugs], hero_stats: [{value, label, tone}], next: {url, label}`.

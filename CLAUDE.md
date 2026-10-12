@@ -27,7 +27,7 @@ System Ruby is 2.6, so all Ruby runs in `ruby:3.3` containers, with gems cached 
 
 | Section | Source | URL |
 |---|---|---|
-| Home | `index.html` | `/` (hero → 12 skill tiles → case studies → writing) |
+| Home | `index.html` | `/` (hero → 6 skill tiles → case studies → writing) |
 | Skills ("How I work") | `_skills/<slug>.html`, layout `skill` | `/how-i-work/<slug>/` |
 | Case studies | `_case-studies/*.html`, layout `longform` | `/case-studies/<slug>/` |
 | Posts | `_posts/*.html`, layout `longform` | `/<category>/YYYY/MM/DD/<slug>/` |
@@ -36,7 +36,7 @@ System Ruby is 2.6, so all Ruby runs in `ruby:3.3` containers, with gems cached 
 | Case-study index, About, 404 | `case-studies/index.html`, `about/index.html`, `404.html` | layout `page` |
 
 - **Post URLs contain spaces** (`/technical%20deep-dive/…`). Never change a post's `category` or filename date, because both are part of the live URL.
-- **Unpublished:** the Career Enabler case study and two draft posts (`published: false`).
+- **Unpublished:** the Career Enabler case study, two draft posts, and six retired skill pages (product strategy, AI/ML fluency, business acumen, 0→1, cross-functional leadership, risk; `published: false`, old URLs redirect to `/`).
 - **`rahul-mahima-wedding/`** is an unrelated Astro subsite. Don't touch it.
 
 ## Code layout
