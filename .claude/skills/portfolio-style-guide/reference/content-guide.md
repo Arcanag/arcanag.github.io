@@ -4,7 +4,7 @@ The site exists to let a hiring manager, recruiter or founder understand what An
 Positioning: product management for conversational and agentic AI. Every homepage skill must be **proved** by a case study, framework or playbook.
 
 ## Page templates (PDF §08)
-**Home** (`index.html`): header → hero (kicker, one-sentence H1, one scale line) → How I work (12 skill tiles, 3×4) → Case studies (Ink lead tile + Surface tiles) → Writing rows → footer. Tiles, cases and writing rows render from front matter.
+**Home** (`index.html`): header → hero (kicker, one-sentence H1, one scale line) → How I work (6 skill tiles, 3×2) → Case studies (Ink lead tile + Surface tiles) → Writing rows → footer. Tiles, cases and writing rows render from front matter.
 
 **Skill page** (`_skills/<slug>.html`, layout `skill`): hero (bg word, "How I work · NN · Product|Delivery", H1, tagline, "What hiring teams call this") → 01 / The situation (two-tone H2, lead, 3 stats) → optional pull → 02 core visual → optional 03 → ✓ / The result (2 green stats + hindsight) → layout adds "Read the full case study" + "Next: skill →".
 
