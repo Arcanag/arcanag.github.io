@@ -1,275 +1,87 @@
-# Component Library
+# Components
 
-All components use `cs-` prefix. They render inside `.case-study-content` which sets the base font at 15.5px.
+Every page is assembled from these. Don't invent a new component without adding it here (PDF §06).
+- **Shared** components live in `_sass/_components.scss`, `_charts.scss` and `_tiles.scss`.
+- **Page-specific** ones live in `_sass/pages/_*.scss` and use a page prefix.
+- Per-instance data goes in custom properties only: `style="--w:47%"` (width), `--l` (left), `--h` (height).
 
-## Data Display
-
-### cs-impact-strip (Hero Metrics)
-2-4 key metrics in a horizontal strip. Use at top of page or section.
-
+## Section skeleton
 ```html
-<div class="cs-impact-strip">
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Input</div>
-    <div class="cs-impact-value">91%</div>
-    <div class="cs-impact-desc">Optional description text</div>
-  </div>
-  <div class="cs-impact-cell">
-    <div class="cs-impact-label">Label</div>
-    <div class="cs-impact-value">Value</div>
-  </div>
-</div>
+<section class="section" id="broken-metric" data-toc="The broken metric">  <!-- data-toc on long-form only -->
+  <p class="label">05 / The broken metric</p>
+  <h2 class="h2">A number <em>nobody trusted.</em></h2>
+  <p class="lead">One or two sentences, max 46ch, with <b>one bold phrase</b>.</p>
+  <!-- one visual -->
+</section>
 ```
+- Label variants: `.label--muted`, `.label--ink`, `.label--green`.
+- The result section label is `✓ / The result`.
 
-**Rules:** Value is the large colored text (24-36px, accent color). Label is the small muted text above. Desc is optional muted text below.
-**Replaces:** `metric-box`, `callout--tldr` with metrics.
+## Shared
+| Component | Markup | Notes |
+|---|---|---|
+| Big stat | `.stat > .stat__value[.stat__value--red/--green/--sm] + .stat__label (+ .stat__body)` | 2px ink rule on top. Use in `.grid3/.grid4 .grid--stats` rows of 2–4. Colour only when it means something. |
+| Result stat | `.stat.stat--result` in `.grid2.grid--result` | Green number, plain label |
+| Hindsight | `.hindsight > .label.label--muted + .hindsight__text` | After the result stats |
+| Pull statement | `<section class="section"><p class="pull">… <em>key phrase.</em></p><p class="pull__sub">…</p></section>` | `.pull--wide`, `.pull__label`, `.pull__cite` (for "PARAPHRASED…"). Max one per section group, never two in a row. |
+| Card | `.card.card--red/--ink/--green/--stone > .card__tag + .card__title + .card__body (+ .card__why)` | 4px top border in a meaning colour. `.card--chosen` = red tint + "· CHOSEN" in the tag. `.card--thick`, `.card--plain`. |
+| Numbered list | `ol.numlist[.numlist--red] > li.numlist__item > .numlist__num + div > .numlist__title + .numlist__body` | Red for problems/pitfalls, ink for lessons |
+| Rows | `.rows > .rows__row > .rows__key + .rows__val (.rows__dot)` | Status lists, stacks |
+| Panel | `.panel(.panel--ink/--red/--green)` | Generic surface block |
+| Before / after | `.grid2.ba > .ba__panel + .ba__panel.ba__panel--after` | |
+| Dashed callout | `.callout-dashed > .label.label--muted + span` | Parallel / optional work |
+| Chips | `a.chip` | "Skills shown"; rendered by the longform layout from `skills:` |
+| Tag | `.tag(.tag--light)` | Small mono box |
+| Buttons | `.btn` (ink pill, 52px), `.tlink` (Sans 600 + →) | |
+| Code | `<pre class="code"><code>…</code></pre>` | Escape HTML |
+| Prose | `.prose` | Long passages (62ch) |
+| Note | `p.note` | Honesty labels, 11px mono uppercase |
 
-### cs-callout-stat (Single Stat + Text)
-One large number alongside explanatory paragraph.
+## Shared charts (`_charts.scss`)
+| Chart | Use | Markup |
+|---|---|---|
+| `.hbar` | Rates with their own base (47% OTP, 23% dead-ends) | `.hbar__row > .hbar__label + .hbar__value + .hbar__track > .hbar__fill[--red/--green/--mid](--w)`, plus note "EACH RATE MEASURED ON ITS OWN BASE" |
+| `.cbar` | Counts by category; largest red | `.cbar__row > .cbar__label + .cbar__track > .cbar__fill(--w) + .cbar__count` |
+| `.funnel` | Stages of one journey | `.funnel__row > .funnel__barwrap > .funnel__bar[--2/--3/--4/--green/--red](--w)` + `.funnel__text` (serif question). Canonical illustrative widths are 100/86/72/58/46/34, labelled ILLUSTRATIVE. |
+| `.columns` | One metric before → after | `.columns__col > .columns__value + .columns__bar(--h)[--after]`, then `.columns__labels` |
+| `.stackbar` | Composition of a whole | `.stackbar__seg(--w)[--mid/--red]` + a numbers grid below |
+| `.flow` | Systems and handoffs | `.flow__node[--green/--light]` + `.flow__arrow` |
 
-```html
-<div class="cs-callout-stat">
-  <div class="cs-callout-stat__value">47%</div>
-  <div class="cs-callout-stat__text">Description paragraph alongside the stat.</div>
-</div>
-```
+Every chart gets `role="img"` and an `aria-label` summarising its data. Judgement charts carry the note "CHART POSITIONS ARE A JUDGEMENT, NOT MEASUREMENTS".
 
-**Rules:** Red top border. Value is large (32-48px). Stacks to single column on mobile.
+## Home (`_tiles.scss`)
+- **`skill-tile`**: rendered from skill front matter by `_includes/skill-tile.html`.
+- **`case-tile`** (`--ink` for the lead case): rendered by `_includes/case-tile.html`.
+- **`writing-row`**: rendered by `_includes/writing-list.html`.
+- **Mini-graphics** come from `_includes/mini-graphic.html`, with `name` set to one of:
 
-### cs-data-grid (Inline Data Blocks)
-Multiple metrics within body text flow.
+  | Name | Shape |
+  |---|---|
+  | `sequence` | blocks in a row |
+  | `doc` | PRD page + lines |
+  | `dots` | option map |
+  | `bars` | rate bars |
+  | `funnel` | funnel |
+  | `org` | lead + squads |
+  | `gap` | promised vs actual |
+  | `columns` | before/after |
+  | `steps` | billing step-up |
+  | `fanout` | one → many agents |
+  | `gantt` | waves |
+  | `hub` | stakeholders converging |
+  | `checks` | controls with one flagged |
 
-```html
-<div class="cs-data-grid">
-  <div class="cs-data-cell">
-    <div class="cs-data-value">2,188</div>
-    <div class="cs-data-label">States</div>
-  </div>
-</div>
-```
+## Page-specific (by partial)
+| Partial | Prefix | Components |
+|---|---|---|
+| `_skills.scss` | `.sk-` | option map (`.sk-optmap`), option cards (`.sk-options`, `.sk-option--chosen`), spec hub + readers (`.sk-spec`, `.sk-readers`), 27-step ticks (`.sk-ticks`), squads before/after (`.sk-squads`), A → B swap (`.sk-swap`), assumption quote (`.sk-quote`), side-by-side split (`.sk-split`) |
+| `_skills-new.scss` | `.skn-` | A → B swap (`.skn-swap`), Gantt with axis (`.skn-gantt`), gate chips (`.skn-gates`), billing bands (`.skn-bands`), P50/P75/P90 histogram (`.skn-hist`), confidence-interval plot (`.skn-ci`) |
+| `_banking.scss` | `.bk-` | waves Gantt (`.bk-gantt`), seven gates (`.bk-gates`), squad role pills (`.bk-roles`), utterance → intent tags (`.bk-utterance`, `.bk-intents`) |
+| `_agentic.scss` | `.ag-` | agent flow (`.ag-flow`), stack rows (`.ag-stack`), histogram (`.ag-hist`), test split (`.ag-tests`) |
+| `_portfolio.scss` | `.pf-` | paired before/after (`.pf-pair`), language grid (`.pf-langs`), billing bands (`.pf-bands`), target outline (`.pf-target`) |
+| `_framework.scss` | `.fw-` | layer funnel (`.fw-layers`), formula box (`.fw-formula`), 2×2 matrix (`.fw-matrix`), the interactive explorer (`.fw-explorer`, tabs, nodes, glossary, ownership) |
+| `_playbook.scss` | `.pb-` | pyramid (`.pb-pyramid`), inline code in H2 (`.pb-inline`) |
+| `_posts.scss` | `.po-` | ladder, comparison table, cost pipeline, 2×2 matrix, cycle, spectrum, two clocks, ground, quote |
+| `_about.scss` | `.ab-` | experience timeline, weekly contributions bars |
 
-**Modifiers:** `.cs-data-value.accent` (theme color), `.negative` (red), `.positive` (green).
-
-## Quotes & Statements
-
-### cs-statement (Pull Quote)
-Key insight. Limit 2-3 per page MAX.
-
-```html
-<div class="cs-statement reveal">The constraint was clear: automate the mechanical, preserve the judgment.</div>
-```
-
-**Rules:** Italic, accent color text, left accent border, max-width 26ch. Use `<div>` not `<blockquote>` (these are internal insights, not external quotes).
-
-### cs-pullquote (Attributed Quote)
-Quote from a person with attribution.
-
-```html
-<div class="cs-pullquote">
-  "Quote text here."
-  <span class="cs-pullquote__attr">-- Attribution</span>
-</div>
-```
-
-### testimonial / testimonial--featured
-Boxed quote with sentiment label.
-
-```html
-<blockquote class="testimonial testimonial--featured">
-  <p class="testimonial__quote">"Quote text."</p>
-</blockquote>
-```
-
-`--featured`: centered, top accent border instead of left.
-
-## Comparison
-
-### cs-swap (Before -> After)
-Simple value transformation.
-
-```html
-<div class="cs-swap">
-  <span class="cs-swap__before">20K</span>
-  <span class="cs-swap__arrow">&rarr;</span>
-  <span class="cs-swap__after">800K</span>
-  <span class="cs-swap__context">Contained calls: actual vs target</span>
-</div>
-```
-
-**Rules:** Before is strikethrough + muted. After is green. Context is label-tier below.
-
-### cs-before-after (Detailed Comparison)
-Side-by-side narrative comparison.
-
-```html
-<div class="cs-before-after">
-  <div class="cs-before-after__col cs-before-after__col--before">
-    <span class="cs-before-after__label">Before</span>
-    <p>Description of broken state.</p>
-  </div>
-  <span class="cs-before-after__arrow">&rarr;</span>
-  <div class="cs-before-after__col cs-before-after__col--after">
-    <span class="cs-before-after__label">After</span>
-    <p>Description of fixed state.</p>
-  </div>
-</div>
-```
-
-**Rules:** Red border on before, green on after.
-
-## Process & Pipeline
-
-### cs-pipeline-row (Horizontal Process)
-Multi-phase workflow with steps.
-
-```html
-<div class="cs-pipeline-row" role="img" aria-label="27-step lifecycle">
-  <div class="cs-pipeline-row__phase cs-pipeline-row__phase--accent">
-    <span class="cs-pipeline-row__title">Requirements</span>
-    <span class="cs-pipeline-row__step">Intake</span>
-    <span class="cs-pipeline-row__step">BRD Review</span>
-  </div>
-  <span class="cs-pipeline-row__arrow">&rarr;</span>
-  <div class="cs-pipeline-row__phase">
-    <span class="cs-pipeline-row__title">Design</span>
-    <span class="cs-pipeline-row__step">Flow Design</span>
-  </div>
-</div>
-```
-
-### cs-funnel (Conversion/Dropout)
-Progressive bar chart showing narrowing.
-
-```html
-<div class="cs-funnel">
-  <div class="cs-funnel__step">
-    <span class="cs-funnel__label">Total Calls</span>
-    <div class="cs-funnel__bar"><div class="cs-funnel__fill" style="width:100%"></div></div>
-    <span class="cs-funnel__pct">100%</span>
-  </div>
-  <div class="cs-funnel__branch">
-    <div class="cs-funnel__branch-item cs-funnel__branch-item--yes">Resolved</div>
-    <div class="cs-funnel__branch-item cs-funnel__branch-item--no">Not Resolved</div>
-  </div>
-</div>
-```
-
-### cs-incident-bar (Red Severity Chart)
-Categorized incidents with 5-level red gradient.
-
-```html
-<div class="cs-incident-bar">
-  <div class="cs-incident-bar__header">
-    <span class="cs-incident-bar__title">15 Incidents</span>
-    <span class="cs-incident-bar__subtitle">Sep-Nov 2025</span>
-  </div>
-  <div class="cs-incident-bar__row">
-    <span class="cs-incident-bar__label">Category</span>
-    <div class="cs-incident-bar__track"><div class="cs-incident-bar__fill cs-incident-bar__fill--5" style="width:33%"></div></div>
-    <span class="cs-incident-bar__count">5</span>
-  </div>
-</div>
-```
-
-Fill levels: `--5` (brightest) through `--1` (darkest).
-
-## Layout
-
-### cs-two-col (Side-by-Side)
-```html
-<div class="cs-two-col">
-  <div class="cs-two-col__left"><p>Narrative</p></div>
-  <div class="cs-two-col__right"><!-- Visual --></div>
-</div>
-```
-
-Add `cs-two-col--divided` for accent border between columns.
-
-### cs-scorecard-grid (2x2 Health Matrix)
-```html
-<div class="cs-scorecard-grid">
-  <div class="cs-scorecard-grid__cell">
-    <span class="scorecard__indicator scorecard__indicator--red"></span>
-    <span class="cs-scorecard-grid__label">Label</span>
-    <span class="cs-scorecard-grid__value">Value</span>
-  </div>
-</div>
-```
-
-Indicators: `--red`, `--amber`, `--green`.
-
-## Typography
-
-### cs-lead (Section Opener)
-Always after every `##` heading.
-
-```html
-<p class="cs-lead">Opening sentence that anchors the reader.</p>
-```
-
-### cs-body-list (Styled Bullet List)
-```html
-<ul class="cs-body-list">
-  <li><strong>Bold label.</strong> Description text.</li>
-</ul>
-```
-
-**Replaces:** Plain markdown `- **Bold.** text` lists.
-
-### cs-fw-link (Boxed CTA)
-```html
-<a href="/path/" class="cs-fw-link">&rarr; Explore the framework</a>
-```
-
-Red border, angular corners, red text.
-
-## Visualization
-
-### Inline SVG
-```html
-<figure class="mermaid-diagram" role="img" aria-label="Description">
-  <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">...</svg>
-  <figcaption>Caption text.</figcaption>
-</figure>
-```
-
-Wide variant: `mermaid-diagram--wide`.
-
-### Mermaid Pre-rendered
-Source in `_mermaid/*.mmd`, rendered to `assets/images/case-studies/*.svg`.
-```html
-<figure class="mermaid-diagram mermaid-diagram--wide" role="img" aria-label="...">
-  <img src="/assets/images/case-studies/diagram.svg" alt="..." />
-  <figcaption>Caption.</figcaption>
-</figure>
-```
-
-## Learning & Outcomes
-
-### outcome-grid (Achievement Cards)
-```html
-<div class="outcome-grid">
-  <div class="outcome-card">
-    <div class="outcome-card__title">Title</div>
-    <div class="outcome-card__metric">Value</div>
-    <div class="outcome-card__desc">Description</div>
-  </div>
-</div>
-```
-
-Green left border, green title, white metric.
-
-### lesson-grid--rows (Learning Cards)
-```html
-<div class="lesson-grid lesson-grid--rows">
-  <div class="lesson-card lesson-card--row">
-    <span class="lesson-card__number">01</span>
-    <div class="lesson-card__content">
-      <div class="lesson-card__title">Title</div>
-      <div class="lesson-card__body">Description</div>
-    </div>
-  </div>
-</div>
-```
-
-Blue left border, blue accent number, single-column stacked rows.
+**Known duplication to consolidate:** the Gantt (`.bk-gantt`, `.skn-gantt`), the A → B swap (`.sk-swap`, `.skn-swap`) and the histogram (`.ag-hist`, `.skn-hist`) are near-duplicates. Promote each to `_charts.scss` the next time one of them changes.

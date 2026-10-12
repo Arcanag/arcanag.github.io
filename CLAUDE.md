@@ -1,127 +1,87 @@
 # arcanag.github.io — CLAUDE.md
 
-## Project Overview
+## Project overview
 
-Personal portfolio site for Anurag Sharma — Project Manager at Skit.ai specializing in enterprise voicebot product management. Built with Jekyll, hosted on GitHub Pages.
+Personal portfolio for Anurag Sharma, Project Manager at Skit.ai (conversational and voice AI), positioned for **Product Manager** roles. Every skill on the homepage is proved by a case study, framework or playbook.
 
-**URL:** https://arcanag.github.io
-**Stack:** Jekyll, Kramdown, vanilla CSS/JS, GitHub Pages
-**Content:** Case studies, blog posts, about page
+- **URL:** https://arcanag.github.io
+- **Stack:** Jekyll 3.10 via the `github-pages` gem, Ruby Sass, vanilla JS, GitHub Pages (legacy builder from `main` `/`)
+- **Design system:** "White first", from Visual Design Guidelines v1.0. The PDF is at `docs/design-guidelines-v1.pdf`, and the condensed version is the `.claude/skills/portfolio-style-guide/` skill.
 
-## Design Principles
-
-### Visual Identity
-- **Dark theme**: near-black background (`#060606`), warm text (`#f0ebe0`), red accent (`#ff2d00`)
-- **Grain texture overlay**: CSS-animated SVG noise at 0.05 opacity for tactile feel (static for reduced-motion users)
-- **Typography system**: System font stack for display/heading/body, IBM Plex Mono for case study mono
-  - Display/Heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif
-  - Mono (case studies): IBM Plex Mono
-  - 9-tier typographic scale (Sam's Rules): Display → Section → Statement → Subhead → Pullquote → Lead → Body → Aside → Label
-- **BEM naming**: `.block__element--modifier` convention throughout CSS
-
-### Layout & Spacing
-- Design tokens in `:root` — all colors, fonts, spacing, breakpoints are tokenized
-- Content width: 720px max for body text (optimal reading line length)
-- Layout max: 1200px
-- Fluid typography via `clamp()` — no hard breakpoints for type sizes
-- Three responsive breakpoints: 1024px (tablet), 768px (mobile), and reduced-motion
-
-### Animation Philosophy
-- Scroll reveal via IntersectionObserver — elements fade up on entry, unobserved after reveal
-- Staggered delays via `data-delay` attribute (0.1s increments)
-- All animations require `.js` class on `<html>` — content visible without JS (progressive enhancement)
-- `prefers-reduced-motion: reduce` disables all animations and transitions
-- Hero bounce on scroll indicator — gentle, infinite, 2.5s cycle
-
-### Accessibility (WCAG 2.1 AA)
-- Skip navigation link (first focusable element)
-- `aria-current="page"` on active nav links
-- `aria-expanded` on hamburger menu, Escape key closes it
-- `aria-hidden="true"` on decorative grain overlay
-- Focus-visible outlines on all interactive elements
-- `.sr-only` class for screen-reader-only text
-- External links marked with "(opens in new tab)" for screen readers
-- Touch targets minimum 44x44px
-- Color contrast passes AA for all text (footer copyright uses `#888`, not `#444`)
-
-### Content Strategy
-- Case studies have "What Went Wrong" / "Honest Assessment" sections — this is a deliberate brand differentiator
-- Blog post dates are staggered across Jan-Mar 2026 for freshness signals
-- Career Enabler case study is framed around the universal career transition problem, not personal interview prep
-- About page reflects current role at Skit.ai
-- CTA sections appear at bottom of every case study/post and above footer on all pages
-
-### Code Conventions
-- No frameworks — vanilla JS only (68 lines)
-- CSS in single file (`main.css`), organized with lettered section headers (a-p)
-- Liquid templates use `hidden` frontmatter flag to exclude case studies from listings
-- `jekyll-seo-tag`, `jekyll-sitemap`, `jekyll-feed` plugins for SEO
-- External links use `target="_blank" rel="noopener noreferrer"`
-
-## Content Types
-
-### Case Studies (`_case-studies/`)
-- Frontmatter: `layout`, `title`, `description`, `theme_color`, `hero_bg_word`, `category`, `key_metric`, `read_time`, `date`, `toc`, `hidden`
-- `theme_color` sets `--color-accent` per page (blue `#4A9EFF`, violet `#7C3AED`, etc.)
-- `hero_bg_word` renders as large atmosphere text in hero (felt, not read)
-- Hidden items excluded from `/case-studies/` index via `{% if study.hidden %}{% continue %}{% endif %}`
-- `banking-voicebot-research.md` is a reference doc (hidden + unpublished) — contains verified metrics
-
-### Blog Posts (`_posts/`)
-- Frontmatter: `layout`, `title`, `description`, `category`, `theme_color`, `hero_bg_word`, `read_time`, `date`, `tags`, `toc`, `published`
-- Dates in filenames must match `date` in frontmatter
-- Categories: "AI Product Thinking", "Technical Deep-Dive", "Building with AI", "Philosophy"
-
-## Commands
+## Commands (Docker; matches the Pages builder)
 
 ```bash
-# Local development
-bundle exec jekyll serve --livereload
-
-# Build
-bundle exec jekyll build
-
-# Check for broken links
-bundle exec htmlproofer ./_site
+make serve   # http://localhost:4000 with livereload
+make build   # writes _site/
+make proof   # build + htmlproofer internal-link check
 ```
 
-## Key Files
+System Ruby is 2.6, so all Ruby runs in `ruby:3.3` containers, with gems cached in the `arcanag-bundle` volume.
 
-| File | Purpose |
-|------|---------|
-| `_layouts/default.html` | Base layout — skip link, grain, nav, main, CTA, footer |
-| `_includes/head.html` | Meta, fonts, CSS, SEO tag |
-| `_includes/nav.html` | Navigation with aria-current logic |
-| `_includes/cta.html` | Pre-footer call-to-action section |
-| `css/main.css` | All styles — design tokens through responsive |
-| `js/main.js` | Scroll reveal, nav state, hamburger, TOC tracking |
-| `_config.yml` | Jekyll config, collections, plugins, defaults |
-| `_mermaid/` | Mermaid source files (.mmd) + config.json for diagram generation |
-| `.claude/skills/portfolio-style-guide/` | Design system skill — component library, typography, colors, content guide |
+**Pages runs the legacy builder:**
+- Whitelisted plugins only: `jekyll-seo-tag`, `jekyll-sitemap`, `jekyll-feed`, `jekyll-redirect-from`.
+- No `_plugins/` folder.
+- No Jekyll 4 features.
 
-## Design System
+## Information architecture
 
-The site uses a `cs-*` prefixed component library for case studies and blog posts. Full documentation is in `.claude/skills/portfolio-style-guide/`. Key components:
+| Section | Source | URL |
+|---|---|---|
+| Home | `index.html` | `/` (hero → 12 skill tiles → case studies → writing) |
+| Skills ("How I work") | `_skills/<slug>.html`, layout `skill` | `/how-i-work/<slug>/` |
+| Case studies | `_case-studies/*.html`, layout `longform` | `/case-studies/<slug>/` |
+| Posts | `_posts/*.html`, layout `longform` | `/<category>/YYYY/MM/DD/<slug>/` |
+| Framework | `_frameworks/voicebot-metrics-funnel.html` | `/frameworks/voicebot-metrics-funnel/` (narrative + interactive explorer, `js/framework.js`) |
+| Writing index | `writing/index.html` | `/writing/` (`/blog/` and `/frameworks/` redirect here) |
+| Case-study index, About, 404 | `case-studies/index.html`, `about/index.html`, `404.html` | layout `page` |
 
-| Component | Purpose |
-|-----------|---------|
-| `cs-impact-strip` | Hero metrics (2-4 cells with large values) |
-| `cs-callout-stat` | Single stat + paragraph |
-| `cs-statement` | Pull quote (2-3 MAX per page) |
-| `cs-lead` | Section opener paragraph (always after h2) |
-| `cs-body-list` | Styled bullet list |
-| `cs-swap` | Before -> After value |
-| `cs-before-after` | Side-by-side comparison |
-| `cs-pipeline-row` | Multi-phase process flow |
-| `cs-funnel` | Conversion/dropout bars |
-| `cs-incident-bar` | Red severity chart |
-| `cs-two-col` | Two-column layout |
-| `cs-fw-link` | Boxed CTA link |
+- **Post URLs contain spaces** (`/technical%20deep-dive/…`). Never change a post's `category` or filename date, because both are part of the live URL.
+- **Unpublished:** the Career Enabler case study and two draft posts (`published: false`).
+- **`rahul-mahima-wedding/`** is an unrelated Astro subsite. Don't touch it.
 
-### Theme Colors by Category
+## Code layout
 
-| Category | Color |
-|----------|-------|
-| Enterprise AI / Technical Deep-Dive | `#4A9EFF` (blue) |
-| AI Product / Building with AI | `#7C3AED` (violet) |
-| Philosophy | `#ff2d00` (red) |
+- `_sass/_tokens.scss`: every colour, font, size, space and radius from the PDF §11. **Never use raw hex outside this file.**
+- Shared partials:
+  - `_sass/_base.scss`, `_layout.scss`, `_type.scss`
+  - `_components.scss` (stat, pull, hindsight, card, numlist, rows, chips, buttons, code)
+  - `_charts.scss` (hbar, cbar, funnel, columns, stackbar, flow)
+  - `_tiles.scss` (home tiles and mini-graphics)
+  - `_longform.scss` (reading bar)
+  - `_motion.scss`
+- `_sass/pages/_*.scss`: page-specific visuals, using page-prefixed classes (`.bk-` banking, `.ag-` agentic, `.pf-` portfolio, `.fw-` framework, `.pb-` playbook, `.po-` posts, `.sk-`/`.skn-` skills, `.ab-` about).
+- `css/main.scss` imports everything into `/css/main.css`.
+  - **Ruby Sass evaluates `min()`/`max()`**, so wrap the CSS versions as `#{'min(…)'}`.
+- `_layouts/`:
+  - `default` (skip link, header, main, footer)
+  - `skill` (hero + next chain by `order`)
+  - `longform` (hero, chips, hero stats, reading bar, back/next)
+  - `page`
+- `_includes/`: `head`, `header`, `footer` (Résumé link renders only if `assets/Anurag-Sharma-Resume.pdf` exists), `skill-tile`, `case-tile`, `writing-list`, `mini-graphic`.
+- `js/main.js` is progressive enhancement only. It handles the scroll reveal (off under reduced motion) and the long-page reading bar (progress, current section, contents built from `section[data-toc][id]`).
+
+## Rules
+
+- **Markup:**
+  - Content files are `.html` with raw HTML bodies.
+  - No inline styles, except data custom properties (`style="--w:47%"`).
+  - Sections follow label → two-tone H2 (`<h2 class="h2">Fact. <em>Point.</em></h2>`) → lead → one visual.
+- **Colour carries meaning:** red is problem, risk or the chosen option; green is improvement; ink and greys are structure. No shadows (except the chosen-point halo), no gradients, no tile borders.
+- **Honesty:**
+  - Every number traces to a case study or `~/Projects/Personal/PM Job/FACT-SHEET.md`.
+  - Show missed targets.
+  - Label judgement and illustrative charts.
+  - Never combine rates measured on different bases.
+- **Confidentiality:**
+  - Never name clients or client individuals. Use "a Tier-1 private bank", etc.
+  - No rupee book values.
+  - Never imply direct reports.
+  - The title is Project Manager, never "Product Manager, Skit.ai".
+- **Accessibility (WCAG 2.1 AA):**
+  - Skip link, landmarks, one H1, visible focus.
+  - `role="img"` and an `aria-label` on charts; `aria-hidden` on decorative visuals.
+  - 44px touch targets.
+  - Reduced motion respected.
+- **Spelling:** UK (prioritisation, organised).
+- **External links:** `target="_blank" rel="noopener noreferrer"`, plus an sr-only "(opens in new tab)".
+- **Before publishing:** run the checklist in `.claude/skills/portfolio-style-guide/reference/content-guide.md`.
